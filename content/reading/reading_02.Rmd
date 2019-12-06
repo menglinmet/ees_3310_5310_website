@@ -1,11 +1,11 @@
 ---
 title: What is Climate Change?
-class_date: '2018-08-24'
+class_date: '2020-01-08'
 class_number: 2
 weight: 2
 slug: reading_02
-pubdate: '2018-07-31'
-date: '2018-08-24'
+pubdate: '2019-12-06'
+date: '2020-01-08'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
@@ -20,7 +20,7 @@ output:
 
 Read these chapters lightly. Do not try to memorize all the facts or numbers, but try to get a feel for the way the authors write about climate and what they think is important.
 
-For Friday, come to class prepared to discuss the questions I list for each book.
+For Wednesday, come to class prepared to discuss the questions I list for each book.
 (you don't need to write up answers to hand, but I want you to be ready to discuss them):
 
 _Understanding the Forecast_ is written by David Archer, a prominent climate scientist. As you read it, try to get a sense for four aspects in particular:
@@ -57,4 +57,4 @@ At the end of the chapter, Nordhaus presents three things he thinks people aroun
 1. Why does Nordhaus think that "the economics of climate change is straightforward?" What policy does his "straightforward" analysis recommmend?
 1. What does Nordhaus mean when he calls emission of CO~2~ into the atmosphere an **externality**? (p. 6) Why is this important for policymakers and for his own preferred policy?
 
-Also come to class ready to ask questions about parts of the chapter that you didn't understand as well as you'd like or that you found unconvincing, or things you just want to know. If you email me questions by Thursday evening, I will try to address them during class Friday.
+Also come to class ready to ask questions about parts of the chapter that you didn't understand as well as you'd like or that you found unconvincing, or things you just want to know. If you email me questions by Tuesday evening, I will try to address them during class Wednesday.

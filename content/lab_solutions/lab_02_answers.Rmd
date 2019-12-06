@@ -28,10 +28,10 @@ theme_set(theme_bw(base_size = 15))
 source(file.path(script_dir, "utils.R"), chdir = T)
 source(file.path(script_dir, "modtran.R"), chdir = T)
 
-mlo_url = paste0("http://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/",
+mlo_url = paste0("https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/",
                 "in_situ_co2/monthly/monthly_in_situ_co2_mlo.csv")
 
-giss_url = "https://data.giss.nasa.gov/gistemp/tabledata_v3/GLB.Ts+dSST.csv"
+giss_url = "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv"
 
 # Create a data directory if one does not exist.
 if (!dir.exists(data_dir)) dir.create(data_dir)
@@ -52,7 +52,7 @@ We can download the data from <`r mlo_url`>. We can download the file and save
 it to the local computer using the R function `download.file`
 
 ```{r download_mlo_data, include=TRUE, message=FALSE}
-mlo_url = "http://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/monthly/monthly_in_situ_co2_mlo.csv"
+mlo_url = "https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/monthly/monthly_in_situ_co2_mlo.csv"
 download.file(mlo_url, file.path(data_dir, "mlo_data.csv"))
 ```
 
@@ -308,7 +308,7 @@ The URL for the data file is
 Download this file and save it in the directory `_data/global_temp_land_sea.csv`.
 
 ```{r download_giss_temp, include=TRUE}
-giss_url = "https://data.giss.nasa.gov/gistemp/tabledata_v3/GLB.Ts+dSST.csv"
+giss_url = "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv"
 
 download.file(giss_url, file.path(data_dir, "global_temp_land_sea.csv"))
 ```

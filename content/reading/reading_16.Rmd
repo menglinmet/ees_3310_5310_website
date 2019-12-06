@@ -1,11 +1,11 @@
 ---
 title: Climate Models
-class_date: '2018-09-26'
+class_date: '2020-02-12'
 class_number: 16
 weight: 16
 slug: reading_16
-pubdate: '2018-07-31'
-date: '2018-09-26'
+pubdate: '2019-12-06'
+date: '2020-02-12'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
@@ -19,7 +19,7 @@ output:
 
 Chapter 3 treats global warming as a scientific consequence of an economic problem. As you read, consider the following questions. Some have clear answers
 while others are beyond the knowledge of experts and I ask them to challenge you to think about hard problems.
-On p. 30, Nordhaus describes three components that drive CO~2~ emissions: population, per-capita GDP, and the carbon intensity of the economy. A mathematical expression for this relationship is known as the **Kaya identity**, and we will study this in great depth on Oct. 15--22 and in the lab project on decarbonizing the energy supply.
+On p. 30, Nordhaus describes three components that drive CO~2~ emissions: population, per-capita GDP, and the carbon intensity of the economy. A mathematical expression for this relationship is known as the **Kaya identity**, and we will study this in great depth on Mar. 9--13 and in the lab project on decarbonizing the energy supply.
 
 * Why don't free markets manage greenhouse gas emissions well?
 * Are CO~2~ emissions going up or down? Why?

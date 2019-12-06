@@ -1,11 +1,11 @@
 ---
 title: Greenhouse Effect
-class_date: '2018-08-29'
+class_date: '2020-01-13'
 class_number: 4
 weight: 4
 slug: reading_04
-pubdate: '2018-07-31'
-date: '2018-08-29'
+pubdate: '2019-12-06'
+date: '2020-01-13'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

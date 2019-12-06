@@ -198,9 +198,9 @@ For each country:
     ```{r example_fuel_mix}
     E_2050 <- get_top_down_values("Mexico") %>% 
       filter(year == 2050) %$% E
-    fm <- get_fuel_mix("Mexico") %>% select(-region_code, -geography)
+    fm <- get_fuel_mix("Mexico")
     # Calculate the mix of energy sources for 2050
-    fm_2050 <- fm %>% mutate(quads = E_2050 * pct)
+    fm_2050 <- fm %>% mutate(quads = E_2050 * frac)
     kable(fm, digits = 2)
     ```
     

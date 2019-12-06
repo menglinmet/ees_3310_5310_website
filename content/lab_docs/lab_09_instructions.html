@@ -151,16 +151,16 @@ equals <span class="math inline">\(e \times f\)</span>.<a href="#fn2" class="foo
 decarbonization trends we are studying will be constant from year to year.
 A constant percentage rate of change implies that the quantity follows
 an exponential growth function,
-so if you know the values for <em>P</em>, <em>g</em>, <em>e</em>, and <em>f</em> in 2017,
+so if you know the values for <em>P</em>, <em>g</em>, <em>e</em>, and <em>f</em> in 2018,
 then at some future year <em>y</em>:</p>
 <p><span class="math inline">\(\def\lefteqn#1{\rlap{\displaystyle{#1}}}\)</span>
 <span class="math display">\[
 \begin{aligned}
-  P(y) &amp;= P(2017) \times \exp(r_P (y - 2017)),\\
-  g(y) &amp;= g(2017) \times \exp(r_g (y - 2017)),\\
-  e(y) &amp;= e(2017) \times \exp(r_e (y - 2017)),\\
+  P(y) &amp;= P(2018) \times \exp(r_P (y - 2018)),\\
+  g(y) &amp;= g(2018) \times \exp(r_g (y - 2018)),\\
+  e(y) &amp;= e(2018) \times \exp(r_e (y - 2018)),\\
   \lefteqn{\text{and}}\\
-  f(y) &amp;= f(2017) \times \exp(r_f (y - 2017)),\\
+  f(y) &amp;= f(2018) \times \exp(r_f (y - 2018)),\\
 \end{aligned}
 \]</span>
 where <em>r<sub>P</sub></em> is the growth rate of the population, <em>r<sub>g</sub></em> is the growth rate of the per-capita GDP, etc.
@@ -183,10 +183,10 @@ rates of change of each of the quantities:
 <span class="math display">\[
 \begin{aligned}
   \mathrm{GDP}(y) &amp;= P(y)\times g(y)\\
-    &amp;= P(2017) \times \exp(r_p (y - 2017)) 
-    \times g(2017) \times \exp(r_g (y - 2017))\\
-    &amp;= P(2017)\times g(2017)
-    \times \exp((r_P + r_g) (y - 2017))\\
+    &amp;= P(2018) \times \exp(r_p (y - 2018)) 
+    \times g(2018) \times \exp(r_g (y - 2018))\\
+    &amp;= P(2018)\times g(2018)
+    \times \exp((r_P + r_g) (y - 2018))\\
     \lefteqn{\text{so}}\\
   r_{\mathrm{GDP}} &amp;= r_{P\times g} = r_P + r_g.
 \end{aligned}
@@ -240,7 +240,7 @@ year you determined in step (2).</li>
 This uses the policy criteria (target emissions reduction) and the
 measured emissions <em>F</em> in 2005, from the Kaya data for your
 country.</li>
-<li>Calculate the <em>implied rate of change</em> of <em>F</em> between 2017
+<li>Calculate the <em>implied rate of change</em> of <em>F</em> between 2018
 and 2050, in order to reduce emissions to the policy goal that
 you calculated in step (5).</li>
 <li>Combine the <em>implied rate of change</em> of <em>F</em> with the <em>historical trends</em> of
@@ -259,7 +259,7 @@ using the <code>kayadata</code> library in RStudio:</p>
 <li><p>Open the web app at <a href="https://ees3310.jgilligan.org/decarbonization" class="uri">https://ees3310.jgilligan.org/decarbonization</a>,
 select the country you want to analyze, to start, leave the
 “Calculate trends starting in” at its default value (1980),
-and write down the most current (2017) values for
+and write down the most current (2018) values for
 <em>P</em>, <em>g</em>, <em>e</em>, <em>f</em>, <em>ef</em>, and <em>F</em>.</p>
 <p>Alternately, use the <code>kayadata</code> package in RStudio to load the data for
 your country or region. Below is an example of looking up the data
@@ -294,7 +294,7 @@ change corresponds to a linear trend in the logarithm of the variable.</p></li>
 <li><p>Next, calculate the rates of change of
 <em>P</em>, <em>g</em>, <em>e</em>, and <em>f</em> (the Population, per-capita GDP, energy intensity of
 the economy, and carbon-intensity of the energy supply) from your starting
-year through 2017, using the <code>lm</code> function in R.</p>
+year through 2018, using the <code>lm</code> function in R.</p>
 <p>A constant rate of change is represented by a linear relationship between
 the natural logarithm of the kaya variable and time: for the variable
 <code>P</code> (population), we would write this formula in R as <code>log(P)~year</code>.</p>
@@ -311,8 +311,8 @@ e_trend = oecd_data %&gt;% filter(year &gt;= 1980) %&gt;%
   tidy() %&gt;% filter(term == &quot;year&quot;) %$% estimate</code></pre>
 <p>For more detailed explanation of the code above, see the handout
 “New Tools for Data Analysis.”</p>
-<p>Here, we find that <code>e_trend</code> = -0.0138
-(-1.38% per year).</p>
+<p>Here, we find that <code>e_trend</code> = -0.014
+(-1.4% per year).</p>
 <p>You can check your results against the interactive web application by
 looking at the rates of change reported on the “Trends” tab.
 Be sure to set the start year on the web app to the same values that you
@@ -423,22 +423,22 @@ the individual countries.)</p>
 <pre class="r"><code>F_2005_middle_east = get_kaya_data(&quot;Middle East&quot;) %&gt;% 
   filter(year == 2005) %$% F
 F_2005_middle_east</code></pre>
-<pre><code>## [1] 1374.973</code></pre>
+<pre><code>## [1] 1365.124</code></pre>
 <pre class="r"><code>middle_east_reduction = 0.32
 F_goal_middle_east = F_2005_middle_east * (1 - middle_east_reduction)
 F_goal_middle_east</code></pre>
-<pre><code>## [1] 934.9819</code></pre>
+<pre><code>## [1] 928.2841</code></pre>
 <p>Check this result against the interactive web application.</p></li>
-<li><p>Look up what the CO<sub>2</sub> emission is in 2017 and calculate the
+<li><p>Look up what the CO<sub>2</sub> emission is in 2018 and calculate the
 rate of change in <em>F</em> that would be necessary to achieve your policy target.
 For the 2050 calculation:</p>
 <ol style="list-style-type: lower-alpha">
-<li>Calculate the ratio of <span class="math inline">\(F_{2050}/F_{2017}\)</span>.</li>
+<li>Calculate the ratio of <span class="math inline">\(F_{2050}/F_{2018}\)</span>.</li>
 <li>Take the natural logarithm of this ratio
 (in R, the natural logarithm function is <code>log()</code>; on your calculator
 it is “LN”).</li>
 <li>Divide the logarithm by the number of years
-(<span class="math inline">\(2050 - 2017\)</span>).
+(<span class="math inline">\(2050 - 2018\)</span>).
 This is the rate of change of <em>F</em>. A positive number means growth and a
 negative number means a reduction.
 The percentage rate of change per year is 100 times this number.</li>
@@ -449,9 +449,9 @@ The percentage rate of change per year is 100 times this number.</li>
 r_F_middle_east = log(F_goal_middle_east / F_2017_middle_east) / 
   (2050 - 2017)
 r_F_middle_east</code></pre>
-<pre><code>## [1] -0.02469655</code></pre>
+<pre><code>## [1] -0.02442946</code></pre>
 <p>so total emissions for the Middle East would need to drop by
--2.47% per year between 2017
+-2.44% per year between 2018
 and 2050</p></li>
 <li><p>Now calculate the decarbonization rate implied by the policy goal. This is
 the rate of reduction of <em>ef</em>, the carbon intensity of the economy.
@@ -476,11 +476,11 @@ damaging its economy?</p></li>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>One metric ton = 1000 kg = 1.1 English tons = 2200 pounds<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>One metric ton = 1000 kg = 1.1 English tons = 2200 pounds<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>Note that <em>e</em> is in units of quads per trillion dollars
 of GDP and <em>f</em> is in units of million metric tons of CO<sub>2</sub> per quad,
 so if you multiply the units you get million metric tons of CO<sub>2</sub> per
 trillion dollars of GDP, which equals metric tons of CO<sub>2</sub> per
-million dollars of GDP.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+million dollars of GDP.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>

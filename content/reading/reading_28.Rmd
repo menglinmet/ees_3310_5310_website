@@ -1,11 +1,11 @@
 ---
 title: Goals of Climate Policy
-class_date: '2018-10-26'
+class_date: '2020-03-18'
 class_number: 28
 weight: 28
 slug: reading_28
-pubdate: '2018-07-31'
-date: '2018-10-26'
+pubdate: '2019-12-06'
+date: '2020-03-18'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

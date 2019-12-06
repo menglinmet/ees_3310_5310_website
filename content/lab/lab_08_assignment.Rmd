@@ -1,30 +1,23 @@
 ---
-title: Group Project Presentations
-lab_date: '2018-10-15'
-report_due_date: '2018-10-17'
+title: Presentations on Decarbonization Projects
+lab_date: '2020-04-20'
+presentation_date: '2018-12-03'
+report_due_date: '2018-12-05'
 lab_number: 8
-github_classroom_assignment_url: https://classroom.github.com/a/7XbkctvB
-pubdate: '2018-07-31'
-date: '2018-10-15'
+github_classroom_assignment_url: https://classroom.github.com/a/1ogfEu9S
+pubdate: '2019-12-06'
+date: '2020-04-20'
 slug: lab_08_assignment
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
 ---
-You and your partners will give a presentation about your project in lab
-today. 
+You and your partners will present the results of your decarbonization policy 
+analysis. 
 
-You should have received an email invitation to join a shared folder 
-"EES-3310-5310-Lab-Presentations"" on 
-[vanderbilt.box.com](https://vanderbilt.box.com). 
-Please accept this invitation and upload your presentation to the 
-"Independent-Project" folder inside the "EES-3310-5310-Lab-Presentations"
-folder before lab on Monday.
-
-The final report will be due Wednesday Oct. 17. Turn in your final report
-by committing and pushing your RMarkdown project to GitHub, including a final 
-version of the report knitted to a PDF or Word document.
-
+Please upload your decarbonization presentation to the `Decarbonization-Project`
+folder inside the `EES-3310-5310-Lab-Presentations` folder on 
+[`vanderbilt.box.com`](https://vanderbilt.box.com) before lab on Monday.
 
 ## Reading
 
@@ -33,4 +26,4 @@ No reading has been posted yet for this lab.
 
 ## Assignment
 
-Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/7XbkctvB>.
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/1ogfEu9S>.

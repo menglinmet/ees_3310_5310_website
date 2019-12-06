@@ -120,7 +120,7 @@ whether a given column of data in a table is integer, double-precision
 takes data that might be character, factor, or numeric, and represent it as
 text (characters).</p>
 <p><code>as.numeric</code> or <code>as.integer</code> will allow you to convert a character variable to
-a number. For instance, <code>as.numeric(&quot;3.14&quot;)</code> converts a text variable “3.14”
+a number. For instance, <code>as.numeric("3.14")</code> converts a text variable “3.14”
 into a numeric variable 3.14.</p>
 <p><code>as.integer</code> is very useful when we want to convert an ordered factor to an
 integer that corresponds to the order of that value. For instance, if I have
@@ -142,11 +142,11 @@ You can access elements of vectors by indexing their position within the
 vector, so <code>x[3]</code> will be 5 and <code>x[4]</code> will be 9.</p>
 <p>You can also give the elements of a vector names:
 <code>ages = c(Sam = 27, Ben = 20, Sarah = 25, Deborah = 31)</code> allows you to use
-<code>ages[&quot;Ben&quot;]</code>, which will be 20.</p>
+<code>ages["Ben"]</code>, which will be 20.</p>
 <p>All of the elements of a vector have to be the same kind, so
-<code>x = c(1, 2, &quot;three&quot;)</code> will not allow the vector to mix numbers and characters
+<code>x = c(1, 2, "three")</code> will not allow the vector to mix numbers and characters
 and R will transform all of the values to character. The result is
-<code>&quot;1&quot;, &quot;2&quot;, &quot;three&quot;</code>, and <code>x[1] + x[2]</code> will give an error because
+<code>"1", "2", "three"</code>, and <code>x[1] + x[2]</code> will give an error because
 R doesn’t know how to add two character variables. However,
 <code>as.numeric(x[1]) + as.numeric(x[2])</code> will yield 3.</p>
 </div>
@@ -154,7 +154,7 @@ R doesn’t know how to add two character variables. However,
 <h3>Lists</h3>
 <p>Lists are a lot like vectors, but they can contain different kinds of variables.
 They can even contain lists and vectors.
-<code>x = list(1, 2, &quot;three&quot;, list(4, 5, 6))</code> has four elements. The first two are
+<code>x = list(1, 2, "three", list(4, 5, 6))</code> has four elements. The first two are
 the numbers 1 and 2; the third is the character string “three”, and the fourth
 is the list <code>(4,5,6)</code>.</p>
 <p>Just as we can have named vectors, we can have named lists:
@@ -258,7 +258,7 @@ kind of data frame that has features that are lacking in the basic R
 analyzing, and graphing data from tibbles and regular <code>data.frames</code>.</p>
 <p>To use the tidyverse, we need to load the package using R’s <code>library</code> function.
 If tidyverse is not installed on your computer, you will get an error message
-and you will have to run <code>install.packages(&quot;tidyverse&quot;)</code> before you can
+and you will have to run <code>install.packages("tidyverse")</code> before you can
 proceed.</p>
 <p>When you load <code>tidyverse</code>, it automatically loads a bunch of useful packages
 for manipulating and analyzing data: <code>tibble</code>, <code>dplyr</code>, <code>tidyr</code>, <code>purrr</code>,
@@ -514,15 +514,14 @@ read in from a spreadsheet of global temperatures produced at NASA:</p>
 <pre class="r"><code>giss_zonal &lt;- readRDS(&#39;_data/giss_zonal.Rds&#39;)
 head(giss_zonal)</code></pre>
 <pre><code>## # A tibble: 6 x 9
-##    year x64n_90n x44n_64n x24n_44n equ_24n x24s_equ x44s_24s x64s_44s
-##   &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1  1880    -1.05   -0.51     -0.26   -0.21    -0.14    -0.05     0.05
-## 2  1881    -0.93   -0.5      -0.15    0.03     0.06    -0.07    -0.07
-## 3  1882    -1.51   -0.290    -0.09   -0.09    -0.07     0.02     0.04
-## 4  1883    -0.4    -0.62     -0.22   -0.24    -0.19    -0.02     0.07
-## 5  1884    -1.36   -0.62     -0.41   -0.23    -0.2     -0.19    -0.02
-## 6  1885    -1.19   -0.68     -0.42   -0.09    -0.23    -0.31    -0.15
-## # ... with 1 more variable: x90s_64s &lt;dbl&gt;</code></pre>
+##    year x64n_90n x44n_64n x24n_44n equ_24n x24s_equ x44s_24s x64s_44s x90s_64s
+##   &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1  1880    -1.05   -0.51     -0.26   -0.21    -0.14    -0.05     0.05    0.65 
+## 2  1881    -0.93   -0.5      -0.15    0.03     0.06    -0.07    -0.07    0.570
+## 3  1882    -1.51   -0.290    -0.09   -0.09    -0.07     0.02     0.04    0.6  
+## 4  1883    -0.4    -0.62     -0.22   -0.24    -0.19    -0.02     0.07    0.48 
+## 5  1884    -1.36   -0.62     -0.41   -0.23    -0.2     -0.19    -0.02    0.63 
+## 6  1885    -1.19   -0.68     -0.42   -0.09    -0.23    -0.31    -0.15    0.8</code></pre>
 <p>The tibble presents the average temperatures for different bands of latitude:
 64%deg;N–90°N, 44°N==64°N, 24°N–44°N, Equator–24°N,
 and the same for the Southern Hemisphere.</p>

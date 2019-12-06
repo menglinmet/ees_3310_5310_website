@@ -1,11 +1,11 @@
 ---
 title: Feedbacks
-class_date: '2018-09-07'
+class_date: '2020-01-24'
 class_number: 8
 weight: 8
 slug: reading_08
-pubdate: '2018-07-31'
-date: '2018-09-07'
+pubdate: '2019-12-06'
+date: '2020-01-24'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

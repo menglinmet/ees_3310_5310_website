@@ -1,11 +1,11 @@
 ---
 title: Carbon Pricing Instruments
-class_date: '2018-11-02'
+class_date: '2020-03-25'
 class_number: 31
 weight: 31
 slug: reading_31
-pubdate: '2018-07-31'
-date: '2018-11-02'
+pubdate: '2019-12-06'
+date: '2020-03-25'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

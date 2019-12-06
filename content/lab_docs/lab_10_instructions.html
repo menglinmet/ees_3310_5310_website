@@ -46,29 +46,29 @@ to GitHub) by Monday Nov. 12.</p>
 <div id="outline" class="section level2">
 <h2>Outline:</h2>
 <ol style="list-style-type: decimal">
-<li>For each country, examine the top-down projections for the Kaya
+<li><p>For each country, examine the top-down projections for the Kaya
 variables for the year 2050. How many quads of energy does the
 Energy Information Administration preduct that the country will use
-in 2050?</li>
-<li>Examine the mix of energy sources that the country used in 2017.</li>
-<li>If the country uses the same percentages of each energy source in
-2050 that it did in 2017,
+in 2050?</p></li>
+<li><p>Examine the mix of energy sources that the country used in 2018.</p></li>
+<li><p>If the country uses the same percentages of each energy source in
+2050 that it did in 2018,
 calculate how much energy the country would use from each energy source in
 2050 and how much CO<sub>2</sub> each energy source would emit.
 Add these up to get the total CO<sub>2</sub> emissions <em>F</em> in 2050 under a
-“business-as-usual” scenario.</li>
-<li>Calculate the policy target for <em>F</em> in the year 2050.</li>
-<li>Calculate how much the country would have to reduce its CO<sub>2</sub> emissions in
-2050 below business-as-usual to meet its policy goal.</li>
-<li>Allocate the emissions reduction from step 5 across the different fuels and
+“business-as-usual” scenario.</p></li>
+<li><p>Calculate the policy target for <em>F</em> in the year 2050.</p></li>
+<li><p>Calculate how much the country would have to reduce its CO<sub>2</sub> emissions in
+2050 below business-as-usual to meet its policy goal.</p></li>
+<li><p>Allocate the emissions reduction from step 5 across the different fuels and
 calculate the amount of fossil fuel energy the country would need to replace
-with clean energy by 2050 to meet its policy goal.</li>
+with clean energy by 2050 to meet its policy goal.</p></li>
 <li><p>Calculate how many clean power plants the country would need to build
 between now and 2050 to produce this clean energy.</p>
 <p>Report this as the total number, the number per year, and the number per
 week or per day if appropriate.</p>
-Start by doing this calculation for nuclear energy plants, then repeat the
-calculation for solar, and then for wind.</li>
+<p>Start by doing this calculation for nuclear energy plants, then repeat the
+calculation for solar, and then for wind.</p></li>
 <li><p>Suppose instead that the country or region supplied its growing energy
 demand with coal. Calculate how many new coal power plants it would have
 to build between now and 2050 to supply the growing energy
@@ -82,15 +82,15 @@ every year.</p></li>
 <h2>Detailed Instructions:</h2>
 <p>For each country:</p>
 <ol style="list-style-type: decimal">
-<li>Use the function <code>get_top_down_values()</code> from the
+<li><p>Use the function <code>get_top_down_values()</code> from the
 <code>kayadata</code> package to examine the top-down projections for the Kaya
 variables for the year 2050. How many quads of energy does the
 Energy Information Administration preduct that the country will use
-in 2050?</li>
-<li>Use the <code>get_fuel_mix()</code> function to get the mix of energy sources that the
-country used in 2017.</li>
+in 2050?</p></li>
+<li><p>Use the <code>get_fuel_mix()</code> function to get the mix of energy sources that the
+country used in 2018.</p></li>
 <li><p>If the country uses the same percentages of each energy source in
-2050 that it did in 2017, calculate the number of
+2050 that it did in 2018, calculate the number of
 quads and the greenhouse gas emissions from each energy source
 in 2050, if the total energy consumed in that year
 is the value for <em>E</em> that you looked up in step (1).</p>
@@ -107,9 +107,9 @@ easier. Here is an example, which I have worked for Mexico. You can
 do the same thing for other countries or regions:</p>
 <pre class="r"><code>E_2050 &lt;- get_top_down_values(&quot;Mexico&quot;) %&gt;% 
   filter(year == 2050) %$% E
-fm &lt;- get_fuel_mix(&quot;Mexico&quot;) %&gt;% select(-region_code, -geography)
+fm &lt;- get_fuel_mix(&quot;Mexico&quot;)
 # Calculate the mix of energy sources for 2050
-fm_2050 &lt;- fm %&gt;% mutate(quads = E_2050 * pct)
+fm_2050 &lt;- fm %&gt;% mutate(quads = E_2050 * frac)
 kable(fm, digits = 2)</code></pre>
 <table>
 <thead>
@@ -118,51 +118,44 @@ kable(fm, digits = 2)</code></pre>
 <th align="right">year</th>
 <th align="left">fuel</th>
 <th align="right">quads</th>
-<th align="right">pct</th>
+<th align="right">frac</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Mexico</td>
-<td align="right">2017</td>
-<td align="left">Oil</td>
-<td align="right">3.44</td>
-<td align="right">45.85</td>
-</tr>
-<tr class="even">
-<td align="left">Mexico</td>
-<td align="right">2017</td>
-<td align="left">Natural Gas</td>
-<td align="right">2.99</td>
-<td align="right">39.80</td>
-</tr>
-<tr class="odd">
-<td align="left">Mexico</td>
-<td align="right">2017</td>
+<td align="right">2018</td>
 <td align="left">Coal</td>
-<td align="right">0.52</td>
-<td align="right">6.92</td>
+<td align="right">0.47</td>
+<td align="right">0.06</td>
 </tr>
 <tr class="even">
 <td align="left">Mexico</td>
-<td align="right">2017</td>
-<td align="left">Nuclear</td>
-<td align="right">0.10</td>
-<td align="right">1.30</td>
+<td align="right">2018</td>
+<td align="left">Oil</td>
+<td align="right">3.29</td>
+<td align="right">0.44</td>
 </tr>
 <tr class="odd">
 <td align="left">Mexico</td>
-<td align="right">2017</td>
-<td align="left">Hydro</td>
-<td align="right">0.28</td>
-<td align="right">3.79</td>
+<td align="right">2018</td>
+<td align="left">Natural Gas</td>
+<td align="right">3.05</td>
+<td align="right">0.41</td>
 </tr>
 <tr class="even">
 <td align="left">Mexico</td>
-<td align="right">2017</td>
+<td align="right">2018</td>
+<td align="left">Nuclear</td>
+<td align="right">0.12</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Mexico</td>
+<td align="right">2018</td>
 <td align="left">Renewables</td>
-<td align="right">0.18</td>
-<td align="right">2.34</td>
+<td align="right">0.48</td>
+<td align="right">0.07</td>
 </tr>
 </tbody>
 </table>
@@ -213,57 +206,49 @@ kable(fm_2050, digits = 2)</code></pre>
 <th align="right">year</th>
 <th align="left">fuel</th>
 <th align="right">quads</th>
-<th align="right">pct</th>
+<th align="right">frac</th>
 <th align="right">emission_factor</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Mexico</td>
-<td align="right">2017</td>
-<td align="left">Oil</td>
-<td align="right">458.21</td>
-<td align="right">45.85</td>
-<td align="right">70.0</td>
-</tr>
-<tr class="even">
-<td align="left">Mexico</td>
-<td align="right">2017</td>
-<td align="left">Natural Gas</td>
-<td align="right">397.76</td>
-<td align="right">39.80</td>
-<td align="right">53.1</td>
-</tr>
-<tr class="odd">
-<td align="left">Mexico</td>
-<td align="right">2017</td>
+<td align="right">2018</td>
 <td align="left">Coal</td>
-<td align="right">69.17</td>
-<td align="right">6.92</td>
+<td align="right">0.64</td>
+<td align="right">0.06</td>
 <td align="right">94.4</td>
 </tr>
 <tr class="even">
 <td align="left">Mexico</td>
-<td align="right">2017</td>
+<td align="right">2018</td>
+<td align="left">Oil</td>
+<td align="right">4.43</td>
+<td align="right">0.44</td>
+<td align="right">70.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Mexico</td>
+<td align="right">2018</td>
+<td align="left">Natural Gas</td>
+<td align="right">4.11</td>
+<td align="right">0.41</td>
+<td align="right">53.1</td>
+</tr>
+<tr class="even">
+<td align="left">Mexico</td>
+<td align="right">2018</td>
 <td align="left">Nuclear</td>
-<td align="right">13.00</td>
-<td align="right">1.30</td>
+<td align="right">0.16</td>
+<td align="right">0.02</td>
 <td align="right">0.0</td>
 </tr>
 <tr class="odd">
 <td align="left">Mexico</td>
-<td align="right">2017</td>
-<td align="left">Hydro</td>
-<td align="right">37.86</td>
-<td align="right">3.79</td>
-<td align="right">0.0</td>
-</tr>
-<tr class="even">
-<td align="left">Mexico</td>
-<td align="right">2017</td>
+<td align="right">2018</td>
 <td align="left">Renewables</td>
-<td align="right">23.39</td>
-<td align="right">2.34</td>
+<td align="right">0.65</td>
+<td align="right">0.07</td>
 <td align="right">0.0</td>
 </tr>
 </tbody>
@@ -273,35 +258,35 @@ kable(fm_2050, digits = 2)</code></pre>
 # Summarize by adding up the emissions from each fuel source.
 total_emissions_2050 &lt;- fm_2050 %&gt;% 
   summarize(emissions = sum(emissions)) %$% emissions</code></pre></li>
-<li>Get the Kaya identity data for the country from <code>get_kaya_data()</code> and look
+<li><p>Get the Kaya identity data for the country from <code>get_kaya_data()</code> and look
 up the CO<sub>2</sub> emissions <em>F</em> in 2005. Then use the policy goal for
 emissions reduction from the data frame <code>rcp_26</code> to calculate the policy
 target for <em>F</em> in the year 2050. You did this calculation last
-week as part of the bottom-up analysis.</li>
-<li>Compare the projected “business as usual” emissions from step (3) to the
+week as part of the bottom-up analysis.</p></li>
+<li><p>Compare the projected “business as usual” emissions from step (3) to the
 policy target from step (4) to figure the total amount of emissions you
-would need to cut by converting fossil fuel energy sources to clean sources.</li>
+would need to cut by converting fossil fuel energy sources to clean sources.</p></li>
 <li><p>Use the top-down procedure I presented in class last week to allocate the
 emissions reduction that you calculated in step (5) across the different
 energy sources for 2050, that you calculated in step (3).</p>
 <p>How many million metric tons of CO<sub>2</sub> would you cut from coal, natural gas,
 and oil? How many quads of energy from that fuel would you need to replace
 with new clean energy?</p>
-Add up all of the clean energy requirements to calculate the number of quads
+<p>Add up all of the clean energy requirements to calculate the number of quads
 of clean energy that the country would need to add between now and
-2050 to meet the policy goal.</li>
+2050 to meet the policy goal.</p></li>
 <li><p>Calculate how many clean generating plants you would need to build between
 now and 2050 to produce this clean energy. Report this as the
 total number, the number per year, and the number per week or per day if
 the number is large.</p>
 <p>Start with nuclear, then do the calculation for solar and then for wind.</p>
-You can look up the nameplate capacity and the capacity factor for
+<p>You can look up the nameplate capacity and the capacity factor for
 different kinds of power plants (clean and dirty) from the function
 <code>generating_capacity()</code>.<br />
 Remember that the average number of megawatts a power source supplies over
 a year is the nameplate capacity times the capacity factor.
 Remember that one quad equals
-11,000 megawatts.</li>
+11,000 megawatts.</p></li>
 <li><p>Suppose instead that the country or region supplied its growing energy
 demand with coal. Calculate how many new coal power plants it would have
 to build between now and 2050 to supply the growing energy

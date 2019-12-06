@@ -1,11 +1,11 @@
 ---
 title: 'The Kaya Identity: Energy Use, Efficiency, and Conservation'
-class_date: '2018-10-15'
+class_date: '2020-03-09'
 class_number: 24
 weight: 24
 slug: reading_24
-pubdate: '2018-07-31'
-date: '2018-10-15'
+pubdate: '2019-12-06'
+date: '2020-03-09'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

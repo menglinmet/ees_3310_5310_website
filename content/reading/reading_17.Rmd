@@ -1,11 +1,11 @@
 ---
 title: Future Climate Change
-class_date: '2018-09-28'
+class_date: '2020-02-14'
 class_number: 17
 weight: 17
 slug: reading_17
-pubdate: '2018-07-31'
-date: '2018-09-28'
+pubdate: '2019-12-06'
+date: '2020-02-14'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

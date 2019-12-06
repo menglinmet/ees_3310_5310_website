@@ -90,7 +90,7 @@ run_modtran(filename, co2_ppm = 0, ch4_ppm = 10,
             altitude_km = 70, looking = &quot;down&quot;)
 
 plot_modtran(filename)</code></pre>
-<p><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_1_b_spectrum-1.png" width="576" /></p>
+<p><img src="lab_03_answers_files/figure-html/ex_4_1_b_spectrum-1.png" width="576" /></p>
 <p>Methane absorbs in the range 1200–1400 cm<sup>-1</sup> (we can look at the wavelength
 scale on the top of the plot and see that this corresponds to roughly
 7–8 micron wavelength).</p>
@@ -141,7 +141,7 @@ row by row when they have the same columns.</p>
           df = tibble(methane = results$ch4, i_out = results$i_out)
           methane_data = bind_rows(methane_data, df)
         }</code></pre>
-<p><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_1_b_saturation-1.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_1_b_saturation-2.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_1_b_saturation-3.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_1_b_saturation-4.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_1_b_saturation-5.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_1_b_saturation-6.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_1_b_saturation-7.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_1_b_saturation-8.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_1_b_saturation-9.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_1_b_saturation-10.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_1_b_saturation-11.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_1_b_saturation-12.png" width="576" /></p>
+<p><img src="lab_03_answers_files/figure-html/ex_4_1_b_saturation-1.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_1_b_saturation-2.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_1_b_saturation-3.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_1_b_saturation-4.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_1_b_saturation-5.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_1_b_saturation-6.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_1_b_saturation-7.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_1_b_saturation-8.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_1_b_saturation-9.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_1_b_saturation-10.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_1_b_saturation-11.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_1_b_saturation-12.png" width="576" /></p>
 <p>Now that we have completed all the model runs, we can analyze the data.
 First, plot I<sub>out</sub> for each concentration of methane:</p>
 <pre class="r"><code>  plot_0 = ggplot(methane_data, aes(x = methane, y = i_out)) +
@@ -152,7 +152,7 @@ First, plot I<sub>out</sub> for each concentration of methane:</p>
        title = expression(paste(I[out], &quot; versus methane concentration&quot;)))
 
   print(plot_0)</code></pre>
-<p><img src="/lab_solutions/lab_03_answers_files/figure-html/plot_methane_saturation-1.png" width="576" /></p>
+<p><img src="lab_03_answers_files/figure-html/plot_methane_saturation-1.png" width="576" /></p>
 <p>This plot shows saturation in action: At small concentrations of methane,
 a small amount of added methane produces a large decrease in I<sub>out</sub>, but
 when methane concentrations are larger, even large additions of methane
@@ -174,7 +174,7 @@ from 1000 to 2000 ppm.</p>
                           &quot; versus methane concentration (log scale)&quot;)))
 
   print(plot_1)</code></pre>
-<p><img src="/lab_solutions/lab_03_answers_files/figure-html/plot_methane_saturation_log_scale-1.png" width="576" /></p>
+<p><img src="lab_03_answers_files/figure-html/plot_methane_saturation_log_scale-1.png" width="576" /></p>
 <p>When we look at I<sub>out</sub> versus the logarithm of the concentration, we see
 that at small concentrations, successive doublings produce steeper and
 steeper slopes in the change of I<sub>out</sub>, but as concentrations get large
@@ -199,7 +199,7 @@ against the logarithm of the concentration:</p>
                                 &quot; between successive doublings&quot;)))
 
   print(plot_2)</code></pre>
-<p><img src="/lab_solutions/lab_03_answers_files/figure-html/plot_methane_intensity_change-1.png" width="576" /></p>
+<p><img src="lab_03_answers_files/figure-html/plot_methane_intensity_change-1.png" width="576" /></p>
 <p>At small concentrations, we see the change in I<sub>out</sub> getting more and
 more negative, but at larger concentrations, as saturation kicks in,
 we start to see the change in I<sub>out</sub> flattening out.</p>
@@ -393,7 +393,7 @@ for (alt in c(10, 20, 30, 40, 50, 60, 70)) {
   p = plot_modtran(fname)
   print(p)
 }</code></pre>
-<p><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_2_spectra-1.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_2_spectra-2.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_2_spectra-3.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_2_spectra-4.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_2_spectra-5.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_2_spectra-6.png" width="576" /><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_2_spectra-7.png" width="576" /></p>
+<p><img src="lab_03_answers_files/figure-html/ex_4_2_spectra-1.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_2_spectra-2.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_2_spectra-3.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_2_spectra-4.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_2_spectra-5.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_2_spectra-6.png" width="576" /><img src="lab_03_answers_files/figure-html/ex_4_2_spectra-7.png" width="576" /></p>
 <p>Now let’s look at the temperature profile:</p>
 <pre class="r"><code>profile = read_modtran_profile(file.path(data_dir, &quot;10k_co2_alt_70.txt&quot;))
 
@@ -401,7 +401,7 @@ ggplot(profile, aes(x = T, y = Z)) +
   geom_path(size = 1) +
   scale_y_continuous(breaks = seq(0,70,10), limits = c(0,70)) +
   labs(x = &quot;Temperature (Kelvin)&quot;, y = &quot;Altitude (km)&quot;)</code></pre>
-<p><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_2_profile-1.png" width="576" /></p>
+<p><img src="lab_03_answers_files/figure-html/ex_4_2_profile-1.png" width="576" /></p>
 <p>Now let’s run the model with the altitude set to 70 km and stratus clouds
 turned on:</p>
 <pre class="r"><code>pco2 = 1.0E+4 # 10,000 ppm
@@ -423,11 +423,11 @@ i_clouds = clouds$i_out
 p_no_clouds = plot_modtran(file.path(data_dir, 
                                      &quot;modtran_10k_co2_no_clouds.txt&quot;))
 print(p_no_clouds)</code></pre>
-<p><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_2_b_clouds-1.png" width="576" /></p>
+<p><img src="lab_03_answers_files/figure-html/ex_4_2_b_clouds-1.png" width="576" /></p>
 <pre class="r"><code>p_clouds = plot_modtran(file.path(data_dir, 
                                   &quot;modtran_10k_co2_clouds.txt&quot;))
 print(p_clouds)</code></pre>
-<p><img src="/lab_solutions/lab_03_answers_files/figure-html/ex_4_2_b_clouds-2.png" width="576" /></p>
+<p><img src="lab_03_answers_files/figure-html/ex_4_2_b_clouds-2.png" width="576" /></p>
 <p>Without clouds, the outgoing heat from longwave radiation is
 I<sub>out</sub> = 282. W/m<sup>2</sup> and with clouds, it’s
 I<sub>out</sub> = 257. W/m<sup>2</sup>.</p>
@@ -463,11 +463,11 @@ warmer surface so we can compare them:</p>
 <pre class="r"><code>p_baseline = plot_modtran(file.path(data_dir, &quot;modtran_baseline.txt&quot;), 
                           descr = &quot;Baseline&quot;)
 print(p_baseline)</code></pre>
-<p><img src="/lab_solutions/lab_03_answers_files/figure-html/plot_delta_5k-1.png" width="576" /></p>
+<p><img src="lab_03_answers_files/figure-html/plot_delta_5k-1.png" width="576" /></p>
 <pre class="r"><code>p_5k = plot_modtran(file.path(data_dir, &quot;modtran_plus_5k.txt&quot;), 
                     descr = &quot;Temperature increased by 5K&quot;)
 print(p_5k)</code></pre>
-<p><img src="/lab_solutions/lab_03_answers_files/figure-html/plot_delta_5k-2.png" width="576" /></p>
+<p><img src="lab_03_answers_files/figure-html/plot_delta_5k-2.png" width="576" /></p>
 <p>The whole spectrum becomes brighter (warmer), but you can see a
 greater increase in the wavelengths corresponding to the
 infrared window (800–1200 cm<sup>-1</sup>).</p>
@@ -521,7 +521,7 @@ with constant relative humidity.</p>
                           &quot;modtran_plus_5k_humidity.txt&quot;),
                 descr = &quot;Temp. increased by 5K (const. rel. hum.)&quot;)
 print(p_humidity)</code></pre>
-<p><img src="/lab_solutions/lab_03_answers_files/figure-html/humidity_plot-1.png" width="576" /></p>
+<p><img src="lab_03_answers_files/figure-html/humidity_plot-1.png" width="576" /></p>
 <hr />
 <ol start="3" style="list-style-type: lower-alpha">
 <li><p>Now see this effect in another way.</p>

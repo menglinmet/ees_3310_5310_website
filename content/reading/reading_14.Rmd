@@ -1,11 +1,11 @@
 ---
 title: The Pleistocene Ice Ages
-class_date: '2018-09-21'
+class_date: '2020-02-07'
 class_number: 14
 weight: 14
 slug: reading_14
-pubdate: '2018-07-31'
-date: '2018-09-21'
+pubdate: '2019-12-06'
+date: '2020-02-07'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

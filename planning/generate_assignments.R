@@ -51,7 +51,7 @@ check_for_hw_asgt <- function(homework_df) {
 }
 
 check_for_lab_asgt <- function(lab_df) {
-  homework_df %>% filter(! is.na(lab_id)) %>% group_by(lab_id) %>%
+  lab_df %>% filter(! is.na(lab_id)) %>% group_by(lab_id) %>%
     summarize(has_lab = any_true_vec(str_length(lab_group) > 0),
               lab_num = min(lab_num, na.rm = TRUE)) %>%
     ungroup()
@@ -66,9 +66,10 @@ check_for_notices <- function(notice_df) {
 load_semester_db <- function() {
   semester_db <- src_sqlite(file.path(planning_dir, database))
 
-  reading_items <- semester_db %>% tbl("reading_items")
-  reading_sources <- semester_db %>% tbl("reading_sources")
+  reading_items <- semester_db %>% tbl("reading_items") %>% collect()
+  reading_sources <- semester_db %>% tbl("reading_sources") %>% collect()
   reading_assignments <- semester_db %>% tbl("reading_assignments") %>%
+    collect() %>%
     left_join(reading_items, by = c("rd_group")) %>%
     left_join(reading_sources, by = "source_id") %>%
     select(rd_item_id, reading_id, title, short_title,
@@ -78,16 +79,14 @@ load_semester_db <- function() {
            rd_graduate_only = graduate_only,
            rd_optional = optional,
            rd_prologue, rd_epilogue, rd_break_before, citation, url) %>%
-    collect() %>%
-    mutate_at(c("textbook", "handout",
-                "rd_undergraduate_only", "rd_graduate_only", "rd_optional",
-                "rd_prologue", "rd_epilogue", "rd_break_before"),
-              ~ifelse(is.na(.), FALSE, as.logical(.))) %>%
+    mutate_at(vars(textbook, handout, rd_undergraduate_only, rd_graduate_only,
+                   rd_optional, rd_prologue, rd_epilogue, rd_break_before),
+              ~vctrs::vec_cast(., logical()) %>% replace_na(FALSE)) %>%
     arrange(reading_id, desc(rd_prologue), rd_epilogue, rd_optional,
             rd_undergraduate_only, rd_graduate_only, rd_item_id)
 
-  notices <- semester_db %>% tbl("notices") %>% select(topic_id, notice) %>%
-    collect()
+  notices <- semester_db %>% tbl("notices") %>%
+    select(topic_id, notice) %>% collect()
 
   events <- semester_db %>% tbl("events") %>% collect()
 
@@ -150,9 +149,9 @@ load_semester_db <- function() {
   }
 
   calendar <- semester_db %>% tbl("calendar") %>% select(-cal_id, -week) %>%
+    collect() %>%
     mutate(date = date(date)) %>%
     arrange(date) %>%
-    collect() %>%
     mutate(seq = seq(n()))
 
   if (has_hw_assignments) {
@@ -168,7 +167,6 @@ load_semester_db <- function() {
            hw_undergraduate_only = undergraduate_only,
            hw_prologue, hw_epilogue, hw_break_before,
              hw_is_numbered, hw_order = hw_item_id) %>%
-    collect() %>%
     mutate_at(c("hw_undergraduate_only", "hw_graduate_only",
                   "hw_prologue", "hw_epilogue", "hw_break_before",
                   "hw_is_numbered"), as.logical) %>%
@@ -265,9 +263,9 @@ load_semester_db <- function() {
   if (is.na(last_class)) last_class <- max(calendar$class, na.rm = T)
 
   first_date <- calendar %>%
-    filter(class == first_class) %>% select(date) %>% unlist()
+    filter(class == first_class) %$% date
   last_date <- calendar %>%
-    filter(class == last_class) %>% select(date) %>% unlist()
+    filter(class == last_class) %$% date
 
   year_taught <- year(first_date)
 
@@ -619,7 +617,7 @@ make_hw_solution_page <- function(solution, assignment, slug = NA_character_) {
     title = solution$hw_sol_title,
     hw_number = assignment$hw_num,
     pubdate = as.character(solution$hw_sol_pub_date),
-    date = assignment$hw_due_date,
+    date = as.character(assignment$hw_due_date),
     pdf_url = solution$hw_sol_pdf_url,
     slug = str_c(slug, "_", solution$hw_sol_filename)) %>%
     discard(is.na) %>%
@@ -675,12 +673,14 @@ make_hw_page <- function(cal_entry) {
           ", slug = ", hw_slug, ")")
 
   delim <- "---"
-  header <- tibble(title = hw_topic, due_date = hw_date,
+  header <- tibble(title = hw_topic,
+                   due_date = as.character(hw_date),
                    assignment_type = hw_type,
                    short_assignment_type = short_hw_type,
                    assignment_number = hw_num, weight = hw_idx,
                    slug = hw_slug,
-                   pubdate = pub_date, date = hw_date,
+                   pubdate = as.character(pub_date),
+                   date = as.character(hw_date),
                    output = list("blogdown::html_page" =
                                    list(md_extensions = md_extensions))
   ) %>% discard(is.na) %>%
@@ -848,8 +848,7 @@ make_short_hw_assignment <- function(cal_entry) {
                                        "everyone")),
                          ")"))
   }
-  homework_topic <- homework_topic %>%
-    select(topic) %>% simplify() %>% unname()
+  homework_topic <- homework_topic %$% topic
   if (length(homework_topic) > 1) {
     if (length(homework_topic) > 2) {
       homework_topic <- homework_topic %>%
@@ -1006,10 +1005,12 @@ make_reading_page <- function(cal_entry) {
   this_class_date <<- rd_date
 
   delim <- "---"
-  header <- tibble(title = rd_topic, class_date = rd_date,
+  header <- tibble(title = rd_topic,
+                   class_date = as.character(rd_date),
                    class_number = class_num, weight = class_num,
                    slug = sprintf("reading_%02d", class_num),
-                   pubdate = pub_date, date = rd_date,
+                   pubdate = as.character(pub_date),
+                   date = as.character(rd_date),
                    output = list("blogdown::html_page" =
                                    list(md_extensions = md_extensions))
   ) %>%
@@ -1034,9 +1035,9 @@ make_lab_solution_page <- function(solution, assignment) {
     title = solution$lab_sol_title,
     author = solution$lab_sol_author,
     lab_number = assignment$lab_num,
-    lab_date = assignment$lab_date,
+    lab_date = as.character(assignment$lab_date),
     pubdate = as.character(solution$lab_sol_pub_date),
-    date = assignment$lab_due_date,
+    date = as.character(assignment$lab_due_date),
     pdf_url = solution$lab_sol_pdf_url,
     slug = sprintf("lab_%02d_%s", assignment$lab_num, solution$lab_sol_filename)) %>%
     discard(is.na) %>%
@@ -1074,9 +1075,9 @@ make_lab_doc_page <- function(doc, assignment) {
     title = doc$lab_document_title,
     author = doc$doc_author,
     lab_number = assignment$lab_num,
-    lab_date = assignment$lab_date,
-    pubdate = pub_date,
-    date = assignment$lab_date,
+    lab_date = as.character(assignment$lab_date),
+    pubdate = as.character(pub_date),
+    date = as.character(assignment$lab_date),
     bibliography = doc$bibliography,
     pdf_url = doc$lab_document_pdf_url,
     slug = sprintf("lab_%02d_%s", assignment$lab_num, doc$doc_filename)) %>%
@@ -1118,13 +1119,13 @@ make_lab_assignment_page <- function(this_assignment, lab_docs,
 
   header <- list(
     title = this_assignment$lab_title,
-    lab_date = this_assignment$lab_date,
-    presentation_date = this_assignment$lab_present_date,
-    report_due_date = this_assignment$lab_due_date,
+    lab_date = as.character(this_assignment$lab_date),
+    presentation_date = as.character(this_assignment$lab_present_date),
+    report_due_date = as.character(this_assignment$lab_due_date),
     lab_number = this_assignment$lab_num,
     github_classroom_assignment_url = this_assignment$lab_assignment_url,
-    pubdate = pub_date,
-    date = this_assignment$lab_date,
+    pubdate = as.character(pub_date),
+    date = as.character(this_assignment$lab_date),
     slug = sprintf("lab_%02d_assignment", this_assignment$lab_num),
     output = list("blogdown::html_page" =
                     list(md_extensions = md_extensions))
@@ -1279,7 +1280,7 @@ generate_assignments <- function() {
     if (cal_entry$has_lab) {
       message("Making lab page for lab #", cal_entry$lab_num )
       lab_assignment <-
-        make_lab_assignment(cal_entry$lab_group, lab_assignments,
+        make_lab_assignment(cal_entry$lab_id, lab_assignments,
                             lab_docs, lab_solutions)
       lab_path <- lab_assignment['path']
       lab_url <- lab_assignment['url']
@@ -1295,7 +1296,7 @@ generate_assignments <- function() {
     # filter(! event_id %in% c("FINAL_EXAM", "ALT_FINAL_EXAM")) %>%
     select(date, title = topic, reading = reading_page,
            assignment = homework_page, lecture = lecture_page, lab = lab_page, topic) %>%
-    arrange(date) %>%
+    arrange(date) %>% mutate(date = as.character(date)) %>%
     rowwise() %>% do(lessons = as.list(.)) %>%
     map(~map(.x, ~discard(.x, is.na))) %>%
     as.yaml() %>% expand_codes() %T>%

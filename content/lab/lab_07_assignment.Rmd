@@ -1,17 +1,18 @@
 ---
-title: Continuing Work on Group Projects
-lab_date: '2018-10-08'
-report_due_date: '2018-10-17'
+title: Continuing Work on the Decarbonization Policy Analysis
+lab_date: '2020-04-13'
+presentation_date: '2018-12-03'
+report_due_date: '2018-12-05'
 lab_number: 7
-github_classroom_assignment_url: https://classroom.github.com/a/7XbkctvB
-pubdate: '2018-07-31'
-date: '2018-10-08'
+github_classroom_assignment_url: https://classroom.github.com/a/1ogfEu9S
+pubdate: '2019-12-06'
+date: '2020-04-13'
 slug: lab_07_assignment
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
 ---
-You and your partner will continue to work on your group projects. Lab attendance is optional today, but Ms. Best and I will be available in the lab classroom to answer questions and discuss your projects.
+Lab attendence is optional today. Ms. Best and I will be there to answer questions and discuss your projects with you.
 
 ## Reading
 
@@ -20,4 +21,4 @@ No reading has been posted yet for this lab.
 
 ## Assignment
 
-Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/7XbkctvB>.
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/1ogfEu9S>.

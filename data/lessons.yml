@@ -1,190 +1,183 @@
 lessons:
-- date: '2018-08-22'
+- date: '2020-01-06'
   title: Introduction
-  lecture: /Slides/Class_01
-- date: '2018-08-24'
+  lecture: /slides/class_01
+- date: '2020-01-08'
   title: What is Climate Change?
   reading: /reading/reading_02
-  lecture: /Slides/Class_02
-- date: '2018-08-27'
+  lecture: /slides/class_02
+- date: '2020-01-10'
   title: Energy Balance and Climate
   reading: /reading/reading_03
-  lecture: /Slides/Class_03/energy_balance.pptx
-  lab: lab_01_assignment
-- date: '2018-08-29'
+  lecture: /slides/class_03/energy_balance.pptx
+- date: '2020-01-13'
   title: Greenhouse Effect
   reading: /reading/reading_04
-  lecture: /Slides/Class_04/greenhouse.pptx
-- date: '2018-08-31'
+  lecture: /slides/class_04/greenhouse.pptx
+- date: '2020-01-15'
   title: Greenhouse Gases
   reading: /reading/reading_05
-  lecture: /Slides/Class_05
-- date: '2018-09-03'
+  lecture: /slides/class_05
+- date: '2020-01-17'
   title: Vertical Structure of the Atmosphere
   reading: /reading/reading_06
-  lecture: /Slides/Class_06
-  lab: lab_02_assignment
-- date: '2018-09-05'
+  lecture: /slides/class_06
+- date: '2020-01-20'
+  title: Martin Luther King Day
+- date: '2020-01-22'
   title: Review of Greenhouse Effect
   reading: /reading/reading_07
-  assignment: homework_01
-  lecture: /Slides/Class_07
-- date: '2018-09-07'
+  lecture: /slides/class_07
+- date: '2020-01-24'
   title: Feedbacks
   reading: /reading/reading_08
-  lecture: /Slides/Class_08
-- date: '2018-09-10'
+  lecture: /slides/class_08
+- date: '2020-01-27'
   title: Ocean and Biosphere Feedbacks
   reading: /reading/reading_09
-  lecture: /Slides/Class_09
-  lab: lab_03_assignment
-- date: '2018-09-12'
+  lecture: /slides/class_09
+  lab: lab_01_assignment
+- date: '2020-01-29'
   title: 'The Carbon Cycle: Ocean and Biosphere'
   reading: /reading/reading_10
-  lecture: /Slides/Class_10
-- date: '2018-09-14'
+  lecture: /slides/class_10
+- date: '2020-01-31'
   title: 'The Carbon Cycle: Mineral Weathering'
   reading: /reading/reading_11
-  lecture: /Slides/Class_11
-- date: '2018-09-17'
+  lecture: /slides/class_11
+- date: '2020-02-03'
   title: Perturbing the Carbon Cycle
   reading: /reading/reading_12
-  lecture: /Slides/Class_12
-  lab: lab_04_assignment
-- date: '2018-09-19'
+  lecture: /slides/class_12
+  lab: lab_02_assignment
+- date: '2020-02-05'
   title: Climates of the Past
   reading: /reading/reading_13
-  lecture: /Slides/Class_13
-- date: '2018-09-21'
+  lecture: /slides/class_13
+- date: '2020-02-07'
   title: The Pleistocene Ice Ages
   reading: /reading/reading_14
-  lecture: /Slides/Class_14
-- date: '2018-09-24'
+  lecture: /slides/class_14
+- date: '2020-02-10'
   title: Review
   reading: /reading/reading_15
-  lecture: /Slides/Class_15
-  lab: lab_05_assignment
-- date: '2018-09-26'
+  lecture: /slides/class_15
+  lab: lab_03_assignment
+- date: '2020-02-12'
   title: Climate Models
   reading: /reading/reading_16
-  lecture: /Slides/Class_16
-- date: '2018-09-28'
+  lecture: /slides/class_16
+- date: '2020-02-14'
   title: Future Climate Change
   reading: /reading/reading_17
-  lecture: /Slides/Class_17
-- date: '2018-10-01'
+  lecture: /slides/class_17
+- date: '2020-02-17'
   title: Catching up and Review
   reading: /reading/reading_18
-  lecture: /Slides/Class_18
-  lab: lab_06_assignment
-- date: '2018-10-03'
+  lecture: /slides/class_18
+  lab: lab_04_assignment
+- date: '2020-02-19'
   title: Midterm Exam
   reading: /reading/reading_19
-- date: '2018-10-05'
+- date: '2020-02-21'
   title: Uncertainty about Future Climates
   reading: /reading/reading_20
-  lecture: /Slides/Class_20
-- date: '2018-10-08'
+  lecture: /slides/class_20
+- date: '2020-02-24'
   title: How Will Climate Change Affect Our Lives? (Part 1)
   reading: /reading/reading_21
-  lecture: /Slides/Class_21/humanimpact1.pptx
-  lab: lab_07_assignment
-- date: '2018-10-10'
+  lecture: /slides/class_21/humanimpact1.pptx
+- date: '2020-02-26'
   title: How Will Climate Change Affect Our Lives? (Part 2)
   reading: /reading/reading_22
-  lecture: /Slides/Class_22
-- date: '2018-10-12'
+  lecture: /slides/class_22
+- date: '2020-02-28'
   title: Policy Myths
   reading: /reading/reading_23
-  lecture: /Slides/Class_23
-- date: '2018-10-15'
+  lecture: /slides/class_23
+- date: '2020-03-02'
+  title: Spring Break
+- date: '2020-03-04'
+  title: Spring Break
+- date: '2020-03-06'
+  title: Spring Break
+- date: '2020-03-09'
   title: 'The Kaya Identity: Energy Use, Efficiency, and Conservation'
   reading: /reading/reading_24
-  lecture: /Slides/Class_24
-  lab: lab_08_assignment
-- date: '2018-10-17'
+  lecture: /slides/class_24
+- date: '2020-03-11'
   title: 'Reducing Carbon Emissions: Bottom-Up Approaches'
   reading: /reading/reading_25
-  lecture: /Slides/Class_25
-- date: '2018-10-19'
-  title: Fall Break
-- date: '2018-10-22'
+  lecture: /slides/class_25
+- date: '2020-03-13'
   title: 'Reducing Carbon Emissions: Top-Down Approaches'
   reading: /reading/reading_26
-  lecture: /Slides/Class_26
-  lab: lab_09_assignment
-- date: '2018-10-24'
+  lecture: /slides/class_26
+- date: '2020-03-16'
   title: The Cost of Reducing Emissions
   reading: /reading/reading_27
-  lecture: /Slides/Class_27
-- date: '2018-10-26'
+  lecture: /slides/class_27
+- date: '2020-03-18'
   title: Goals of Climate Policy
   reading: /reading/reading_28
-  lecture: /Slides/Class_28
-- date: '2018-10-29'
+  lecture: /slides/class_28
+- date: '2020-03-20'
   title: Costs and Benefits
   reading: /reading/reading_29
-  lecture: /Slides/Class_29
-  lab: lab_10_assignment
-- date: '2018-10-31'
+  lecture: /slides/class_29
+- date: '2020-03-23'
   title: Pricing Carbon
   reading: /reading/reading_30
-  lecture: /Slides/Class_30
-- date: '2018-11-02'
+  lecture: /slides/class_30
+- date: '2020-03-25'
   title: Carbon Pricing Instruments
   reading: /reading/reading_31
-  lecture: /Slides/Class_31
-- date: '2018-11-05'
+  lecture: /slides/class_31
+- date: '2020-03-27'
   title: Discounting and the Value of Time
   reading: /reading/reading_32
-  lecture: /Slides/Class_32
-  lab: lab_11_assignment
-- date: '2018-11-07'
+  lecture: /slides/class_32
+- date: '2020-03-30'
   title: The Limits of Economic Approaches
   reading: /reading/reading_33
-  lecture: /Slides/Class_33
-- date: '2018-11-09'
+  lecture: /slides/class_33
+  lab: lab_05_assignment
+- date: '2020-04-01'
   title: The Case for Renewable Energy
   reading: /reading/reading_34
-  lecture: /Slides/Class_34
-- date: '2018-11-12'
+  lecture: /slides/class_34
+- date: '2020-04-03'
   title: The Case for Nuclear Energy
   reading: /reading/reading_35
-  lecture: /Slides/Class_35
-  lab: lab_12_assignment
-- date: '2018-11-14'
+  lecture: /slides/class_35
+- date: '2020-04-06'
   title: 'Geoengineering: Solar Radiation Management'
   reading: /reading/reading_36
-  lecture: /Slides/Class_36
-- date: '2018-11-16'
+  lecture: /slides/class_36
+  lab: lab_06_assignment
+- date: '2020-04-08'
   title: 'Geoengineering: Carbon Dioxide Management'
   reading: /reading/reading_37
-  lecture: /Slides/Class_37
-- date: '2018-11-19'
-  title: Thanksgiving Break
-- date: '2018-11-21'
-  title: Thanksgiving Break
-- date: '2018-11-23'
-  title: Thanksgiving Break
-- date: '2018-11-26'
+  lecture: /slides/class_37
+- date: '2020-04-10'
   title: Pragmatism and Climate Policy
   reading: /reading/reading_38
-  lecture: /Slides/Class_38
-  lab: lab_13_assignment
-- date: '2018-11-28'
+  lecture: /slides/class_38
+- date: '2020-04-13'
   title: Global Warming Gridlock
   reading: /reading/reading_39
-  lecture: /Slides/Class_39
-- date: '2018-11-30'
+  lecture: /slides/class_39
+  lab: lab_07_assignment
+- date: '2020-04-15'
   title: 'Beyond Gridlock: Second-Best Policies'
   reading: /reading/reading_40
-  lecture: /Slides/Class_40
-- date: '2018-12-03'
+  lecture: /slides/class_40
+- date: '2020-04-17'
   title: Obstacles and Perspectives
   reading: /reading/reading_41
-  lecture: /Slides/Class_41
-  lab: lab_14_assignment
-- date: '2018-12-05'
+  lecture: /slides/class_41
+- date: '2020-04-20'
   title: Review
   reading: /reading/reading_42
-  lecture: /Slides/Class_42
+  lecture: /slides/class_42
+  lab: lab_08_assignment

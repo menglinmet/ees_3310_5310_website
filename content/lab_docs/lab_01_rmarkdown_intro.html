@@ -312,7 +312,7 @@ symbols to explain what you are doing.</p>
 <div id="formatted-output-5" class="section level3">
 <h3>Formatted Output:</h3>
 <div class="figure">
-<img src="images/tornado.jpg" alt="This is a tornado" />
+<img src="images/tornado.jpg" alt="" />
 <p class="caption">This is a tornado</p>
 </div>
 </div>
@@ -396,9 +396,9 @@ need to do things for our analysis that require more complicated R programming,
 and then I will write R scripts that contain this code so you don’t need to write
 it yourself from scratch, but can just call functions that I provide.</p>
 <p>To load a script (a file containing R code), you use the R command
-<code>source(&quot;script_file.R&quot;&quot;)</code></p>
+<code>source("script_file.R"")</code></p>
 <p>For the exercises here, we will use two scripts, which are located in the
-&quot;_scripts&quot; directory.</p>
+"_scripts" directory.</p>
 <p>To load them into R so you can use them in your analysis, you would put the
 following code into your RMarkdown document:</p>
 <pre class="r"><code>source(&quot;_scripts/format_md.R&quot;)
@@ -410,7 +410,7 @@ numbers nicely for markdown documents, allowing you to control how many
 significant digits it shows, and optionally using scientific notation or
 inserting commas to separate thousands, millions, etc.</p>
 <p><code>format_md(sigma, digits = 1)</code> will produce 0.00000006</p>
-<p><code>format_md(pi * 1E6, digits = 3, format=&quot;scientific&quot;)</code> will produce
+<p><code>format_md(pi * 1E6, digits = 3, format="scientific")</code> will produce
 3.142×10<sup>6</sup></p>
 <p><code>format_md(pi * 1E6, digits = 3, comma = TRUE)</code> will produce
 3,142,000</p>
@@ -420,6 +420,8 @@ inserting commas to separate thousands, millions, etc.</p>
 <p>The other script allows you to produce a layer diagram, similar to the ones in
 Chapter 3 of <em>Global Warming: Understanding the Forecast</em>.</p>
 <pre class="r"><code>make_layer_diagram(2)</code></pre>
+<pre><code>## Warning: `data_frame()` is deprecated, use `tibble()`.
+## This warning is displayed once per session.</code></pre>
 <p><img src="/lab_docs/lab_01_rmarkdown_intro_files/figure-html/example_layer_diagram-1.png" width="672" /></p>
 </div>
 </div>
