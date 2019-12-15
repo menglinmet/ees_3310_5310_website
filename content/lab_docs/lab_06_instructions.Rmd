@@ -1,9 +1,9 @@
 ---
 title: Independent Research Project
 lab_number: 6
-lab_date: '2018-10-01'
-pubdate: '2018-07-31'
-date: '2018-10-01'
+lab_date: '2020-02-17'
+pubdate: '2019-12-15'
+date: '2020-02-17'
 pdf_url: /files/lab_docs/lab_06/lab_06_instructions.pdf
 slug: lab_06_instructions
 output.blogdown::html_page:

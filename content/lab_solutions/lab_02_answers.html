@@ -1,7 +1,7 @@
 ---
 title: 'Lab #2 Answers'
 lab_number: 2
-lab_date: '2018-09-03'
+lab_date: '2020-01-13'
 pubdate: '2018-09-15'
 date: '2018-09-10'
 pdf_url: /files/lab_solutions/lab_02/lab_02_answers.pdf
@@ -77,7 +77,7 @@ fractional parts), <code>n</code> for an unspecified number,
 ## 4  1958     4      21290 1958.    317.         315.    317.         315.
 ## 5  1958     5      21320 1958.    318.         315.    318.         315.
 ## 6  1958     6      21351 1958.     NA           NA     317.         315.
-## # ... with 2 more variables: co2.filled &lt;dbl&gt;, co2.filled.seas &lt;dbl&gt;</code></pre>
+## # … with 2 more variables: co2.filled &lt;dbl&gt;, co2.filled.seas &lt;dbl&gt;</code></pre>
 <p>And here is how we can use the <code>kable</code> function to format the data
 nicely as a table in an RMarkdown document:</p>
 <pre class="r"><code>head(mlo_data) %&gt;% knitr::kable()</code></pre>
@@ -349,9 +349,9 @@ and estimate its slope by eye to compare to the results in <code>trend.seas</cod
 (GISS), which contains the average global temperature from 1880 through the
 present.</p>
 <p>The URL for the data file is
-<a href="https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv" class="uri">https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv</a></p>
+<a href="https://data.giss.nasa.gov/gistemp/tabledata_v3/GLB.Ts+dSST.csv" class="uri">https://data.giss.nasa.gov/gistemp/tabledata_v3/GLB.Ts+dSST.csv</a></p>
 <p>Download this file and save it in the directory <code>_data/global_temp_land_sea.csv</code>.</p>
-<pre class="r"><code>giss_url = &quot;https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv&quot;
+<pre class="r"><code>giss_url = &quot;https://data.giss.nasa.gov/gistemp/tabledata_v3/GLB.Ts+dSST.csv&quot;
 
 download.file(giss_url, file.path(data_dir, &quot;global_temp_land_sea.csv&quot;))</code></pre>
 <ul>
@@ -405,15 +405,15 @@ the resulting tibble to a variable <code>giss_temp</code></p>
 <pre class="r"><code># show the first 5 lines of giss_temp
 head(giss_temp, 5)</code></pre>
 <pre><code>## # A tibble: 5 x 19
-##    Year   Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec
-##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1  1880 -0.17 -0.23 -0.08 -0.15 -0.09 -0.2  -0.17 -0.09 -0.14 -0.22 -0.21 -0.17
-## 2  1881 -0.18 -0.13  0.04  0.06  0.07 -0.18  0.01 -0.02 -0.14 -0.2  -0.17 -0.06
-## 3  1882  0.18  0.15  0.06 -0.15 -0.13 -0.21 -0.15 -0.06 -0.13 -0.23 -0.15 -0.35
-## 4  1883 -0.28 -0.35 -0.11 -0.18 -0.17 -0.06 -0.07 -0.13 -0.21 -0.1  -0.23 -0.1 
-## 5  1884 -0.12 -0.08 -0.36 -0.39 -0.34 -0.34 -0.32 -0.27 -0.27 -0.24 -0.32 -0.3 
-## # ... with 6 more variables: `J-D` &lt;dbl&gt;, `D-N` &lt;dbl&gt;, DJF &lt;dbl&gt;, MAM &lt;dbl&gt;,
-## #   JJA &lt;dbl&gt;, SON &lt;dbl&gt;</code></pre>
+##    Year    Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov
+##   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  1880 -0.290 -0.18 -0.11 -0.2  -0.12 -0.23 -0.21 -0.09 -0.16 -0.23 -0.2 
+## 2  1881 -0.16  -0.17  0.04  0.04  0.02 -0.2  -0.07 -0.03 -0.14 -0.21 -0.22
+## 3  1882  0.14   0.15  0.03 -0.19 -0.16 -0.26 -0.21 -0.06 -0.1  -0.25 -0.16
+## 4  1883 -0.32  -0.39 -0.13 -0.17 -0.2  -0.13 -0.08 -0.15 -0.21 -0.14 -0.22
+## 5  1884 -0.16  -0.08 -0.37 -0.43 -0.37 -0.41 -0.35 -0.26 -0.27 -0.24 -0.3 
+## # … with 7 more variables: Dec &lt;dbl&gt;, `J-D` &lt;dbl&gt;, `D-N` &lt;dbl&gt;, DJF &lt;dbl&gt;,
+## #   MAM &lt;dbl&gt;, JJA &lt;dbl&gt;, SON &lt;dbl&gt;</code></pre>
 <p>Something is funny here: Each row corresponds to a year, but there are columns
 for each month, and some extra columns called “J-D”, “D-N”, “DJF”, “MAM”, “JJA”,
 and “SON”. These stand for average values for the year from January through
@@ -458,14 +458,15 @@ Save the result in a variable called <code>giss_monthly</code></p>
 
 head(giss_monthly)</code></pre>
 <pre><code>## # A tibble: 6 x 13
-##    Year    Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec
-##   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1  1880 -0.17  -0.23 -0.08 -0.15 -0.09 -0.2  -0.17 -0.09 -0.14 -0.22 -0.21 -0.17
-## 2  1881 -0.18  -0.13  0.04  0.06  0.07 -0.18  0.01 -0.02 -0.14 -0.2  -0.17 -0.06
-## 3  1882  0.18   0.15  0.06 -0.15 -0.13 -0.21 -0.15 -0.06 -0.13 -0.23 -0.15 -0.35
-## 4  1883 -0.28  -0.35 -0.11 -0.18 -0.17 -0.06 -0.07 -0.13 -0.21 -0.1  -0.23 -0.1 
-## 5  1884 -0.12  -0.08 -0.36 -0.39 -0.34 -0.34 -0.32 -0.27 -0.27 -0.24 -0.32 -0.3 
-## 6  1885 -0.580 -0.32 -0.25 -0.41 -0.44 -0.43 -0.32 -0.3  -0.27 -0.22 -0.23 -0.09</code></pre>
+##    Year    Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov
+##   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  1880 -0.290 -0.18 -0.11 -0.2  -0.12 -0.23 -0.21 -0.09 -0.16 -0.23 -0.2 
+## 2  1881 -0.16  -0.17  0.04  0.04  0.02 -0.2  -0.07 -0.03 -0.14 -0.21 -0.22
+## 3  1882  0.14   0.15  0.03 -0.19 -0.16 -0.26 -0.21 -0.06 -0.1  -0.25 -0.16
+## 4  1883 -0.32  -0.39 -0.13 -0.17 -0.2  -0.13 -0.08 -0.15 -0.21 -0.14 -0.22
+## 5  1884 -0.16  -0.08 -0.37 -0.43 -0.37 -0.41 -0.35 -0.26 -0.27 -0.24 -0.3 
+## 6  1885 -0.59  -0.3  -0.25 -0.42 -0.42 -0.44 -0.36 -0.32 -0.24 -0.19 -0.2 
+## # … with 1 more variable: Dec &lt;dbl&gt;</code></pre>
 <p>Next, it will be difficult to plot all of the data if the months are organized as
 columns. What we want is to transform the data tibble into one with three columns:
 “year”, “month”, and “anomaly”. We can do this easily using the <code>gather</code> function
@@ -577,8 +578,8 @@ giss_g = giss_g %&gt;%
   geom_line() +
   geom_point() +
   labs(x = &quot;Year&quot;, y = &quot;Temperature Anomaly (Celsius)&quot;)</code></pre>
-<pre><code>## Warning: Removed 2 rows containing missing values (geom_path).</code></pre>
-<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 5 rows containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 5 rows containing missing values (geom_point).</code></pre>
 <p><img src="/lab_solutions/lab_02_answers_files/figure-html/plot_giss-1.png" width="672" /></p>
 <p>That plot probably doesn’t look like much, because it’s very noisy.
 Use the function <code>rollapply</code> from the package <code>zoo</code> to create
@@ -654,8 +655,8 @@ tidy(recent_trend)</code></pre>
 <pre><code>## # A tibble: 2 x 5
 ##   term        estimate std.error statistic   p.value
 ##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-## 1 (Intercept) -37.2     0.802        -46.3 1.24e-199
-## 2 date          0.0188  0.000402      46.8 7.03e-202</code></pre>
+## 1 (Intercept) -35.6     0.819        -43.5 1.21e-186
+## 2 date          0.0181  0.000411      44.0 7.51e-189</code></pre>
 <div id="did-global-warming-stop-after-1998" class="section level3">
 <h3>Did Global Warming Stop after 1998?</h3>
 <p>It is a common skeptic talking point that global warming stopped in 1998.
@@ -687,12 +688,12 @@ head(giss_annual)</code></pre>
 <pre><code>## # A tibble: 6 x 3
 ##    Year anomaly  date
 ##   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
-## 1  1979   0.166 1980.
-## 2  1980   0.258 1980.
-## 3  1981   0.321 1982.
-## 4  1982   0.138 1982.
-## 5  1983   0.311 1984.
-## 6  1984   0.157 1984.</code></pre>
+## 1  1979   0.158 1980.
+## 2  1980   0.271 1980.
+## 3  1981   0.331 1982.
+## 4  1982   0.132 1982.
+## 5  1983   0.315 1984.
+## 6  1984   0.161 1984.</code></pre>
 <p>This code groups the giss data by the year, so that one group will have
 January–December 1979, another will have January–December 1980, and
 so forth.</p>
@@ -757,8 +758,8 @@ tidy(giss_trend)</code></pre>
 <pre><code>## # A tibble: 2 x 5
 ##   term        estimate std.error statistic p.value
 ##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-## 1 (Intercept) -28.3      7.71        -3.67 0.00175
-## 2 date          0.0144   0.00388      3.71 0.00160</code></pre>
+## 1 (Intercept) -28.1      7.90        -3.56 0.00223
+## 2 date          0.0143   0.00397      3.60 0.00204</code></pre>
 <p>Now, combine the two tibbles into one tibble:</p>
 <pre class="r"><code>giss_combined &lt;- bind_rows(giss_before, giss_after)</code></pre>
 <p>Now let’s use ggplot to plot <code>giss_combined</code>:</p>

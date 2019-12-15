@@ -1,0 +1,24 @@
+---
+title: The Geochemical Carbon Cycle
+lab_date: '2020-02-10'
+report_due_date: '2018-10-01'
+lab_number: 5
+github_classroom_assignment_url: https://classroom.github.com/a/hq33_bud
+pubdate: '2019-12-15'
+date: '2020-02-10'
+slug: lab_05_assignment
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+---
+This lab will use the GEOCARB model to explore the geochemical carbon cycle. We will trace what happens following a large release of carbon dioxide into the atmosphere.
+
+## Reading
+
+**Before you come to lab**, please read the following document:
+
+* [The Geochemical Carbon Cycle](/lab_docs/lab_05_instructions)
+
+## Assignment
+
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/hq33_bud>.

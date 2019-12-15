@@ -986,7 +986,7 @@ make_short_hw_assignment <- function(cal_entry) {
 #                                 lab_solutions) {
 #   this_assignment <- lab_assignments %>% filter(lab_group == group)
 #   fname <- sprintf("lab_%02d_assignment.Rmd", this_assignment$lab_num)
-#   lab_path <- fname %>% file.path(root_dir, "content", "lab", .)
+#   lab_path <- fname %>% file.path(root_dir, "content", "labs", .)
 #   lab_url <- fname %>% str_replace("\\.Rmd$", "")
 #   lab_assignment_page <- make_lab_assignment_page(this_assignment, lab_docs,
 #                                                   lab_solutions)
@@ -1182,7 +1182,7 @@ make_lab_assignment <- function(group, lab_assignments, lab_docs,
                                 lab_solutions) {
   this_assignment <- lab_assignments %>% filter(lab_group == group)
   fname <- sprintf("lab_%02d_assignment.Rmd", this_assignment$lab_num)
-  lab_path <- fname %>% file.path(root_dir, "content", "lab", .)
+  lab_path <- fname %>% file.path(root_dir, "content", "labs", .)
   lab_url <- fname %>% str_replace("\\.Rmd$", "")
   lab_assignment_page <- make_lab_assignment_page(this_assignment, lab_docs,
                                                   lab_solutions)

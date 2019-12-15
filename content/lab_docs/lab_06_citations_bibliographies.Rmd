@@ -2,9 +2,9 @@
 title: Citations and Bibliographies
 author: Jonathan Gilligan
 lab_number: 6
-lab_date: '2018-10-01'
-pubdate: '2018-07-31'
-date: '2018-10-01'
+lab_date: '2020-02-17'
+pubdate: '2019-12-15'
+date: '2020-02-17'
 bibliography: lab_06.bib
 pdf_url: /files/lab_docs/lab_06/citations_bibliographies.pdf
 slug: lab_06_citations_bibliographies

@@ -4,7 +4,7 @@ class_date: '2020-02-28'
 class_number: 23
 weight: 23
 slug: reading_23
-pubdate: '2019-12-06'
+pubdate: '2019-12-15'
 date: '2020-02-28'
 output:
   blogdown::html_page:

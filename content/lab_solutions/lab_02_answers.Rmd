@@ -1,7 +1,7 @@
 ---
 title: 'Lab #2 Answers'
 lab_number: 2
-lab_date: '2018-09-03'
+lab_date: '2020-01-13'
 pubdate: '2018-09-15'
 date: '2018-09-10'
 pdf_url: /files/lab_solutions/lab_02/lab_02_answers.pdf
@@ -31,7 +31,7 @@ source(file.path(script_dir, "modtran.R"), chdir = T)
 mlo_url = paste0("https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/",
                 "in_situ_co2/monthly/monthly_in_situ_co2_mlo.csv")
 
-giss_url = "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv"
+giss_url = "https://data.giss.nasa.gov/gistemp/tabledata_v3/GLB.Ts+dSST.csv"
 
 # Create a data directory if one does not exist.
 if (!dir.exists(data_dir)) dir.create(data_dir)
@@ -308,7 +308,7 @@ The URL for the data file is
 Download this file and save it in the directory `_data/global_temp_land_sea.csv`.
 
 ```{r download_giss_temp, include=TRUE}
-giss_url = "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv"
+giss_url = "https://data.giss.nasa.gov/gistemp/tabledata_v3/GLB.Ts+dSST.csv"
 
 download.file(giss_url, file.path(data_dir, "global_temp_land_sea.csv"))
 ```
