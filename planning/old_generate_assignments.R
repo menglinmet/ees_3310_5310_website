@@ -9,7 +9,7 @@ p_load(here)
 p_load(blogdown)
 p_load_current_gh("jonathan-g/blogdownDigest")
 
-database <- "new_EES_3310_5310.sqlite3"
+database <- "EES_3310_5310.sqlite3"
 online_location <- "posted on Brightspace"
 
 root_dir <- here::here()
@@ -64,16 +64,15 @@ check_for_notices <- function(notice_df) {
 }
 
 load_semester_db <- function() {
-  semester_db <- dbConnect(SQLite(), file.path(planning_dir, database))
+  semester_db <- src_sqlite(file.path(planning_dir, database))
 
   reading_items <- semester_db %>% tbl("reading_items") %>% collect()
   reading_sources <- semester_db %>% tbl("reading_sources") %>% collect()
-  reading_groups <- semester_db %>% tbl("link_reading_group") %>%
-    collect()
-  reading_assignments <- reading_groups %>%
+  reading_assignments <- semester_db %>% tbl("reading_assignments") %>%
+    collect() %>%
     left_join(reading_items, by = c("rd_group")) %>%
-    left_join(reading_sources, by = c(src_key = "source_id")) %>%
-    select(rd_id, rd_item_id, title, short_title,
+    left_join(reading_sources, by = "source_id") %>%
+    select(rd_item_id, reading_id, title, short_title,
            markdown_title, short_markdown_title,
            textbook, handout, chapter, pages, reading_notes,
            rd_undergraduate_only = undergraduate_only,
@@ -83,7 +82,7 @@ load_semester_db <- function() {
     mutate_at(vars(textbook, handout, rd_undergraduate_only, rd_graduate_only,
                    rd_optional, rd_prologue, rd_epilogue, rd_break_before),
               ~vctrs::vec_cast(., logical()) %>% replace_na(FALSE)) %>%
-    arrange(rd_id, desc(rd_prologue), rd_epilogue, rd_optional,
+    arrange(reading_id, desc(rd_prologue), rd_epilogue, rd_optional,
             rd_undergraduate_only, rd_graduate_only, rd_item_id)
 
   notices <- semester_db %>% tbl("notices") %>%
@@ -103,7 +102,7 @@ load_semester_db <- function() {
 
   has_lab_assignments <- FALSE
 
-  if (dbExistsTable(semester_db, "lab_assignments")) {
+  if (dbExistsTable(semester_db$con, "lab_assignments")) {
     has_lab_assignments <- TRUE
   lab_asg <- semester_db %>% tbl("lab_assignments") %>% collect()
   lab_groups <- semester_db %>% tbl("lab_groups") %>% collect()
