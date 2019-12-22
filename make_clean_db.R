@@ -10,11 +10,10 @@ new_database <- "alt_EES_3310_5310.sqlite"
 root_dir <- here::here()
 planning_dir <- here::here("planning")
 
-prefixes <- c(lab = "LAB", class = "CLS", exam = "EXAM", holiday = "VAC",
-              event = "EVT", due_date = "DUE", homework = "HW")
-bases <- c(class = 1000, lab = 2000, exam = 3000, homework = 4000,
-           due_date = 5000,
-           holiday = 6000, event = 7000)
+prefixes <- c(lab = "LAB", class = "CLS", homework = "HW", due_date = "DUE",
+              exam = "EXAM", holiday = "VAC", event = "EVT" )
+bases <- c(class = 1000, lab = 2000, homework = 3000, due_date = 4000,
+           exam = 5000, holiday = 6000, event = 7000)
 base_mods <- c(cancelled = 100, make_up = 200)
 
 semester_db <- dbConnect(SQLite(), file.path(planning_dir, database))
