@@ -22,4 +22,6 @@ source(file.path(r_dir, "format_reading.R"), chdir = TRUE)
 source(file.path(r_dir, "format_homework.R"), chdir = TRUE)
 source(file.path(r_dir, "format_lab.R"), chdir = TRUE)
 source(file.path(r_dir, "generate_assignments.R"), chdir = TRUE)
+source(file.path(r_dir, "make_pdf_files.R"), chdir = TRUE)
+source(file.path(r_dir, "clean_assignments.R"), chdir = TRUE)
 

@@ -7,10 +7,13 @@ date: '2020-03-23'
 pdf_url: /files/lab_docs/decarb_lab_bottom_up/decarb_bottom_up_instructions.pdf
 slug: lab_10_instructions
 output:
-  blogdown::html_page:
+  pdf_document: 
+    includes:
+      in_header: ees3310.sty
+    keep_tex: yes
     md_extensions: +tex_math_single_backslash+compact_definition_lists
     toc: yes
-  pdf_document:
+  blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
     toc: yes
 ---

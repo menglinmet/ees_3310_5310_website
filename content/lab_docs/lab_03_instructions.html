@@ -13,30 +13,40 @@ output:
   pdf_document:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
     toc: yes
+    includes:
+      in_header: ees3310.sty
 ---
 
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<script src="/rmarkdown-libs/elevate-section-attrs/elevate-section-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#instructions">Instructions</a><ul>
-<li><a href="#using-modtran-with-rmarkdown.">Using MODTRAN with RMarkdown.</a><ul>
+<li><a href="#instructions">Instructions</a>
+<ul>
+<li><a href="#using-modtran-with-rmarkdown.">Using MODTRAN with RMarkdown.</a>
+<ul>
 <li><a href="#converting-temperature-units">Converting temperature units</a></li>
 </ul></li>
 <li><a href="#examples">Examples:</a></li>
 </ul></li>
-<li><a href="#a-few-new-r-functions-that-we-will-use-in-this-lab">A few new R functions that we will use in this lab:</a><ul>
+<li><a href="#a-few-new-r-functions-that-we-will-use-in-this-lab">A few new R functions that we will use in this lab:</a>
+<ul>
 <li><a href="#iterating-over-a-series">Iterating over a series</a></li>
 <li><a href="#combining-character-variables">Combining character variables</a></li>
 <li><a href="#calculating-with-leads-and-lags">Calculating with leads and lags</a></li>
 <li><a href="#modifying-x-and-y-axes-in-ggplot">Modifying <em>x</em> and <em>y</em> axes in <code>ggplot</code></a></li>
 </ul></li>
-<li><a href="#exercises-for-lab-3">Exercises for Lab #3</a><ul>
-<li><a href="#chapter-4-exercises">Chapter 4 Exercises</a><ul>
+<li><a href="#exercises-for-lab-3">Exercises for Lab #3</a>
+<ul>
+<li><a href="#chapter-4-exercises">Chapter 4 Exercises</a>
+<ul>
 <li><a href="#exercise-4.1-methane">Exercise 4.1: Methane</a></li>
 <li><a href="#exercise-4.2-co2-graduate-students-only">Exercise 4.2: CO<sub>2</sub> (Graduate students only)</a></li>
 <li><a href="#exercise-4.3-water-vapor">Exercise 4.3: Water vapor</a></li>
 </ul></li>
-<li><a href="#chapter-5-exercise">Chapter 5 Exercise</a><ul>
+<li><a href="#chapter-5-exercise">Chapter 5 Exercise</a>
+<ul>
 <li><a href="#exercise-5.2-skin-height">Exercise 5.2: Skin Height</a></li>
 </ul></li>
 </ul></li>
@@ -426,14 +436,18 @@ and the corresponding <span class="math inline">\(I_{\text{out}}\)</span>.</p></
 <span class="math inline">\(I_{\text{out}}\)</span> between the previous row and this one. You can use the
 <code>lag</code> command to calculate this, as described above in the “new R
 functions” section.</p>
-<pre><code>methane_data = methane_data %&gt;% mutate(change = i_out - lag(i_out))</code></pre>
-<p>Now plot <code>i_out</code> versus the methane concentration several ways:</p>
+<pre><code>     methane_data = methane_data %&gt;% mutate(change = i_out - lag(i_out))
+     ```
+
+Now plot `i_out` versus the methane concentration several ways:
+
+* First, just plot `i_out` versus `methane`:</code></pre>
+<p>ggplot(methane_data, aes(x = methane, y = i_out)) +
+geom_point(size = 2) +
+geom_line(size = 1) +
+labs() # add parameters to labs to label your axes.
+```</p>
 <ul>
-<li><p>First, just plot <code>i_out</code> versus <code>methane</code>:</p>
-<pre><code>ggplot(methane_data, aes(x = methane, y = i_out)) + 
-  geom_point(size = 2) +
-  geom_line(size = 1) +
-  labs() # add parameters to labs to label your axes.</code></pre></li>
 <li><p>Next, plot the same data, but with a logarithmic <em>x</em>-axis (use
 <code>scale_x_log10</code>, as described above in the “New R Functions” section)</p></li>
 <li><p>Next, plot <code>methane_concentration</code>, but assign the column <code>change</code>

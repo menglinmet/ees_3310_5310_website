@@ -7,7 +7,12 @@ make_rmd_output_format <- function(toc = FALSE) {
 
       pdf_document =
         list(md_extensions = get_md_extensions(),
-             toc = toc)
+             toc = toc,
+             includes =
+               list(
+                 in_header = "ees3310.sty"
+               )
+        )
     )
   )
   output

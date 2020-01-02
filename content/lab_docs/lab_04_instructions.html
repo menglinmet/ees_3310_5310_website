@@ -13,26 +13,35 @@ output:
   pdf_document:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
     toc: yes
+    includes:
+      in_header: ees3310.sty
 ---
 
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<script src="/rmarkdown-libs/elevate-section-attrs/elevate-section-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#exercises-with-lapse-rate-clouds-and-water-vapor-feedback.">Exercises with lapse rate, clouds, and water-vapor feedback.</a><ul>
+<li><a href="#exercises-with-lapse-rate-clouds-and-water-vapor-feedback.">Exercises with lapse rate, clouds, and water-vapor feedback.</a>
+<ul>
 <li><a href="#r-interface-to-rrtm">R Interface to RRTM</a></li>
-<li><a href="#example-of-running-rrtm">Example of running RRTM</a><ul>
+<li><a href="#example-of-running-rrtm">Example of running RRTM</a>
+<ul>
 <li><a href="#interpreting-rrtm-results">Interpreting RRTM Results</a></li>
 <li><a href="#determining-climate-sensitivity-with-rrtm">Determining Climate Sensitivity with RRTM</a></li>
 </ul></li>
 <li><a href="#enhancements-to-read_modtran">Enhancements to <code>read_modtran</code></a></li>
 </ul></li>
 <li><a href="#new-r-and-rmarkdown-tricks">New R and RMarkdown tricks</a></li>
-<li><a href="#exercises">Exercises</a><ul>
+<li><a href="#exercises">Exercises</a>
+<ul>
 <li><a href="#general-instructions">General Instructions</a></li>
-<li><a href="#chapter-5-exercise">Chapter 5 Exercise</a><ul>
+<li><a href="#chapter-5-exercise">Chapter 5 Exercise</a>
+<ul>
 <li><a href="#exercise-5.1-lapse-rate">Exercise 5.1: Lapse Rate</a></li>
 </ul></li>
-<li><a href="#chapter-7-exercises">Chapter 7 Exercises</a><ul>
+<li><a href="#chapter-7-exercises">Chapter 7 Exercises</a>
+<ul>
 <li><a href="#exercise-7.2-clouds-and-infrared.">Exercise 7.2: Clouds and Infrared.</a></li>
 <li><a href="#exercise-7.3-clouds-and-visible-light.">Exercise 7.3: Clouds and Visible Light.</a></li>
 </ul></li>
@@ -115,7 +124,7 @@ albedo). The default is `earth average. The options are:</p>
 <li>“<code>snow</code>”: Typical snow (0.85)</li>
 <li>“<code>ice</code>”: Large ice masses covering ocean or land (0.60)</li>
 <li>“<code>soil</code>”: Bare soil (0.17)</li>
-<li>"<code>custom": Custom albedo (if you choose this, you need to also supply  a value for</code>albedo`)</li>
+<li>"<code>custom": Custom albedo (if you choose this, you need to also supply    a value for</code>albedo`)</li>
 </ul></li>
 <li><p><code>tropopause_km</code> is the altitude of the tropopause, in kilometers above
 sea level. The default value is 15. On the earth, the tropopause varies
@@ -190,7 +199,7 @@ The columns are <code>altitude</code> (km), <code>T</code> (temperature in K),
 <code>P</code> (pressure in millibar), <code>sw_up</code> (upward shortwave), <code>sw_down</code>
 (downward shortwave), <code>lw_up</code> (upward longwave), <code>lw_down</code>
 (downward longwave), <code>total_up</code> (<code>sw_up</code> + <code>lw_up</code>), and
-<code>total_down (</code>sw_down<code>+</code>lw_down`).</li>
+<code>total_down (</code>sw_down` + <code>lw_down</code>).</li>
 </ul></li>
 </ul></li>
 </ul>

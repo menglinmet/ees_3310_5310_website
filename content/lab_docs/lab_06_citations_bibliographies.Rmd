@@ -15,8 +15,10 @@ output:
   pdf_document:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
     toc: yes
+    includes:
+      in_header: ees3310.sty
 ---
-
+"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -67,11 +69,11 @@ just add a line to the header of your RMarkdown document: for instance,
 
 ```
 ---
-title: "My Lab Report"
-subtitle: "EES 3310: Global Climate Change"
-author: "Jonathan Gilligan"
-date: "Sept. 27, 2018"
-bibliography: "my_bibliography.bib"
+title: ""My Lab Report""
+subtitle: ""EES 3310: Global Climate Change""
+author: ""Jonathan Gilligan""
+date: ""Sept. 27, 2018""
+bibliography: ""my_bibliography.bib""
 ---
 ```
 
@@ -229,7 +231,7 @@ becomes
 
 RMarkdown will insert a formatted bibliography at the end of your document.
 It will not automatically put a section heading, so you probably want to put
-a section heading called "Bibliography" or "Works Cited" to set this off
+a section heading called ""Bibliography"" or ""Works Cited"" to set this off
 from your text. 
 
 At the bottom of this `.Rmd` file, I have inserted the line
@@ -249,13 +251,13 @@ and confusing, so I would recommend one of three options:
        <https://scholar.google.com> and search for your reference.
 
     2. When you find the reference you want in Google Scholar, and click on the 
-       "Cite" button, as shown below:
+       ""Cite"" button, as shown below:
 
-        ![Google Scholar search page. Click on the "Cite" button, as shown here.](images/scholar_1.png)\
+        ![Google Scholar search page. Click on the ""Cite"" button, as shown here.](_images/lab_06/scholar_1.png)\
 
-    3. Click on "BibTeX" at the bottom of the citation page, as shown below:
+    3. Click on ""BibTeX"" at the bottom of the citation page, as shown below:
 
-        ![Google Scholar citation page: Click on "BibTeX"](images/scholar_2.png)\
+        ![Google Scholar citation page: Click on ""BibTeX""](_images/lab_06/scholar_2.png)\
 
     4. You will see something like this:
 
@@ -282,8 +284,8 @@ and confusing, so I would recommend one of three options:
   export the references you want as BibTeX files.
    
      For instance, in Zotero,[^5] highlight the references, right click, and from 
-     the context menu choose "Export Items..."; then select "BibTeX" format, 
-     click "OK" and save the exported items to a file.)
+     the context menu choose ""Export Items...""; then select ""BibTeX"" format, 
+     click ""OK"" and save the exported items to a file.)
     
      Next, open the file you just exported and `lab_05.bib` in RStudio and
      copy and past the references from the exported file into `lab_05.bib`.
@@ -300,3 +302,4 @@ download it from <https://jabref.org>.
 
 # References
 
+"

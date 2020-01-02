@@ -13,6 +13,8 @@ output:
   pdf_document:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
     toc: yes
+    includes:
+      in_header: ees3310.sty
 ---
 
 ```{r setup, include=FALSE}

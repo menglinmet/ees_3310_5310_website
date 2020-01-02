@@ -4,7 +4,7 @@ lab_number: 2
 lab_date: '2020-01-13'
 pubdate: '2019-12-31'
 date: '2020-01-13'
-pdf_url: /files/lab_doocs/lab_02/lab_02_layer_model.pdf
+pdf_url: /files/lab_docs/lab_02/lab_02_layer_model.pdf
 slug: lab_02_layer_model
 output:
   blogdown::html_page:
@@ -13,13 +13,18 @@ output:
   pdf_document:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
     toc: yes
+    includes:
+      in_header: ees3310.sty
 ---
 
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<script src="/rmarkdown-libs/elevate-section-attrs/elevate-section-attrs.js"></script>
 
 <div id="TOC">
 <ul>
 <li><a href="#instructions">Instructions</a></li>
-<li><a href="#exercises-from-chapter-3">Exercises from Chapter 3</a><ul>
+<li><a href="#exercises-from-chapter-3">Exercises from Chapter 3</a>
+<ul>
 <li><a href="#worked-example-for-one-layer-atmosphere">Worked Example for One-Layer Atmosphere</a></li>
 <li><a href="#exercise-3.1-grad.-students-only">Exercise 3.1 (Grad. students only)</a></li>
 <li><a href="#exercise-3.2">Exercise 3.2</a></li>

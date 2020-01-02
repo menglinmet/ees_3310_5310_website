@@ -15,23 +15,30 @@ output:
   pdf_document:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
     toc: yes
+    includes:
+      in_header: ees3310.sty
 ---
 
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<script src="/rmarkdown-libs/elevate-section-attrs/elevate-section-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction">Introduction</a><ul>
+<li><a href="#introduction">Introduction</a>
+<ul>
 <li><a href="#getting-fancy-with-citations-and-bibliographies">Getting fancy with citations and bibliographies</a></li>
 </ul></li>
 <li><a href="#bibliography-files">Bibliography Files</a></li>
 <li><a href="#citations">Citations</a></li>
-<li><a href="#the-bibliography">The Bibliography</a><ul>
+<li><a href="#the-bibliography">The Bibliography</a>
+<ul>
 <li><a href="#adding-entries-to-the-bibliography-file">Adding entries to the bibliography file</a></li>
 </ul></li>
 <li><a href="#references">References</a></li>
 </ul>
 </div>
 
+<p>"</p>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>The simplest way to do citations and bibliographies in RMarkdown is simply
@@ -75,11 +82,11 @@ at <a href="http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.
 To specify the bibloography file, you would
 just add a line to the header of your RMarkdown document: for instance,</p>
 <pre><code>---
-title: &quot;My Lab Report&quot;
-subtitle: &quot;EES 3310: Global Climate Change&quot;
-author: &quot;Jonathan Gilligan&quot;
-date: &quot;Sept. 27, 2018&quot;
-bibliography: &quot;my_bibliography.bib&quot;
+title: &quot;&quot;My Lab Report&quot;&quot;
+subtitle: &quot;&quot;EES 3310: Global Climate Change&quot;&quot;
+author: &quot;&quot;Jonathan Gilligan&quot;&quot;
+date: &quot;&quot;Sept. 27, 2018&quot;&quot;
+bibliography: &quot;&quot;my_bibliography.bib&quot;&quot;
 ---</code></pre>
 <p>RMarkdown can figure out the kind of bibliography file it is from the file
 extension (<code>.bib</code>, etc.). I have provided an example BibTeX file, <code>lab_05.bib</code>
@@ -96,7 +103,6 @@ or BibLaTeX format (as a <code>.biblatex</code> file).
 RMarkdown claims to support the following file types as well, but I
 have not tried them, so I would not be able to provide much help if you
 try them and run into trouble.</p>
-
 <table>
 <thead>
 <tr class="header">
@@ -222,7 +228,7 @@ increase the cost of mitigating climate change.</p>
 <h1>The Bibliography</h1>
 <p>RMarkdown will insert a formatted bibliography at the end of your document.
 It will not automatically put a section heading, so you probably want to put
-a section heading called “Bibliography” or “Works Cited” to set this off
+a section heading called "“Bibliography”" or "“Works Cited”" to set this off
 from your text.</p>
 <p>At the bottom of this <code>.Rmd</code> file, I have inserted the line</p>
 <pre><code># References</code></pre>
@@ -237,11 +243,11 @@ and confusing, so I would recommend one of three options:</p>
 <li><p>Open <code>lab_05.bib</code> in RStudio and then open a web browser, go to
 <a href="https://scholar.google.com" class="uri">https://scholar.google.com</a> and search for your reference.</p></li>
 <li><p>When you find the reference you want in Google Scholar, and click on the
-“Cite” button, as shown below:</p>
-<p><img src="images/scholar_1.png" alt="Google Scholar search page. Click on the “Cite” button, as shown here." /><br />
+"“Cite”" button, as shown below:</p>
+<p><img src="_images/lab_06/scholar_1.png" alt="Google Scholar search page. Click on the &quot;“Cite”&quot; button, as shown here." /><br />
 </p></li>
-<li><p>Click on “BibTeX” at the bottom of the citation page, as shown below:</p>
-<p><img src="images/scholar_2.png" alt="Google Scholar citation page: Click on “BibTeX”" /><br />
+<li><p>Click on "“BibTeX”" at the bottom of the citation page, as shown below:</p>
+<p><img src="_images/lab_06/scholar_2.png" alt="Google Scholar citation page: Click on &quot;“BibTeX”&quot;" /><br />
 </p></li>
 <li><p>You will see something like this:</p>
 <pre><code> @article{rogelj2012global,
@@ -262,8 +268,8 @@ for citing and the other fields are pretty much self-explanatory.</p></li>
 <li><p>If you have a bibliographic program like Zotero, Mendeley, or EndNote,
 export the references you want as BibTeX files.</p>
 <p>For instance, in Zotero,<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> highlight the references, right click, and from
-the context menu choose “Export Items…”; then select “BibTeX” format,
-click “OK” and save the exported items to a file.)</p>
+the context menu choose "“Export Items…”“; then select”“BibTeX”" format,
+click "“OK”" and save the exported items to a file.)</p>
 <p>Next, open the file you just exported and <code>lab_05.bib</code> in RStudio and
 copy and past the references from the exported file into <code>lab_05.bib</code>.</p></li>
 <li><p>If you have JabRef<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> installed on your computer, you open <code>lab_05.bib</code>,
@@ -271,9 +277,10 @@ manually create a new bibliographic entry and fill in the relevant data.</p></li
 </ul>
 </div>
 </div>
-<div id="references" class="section level1 unnumbered">
+<div id="references" class="section level1">
 <h1>References</h1>
-<div id="refs" class="references">
+<p>"</p>
+<div id="refs" class="references hanging-indent">
 <div id="ref-archer.forecast.2011">
 <p>Archer, David. 2011. <em>Global Warming: Understanding the Forecast</em>. 2nd edition. Hoboken, NJ: Wiley.</p>
 </div>

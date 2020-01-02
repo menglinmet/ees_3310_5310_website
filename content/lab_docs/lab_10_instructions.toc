@@ -1,0 +1,10 @@
+\contentsline {section}{Note}{1}{section*.2}%
+\contentsline {section}{Introduction}{1}{section*.3}%
+\contentsline {subsection}{Data Resources}{1}{section*.4}%
+\contentsline {subsubsection}{Using the interactive web application:}{2}{section*.5}%
+\contentsline {section}{Background and Context}{3}{section*.6}%
+\contentsline {subsection}{Growth Rates and Trends}{3}{section*.7}%
+\contentsline {section}{The Assignment}{4}{section*.8}%
+\contentsline {subsection}{Decarbonization Lab \#1, due Tuesday, October 30}{4}{section*.9}%
+\contentsline {subsubsection}{Outline:}{4}{section*.10}%
+\contentsline {subsubsection}{Detailed steps:}{4}{section*.11}%

@@ -14,12 +14,17 @@ output:
   pdf_document:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
     toc: yes
+    includes:
+      in_header: ees3310.sty
 ---
 
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<script src="/rmarkdown-libs/elevate-section-attrs/elevate-section-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#some-new-tools-for-working-with-data">Some New Tools for Working with Data</a><ul>
+<li><a href="#some-new-tools-for-working-with-data">Some New Tools for Working with Data</a>
+<ul>
 <li><a href="#getting-fancy-with-the-pipe-operator">Getting fancy with the pipe operator (<code>%&gt;%</code>)</a></li>
 <li><a href="#extracting-columns-from-a-data-frame-in-a-pipeline">Extracting columns from a data frame in a pipeline</a></li>
 <li><a href="#tidying-up-results-of-statistical-modeling">Tidying up results of statistical modeling</a></li>
@@ -367,7 +372,7 @@ year.</li>
 that kind of energy source.</li>
 </ul></li>
 </ul></li>
-<li><code>plot_kaya(kaya_data, variable, start_year, stop_year, y_lab, log_scale,  trend_line, points, font_size)</code>: Plot a time series showing trends in a
+<li><code>plot_kaya(kaya_data, variable, start_year, stop_year, y_lab, log_scale,    trend_line, points, font_size)</code>: Plot a time series showing trends in a
 Kaya variable.
 <ul>
 <li><p><strong>Arguments:</strong></p>
