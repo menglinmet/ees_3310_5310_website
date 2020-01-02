@@ -4,7 +4,7 @@ lab_number: 2
 lab_date: '2020-01-13'
 pubdate: '2019-12-31'
 date: '2020-01-13'
-pdf_url: /files/lab_doocs/lab_02/lab_02_layer_model.pdf
+pdf_url: /files/lab_docs/lab_02/lab_02_layer_model.pdf
 slug: lab_02_layer_model
 output:
   blogdown::html_page:

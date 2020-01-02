@@ -7,10 +7,10 @@ date: '2020-01-06'
 pdf_url: /files/lab_docs/lab_01/rmarkdown_intro.pdf
 slug: lab_01_rmarkdown_intro
 output:
-  blogdown::html_page:
+  pdf_document:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
     toc: yes
-  pdf_document:
+  blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
     toc: yes
 ---
@@ -375,7 +375,7 @@ You can include image files in your RMarkdown document:
 
 ### Formatted Output:
 
-![This is a tornado](images/tornado.jpg)
+![This is a tornado](_images/lab_01/tornado.jpg)
 
 ## Hyperlinks
 
