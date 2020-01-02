@@ -3,7 +3,6 @@ title: The Geochemical Carbon Cycle
 lab_date: '2020-02-10'
 report_due_date: '2020-02-17'
 lab_number: 5
-github_classroom_assignment_url: https://classroom.github.com/a/hq33_bud
 pubdate: '2019-12-31'
 date: '2020-02-10'
 slug: lab_05_assignment
@@ -17,8 +16,9 @@ output:
     includes:
       in_header: ees3310.sty
 ---
-
 # Overview:
+
+This lab will use the GEOCARB model to explore the geochemical carbon cycle. We will trace what happens following a large release of carbon dioxide into the atmosphere.
 
 ## Reading
 
@@ -28,4 +28,4 @@ output:
 
 ## Assignment
 
-Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/hq33_bud>.
+The GitHub Classroom assignment link has not been posted yet.

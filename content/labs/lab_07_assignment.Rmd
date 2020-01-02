@@ -17,8 +17,9 @@ output:
     includes:
       in_header: ees3310.sty
 ---
-
 # Overview:
+
+In this lab, we will discuss using RMarkdown for writing papers and formal lab reports. You will also have time to continue working on your projects and get help from Ms. Best and Prof. Gilligan
 
 ## Reading
 
@@ -26,6 +27,4 @@ No reading has been posted yet for this lab.
 
 ## Assignment
 
-## Assignment
-
-The GitHub Classroom has not been posted yet.
+The GitHub Classroom assignment link has not been posted yet.

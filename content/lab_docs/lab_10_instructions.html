@@ -7,15 +7,14 @@ date: '2020-03-23'
 pdf_url: /files/lab_docs/decarb_lab_bottom_up/decarb_bottom_up_instructions.pdf
 slug: lab_10_instructions
 output:
-  pdf_document: 
-    includes:
-      in_header: ees3310.sty
-    keep_tex: yes
-    md_extensions: +tex_math_single_backslash+compact_definition_lists
-    toc: yes
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
     toc: yes
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+    includes:
+      in_header: ees3310.sty
 ---
 
 <script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
@@ -186,7 +185,8 @@ A constant percentage rate of change implies that the quantity follows
 an exponential growth function,
 so if you know the values for <em>P</em>, <em>g</em>, <em>e</em>, and <em>f</em> in 2018,
 then at some future year <em>y</em>:</p>
-<p><span class="math display">\[
+<p><span class="math inline">\(\def\lefteqn#1{\rlap{\displaystyle{#1}}}\)</span>
+<span class="math display">\[
 \begin{aligned}
   P(y) &amp;= P(2018) \times \exp(r_P (y - 2018)),\\
   g(y) &amp;= g(2018) \times \exp(r_g (y - 2018)),\\

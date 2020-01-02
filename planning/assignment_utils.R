@@ -1,3 +1,30 @@
+assignment_source_dirs <- function(root_dir = NULL, content_path = "content",
+                                   targets = NULL) {
+  if (is.null(root_dir)) {
+    root_dir <- find_root_dir(use_globals = TRUE)
+  }
+  content_path <- strip_leading_slash(content_path)
+
+  targets_avail <-  c("assignment", "homework_solutions", "lab_docs",
+                      "lab_solutions", "labs", "reading")
+
+  if (is.null(targets)) {
+    targets <- targets_avail
+  } else {
+    targets <- interaction(basename(targets), targets_avail)
+  }
+
+  targets <- file.path(root_dir, content_path, targets) %>%
+    purrr::keep(dir.exists)
+  targets
+}
+
+find_assignment_rmds <- function(root_dir = NULL, content_path = "content",
+                                 targets = NULL) {
+  list.files(assignment_source_dirs(root_dir, content_path, targets),
+             pattern = "\\.Rmd$", full.names = TRUE)
+}
+
 #' Expose contents of an environment in the current environment
 #'
 #' Expose the contents of an environment in the current environment.
@@ -109,6 +136,28 @@ make_root_criteria <- function(crit, ... ) {
     crit <- crit | rprojroot::as.root_criterion(c)
   }
   crit
+}
+
+find_root_dir <- function(path = ".", crit = NULL, use_globals = FALSE) {
+  if (use_globals) {
+    if (exists("root_dir", envir = .globals)) {
+      if (dir.exists(.globals$root_dir)) {
+        return (.globals$root_dir)
+      }
+    }
+  }
+  if (is.null(crit)) {
+    crit <- make_root_criteria(".semestr.here",
+                               rprojroot::has_file_pattern("^.*\\.RProj$"),
+                               rprojroot::has_dir(".Rproj.user"),
+                               rprojroot::has_dir("content"))
+
+  } else {
+    crit <- rprojroot::as.root_criterion(crit)
+  }
+
+  root_dir <- rprojroot::find_root(crit, path)
+  root_dir
 }
 
 dbg_checkpoint <- function(tag, value) {

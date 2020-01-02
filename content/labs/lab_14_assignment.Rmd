@@ -3,7 +3,6 @@ title: Presentations on Decarbonization Projects
 lab_date: '2020-04-20'
 report_due_date: '2020-04-17'
 lab_number: 14
-github_classroom_assignment_url: https://classroom.github.com/a/1ogfEu9S
 pubdate: '2019-12-31'
 date: '2020-04-20'
 slug: lab_14_assignment
@@ -17,8 +16,14 @@ output:
     includes:
       in_header: ees3310.sty
 ---
-
 # Overview:
+
+You and your partners will present the results of your decarbonization policy 
+analysis. 
+
+Please upload your decarbonization presentation to the `Decarbonization-Project`
+folder inside the `EES-3310-5310-Lab-Presentations` folder on 
+[`vanderbilt.box.com`](https://vanderbilt.box.com) before lab on Monday.
 
 ## Reading
 
@@ -26,4 +31,4 @@ No reading has been posted yet for this lab.
 
 ## Assignment
 
-Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/1ogfEu9S>.
+The GitHub Classroom assignment link has not been posted yet.

@@ -2,7 +2,6 @@
 title: 'Decarbonizing the World''s Energy Supply: Bottom-Up Approaches'
 lab_date: '2020-03-23'
 lab_number: 10
-github_classroom_assignment_url: https://classroom.github.com/a/wH4bpcjg
 pubdate: '2019-12-31'
 date: '2020-03-23'
 slug: lab_10_assignment
@@ -16,8 +15,11 @@ output:
     includes:
       in_header: ees3310.sty
 ---
-
 # Overview:
+
+You will use the Kaya identity to analyze challenges to decarbonizing the world's energy supply, following the "bottom-up" approach that we read about in The Climate Fix.
+
+I have posted a revised version of the lab instructions here. These don't change the assignment at all, but they correct the typos that I announced in lab on Monday about section 6.
 
 ## Reading
 
@@ -28,4 +30,4 @@ output:
 
 ## Assignment
 
-Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/wH4bpcjg>.
+The GitHub Classroom assignment link has not been posted yet.

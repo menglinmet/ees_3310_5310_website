@@ -119,7 +119,7 @@ make_lab_docs <- function(lab_key, semester) {
 make_lab_assignment_content <- function(key, semester, use_solutions = FALSE) {
   assignment <- get_lab_assignment(key, semester)
 
-  output <- adj_nl("# Overview:", assignment$description, start_par = TRUE,
+  output <- cat_nl("# Overview:", assignment$description, start_par = TRUE,
                    extra_lines = 1)
 
   docs <- semester$lab_items %>% dplyr::filter(lab_key == key) %>%
@@ -131,10 +131,15 @@ make_lab_assignment_content <- function(key, semester, use_solutions = FALSE) {
 
   output <- cat_nl(output, "## Reading", start_par = TRUE, extra_lines = 1)
   if (nrow(docs) > 0) {
+    if (is.na(assignment$alt_preamble)) {
     output <- cat_nl(output,
                      stringr::str_c("**Before you come to lab**, please read the following document",
                                     ifelse(nrow(docs) > 1, "s", ""), ":"),
-                     extra_lines = 1)
+                     start_par = TRUE, extra_lines = 1)
+    } else {
+      output <- cat_nl(output, assignment$alt_preamble, start_par = TRUE,
+                       extra_lines = 1)
+    }
     doc_links <- make_lab_docs(key, semester)
     dbg_checkpoint(g_doc_links, doc_links)
     if (is.list(doc_links)) {
@@ -154,10 +159,10 @@ make_lab_assignment_content <- function(key, semester, use_solutions = FALSE) {
   if (! is.na(url)) {
     output <- cat_nl(output,
                      stringr::str_c("Accept the assignment at GitHub Classroom at <",
-                                    url, ">."))
+                                    url, ">."), start_par = TRUE)
   } else {
-    output <- cat_nl(output, "## Assignment",
-                     "The GitHub Classroom has not been posted yet.",
+    output <- cat_nl(output,
+                     "The GitHub Classroom assignment link has not been posted yet.",
                      start_par = TRUE)
   }
 

@@ -3,7 +3,6 @@ title: 'Group Project: Decarbonization Policy for a Country'
 lab_date: '2020-04-06'
 report_due_date: '2020-04-17'
 lab_number: 12
-github_classroom_assignment_url: https://classroom.github.com/a/1ogfEu9S
 pubdate: '2019-12-31'
 date: '2020-04-06'
 slug: lab_12_assignment
@@ -17,8 +16,15 @@ output:
     includes:
       in_header: ees3310.sty
 ---
-
 # Overview:
+
+You and a partner will pick a country and begin working on a policy analysis for reducing its greenhouse gas emissions.
+
+## Important Update
+
+The original assignment said to analyze **both** the 2030 goal for the Paris nationally determined contribution **and** the 2050 goal that you choose. 
+
+I have decided that is too much work, so you should **only** do the analysis of how the country would achieve the **2050** goal that you choose (you **do not** have to analyze the difficulty of meeting the 2030 goal).
 
 ## Reading
 
@@ -28,4 +34,4 @@ output:
 
 ## Assignment
 
-Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/1ogfEu9S>.
+The GitHub Classroom assignment link has not been posted yet.

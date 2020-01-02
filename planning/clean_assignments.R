@@ -24,7 +24,7 @@ clean_assignment_files <- function(verbose = TRUE, dry_run = TRUE) {
     }
   }
 
-  static_pdf_dirs <- c("lab_docs", "lab_doocs")
+  static_pdf_dirs <- c("lab_docs")
 
   for (d in static_pdf_dirs) {
     fp <- file.path("static", "files", d)

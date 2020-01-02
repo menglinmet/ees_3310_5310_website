@@ -15,8 +15,9 @@ output:
     includes:
       in_header: ees3310.sty
 ---
-
 # Overview:
+
+We will split into groups and play a board game that simulates converting New York City to using clean energy
 
 ## Reading
 
@@ -24,6 +25,4 @@ No reading has been posted yet for this lab.
 
 ## Assignment
 
-## Assignment
-
-The GitHub Classroom has not been posted yet.
+The GitHub Classroom assignment link has not been posted yet.

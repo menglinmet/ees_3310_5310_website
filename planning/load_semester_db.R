@@ -24,17 +24,7 @@
 #'   metadata that are used to decode and manipulate calendar entries.
 #'
 load_semester_db <- function(db_file, root_crit = NULL) {
-  if (is.null(root_crit)) {
-    root_crit <- make_root_criteria(".semestr.here",
-                                    rprojroot::has_file_pattern("^.*\\.RProj$"),
-                                    rprojroot::has_dir(".Rproj.user"),
-                                    rprojroot::has_dir("content"))
-
-  } else {
-    root_crit <- rprojroot::as.root_criterion(root_crit)
-  }
-
-  root_dir <- rprojroot::find_root(root_crit, dirname(db_file))
+  root_dir <- find_root_dir(dirname(db_file), root_crit, FALSE)
   slide_dir <- file.path(root_dir, "static", "slides")
   tz <- get_semestr_tz()
 

@@ -3,7 +3,6 @@ title: Introduction to Reproducible Research
 lab_date: '2020-01-06'
 report_due_date: '2020-01-16'
 lab_number: 1
-github_classroom_assignment_url: https://classroom.github.com/a/gvdNarpA
 pubdate: '2019-12-31'
 date: '2020-01-06'
 slug: lab_01_assignment
@@ -17,12 +16,17 @@ output:
     includes:
       in_header: ees3310.sty
 ---
-
 # Overview:
+
+This lab will introduce the principles of reproducible research and the tools we will use to perform the tasks of reproducible research.
+
+During lab on Monday, you will set up a free account on GitHub, as described in "[Introduction to Git and GitHub Classroom](/lab_docs/lab_01_git_intro/)." After you sign up on GitHub will probably also want to register on GitHub as a student (<https://education.github.com/students>), to get a bunch of free extra features.
 
 ## Reading
 
-**Before you come to lab**, please read the following documents:
+Ordinarily, you should do the lab reading **_before_** you come to lab, but the first lab of the semester happens on the first day of class, so you will not have a chance to do this. Because of this, the first lab of the semester will consist of introducing you to the software tools we will be using for the semester, and you do not have to do any advance preparation. The material linked here is supplementary and you should read it during the week following the first lab.
+
+Starting with the second lab session, on Monday, January 13, you should both **do the reading** and **accept the GitHub classroom assignment** (this will be explained in the first lab session) _before_ you come to lab.
 
 * [Introduction to EES 3310/5310 Labs](/lab_docs/lab_01_overview){target="_blank"}
 * [Introduction to Reproducible Research](/lab_docs/lab_01_reproducible_research){target="_blank"}
@@ -32,4 +36,4 @@ output:
 
 ## Assignment
 
-Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/gvdNarpA>.
+The GitHub Classroom assignment link has not been posted yet.

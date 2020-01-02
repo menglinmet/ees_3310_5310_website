@@ -8,7 +8,7 @@ build_pdf_output_format <- function(header) {
     output_options$toc <- FALSE
   if (! has_name(output_options, "md_extensions"))
     output_options$md_extensions <- get_md_extensions()
-  doc <- eval(expr(pdf_document(!!!output_options)))
+  doc <- eval(expr(rmarkdown::pdf_document(!!!output_options)))
   invisible(doc)
 }
 
@@ -21,19 +21,21 @@ cat_path <- function(dir, base) {
 }
 
 pdf_filename <- function(pdf_url, root_dir, static_path = "static",
-                         force_dest = FALSE) {
+                         force_dest = FALSE, ignore_missing_dest = FALSE,
+                         warnings = FALSE) {
   # message("root = ", root_dir, ", static = ", static_path,
   #         ", URL = ", pdf_url)
+  if (is.na(pdf_url)) return(NA_character_)
   dest_dir <- file.path(root_dir, static_path) %>%
     cat_path(dirname(pdf_url)) %>% normalizePath(winslash = "/")
   # message("testing for dest path ", dest_dir)
   if (! dir.exists(dest_dir))
     if (force_dest) {
-      message("Creating path ", dest_dir)
+      if (warnings) message("Creating path ", dest_dir)
       dir.create(dest_dir, recursive = TRUE)
-    } else {
-      warning("Destination directory does not exist: ", dest_dir)
-      return(NA)
+    } else if (!ignore_missing_dest) {
+      if (warnings) warning("Destination directory does not exist: ", dest_dir)
+      return(NA_character_)
     }
   dest <- file.path(dest_dir, basename(pdf_url))
   # message("Dest file = ", dest)
@@ -48,11 +50,11 @@ build_pdf_from_rmd <- function(source_file, root_dir, static_path = "static",
     pdf_dest <- pdf_filename(hdr$pdf_url, root_dir, static_path, force_dest)
     if (is.na(pdf_dest)) {
       message("Invalid pdf URL in header: ", hdr$pdf_url)
-      return(NA)
+      return(NA_character_)
     }
   } else {
     # message("No pdf output declared")
-    return(NA)
+    return(NA_character_)
   }
   pdf_output <- build_pdf_output_format(hdr)
 
