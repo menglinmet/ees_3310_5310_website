@@ -10,16 +10,16 @@ date: "2017-04-13T00:00:00"
 
 #### Professor
 
-{{% PROF_INFO %}}
+{{< PROF_INFO >}}
 
 #### Graduate Teaching Assistant
 
-{{% TA_INFO %}}
+{{< TA_INFO >}}
 
 #### Schedule
 
-{{% CLASS_MEETINGS %}}
-{{% LAB_MEETINGS %}}
+{{< CLASS_MEETINGS >}}
+{{< LAB_MEETINGS >}}
 
 ## Catalog Description
 
@@ -150,13 +150,13 @@ site.
 
 ## Required Reading Materials
 
-* {{% LONG_ARCHER %}}
+* {{< LONG_ARCHER >}}
   Be sure you get the second edition because it is significantly different
   from the first.
-* {{% LONG_NORDHAUS %}}
-* {{% LONG_PIELKE %}}
+* {{< LONG_NORDHAUS >}}
+* {{< LONG_PIELKE >}}
 
-There is a companion web site to {{% MEDIUM_ARCHER %}} at
+There is a companion web site to {{< MEDIUM_ARCHER >}} at
 [climatemodels.uchicago.edu](https://climatemodels.uchicago.edu),
 which includes interactive online computer models that we will use for some
 exercises in the book.
@@ -177,8 +177,8 @@ that present different points of view on the political and economic aspects.
 
 ## Class Web Site
 
-In addition to the {{% BRIGHTSPACE %}} web site, I have set up a server at
-{{% CLASS_WEB_SITE %}},
+In addition to the {{< BRIGHTSPACE >}} web site, I have set up a server at
+{{< CLASS_WEB_SITE >}},
 where I post the web versions of class slides and interactive web-based
 applications to that can be useful for working with data output from agent-based
 modeling experiments.
@@ -187,33 +187,33 @@ modeling experiments.
 
 For the laboratory, we will use four principal software tools:
 
-* **{{% RSTATS %}}** is a powerful tool for statistical analysis.
-* **{{% RSTUDIO %}}** provides an interactive environment for
-  working with R. Using {{% RSTUDIO %}} makes R much more user-friendly and
+* **{{< RSTATS >}}** is a powerful tool for statistical analysis.
+* **{{< RSTUDIO >}}** provides an interactive environment for
+  working with R. Using {{< RSTUDIO >}} makes R much more user-friendly and
   easy to work with.
-* **{{% GIT %}}** is a tool that helps you manage your work by keeping track of the
+* **{{< GIT >}}** is a tool that helps you manage your work by keeping track of the
   changes you make as you write and edit text and analysis code, and it also
   helps you easily back up your work and synchronize it across multiple
   computers, including coordinating working together with a partner.
 
-    {{% GIT %}} integrates into RStudio, which makes it easier to use.
+    {{< GIT >}} integrates into RStudio, which makes it easier to use.
 
-    We will also use a web-based service called **{{% GITHUB %}}**, which lets you
+    We will also use a web-based service called **{{< GITHUB >}}**, which lets you
     easily save your work in the cloud (useful for backing it up in case
-    something happens to your computer). {{% GITHUB %}} is free for
+    something happens to your computer). {{< GITHUB >}} is free for
     open-source software projects, and students can also get a free account for
     class work and personal projects.
 
-* **{{% LATEX %}}** is a powerful typesetting tool. You won't use this directly,
+* **{{< LATEX >}}** is a powerful typesetting tool. You won't use this directly,
   but RMarkdown uses it behind the scenes to produce PDF documents.
   RMarkdown also allows you to produce web pages, and Word documents so
-  using {{% LATEX %}} will be optional for this course.
+  using {{< LATEX >}} will be optional for this course.
 
 Details about the software and how to install it are included in the
 documentation for the first laboratory session.
 
 Part of the assignment for the first lab is to install the necessary software
-({{% RSTATS %}}, {{% RSTUDIO %}}, and {{% GIT %}}) on your computer before the
+({{< RSTATS >}}, {{< RSTUDIO >}}, and {{< GIT >}}) on your computer before the
 first lab, so please read the lab instructions and get an early start on this.
 
 # **Assignments**
@@ -235,17 +235,17 @@ there will be a write-up due after the lab (typically, it will be due on the
 Monday morning one week after your lab session).
 
 The instructions for the lab will be posted on the class web site a week before
-the lab, and an assignment will be posted on {{% GITHUB %}}.
+the lab, and an assignment will be posted on {{< GITHUB >}}.
 The **instructions**
 explain the lab and tell you how to prepare for it. The **assignment** tells
 you what to do and provides an RMarkdown template for your write-up.
 
 ### Tests and Examinations
 
-There will be a fifty-minute closed-book midterm exam on {{% MIDTERM_DATE %}},
+There will be a fifty-minute closed-book midterm exam on {{< MIDTERM_DATE >}},
 which will focus on your understanding of the science of climate and climate
 change, and an open-book take-home essay final exam at the end of the semester
-that will be due on {{% FINAL_EXAM_DATE %}}
+that will be due on {{< FINAL_EXAM_DATE >}}
 
 ## **Basis for Grading**
 

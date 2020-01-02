@@ -23,7 +23,7 @@ for which it is assigned.**
     You are responsible for all the assigned readings, but topics I have
     highlighted in the reading notes are particularly important.
 * In addition to the questions I ask in the reading notes, when you are reading
-  material from {{% MEDIUM_ARCHER %}} look over the
+  material from {{< MEDIUM_ARCHER >}} look over the
   "Take-Home Points" and "Study Questions" at the end of each chapter
   to check whether you understand the key facts and concepts from the chapter.
 
@@ -39,11 +39,11 @@ coming to lab**
 For **lab reports**, you must write RMarkdown code that successfully compiles
 to a Word document or PDF file. To turn in your report, you must:
 
-* Clone the assignment from {{% GITHUB %}} classroom
+* Clone the assignment from {{< GITHUB >}} classroom
 * Use the RMarkdown template to complete the exercises
 * Successfully compile the RMarkdown into a Word or PDF document
 * Commit your work (including the RMarkdown **and** the Word or PDF output)
-* Push your committed work to {{% GITHUB %}} before the deadline.
+* Push your committed work to {{< GITHUB >}} before the deadline.
 
 
 ##### General instructions for lab reports

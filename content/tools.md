@@ -8,14 +8,14 @@ title: Tools
 
 * [Web-based tools](#web-tools)
 * [Installing tools](#installing)
-    * [Installing {{% R_LOGO %}}](#installing-r)
-    * [Installing {{% GIT_LOGO %}}](#installing-git)
-    * [Installing {{% LATEX_LOGO %}}](#installing-latex)
-    * [Installing {{% RSTUDIO_LOGO %}}](#installing-rstudio)
-    * [Getting a GitHUB {{% GITHUB_LOGO %}} account](#github-account)
+    * [Installing {{< R_LOGO >}}](#installing-r)
+    * [Installing {{< GIT_LOGO >}}](#installing-git)
+    * [Installing {{< LATEX_LOGO >}}](#installing-latex)
+    * [Installing {{< RSTUDIO_LOGO >}}](#installing-rstudio)
+    * [Getting a GitHUB {{< GITHUB_LOGO >}} account](#github-account)
 * [Resources for learning more](#resources)
-    * [{{% R_LOGO %}} and {{% RSTUDIO_LOGO %}}](#r-resources)
-    * [{{% GIT_LOGO %}} and GitHUB {{% GITHUB_LOGO %}}](#git-resources)
+    * [{{< R_LOGO >}} and {{< RSTUDIO_LOGO >}}](#r-resources)
+    * [{{< GIT_LOGO >}} and GitHUB {{< GITHUB_LOGO >}}](#git-resources)
 
 
 ## Web-Based Tools for Lab {#web-tools}
@@ -25,7 +25,7 @@ title: Tools
 
 ## Installing Tools {#installing}
 
-### Installing {{% R_LOGO %}} {#installing-r}
+### Installing {{< R_LOGO >}} {#installing-r}
 
 * Download R from <https://cran.rstudio.com/>
     * Windows: 
@@ -38,7 +38,7 @@ title: Tools
             * `sudo yum install R` or `sudo dnf install git` for Fedora, 
               Red Hat, and related distributions.
 
-### Installing {{%GIT_LOGO%}} {#installing-git}
+### Installing {{<GIT_LOGO>}} {#installing-git}
 
 If you have a Mac or Linux you may already have git installed. Test it by 
 opening up a terminal window and typing `which git`. If you get a response
@@ -98,7 +98,7 @@ It is important for git to knows your name and email address so it can
 keep track of who is editing files when you are working collaboratively and
 so it gives you credit for the files you have authored and edited.
 
-### Installing {{% LATEX_LOGO %}} {#installing-latex}
+### Installing {{< LATEX_LOGO >}} {#installing-latex}
 
 It is optional to install LaTeX. You will be able to do all the work for the 
 labs without it, but if you do install it, it will give you the option to 
@@ -115,7 +115,7 @@ produce nicely formatted PDF (Acrobat) output from your RMarkdown files
     * `sudo yum install texlive` or `sudo dfm install texlive` for 
   Fedora, Red Hat, etc.
 
-### Installing {{% RSTUDIO_LOGO %}} {#installing-rstudio}
+### Installing {{< RSTUDIO_LOGO >}} {#installing-rstudio}
 
 * Go to the download page for the free desktop edition of RStudio at 
   <https://www.rstudio.com/products/rstudio/download/#download> and
@@ -163,17 +163,17 @@ produce nicely formatted PDF (Acrobat) output from your RMarkdown files
 
 
 
-#### Getting a GitHUB {{% GITHUB_LOGO %}} account {#github-account}
+#### Getting a GitHUB {{< GITHUB_LOGO >}} account {#github-account}
 
 * Go to <https://github.com> and register for a free account
 * After you have set up your account, go to <https://education.github.com/students> and register your account for the free extras you can get as a student.
-* Send an email to Prof. Gilligan and {{% TA_FORMAL_NAME %}} to let us know your GitHUB account name.
+* Send an email to Prof. Gilligan and {{< TA_FORMAL_NAME >}} to let us know your GitHUB account name.
   You can send the email from 
-  [this link](mailto:{{% PROF_EMAIL_ADDRESS %}},{{% TA_EMAIL_ADDRESS %}}?subject=EES 3310 Github Account Name)
+  [this link](mailto:{{< PROF_EMAIL_ADDRESS >}},{{< TA_EMAIL_ADDRESS >}}?subject=EES 3310 Github Account Name)
 
 ## Resources for Learning More {#resources}
 
-### {{% R_LOGO %}} and {{% RSTUDIO_LOGO %}} Resources {#r-resources}
+### {{< R_LOGO >}} and {{< RSTUDIO_LOGO >}} Resources {#r-resources}
 
 * Our principal resource will be the book, 
   _[R for Data Science](https://r4ds.had.co.nz/)_. You can buy
@@ -194,7 +194,7 @@ produce nicely formatted PDF (Acrobat) output from your RMarkdown files
         at the bottom of the Cheatsheet menu or visit 
         <https://www.rstudio.com/resources/cheatsheets/>
 
-### {{% GIT_LOGO %}} and GitHUB {{% GITHUB_LOGO %}} Resources {#git-resources}
+### {{< GIT_LOGO >}} and GitHUB {{< GITHUB_LOGO >}} Resources {#git-resources}
 
 * There is a lot of free documentation about git at the 
   [git-scm](https://git-scm.com) website, including a full 

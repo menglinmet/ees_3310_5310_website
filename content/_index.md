@@ -5,15 +5,15 @@ description: "Scientific principles and policy applications. Earth's past; evide
 
 
 <center style="font-size:150%;line-height:150%;">
-{{% md %}}
+{{< md >}}
 |             |     |                                                                     |
 |:-----------:|:--:|:-------------------------------------------------------------------:|
-| Instructor | <span style="margin-left:20px;">&nbsp;</span> | [Jonathan Gilligan](http://www.jonathangilligan.org) {{% email "jonathan.gilligan@vanderbilt.edu" %}} {{% twitter_link "jg_environ" %}} {{% github_link "jonathan-g" %}} |
+| Instructor | <span style="margin-left:20px;">&nbsp;</span> | [Jonathan Gilligan](http://www.jonathangilligan.org) {{< email "jonathan.gilligan@vanderbilt.edu" >}} {{< twitter_link "jg_environ" >}} {{< github_link "jonathan-g" >}} |
 | Classroom  |     | Stevenson 1120 (Lab in Stevension 2200)  |
 | Class Times      |     | **MWF 9:10--10:00** (Lab: **M 2:10--5:00) |
 | <hr style="border-top-color:black;"/> | <hr style="border-top-color:black;"/> | <hr style="border-top-color:black;"/> |
 | Office Hours |   | <span style="font-size:75%;line-height:50%;">Mon. 10:00--11:00, Thurs. 2:40--3:30<br/>SC 5735 (7th floor, Stevenson Bldg 5)</span> |
-{{% /md %}}
+{{< /md >}}
 </center>
 
 ## Overview
