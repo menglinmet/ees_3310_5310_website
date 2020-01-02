@@ -12,6 +12,10 @@ pull_env <- function(env) {
   }
 }
 
+any_true <- function(vec) {
+  any(purrr::map_lgl(vec, isTRUE))
+}
+
 bad_indices <- function(idx, target) {
   idx <- purrr::discard(idx, is.na)
   bad <- setdiff(idx, names(target))

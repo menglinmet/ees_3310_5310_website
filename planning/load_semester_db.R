@@ -38,7 +38,7 @@ load_semester_db <- function(db_file, root_crit = NULL) {
   slide_dir <- file.path(root_dir, "static", "slides")
   tz <- get_semestr_tz()
 
-  db <- DBI::dbConnect(RSQLite::SQLite(), db_file)
+  db <- DBI::dbConnect(RSQLite::SQLite(), db_file, flags = SQLITE_RO)
 
   md_1 <- dplyr::tbl(db, "metadata") %>% dplyr::collect()
   md_2 <- dplyr::tbl(db, "base_mods") %>% dplyr::collect()

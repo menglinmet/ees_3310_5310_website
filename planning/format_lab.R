@@ -131,7 +131,7 @@ make_lab_assignment_content <- function(key, semester, use_solutions = FALSE) {
   dbg_checkpoint(g_lab_key, key)
   dbg_checkpoint(g_docs, docs)
 
-  output <- cat_nl(output, "## Reading", TRUE)
+  output <- cat_nl(output, "## Reading", start_par = TRUE, extra_lines = 1)
   if (nrow(docs) > 0) {
     output <- cat_nl(output,
                      stringr::str_c("**Before you come to lab**, please read the following document",
