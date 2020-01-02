@@ -3,14 +3,18 @@ title: Citations and Bibliographies
 author: Jonathan Gilligan
 lab_number: 6
 lab_date: '2020-02-17'
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-02-17'
 bibliography: lab_06.bib
 pdf_url: /files/lab_docs/lab_06/citations_bibliographies.pdf
 slug: lab_06_citations_bibliographies
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}

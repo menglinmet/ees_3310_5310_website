@@ -4,15 +4,20 @@ class_date: '2020-03-09'
 class_number: 24
 weight: 24
 slug: reading_24
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-03-09'
-output:
-  blogdown::html_page:
+make_rmd_output_format(FALSE):
+- blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
 ---
 ## Reading:
 
 ### Required Reading (everyone):
+
 * The Climate Fix, Ch. 3.
 * Climate Casino, Ch. 14.
 

@@ -4,15 +4,20 @@ class_date: '2020-02-14'
 class_number: 17
 weight: 17
 slug: reading_17
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-02-14'
-output:
-  blogdown::html_page:
+make_rmd_output_format(FALSE):
+- blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
 ---
 ## Reading:
 
 ### Required Reading (everyone):
+
 * Climate Casino, Ch. 5.
 * Understanding the Forecast, Ch. 12, pp. 153--164.
 

@@ -2,13 +2,17 @@
 title: Independent Research Project
 lab_number: 6
 lab_date: '2020-02-17'
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-02-17'
 pdf_url: /files/lab_docs/lab_06/lab_06_instructions.pdf
 slug: lab_06_instructions
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -165,3 +169,4 @@ coordinate so that each member speaks for roughly equal time.
 * A Powerpoint or PDF of your final presentation needs to be pushed to Github 
   _no later than `r time_fmt(presentation_due_date)` on 
   `r date_fmt(presentation_due_date)`_. 
+

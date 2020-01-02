@@ -4,15 +4,20 @@ class_date: '2020-01-27'
 class_number: 9
 weight: 9
 slug: reading_09
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-01-27'
-output:
-  blogdown::html_page:
+make_rmd_output_format(FALSE):
+- blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
 ---
 ## Reading:
 
 ### Required Reading (everyone):
+
 * Understanding the Forecast, Ch. 7, pp. 81--84.
 * Handout: [Jonathan Gilligan, "Handout on Feedbacks"](/files/reading_handouts/Feedback_Handout.pdf){target="_blank"}.
 

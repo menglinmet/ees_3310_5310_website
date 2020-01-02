@@ -1,0 +1,27 @@
+---
+title: Continuing Work on the Decarbonization Policy Analysis
+lab_date: '2020-04-13'
+report_due_date: '2020-04-17'
+lab_number: 13
+github_classroom_assignment_url: https://classroom.github.com/a/1ogfEu9S
+pubdate: '2019-12-31'
+date: '2020-04-13'
+slug: lab_13_assignment
+output:
+- blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+---
+
+# Overview:
+
+## Reading
+
+No reading has been posted yet for this lab.
+
+## Assignment
+
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/1ogfEu9S>.

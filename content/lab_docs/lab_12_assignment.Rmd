@@ -1,15 +1,19 @@
 ---
 title: 'Project: Decarbonization Policy for One Country'
-lab_number: 8
+lab_number: 12
 lab_date: '2020-04-06'
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-04-06'
 bibliography: decarbonization.bib
 pdf_url: /files/lab_docs/decarb_project/country_decarbonization_assignment.pdf
-slug: lab_08_assignment
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+slug: lab_12_assignment
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 ```{r setup, include=FALSE, cache = FALSE}
 knitr::knit_hooks$set(inline = function(x) { knitr:::format_sci(x, 'md')})
@@ -221,3 +225,4 @@ library or the internet chasing down data. It is fine for this assignment to use
 "good enough" data or to substitute estimates if you can't find exact numbers
 for what you're looking for.
 Just be clear about how you're doing your analysis.
+

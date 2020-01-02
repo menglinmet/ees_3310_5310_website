@@ -1,14 +1,18 @@
 ---
 title: Preparation for Lab on Regulating Greenhouse Gas Emissions
-lab_number: 7
+lab_number: 11
 lab_date: '2020-03-30'
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-03-30'
 pdf_url: /files/lab_docs/regulation_lab/preparation_for_regulation_lab.pdf
-slug: lab_07_preparation
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+slug: lab_11_preparation
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -355,3 +359,4 @@ generated from the emissions (see Table 1) minus the environmental harm.
 
 Fill in the blanks with the total environmental harm from CO~2~ emission and 
 compute the net economic impact.
+

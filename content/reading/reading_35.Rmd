@@ -4,15 +4,20 @@ class_date: '2020-04-03'
 class_number: 35
 weight: 35
 slug: reading_35
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-04-03'
-output:
-  blogdown::html_page:
+make_rmd_output_format(FALSE):
+- blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
 ---
 ## Reading:
 
 ### Required Reading (everyone):
+
 * Handout: [R.K. Lester, "A Roadmap for U.S. Nuclear Energy Innovation," Issues in Science and Technology **32** (2) (Winter, 2016)
   ](http://issues.org/32-2/a-roadmap-for-u-s-nuclear-energy-innovation/){target="_blank"}.
 * Handout: [D. Ropeik, "Clean Energy Mind Games," Issues in Science and Technology **33** (4) (Summer, 2017)](http://issues.org/33-4/clean-energy-mind-games/){target="_blank"}.

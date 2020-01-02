@@ -40,11 +40,9 @@ make_hw_solution_page <- function(solution, semester, slug = NA_character_) {
     date = as.character(solution$hw_due_date),
     pdf_url = solution$hw_sol_pdf_url,
     slug = stringr::str_c(slug, "_", solution$hw_sol_filename)) %>%
-    purrr::discard(is.na) %>%
+    purrr::discard(~isTRUE(is.na(.x))) %>%
     c(
-      output = list("blogdown::html_page" =
-                      list(md_extensions = get_md_extensions(),
-                           toc = TRUE))
+      output = make_rmd_output_format(TRUE)
     ) %>%
     yaml::as.yaml() %>% stringr::str_trim("right") %>%
     stringr::str_c(delim, ., delim, sep = "\n")
@@ -260,18 +258,20 @@ make_hw_asgt_page <- function(key, semester, use_solutions = FALSE) {
           ", slug = ", hw_slug, ")")
 
   delim <- "---"
-  header <- tibble::tibble(title = hw_topic,
-                   due_date = lubridate::as_date(hw_date) %>% as.character(),
-                   assignment_type = hw_type,
-                   short_assignment_type = short_hw_type,
-                   assignment_number = hw_num, weight = hw_idx,
-                   slug = hw_slug,
-                   pubdate = as.character(pub_date),
-                   date = as.character(hw_date),
-                   output = list("blogdown::html_page" =
-                                   list(md_extensions = get_md_extensions()))
-  ) %>% purrr::discard(is.na) %>%
-    yaml::as.yaml() %>% stringr::str_trim("right") %>%
+  header <- list(
+    title = hw_topic,
+    due_date = lubridate::as_date(hw_date) %>% as.character(),
+    assignment_type = hw_type,
+    short_assignment_type = short_hw_type,
+    assignment_number = hw_num, weight = hw_idx,
+    slug = hw_slug,
+    pubdate = as.character(pub_date),
+    date = as.character(hw_date),
+    output = make_rmd_output_format(FALSE)
+  ) %>%
+    purrr::discard(~isTRUE(is.na(.x))) %>%
+    yaml::as.yaml() %>%
+    stringr::str_trim("right") %>%
     stringr::str_c(delim, ., delim, sep = "\n")
   context <- make_context(assignment, "homework", semester)
   hw_page <- stringr::str_c(

@@ -4,12 +4,16 @@ author: |
   Lenny Teytelman
 lab_number: 1
 lab_date: '2020-01-06'
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-01-06'
 slug: lab_01_no_more_excuses
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 Just this week, a new article about big problems in cancer research due to researchers' failure to follow reproducible research methods. Consider this article optional reading.
 
@@ -22,3 +26,4 @@ Here is the abstract:
 You can read the full paper at <https://www-nature-com.proxy.library.vanderbilt.edu/articles/d41586-018-06008-w>
 
 L. Teytelman, "No more excuses for non-reproducible methods," Nature **560**, 411 (2018) [doi:10.1038/d41586-018-06008-w](https://doi.org/10.1038/d41586-018-06008-w)
+

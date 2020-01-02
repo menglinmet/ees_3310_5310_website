@@ -622,9 +622,7 @@ make_hw_solution_page <- function(solution, assignment, slug = NA_character_) {
     slug = str_c(slug, "_", solution$hw_sol_filename)) %>%
     discard(is.na) %>%
     c(
-      output = list("blogdown::html_page" =
-                      list(md_extensions = md_extensions,
-                           toc = TRUE))
+      output = make_rmd_output_format(TRUE)
     ) %>%
     as.yaml() %>% str_trim("right") %>%
     str_c(delim, ., delim, sep = "\n")
@@ -681,8 +679,7 @@ make_hw_page <- function(cal_entry) {
                    slug = hw_slug,
                    pubdate = as.character(pub_date),
                    date = as.character(hw_date),
-                   output = list("blogdown::html_page" =
-                                   list(md_extensions = md_extensions))
+                   output = make_rmd_output_format(FALSE)
   ) %>% discard(is.na) %>%
     as.yaml() %>% str_trim("right") %>%
     str_c(delim, ., delim, sep = "\n")
@@ -887,9 +884,7 @@ make_short_hw_assignment <- function(cal_entry) {
 #     slug = sprintf("lab_%02d_%s", assignment$lab_num, doc$doc_filename)) %>%
 #     discard(is.na) %>%
 #     c(
-#       output = list("blogdown::html_page" =
-#                       list(md_extensions = md_extensions,
-#                            toc = TRUE))
+#       make_rmd_output_format(TRUE)
 #     ) %>%
 #     as.yaml() %>% str_trim("right") %>%
 #     str_c(delim, ., delim, sep = "\n")

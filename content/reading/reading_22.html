@@ -4,11 +4,15 @@ class_date: '2020-02-26'
 class_number: 22
 weight: 22
 slug: reading_22
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-02-26'
-output:
-  blogdown::html_page:
+make_rmd_output_format(FALSE):
+- blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
 ---
 
 
@@ -18,7 +22,7 @@ output:
 <div id="required-reading-everyone" class="section level3">
 <h3>Required Reading (everyone):</h3>
 <ul>
-<li>Climate Casino, 10-12.</li>
+<li>Climate Casino, 10–12.</li>
 </ul>
 </div>
 <div id="reading-notes" class="section level3">

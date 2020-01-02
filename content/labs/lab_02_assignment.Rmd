@@ -1,31 +1,29 @@
 ---
 title: Working with climate data
 lab_date: '2020-01-13'
-report_due_date: '2018-09-10'
+report_due_date: '2020-01-24'
 lab_number: 2
 github_classroom_assignment_url: https://classroom.github.com/a/vFttp2UE
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-01-13'
 slug: lab_02_assignment
 output:
-  blogdown::html_page:
+- blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
 ---
-This lab will introduce working with climate data using R and RMarkdown. We will download temperature and CO~2~ measurements from scientific archives of climate data and practice producing tables of measurements, making plots of the measurements, and analyzing the series of measurements to determine the trends over time (rates of increase or decrease).
+
+# Overview:
 
 ## Reading
 
 **Before you come to lab**, please read the following document:
 
-* [Data Wrangling with R](/lab_docs/lab_02_overview)
+* [Data Wrangling with R](/lab_docs/lab_02_overview){target="_blank"}
 
 ## Assignment
 
 Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/vFttp2UE>.
-
-
-## Solutions
-
-**Solutions for Lab Exercises**:
-
-* [Lab #2 Answers](/lab_solutions/lab_02_answers)

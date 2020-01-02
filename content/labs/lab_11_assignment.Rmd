@@ -1,0 +1,29 @@
+---
+title: Role-Playing Emissions Regulations
+lab_date: '2020-03-30'
+lab_number: 11
+pubdate: '2019-12-31'
+date: '2020-03-30'
+slug: lab_11_assignment
+output:
+- blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+---
+
+# Overview:
+
+## Reading
+
+**Before you come to lab**, please read the following document:
+
+* [Preparation for Lab on Regulating Greenhouse Gas Emissions](/lab_docs/lab_11_preparation){target="_blank"}
+
+## Assignment
+
+## Assignment
+
+The GitHub Classroom has not been posted yet.

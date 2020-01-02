@@ -187,8 +187,7 @@ make_reading_page <- function(cal_id, semester){
                            slug = sprintf("reading_%02d", class_num),
                            pubdate = as.character(semester$semester_dates$pub_date),
                            date = lubridate::as_date(rd_date) %>% as.character(),
-                           output = list("blogdown::html_page" =
-                                           list(md_extensions = get_md_extensions()))
+                           make_rmd_output_format(FALSE)
   ) %>%
     yaml::as.yaml() %>% stringr::str_trim("right") %>%
     stringr::str_c(delim, ., delim, sep = "\n")

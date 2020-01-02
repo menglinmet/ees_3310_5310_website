@@ -4,15 +4,19 @@ class_date: '2020-04-15'
 class_number: 40
 weight: 40
 slug: reading_40
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-04-15'
-output:
-  blogdown::html_page:
+make_rmd_output_format(FALSE):
+- blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
 ---
 ## Reading:
 
 ### Required Reading (everyone):
-* Handout: [M.P. Vandenbergh and J.M. Gilligan, _Beyond Politics_ (Cambridge, 2017)](/files/reading_handouts/Beyond_Politics_Chapter_1.pdf){target="_blank"}, Ch. 1.
 
+* Handout: [M.P. Vandenbergh and J.M. Gilligan, _Beyond Politics_ (Cambridge, 2017)](/files/reading_handouts/Beyond_Politics_Chapter_1.pdf){target="_blank"}, Ch. 1.
 

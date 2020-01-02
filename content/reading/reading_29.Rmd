@@ -4,15 +4,19 @@ class_date: '2020-03-20'
 class_number: 29
 weight: 29
 slug: reading_29
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-03-20'
-output:
-  blogdown::html_page:
+make_rmd_output_format(FALSE):
+- blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
 ---
 ## Reading:
 
 ### Required Reading (everyone):
-* Climate Casino, Ch. 18.
 
+* Climate Casino, Ch. 18.
 

@@ -1,15 +1,18 @@
 ---
 title: The Geochemical Carbon Cycle
-author: ''
 lab_number: 5
 lab_date: '2020-02-10'
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-02-10'
 pdf_url: /files/lab_docs/lab_05/lab_05_instructions.pdf
 slug: lab_05_instructions
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 ```{r setup, include=FALSE}
 knitr::knit_hooks$set(inline = function(x) { knitr:::format_sci(x, 'md')})
@@ -240,3 +243,4 @@ c) In the experiment from (b), how do the rates of total weathering and
     
     * Now plot the carbon burial and total weathering for the range
       1 million years to 2 million years. How do the two rates compare?
+

@@ -2,13 +2,17 @@
 title: Data Wrangling with R
 lab_number: 2
 lab_date: '2020-01-13'
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-01-13'
 pdf_url: /files/lab_docs/lab_02/lab_02_overview.pdf
 slug: lab_02_overview
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 ```{r setup, include=FALSE}
 knitr::knit_hooks$set(inline = function(x) { knitr:::format_sci(x, 'md')})
@@ -746,3 +750,4 @@ ggplot(data = annual_extremes_gathered # the data
                                                         # color-blindness.
   labs(x = "Year", y = "Temperature Anomaly") # labels for the coordinates
 ```
+

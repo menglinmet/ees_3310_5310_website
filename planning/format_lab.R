@@ -37,10 +37,9 @@ make_lab_solution_page <- function(sol, semester) {
     pdf_url = sol$sol_pdf_url,
     slug = sprintf("lab_%02d_%s", sol$lab_num,
                    sol$sol_filename)) %>%
-    purrr::discard(is.na) %>%
+    purrr::discard(~isTRUE(is.na(.x))) %>%
     c(
-      output = list("blogdown::html_page" =
-                      list(md_extensions = get_md_extensions(), toc = TRUE))
+      output = make_rmd_output_format(TRUE)
     ) %>%
     yaml::as.yaml() %>% stringr::str_trim("right") %>%
     stringr::str_c(delim, ., delim, sep = "\n")
@@ -66,7 +65,7 @@ make_lab_solution <- function(sol, semester) {
 }
 
 make_lab_doc_content <- function(doc, semester) {
-  doc$markdown
+  doc$document_markdown
 }
 
 make_lab_doc_page <- function(doc, semester) {
@@ -84,16 +83,15 @@ make_lab_doc_page <- function(doc, semester) {
     bibliography = doc$bibliography,
     pdf_url = doc$document_pdf_url,
     slug = sprintf("lab_%02d_%s", doc$lab_num, doc$doc_filename)) %>%
-    purrr::discard(is.na) %>%
+    purrr::discard(~isTRUE(is.na(.x))) %>%
     c(
-      output = list("blogdown::html_page" =
-                      list(md_extensions = get_md_extensions(), toc = TRUE))
+      output = make_rmd_output_format(TRUE)
     ) %>%
     yaml::as.yaml() %>% stringr::str_trim("right") %>%
     stringr::str_c(delim, ., delim, sep = "\n")
   context <- make_context(doc, "lab doc", semester)
   lab_doc_page <- cat_nl(header, make_lab_doc_content(doc, semester)) %>%
-  expand_codes(context, semester)
+    expand_codes(context, semester)
   lab_doc_page
 }
 
@@ -110,8 +108,8 @@ make_lab_doc <- function(lab, semester) {
 make_lab_docs <- function(lab_key, semester) {
   lab_key <- enquo(lab_key)
   labs <- semester$lab_items %>%
-    dplyr::filter(lab_key == !!lab_key, ! is.na(doc_filename)) # %>%
-    # merge_dates(semester)
+    dplyr::filter(lab_key == !!lab_key, ! is.na(doc_filename)) %>%
+    dplyr::mutate(date = as.character(date))
 
   lab_docs <- purrr::map( purrr::transpose(labs), ~make_lab_doc(.x, semester))
   dbg_checkpoint(g_lab_docs_out, lab_docs)
@@ -217,9 +215,9 @@ make_lab_assignment_page <- function(key, semester, use_solutions = FALSE) {
     pubdate = as.character(semester$semester_dates$pub_date),
     date = lubridate::as_date(assignment$date) %>% as.character(),
     slug = sprintf("lab_%02d_assignment", assignment$lab_num),
-    output = list("blogdown::html_page" =
-                    list(md_extensions = get_md_extensions()))
-  ) %>% purrr::discard(is.na) %>%
+    output = make_rmd_output_format(FALSE)
+  ) %>%
+    purrr::discard(~isTRUE(is.na(.x))) %>%
     yaml::as.yaml() %>% stringr::str_trim("right") %>%
     stringr::str_c(delim, ., delim, sep = "\n")
 

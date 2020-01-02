@@ -2,13 +2,17 @@
 title: 'Instructions for Lab #4'
 lab_number: 4
 lab_date: '2020-02-03'
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-02-03'
 pdf_url: /files/lab_docs/lab_04/lab_04_instructions.pdf
 slug: lab_04_instructions
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 ```{r setup, include=FALSE}
 knitr::knit_hooks$set(inline = function(x) { knitr:::format_sci(x, 'md')})
@@ -545,3 +549,4 @@ c) Compare the climate sensitivity ($\Delta T_{2 \times \text{CO}_2}$) in
    feedback. 
    What is it?
   
+

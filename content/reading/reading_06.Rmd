@@ -4,15 +4,20 @@ class_date: '2020-01-17'
 class_number: 6
 weight: 6
 slug: reading_06
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-01-17'
-output:
-  blogdown::html_page:
+make_rmd_output_format(FALSE):
+- blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
 ---
 ## Reading:
 
 ### Required Reading (everyone):
+
 * Understanding the Forecast, Ch. 5.
 
 ### Reading Notes:

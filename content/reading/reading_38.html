@@ -4,11 +4,15 @@ class_date: '2020-04-10'
 class_number: 38
 weight: 38
 slug: reading_38
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-04-10'
-output:
-  blogdown::html_page:
+make_rmd_output_format(FALSE):
+- blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
 ---
 
 

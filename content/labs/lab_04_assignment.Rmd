@@ -1,23 +1,28 @@
 ---
 title: Clouds and Convection
 lab_date: '2020-02-03'
-report_due_date: '2018-09-24'
+report_due_date: '2020-02-19'
 lab_number: 4
 github_classroom_assignment_url: https://classroom.github.com/a/wkg7zh2m
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-02-03'
 slug: lab_04_assignment
 output:
-  blogdown::html_page:
+- blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
 ---
-This lab will explore two different phenomena: First, we will explore the effect that clouds have on infrared transmission and the climate and second we will explore the role of the lapse rate and convection in modifying the greenhouse effect.
+
+# Overview:
 
 ## Reading
 
 **Before you come to lab**, please read the following document:
 
-* [Instructions for Lab #4](/lab_docs/lab_04_instructions)
+* [Instructions for Lab #4](/lab_docs/lab_04_instructions){target="_blank"}
 
 ## Assignment
 

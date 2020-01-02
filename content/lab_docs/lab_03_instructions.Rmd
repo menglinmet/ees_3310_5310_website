@@ -2,13 +2,17 @@
 title: 'Instructions for Lab #3'
 lab_number: 3
 lab_date: '2020-01-27'
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-01-27'
 pdf_url: /files/lab_docs/lab_03/lab_03_instructions.pdf
 slug: lab_03_instructions
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 ```{r setup, include=FALSE}
 knitr::knit_hooks$set(inline = function(x) { knitr:::format_sci(x, 'md')})
@@ -605,3 +609,4 @@ d) Put the CO~2~ back to today's value, but add cirrus clouds, using the
     What is the new skin temperature? What is the new skin height?
     Did the clouds or the doubled CO~2~ have a greater effect on the
     skin height?
+

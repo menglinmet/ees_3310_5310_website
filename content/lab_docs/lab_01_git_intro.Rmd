@@ -2,13 +2,17 @@
 title: Introduction to Git and GitHub Classroom
 lab_number: 1
 lab_date: '2020-01-06'
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-01-06'
 pdf_url: /files/lab_docs/lab_01/git_intro.pdf
 slug: lab_01_git_intro
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 # Revision Control for Reproducible Research
 
@@ -258,3 +262,4 @@ Only you, I, and the teaching assistant will be able to see your private reposit
 
 You can then clone the private repository to your personal computer or a computer in the laboratory classroom
 and complete it. As you make commits, I encourage you to push the changes back up to GitHub.
+

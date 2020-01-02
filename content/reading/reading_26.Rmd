@@ -4,15 +4,20 @@ class_date: '2020-03-13'
 class_number: 26
 weight: 26
 slug: reading_26
-pubdate: '2019-12-15'
+pubdate: '2019-12-31'
 date: '2020-03-13'
-output:
-  blogdown::html_page:
+make_rmd_output_format(FALSE):
+- blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
+  pdf_document:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: no
 ---
 ## Reading:
 
 ### Required Reading (everyone):
+
 * The Climate Fix, Ch. 4.
 
 ### Optional Extra Reading:
