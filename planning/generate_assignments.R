@@ -283,8 +283,12 @@ build_assignments <- function(schedule, semester) {
     schedule <- schedule %>% copy_slides(d, cal_entry, semester)
     schedule <- schedule %>%
       build_reading_assignment(d, cal_entry, semester)
-    schedule <- schedule %>% build_hw_assignment(d, cal_entry, semester)
-    schedule <- schedule %>% build_lab_assignment(d, cal_entry, semester)
+    if (has_hw) {
+      schedule <- schedule %>% build_hw_assignment(d, cal_entry, semester)
+    }
+    if (has_labs) {
+      schedule <- schedule %>% build_lab_assignment(d, cal_entry, semester)
+    }
   }
   invisible(schedule)
 }
@@ -311,11 +315,21 @@ generate_assignments <- function(semester) {
 
   context <- list(type = "semester schedule")
 
+  selection <- quos(date, title = topic, lecture = page_lecture, topic)
+  if ("page_reading" %in% names(schedule)) {
+    selection <- c(selection, reading = quo(page_reading))
+  }
+  if ("page_hw" %in% names(schedule)) {
+    selection <- c(selection, assignment = quo(page_hw))
+  }
+  if ("page_lab" %in% names(schedule)) {
+    selection <- c(selection, lab = quo(page_lab))
+  }
+
+
   lesson_plan <- schedule %>%
     # dplyr::filter(! event_id %in% c("FINAL_EXAM", "ALT_FINAL_EXAM")) %>%
-    dplyr::select(date, title = topic, reading = page_reading,
-                  assignment = page_hw, lecture = page_lecture,
-                  lab = page_lab, topic) %>%
+    dplyr::select(!!!selection) %>%
     dplyr::arrange(date) %>% dplyr::mutate(date = as.character(date)) %>%
     purrr::transpose() %>% purrr::map(~purrr::discard(.x, is.na)) %>%
     list(lessons = .) %>% yaml::as.yaml() %>%

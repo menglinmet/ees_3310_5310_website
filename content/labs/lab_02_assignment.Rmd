@@ -20,9 +20,10 @@ output:
 
 ## Reading
 
-**Before you come to lab**, please read the following document:
+**Before you come to lab**, please read the following documents:
 
 * [Data Wrangling with R](/lab_docs/lab_02_overview){target="_blank"}
+* [Energy Balance and Layer Models of the Atmosphere](/lab_docs/lab_02_layer_model){target="_blank"}
 
 ## Assignment
 

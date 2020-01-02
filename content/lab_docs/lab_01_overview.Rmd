@@ -42,12 +42,15 @@ The laboratories in this course are computational. My goals for the laboratory s
     <https://ees3310.jgilligan.org/schedule/> at least one week before the lab class.
 * **Before** coming to lab:
     * Be sure to read the documentation for that week's lab.
+      * Because the first lab of the semester is on the first day of class, this is an exception and you should read the documentation 
+        for the first lab during the following week, but **do be sure to read the documents for lab #2 before you come to lab on
+        Monday, Jan. 13
     * Accept the assignment on GitHub Classroom (click on the Assignment link in the course web site). If you will be
       bringing your own computer to the lab, you may want to clone the assignment onto your own computer before you
       come to lab, but that's not strictly necessary. If you will be using one of the computers in the lab classroom,
       you can clone the assignment when you log in at the beginning of class.
       
-* In the first lab, on September 27th, Ms. Best will explain all of the different software we will be using and will
+* In the first lab, on Monday, Jan. 6, Ms. Best will explain all of the different software we will be using and will
   walk you through all the steps of using Git to work with your assignments.
    
 ## Schedule for the Semester
@@ -62,7 +65,7 @@ affect the climate.
 
 The weekly labs during the first half of the semester will initiially focus on exercises from the book 
 _Global Warming: Understanding the Forecast_ 
-and then on Sept. 24--Oct. 15 you will work in pairs to develop your own project to investigate a
+and then on Feb. 17--Mar. 16 you will work in pairs to develop your own project to investigate a
 question about the climate using the computer models and/or data from the major climatic data archives.
 
 #### Extended Lab Project
@@ -70,9 +73,9 @@ question about the climate using the computer models and/or data from the major 
 The project has the following important dates:
 
 * You and your partner will get your research topic approved by Prof. Gilligan or Ms. Best by 
-  **Wednesday September 26**.
-* You and your partner will present the results of your research project in the lab on **Monday, October 15th**.
-* You and your partner will turn in a written report on **Wednesday October 17th**.
+  **Friday, February 21**.
+* You and your partner will turn in a written report on **Thursday, March 12**.
+* You and your partner will give an oral presentation of your research project in the lab on **Monday, March 16**.
 
 ### Second Half of the Semester
 
@@ -86,24 +89,22 @@ to a cleaner energy supply.
 
 The policy analysis project has the following important dates:
 
-* You and your partner will present the results of your policy analysis in the lab on **Monday December 3rd**.
-* You and your partner will turn in a written policy analysis report on **Wednesday December 5th**.
+* You and your partner will turn in a written policy analysis report on **,  **.
+* You and your partner will present the results of your policy analysis in the lab on **Monday, April 20**.
 
 
 # Laboratory Classroom
 
-The laboratory will meet in [Stevenson 2200](https://as.vanderbilt.edu/vuit/computer_services/facilities/Stevenson.php) 
-(right next to the Science and Engineering Library). This classroom is
-equipped with computers that have all the software you need for this class. You are also free to bring your own
+The laboratory will meet in 
+[the Computer Classroom in 120 Wilson Hall](https://as.vanderbilt.edu/vuit/computer_services/facilities/Wilson.php). 
+This classroom is equipped with computers that have all the software you need for this class. You are also free to bring your own
 laptop to the lab. Detailed instructions for installing R, RStudio, git, and (optionally) the LaTeX typesetting
 system on your computer (for Windows, MacOs, and Linux) are available on the course web site at 
 <https://ees3310.jgilligan.org/tools/>.
 
-The computer laboratory is accessible using your Vanderbilt ID card 24/7 except when other classes are meeting there.
+The computer laboratory is accessible using your Vanderbilt ID card 6:00 AM--1:00 AM 7 days a week except when other classes are meeting there.
 You can check the availability of the computer lab using Vanderbilt's 
-[VirtualEMS web app](https://emscampus.app.vanderbilt.edu/VirtualEms/LocationDetails.aspx?data=7cZwpiiplNtjoymq%2bO2RAGKuISCBHNPXxVY8ryMN4zGmaUtIip9OXVNLod0VXhr6)
-at <https://emscampus.app.vanderbilt.edu/VirtualEms/>.
-Be aware that the classroom is used Monday through Thursday evening from 7:00 until 10:00 or 10:30 for Astronomy labs.
+[VirtualEMS web app](https://emscampus.app.vanderbilt.edu/VirtualEms/LocationDetails.aspx?data=XHoo9AMVGMQbSraiXQjvGUDuKA574KqHNLkvgXI29xak6HZ4Mu3JOk0wo%2fFGuBk+#room-availability).
 
 # Software Tools
 

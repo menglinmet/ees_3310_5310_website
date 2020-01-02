@@ -1,7 +1,7 @@
 ---
 title: Introduction to Reproducible Research
 lab_date: '2020-01-06'
-report_due_date: '2020-01-13'
+report_due_date: '2020-01-16'
 lab_number: 1
 github_classroom_assignment_url: https://classroom.github.com/a/gvdNarpA
 pubdate: '2019-12-31'
