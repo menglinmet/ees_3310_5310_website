@@ -10,8 +10,8 @@ title: Tools
 * [Installing tools](#installing)
     * [Installing {{< R_LOGO >}}](#installing-r)
     * [Installing {{< GIT_LOGO >}}](#installing-git)
-    * [Installing {{< LATEX_LOGO >}}](#installing-latex)
     * [Installing {{< RSTUDIO_LOGO >}}](#installing-rstudio)
+    * [Installing {{< LATEX_LOGO >}}](#installing-latex)
     * [Getting a GitHUB {{< GITHUB_LOGO >}} account](#github-account)
 * [Resources for learning more](#resources)
     * [{{< R_LOGO >}} and {{< RSTUDIO_LOGO >}}](#r-resources)
@@ -28,11 +28,11 @@ title: Tools
 ### Installing {{< R_LOGO >}} {#installing-r}
 
 * Download R from [https://cran.rstudio.com/](https://cran.rstudio.com/)
-    * Windows: 
+    * **Windows:** 
         * Download and install the ["base distribution" of R 3.6.2](https://cran.rstudio.com/bin/windows/base/).
-    * MacOS:
+    * **MacOS:**
         * Download and install [R version 3.6.2](https://cran.rstudio.com/bin/macosx/)
-    * Linux:
+    * **Linux:**
         * You should be able to install R from your Linux distribution's package manager:
             * `sudo apt-get install r-base r-base-dev` for Debian or Ubuntu
             * `sudo yum install R` or `sudo dnf install git` for Fedora, 
@@ -45,58 +45,48 @@ opening up a terminal window and typing `which git`. If you get a response
 like `/usr/bin/git` then it's installed. If there is no response, then you
 need to install git.
   
-* Windows:
+* **Windows:**
     * Download and install git from [https://git-scm.com](https://git-scm.com)
         * Choose the default options for the installer.
     * Optionally, you might want to also install Tortoise Git, which integrates
       git into the Windows explorer, so you can execute git commands from the 
       context menu when you right-click on files or directories in the explorer.
       You can download Tortoise Git from [https://tortoisegit.org/](https://tortoisegit.org/)
-    * Introduce yourself to git (you only need to do this once).
-        1. Open a "git bash" window (git will give you the option to do this 
-           when it finishes installing) or you can do so from the Windows Start 
-           menu, under "Git".
-        2. Type the following at the terminal prompt:
-        
-             ```
-             git config --global user.name "Your Name"
-             git config --global user.email your.name@vanderbilt.edu
-             ```
-             
-           using your real name and email.
-* MacOS:
+* **MacOS:**
     * If git is not already installed on your computer, you can download and
       install it from [https://git-scm.com](https://git-scm.com)
-    * Introduce yourself to git (you only need to do this once).
-        1. Open the Terminal
-        2. Type the following at the terminal prompt:
-        
-             ```
-             git config --global user.name "Your Name"
-             git config --global user.email your.name@vanderbilt.edu
-             ```
-             
-           using your real name and email.
-* Linux:
+* **Linux:**
     * If git is not already installed, you can install it from your 
       distribution's package manager:
             * `sudo apt-get install git` for Debian or Ubuntu
             * `sudo yum install git` or `sudo dnf install git` for Fedora, 
               Red Hat, and related distributions.
-    * Introduce yourself to git (you only need to do this once).
-        1. Open a terminal window (bash or whatever shell you are using)
-        2. Type the following at the terminal prompt:
-        
-             ```
-             git config --global user.name "Your Name"
-             git config --global user.email your.name@vanderbilt.edu
-             ```
 
-You only need to introduce yourself to git one time after you install it.
-Then it will remember who you are every time you use it.
+#### Introducing Youself to {{< GIT_LOGO >}}              
+              
+**_Whichever operating system you're using,_** after you install git you will 
+need to introduce yourself to git (you only need to do this once).
 It is important for git to knows your name and email address so it can 
 keep track of who is editing files when you are working collaboratively and
 so it gives you credit for the files you have authored and edited.
+  
+1. Open a terminal prompt:
+   * On Windows, open a "git bash" window (git will give you the option to 
+     do this when it finishes installing) or you can do so from the Windows 
+     Start menu, under "Git".
+   * On MacOS or Linux, open a regular terminal window (on MacOS, you can
+     find the terminal in the "applications" with Finder)
+2. Type the following at the terminal prompt:
+
+     ```
+     git config --global user.name "Your Name"
+     git config --global user.email your.name@vanderbilt.edu
+     ```
+     
+     using your real name and email.
+       
+You only need to introduce yourself to git one time after you install it.
+Then it will remember who you are every time you use it.
 
 ### Installing {{< RSTUDIO_LOGO >}} {#installing-rstudio}
 
@@ -176,7 +166,6 @@ produce nicely formatted PDF (Acrobat) output from your RMarkdown files
     tinytex::uninstall_tinytex()`
     ```
 
-
 #### Getting a GitHUB {{< GITHUB_LOGO >}} account {#github-account}
 
 * Go to [https://github.com](https://github.com) and register for a free account
@@ -214,7 +203,7 @@ produce nicely formatted PDF (Acrobat) output from your RMarkdown files
   [git-scm](https://git-scm.com) website, including a full 
   [Git reference manual](https://git-scm.com/docs) and
   a free online book, _[Pro Git](https://git-scm.com/book)_
-* Professor Jenny Bryan, a professor of statistics at the University of British
+* Professor Jenny Bryan at the University of British
   Columbia, has written a lot of helpful tutorial material specifically about
   using git and GitHub with RStudio at 
   [Happy Git and GitHub for the useR](http://happygitwithr.com/).

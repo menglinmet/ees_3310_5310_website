@@ -15,13 +15,15 @@ global_search <- function(df_lst, pattern) {
 }
 
 col_search <- function(df, pattern) {
-  df %>% mutate_if(is.character, ~ifelse(str_detect(., pattern), "HIT", ""))
+  df %>% dplyr::mutate_if(is.character,
+                          ~ifelse(stringr::str_detect(., pattern), "HIT", ""))
 }
 
 
 
 col_search_sum <- function(df, pattern) {
-  df %>% summarize_if(is.character, ~sum(str_detect(., pattern)))
+  df %>% dplyr::summarize_if(is.character,
+                             ~sum(stringr::str_detect(., pattern)))
 }
 
 
@@ -42,10 +44,9 @@ global_replace <- function(df_lst, pattern, replacement) {
     if (is.data.frame(df)) {
       df <- df %>%
         dplyr::mutate_if(is.character,
-                         funs(stringr::str_replace_all(., pattern,
-                                                       replacement)))
-      hit_list[[nm]] <- df
+                         ~stringr::str_replace_all(., pattern, replacement))
+      df_lst[[nm]] <- df
     }
   }
-  hit_list
+  invisible(df_lst)
 }

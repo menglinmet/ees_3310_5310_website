@@ -64,10 +64,16 @@ You will choose one country, decide what that country's greenhouse gas
 emissions target should be for the year 2050, and then sketch out a plan for
 how that country could achieve its goal.
 
-You and your team will give a short (five minutes per person) presentation in
-the final lab on Monday, December 3 and turn in a written report (one report
+You and your team will 
+turn in a written report (one report
 from the whole team is acceptable)
-before midnight on Wednesday December 5.
+before midnight on 
+Friday, April 17
+and
+give a short (five minutes per person) presentation in
+the final lab on 
+Monday, April 20.
+ 
 The report is not meant to be an exhaustive research report. I expect a length
 of around 5 pages of doublespaced
 text (or equivalently, around 3 pages singlespaced)
