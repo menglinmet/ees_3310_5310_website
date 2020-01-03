@@ -1,5 +1,5 @@
 update_latex_styles <- function(root_dir = NULL, content_path = "content",
-                                planning_dir = "planning") {
+                                planning_path = "planning") {
   if (is.null(root_dir)) {
     root_dir <- find_root_dir(use_globals = TRUE)
   }
@@ -16,8 +16,8 @@ update_latex_styles <- function(root_dir = NULL, content_path = "content",
 
   for (src in src_files) {
     for (dest in content_dirs) {
-      message("Copying ", stringr::str_replace(src, base_patt, ""),
-              " to ", stringr::str_replace(dest, base_patt, ""))
+      message("Copying ", stringr::str_replace(src, base_pat, ""),
+              " to ", stringr::str_replace(dest, base_pat, ""))
       file.copy(src, dest, overwrite = TRUE, recursive = FALSE,
                 copy.mode = TRUE, copy.date = TRUE)
     }

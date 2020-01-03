@@ -17,7 +17,7 @@ output:
     includes:
       in_header: ees3310.sty
 ---
-Just this week, a new article about big problems in cancer research due to researchers' failure to follow reproducible research methods. Consider this article optional reading.
+Here is a recent article about big problems in cancer research due to researchers' failure to follow reproducible research methods. Consider this article optional reading.
 
 Here is the abstract:
 

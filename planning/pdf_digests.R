@@ -71,7 +71,7 @@ update_pdf_file_digests <- function (files, root_dir, static_path = "static",
   digest_file <- file.path(root_dir, "pdf_digests.Rds")
   if (partial && file.exists(digest_file)) {
     old_digests <- readr::read_rds(digest_file) %>%
-      dplyr::filter(file %in% setdiff(file, file))
+      dplyr::filter(! file %in% digests$file)
     digests <- dplyr::bind_rows(digests, old_digests)
   }
   readr::write_rds(digests, digest_file)
@@ -191,7 +191,7 @@ update_pdfs <-  function(dir = NULL, root_dir = NULL,
 
   cd <-  paste0(normalizePath(getwd(), winslash = "/"), "/")
   dir <- normalizePath(dir, winslash = "/")
-  dir <- str_replace(dir, fixed(cd), "")
+  dir <- stringr::str_replace(dir, stringr::fixed(cd), "")
   # message("Dir = ", dir, ", cd = ", cd, ", d = ", d)
 
   method <- get_pdf_digest_algorithm()
@@ -202,8 +202,8 @@ update_pdfs <-  function(dir = NULL, root_dir = NULL,
     to_build <- pdfs_to_rebuild(files, root_dir, static_path, content_path)
   }
   to_build <- normalizePath(to_build, winslash = "/") %>%
-    stringr::str_replace(fixed(cd), "")
-  # message("To build: ", str_c(to_build, collapse = ", "))
+    stringr::str_replace(stringr::fixed(cd), "")
+  # message("To build: ", stringr::str_c(to_build, collapse = ", "))
 
   if (! quiet) {
     message("Building ", length(to_build), " out of date ",
@@ -252,7 +252,7 @@ update_pdf_dir <- function(dir = '.', root_dir = NULL, static_path = "static",
   dir <- new_dir
 
   if (! is.na(ignore))
-    files <- files %>% discard(~str_detect(.x, ignore))
+    files <- files %>% purrr::discard(~stringr::str_detect(.x, ignore))
 
   files <- find_assignment_rmds(root_dir, content_path, targets = dir)
   if (force) {
@@ -261,8 +261,8 @@ update_pdf_dir <- function(dir = '.', root_dir = NULL, static_path = "static",
     to_build <- pdfs_to_rebuild(files, root_dir, static_path, content_path)
   }
   to_build <- normalizePath(to_build, winslash = "/") %>%
-    stringr::str_replace(fixed(cd), "")
-  # message("To build: ", str_c(to_build, collapse = ", "))
+    stringr::str_replace(stringr::fixed(cd), "")
+  # message("To build: ", stringr::str_c(to_build, collapse = ", "))
 
   if (! quiet) {
     message("Building ", length(to_build), " out of date ",

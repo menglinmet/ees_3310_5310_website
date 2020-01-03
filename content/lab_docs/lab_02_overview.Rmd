@@ -91,10 +91,11 @@ and tibbles, `reader` for reading in data from text files on the disk and
 `readxl` for reading data from Excel spreadsheets, and many more packages that
 we will not be using in these labs.
 
-The documents give lots of examples showing what the functions do and explanations
-of how to do many common tasks. Especially for `ggplot2`, it can be very useful
-to look at the graphs in the examples to find something that looks like what 
-you're trying to do and then seeing the code that made that happen.
+The documents give lots of examples showing what the functions do and
+explanations of how to do many common tasks. Especially for `ggplot2`, it can
+be very useful to look at the graphs in the examples to find something that
+looks like what  you're trying to do and then seeing the code that made that
+happen.
 
 
 # Data in R
@@ -107,12 +108,12 @@ important kinds of data that we may work with are:
 * **Integer data**, which represents discrete quantities, such as counting
   events or objects.
 
-* **Real number data**, which represents quantities that can have fractional values.
-  Most of the data we will work with in this course, such as temperatures, 
-  altitudes, amounts of rainfall, and so forth, will be real-number data.
-  This kind of data is also referred to frequently as "floating point" data
-  or (for obscure reasons having to do with computer hardware) as "double"
-  or "double-precision" data.
+* **Real number data**, which represents quantities that can have fractional 
+  values. Most of the data we will work with in this course, such as 
+  temperatures, altitudes, amounts of rainfall, and so forth, will be 
+  real-number data. This kind of data is also referred to frequently as 
+  "floating point" data or (for obscure reasons having to do with computer 
+  hardware) as "double" or "double-precision" data.
 
 * **Character data**, which represents text. Examples include names of months,
   or categories (such as the name of a city or country). This kind of data is
@@ -123,17 +124,17 @@ important kinds of data that we may work with are:
   data. 
   
     The difference between character data and factor data is that factor
-    data has an explicit set of allowed values and has an integer number associated
-    with each of those values. 
+    data has an explicit set of allowed values and has an integer number 
+    associated with each of those values. 
     
     For instance, if I have a factor variable with the allowed values "up" and 
     "down", then I could not assign it a value "left" or "right", whereas a
     character variable can be assigned any arbitrary text, such as 
     "second star to the right and straight on til morning."
     
-    There are two kinds of factors: ordered and unordered. The difference is that
-    the legal values for ordered factors have a specific order, so you can say 
-    that one comes before or after another (or is greater than or less than another),
+    There are two kinds of factors: ordered and unordered. The difference is 
+    that ordered factors have a specific order, so you can say that one value 
+    comes before or after another (or is greater than or less than another), 
     whereas unordered factors don't have any natural ordering.
     
     Examples of ordered variables might be the months of the year, or the days 
@@ -271,9 +272,9 @@ The tibble also shows the kind of variable that each column represents:
 `prcp`, `tmin`, and `tmax` are double-precision floating point data 
 (i.e., real numbers).
 
-In some ways, a tibble or `data.frame` is like a names list of vectors, where each
-vector is a column and its name is the name of the column. We can access individual 
-columns using the dollar sign, just as with regular named lists:
+In some ways, a tibble or `data.frame` is like a names list of vectors, where
+each vector is a column and its name is the name of the column. We can access
+individual  columns using the dollar sign, just as with regular named lists:
 
 ```{r tibble_column, include=TRUE}
 precipitation = nashville_weather$prcp
@@ -353,7 +354,8 @@ tools for modifying and manipulating tibbles:
 * `select` lets you choose a subset of columns from a tibble
 * `rename` lets you rename columns
 * `filter` lets you choose a subset of rows from a tibble
-* `arrange` lets you sort the rows with respect to the values of different columns
+* `arrange` lets you sort the rows with respect to the values of different 
+  columns
 * `mutate` lets you modify the values of columns or add new columns
 * `summarize` lets you generate summaries of columns (e.g., the mean, maximum, 
   or minimum value of that column)
@@ -373,14 +375,13 @@ Here are the first few rows of `nashville_weather`
 head(nashville_weather)
 ```
 
-Let's get rid of the `id` column, since we don't really care about the ID number,
-that meteorological agencies use to identify the weather station. 
-and let's get rid of the `location` column because we know that the data set
-is from Nashville, so having that information repeated on each row is a waste
-of space. 
-To do this, we just  call select, specifying the tibble or `data.frame` to 
-operate on, and then give a list of columns to eliminate, with a minus sign
-in front of each:
+Let's get rid of the `id` column, since we don't really care about the ID
+number, that meteorological agencies use to identify the weather station.  and
+let's get rid of the `location` column because we know that the data set is from
+Nashville, so having that information repeated on each row is a waste of space.
+To do this, we just  call select, specifying the tibble or `data.frame` to
+operate on, and then give a list of columns to eliminate, with a minus sign in
+front of each:
 
 ```{r nw_no_id, include=TRUE}
 x = select(nashville_weather, -id, -location)
@@ -395,8 +396,8 @@ x = select(nashville_weather, date, prcp, tmin, tmax)
 head(x)
 ```
 
-We can specify a range of consecutive columns by giving the first and last with a 
-colon between them:
+We can specify a range of consecutive columns by giving the first and last with
+a  colon between them:
 
 ```{r nw_keep_2, include=TRUE}
 x = select(nashville_weather, date:tmax)
@@ -421,19 +422,23 @@ head(x)
 x = filter(nashville_weather, year(date) > 2015 & tmax < 0)
 head(x)
 ```
-In the code above, I used the `year` function from the `lubridate` package to extract just the year from a date.
 
-One thing that is important to know about making comparisons in `filter` expressions: to specify that two things are
-equal, you write `==` with two equal signs. A single equal sign is for assigning a value to a variable and two
-equal signs are for comparisons. You can also use "<=" for less than or equal to and ">=" for greter than or equal to.
+In the code above, I used the `year` function from the `lubridate` package to
+extract just the year from a date.
+
+One thing that is important to know about making comparisons in `filter`
+expressions: to specify that two things are equal, you write `==` with two equal
+signs. A single equal sign is for assigning a value to a variable and two equal
+signs are for comparisons. You can also use "<=" for less than or equal to and
+">=" for greter than or equal to.
 
 ```{r filter_nw_2, include=TRUE}
 x = filter(nashville_weather, date == ymd("2016-06-10"))
 x
 ```
 
-In the code above, I used the `ymd` function from `lubridate` to translate a character
-value "2016-06-10" to the date value for June 10, 2016.
+In the code above, I used the `ymd` function from `lubridate` to translate a
+character value "2016-06-10" to the date value for June 10, 2016.
 
 You can combine conditions in `filter` by using `&` to indicate
 "and" and `|` to indicate "or".
@@ -446,16 +451,16 @@ x = arrange(nashville_weather, desc(tmax), tmin)
 head(x,10)
 ```
 
-This sorts the rows in descending order of `tmax` (i.e., so the largest values are at the top),
-and where multiple rows have the same value of `tmax`, then it sorts them in ascending order
-of `tmin`. Observe the three rows with `tmax` = 41.7, the two rows where `tmax` = 41.1,
-and the four rows where `tmax` = 40.6.
+This sorts the rows in descending order of `tmax` (i.e., so the largest values
+are at the top), and where multiple rows have the same value of `tmax`, then it
+sorts them in ascending order of `tmin`. Observe the three rows with `tmax` =
+41.7, the two rows where `tmax` = 41.1, and the four rows where `tmax` = 40.6.
 
 We can use `mutate` to modify the values of columns or to create new columns.
-The temperatures in Nashville weather are in Celsius and the precipitation is
-in millimeters. Let's convert these to Fahrenheit and inches, respectively, and
-then let's create a `trange` column that will have the difference between the maximum
-and minimum temperature:
+The temperatures in Nashville weather are in Celsius and the precipitation is in
+millimeters. Let's convert these to Fahrenheit and inches, respectively, and
+then let's create a `trange` column that will have the difference between the
+maximum and minimum temperature:
 
 ```{r mutate, include=TRUE}
 x = mutate(nashville_weather, prcp = prcp / 25.4, tmin = tmin * 9./5. + 32,
@@ -463,15 +468,18 @@ x = mutate(nashville_weather, prcp = prcp / 25.4, tmin = tmin * 9./5. + 32,
 head(x)
 ```
 
-Summaries are useful for finding averages and extreme values. Let's find the maximum and minimum temperatures 
-and the most extreme rainfall in the whole data set:
+Summaries are useful for finding averages and extreme values. Let's find the
+maximum and minimum temperatures  and the most extreme rainfall in the whole
+data set:
 
 ```{r summarize_simple, include=TRUE}
-x = summarize(nashville_weather, prcp.max = max(prcp), tmin.min = min(tmin), tmax.max = max(tmax))
+x = summarize(nashville_weather, prcp.max = max(prcp), 
+              tmin.min = min(tmin), tmax.max = max(tmax))
 x
 ```
 
-`nashville_weather` has `r nrow(nashville_weather)` rows, but summarize reduces it to a single summary row.
+`nashville_weather` has `r nrow(nashville_weather)` rows, but summarize reduces
+it to a single summary row.
 
 You can use summary to generate multiple summary quantities from a column:
 
@@ -483,40 +491,47 @@ x
 We can also generate grouped summaries:
 
 ```{r summarize_grouped_1, include=TRUE}
-x = ungroup(summarize(group_by(nashville_weather, year(date)), prcp.max = max(prcp), prcp.tot = sum(prcp)))
+x = ungroup(summarize(group_by(nashville_weather, year(date)), 
+            prcp.max = max(prcp), prcp.tot = sum(prcp)))
 head(x)
 ```
-This provides the maximum one-day precipitation and the total annual precipitation for each year
+This provides the maximum one-day precipitation and the total annual 
+precipitation for each year
 
-Note how difficult it is to read that grouped summary expression: the `group_by` function is inside
-`summarize`, which is inside `ungroup`. 
+Note how difficult it is to read that grouped summary expression: the `group_by`
+function is inside `summarize`, which is inside `ungroup`. 
 
-The `tidyverse` offers us a much nicer way to put these kind of complicated expressions together 
-using what it calls the "pipe" operator, `%>%`.  The pipe operator chains operations together,
-taking the result of the one on the left and inserting it into the one on the right.
+The `tidyverse` offers us a much nicer way to put these kind of complicated
+expressions together  using what it calls the "pipe" operator, `%>%`.  The pipe
+operator chains operations together, taking the result of the one on the left
+and inserting it into the one on the right.
 
 We can use the pipe operator to rewrite the expression above as
 
 ```{r summarize_grouped_pipes, include=TRUE}
-x = nashville_weather %>% group_by(year(date)) %>% summarize(prcp.max = max(prcp), prcp.tot = sum(prcp)) %>%
-  ungroup()
+x = nashville_weather %>% group_by(year(date)) %>% 
+    summarize(prcp.max = max(prcp), prcp.tot = sum(prcp)) %>%
+    ungroup()
 head(x)
 ```
-Now the expression is easier to read: First we group `nashville_weather` by year, then we summarize it by calculating the
-maximum daily precipitation and the yearly total for each year, and finally, after we summarize we ungroup.
+Now the expression is easier to read: First we group `nashville_weather` by
+year, then we summarize it by calculating the maximum daily precipitation and
+the yearly total for each year, and finally, after we summarize we ungroup.
 
-You can combine any set of the `tidyverse` functions using the pipe operator, so you could `select` columns, 
-`filter` rows, `mutate` the values of columns, and `summarize`, using the `%>%` pipe operator to connect
-all of the different operations in sequence.
+You can combine any set of the `tidyverse` functions using the pipe operator, so
+you could `select` columns,  `filter` rows, `mutate` the values of columns, and
+`summarize`, using the `%>%` pipe operator to connect all of the different
+operations in sequence.
 
-The final `dplyr` command we're going to look at is `bind_rows`, which lets us combine tibbles:
+The final `dplyr` command we're going to look at is `bind_rows`, which lets us
+combine tibbles:
 
 ```{r bind_rows, include=TRUE}
 weather = bind_rows(nashville_weather, chicago_weather)
 ```
-This creates a single tibble that has all of the rows from `nashville_weather` on 
-top and all the rows from `chicago_weather` on the bottom. Because the two tibbles
-have the same columns, the columns are matched up.
+This creates a single tibble that has all of the rows from `nashville_weather`
+on  top and all the rows from `chicago_weather` on the bottom. Because the two
+tibbles have the same columns, the columns are matched up.
 
 We can operate on this combined tibble:
 
@@ -524,7 +539,8 @@ We can operate on this combined tibble:
 weather_summary = weather %>% 
   mutate(year = year(date), t.range = tmax - tmin) %>%
   group_by(year, location) %>%   
-  summarize(prcp.max = max(prcp), prcp.tot = sum(prcp), t.range.max = max(t.range)) %>%
+  summarize(prcp.max = max(prcp), prcp.tot = sum(prcp), 
+            t.range.max = max(t.range)) %>%
   ungroup() %>%
   arrange(year, location)
 tail(weather_summary)
@@ -560,8 +576,9 @@ ggplot(giss_zonal, aes(x = year)) +
   labs(x = "Year", y = "Temperature anomaly")
 ```
 
-This is a big mess. It would be hard to clean up the appearance, and would require a lot of 
-retyping if we decided to group the data into different bands of latitude.
+This is a big mess. It would be hard to clean up the appearance, and would
+require a lot of  retyping if we decided to group the data into different bands
+of latitude.
 
 We can do this much more easily with the `gather` function:
 
@@ -642,21 +659,24 @@ of data called, "The Grammar of Graphics" (that's where the "gg" comes from).
 The idea is that a graph has several distinct parts, which come together:
 
 * One or more _layers_ of graphics. A layer consists of the following:
-  * A _data table_ with one or more columns, each corresponding to a different variable,
+  * A _data table_ with one or more columns, each corresponding to a different 
+    variable,
   * A _mapping_ of different variables (columns) in the data table to different,
     _aesthetics_ of the plot. Aesthetics are things like 
       * the _x_ coordinate,
       * the _y_ coordinate, 
       * the _color_ of the point or line, 
-      * the _fill_ color that is used to fill in areas, like the interior of a rectangle or circle.
-      * the _shape_ of points (e.g., circle, square, triangle, cross, diamond, ...)
+      * the _fill_ color that is used to fill in areas, like the interior of a 
+        rectangle or circle.
+      * the _shape_ of points (e.g., circle, square, triangle, cross, diamond, 
+        ...)
       * the _size_ of points and lines
       * the _linetype_ (e.g., solid, dashed, dotted, ...)
       * and so forth ...
   * A _geometry_ (point, line, box, etc.) that is used to draw the data
 * A coordinate system (axes and legends)
 
-There are some more aspects to the gramar of graphics, but we don't need them
+There are some more aspects to the grammar of graphics, but we don't need them
 for what we're going to do.
 
 A simple graph has just one layer: 
@@ -664,7 +684,7 @@ A simple graph has just one layer:
 ```{r simple_plot, include=TRUE, warning=FALSE}
 ggplot(data = tidy_zonal, # the data
        # the mapping of variables to aesthetics
-       mapping = aes(x = year, y = anomaly, color = latitude, shape = latitude)
+       mapping = aes(x = year, y = anomaly, color = latitude)
        ) +
   geom_point() + # the geometry
   labs(x = "Year", y = "Temperature Anomaly") # labels for the coordinates
@@ -675,7 +695,7 @@ We can also make a plot with the same data, but two layers:
 ```{r second_plot, include=TRUE, warning=FALSE}
 ggplot(data = tidy_zonal, # the data
        # the mapping of variables to aesthetics
-       mapping = aes(x = year, y = anomaly, color = latitude, shape = latitude)
+       mapping = aes(x = year, y = anomaly, color = latitude)
        ) +
   geom_point() + # the geometry of the first layer
   geom_line() +  # the geometry of the second layer
@@ -683,21 +703,45 @@ ggplot(data = tidy_zonal, # the data
 ```
 
 
-We can also use different mappings for different layers
+We can also use different mappings for different layers. Here, I add the 
+`shape` aethetic to the points to distinguish daily maximum and minimum 
+temperatures.
 
-```{r third_plot, include=TRUE, warning=FALSE}
+Here, we run into an important issue with R: there are some days where the 
+measurements of daily maximum or minimum temperature are missing for one of 
+the weather stations. These missing values are represented in R with the 
+special value `NA`, which means "not available".
+
+If you try to summarize a bunch of numbers (taking the maximum, minimum, average,
+etc. over the bunch) where some of them are missing, R's default behavior is to
+report `NA` for the summary because you don't know how the missing values 
+should contribute to the summary (e.g., if you're looking for the hottest or 
+coldest day of the year, and don't have measurements for several days, you don't 
+know whether those days were extremely hot or cold).
+
+You can change this default behavior by using the `na.rm` (remove missing values)
+option of many summary functions, such as `max`, `min`, `mean` and `sd`. If we
+set `na.rm = TRUE`, as in the code below, then R will ignore the missing values 
+and calculate the summaries based on the measurements we do have.
+
+```{r third_plot, include=TRUE, warning=TRUE}
 annual_extremes = weather %>% mutate(year = year(date)) %>%
   group_by(location, year) %>% 
-  summarize(tmin = min(tmin, na.rm = T),      # the na.rm = T means to ignore missing values
-            tmax = max(tmax, na.rm = T)) %>%  # if we don't put that in, then if any year has
-  ungroup()                                   # a missing value for even one day, the tmax 
-                                              # or tmin for that year will be recorded as 
-                                              # NA (missing)
+  # the na.rm = T below means to ignore missing values
+  # if we don't put that in, then if any year has
+  # a missing value for even one day, the tmax
+  # or tmin for that year will be recorded as 
+  # NA (missing) 
+  summarize(tmin = min(tmin, na.rm = T),      
+            tmax = max(tmax, na.rm = T)) %>%  
+  ungroup()                                   
+                                              
+                                              
 ggplot(data = annual_extremes # the data
        ) +
   geom_point(aes(x = year, y = tmin, color = location, shape = "min")) +
   geom_point(aes(x = year, y = tmax, color = location, shape = "max")) +
-  xlim(1990,2000) + # set the range of the x-axis, part of the coordinate specification
+  xlim(1990,2000) +                  # set the x-axis to go from 1990-2000
   labs(x = "Year", y = "Temperature Anomaly") # labels for the coordinates
 ```
 
@@ -712,12 +756,16 @@ outside of the mapping. Here I specify the size and color of lines:
 ```{r fourth_plot, include=TRUE, warning=FALSE}
 ggplot(data = annual_extremes # the data
        ) +
-  geom_line(aes(x = year, y = tmin, group = location), color = "dark blue", size = 1) +
-  geom_line(aes(x = year, y = tmax, group = location), color = "dark red", size = 0.3) +
-  geom_point(aes(x = year, y = tmin, color = location, shape = "min"), size = 2) +
-  geom_point(aes(x = year, y = tmax, color = location, shape = "max"), size = 2) +
-  xlim(1990,2000) + # set the range of the x-axis, part of the coordinate specification
-  labs(x = "Year", y = "Temperature Anomaly") # labels for the coordinates
+  geom_line(aes(x = year, y = tmin, group = location), 
+            color = "darkblue", size = 1) +
+  geom_line(aes(x = year, y = tmax, group = location), 
+            color = "darkred", size = 0.3) +
+  geom_point(aes(x = year, y = tmin, color = location, shape = "min"), 
+             size = 2) +
+  geom_point(aes(x = year, y = tmax, color = location, shape = "max"), 
+             size = 2) +
+  xlim(1990,2000) + 
+  labs(x = "Year", y = "Temperature Anomaly")
 ```
 
 We can also take finer control of the axis formatting:
@@ -725,16 +773,40 @@ We can also take finer control of the axis formatting:
 ```{r fifth_plot, include=TRUE, warning=FALSE}
 ggplot(data = annual_extremes # the data
        ) +
-  geom_line(aes(x = year, y = tmin, group = location), color = "dark blue", size = 1) +
-  geom_line(aes(x = year, y = tmax, group = location), color = "dark red", size = 0.3) +
-  geom_point(aes(x = year, y = tmin, color = location, shape = "min"), size = 2) +
-  geom_point(aes(x = year, y = tmax, color = location, shape = "max"), size = 2) +
-  scale_x_continuous(limits=c(1990,2000), breaks = c(1990, 1992, 1994, 1996, 1998, 2000)) + 
-  # ^^^ the "breaks" parameter for an axis tells R where to put the labels
+  geom_line(aes(x = year, y = tmin, group = location), 
+            color = "darkblue", size = 1) +
+  geom_line(aes(x = year, y = tmax, group = location), 
+            color = "darkred", size = 0.3) +
+  geom_point(aes(x = year, y = tmin, color = location, shape = "min"), 
+             size = 2) +
+  geom_point(aes(x = year, y = tmax, color = location, shape = "max"), 
+             size = 2) +
+  scale_x_continuous(limits=c(1990,2000), 
+                     breaks = c(1990, 1992, 1994, 1996, 1998, 2000)) + 
+  #  ^^^ the "breaks" parameter for an axis tells R where to put the labels
   labs(x = "Year", y = "Temperature Anomaly") # labels for the coordinates
 ```
 
-And, of course, we could use `gather` to simplify this graph:
+And, of course, we could use `gather` to simplify this graph. Gather re-organizes
+the tibble with the data by combining the `tmin` and `tmax` columns into one 
+column called `value`, and adds a new column that I call `Temperature`, which
+gets the names for the columns. This way, each temperature measurements gets 
+its own row in the `value` columns, and each row has either `"tmax"` or 
+`"tmin"` in the `Temperature` column to tell us what kind of temperature 
+measurement it is.
+
+An advantage of organizing the data in this way is that we can then tell 
+`ggplot` to pick the aesthetics (like shape and size) for points and lines 
+automatically, depending on the `Temperature` column for that row.
+
+In the figure below, I also tell `ggplot` to use a special color palette instead 
+of R's default colors. Here, I use the `ColorBrewer` palette, designed by
+Cynthia Brewer to be easier for people with different kinds of color blindness
+to see.
+
+R has a number of different `scale_color_...` commands for choosing colors and 
+many users have published custom color and styling packages that you can install 
+and use to customize the way your plots look.
 
 ```{r sixth_plot, include=TRUE, warning=FALSE}
 annual_extremes_gathered = annual_extremes %>%
@@ -743,13 +815,14 @@ annual_extremes_gathered = annual_extremes %>%
 ggplot(data = annual_extremes_gathered # the data
        ) +
   geom_line( aes(x = year, y = value, color = location, size = Temperature)) +
-  geom_point(aes(x = year, y = value, color = location, shape = Temperature), size = 2) +
-  scale_size_manual(values = c(tmax = 0.5, tmin = 0.1)) + # set coordinates for "size"
-  scale_x_continuous(limits=c(1990,2000), breaks = c(1990, 1992, 1994, 1996, 1998, 2000)) + 
-  # ^^^ Set coordinates for the x-axis.
-  scale_color_brewer(palette = "Set1", name = "City") + # one of many options for setting the color palette
-                                                        # the Brewer palettes are very good for people with
-                                                        # color-blindness.
+  geom_point(aes(x = year, y = value, color = location, shape = Temperature), 
+             size = 2) +
+  # set coordinates for "size"
+  scale_size_manual(values = c(tmax = 1.0, tmin = 0.1)) + 
+  # Set coordinates for the x-axis.
+  scale_x_continuous(limits=c(1990,2000), 
+                     breaks = c(1990, 1992, 1994, 1996, 1998, 2000)) + 
+  scale_color_brewer(palette = "Set1", name = "City") + 
   labs(x = "Year", y = "Temperature Anomaly") # labels for the coordinates
 ```
 
