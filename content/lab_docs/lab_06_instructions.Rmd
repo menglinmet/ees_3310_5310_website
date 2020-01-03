@@ -24,9 +24,9 @@ library(tidyverse)
 library(lubridate)
 library(stringr)
 
-topic_approval_date = ymd("2017-10-05")
-due_date = ymd_hms("2017-10-17 23:59:00", tz="America/Chicago")
-presentation_due_date = ymd_hms("2017-10-15 14:10:00", tz="America/Chicago")
+topic_approval_date = ymd("2020-02-21")
+due_date = ymd_hms("2020-03-12 23:59:00", tz="America/Chicago")
+presentation_due_date = ymd_hms("2020-03-16T14:10:00", tz="America/Chicago")
 
 date_fmt = function(d) {
   strftime(d, format = "%b. %e") %>% str_trim() %>% str_replace_all(" +", " ")
@@ -53,7 +53,7 @@ to describe patterns in the data or it may be evaluating relationships between
 other variables not assesed in prior labs. To answer your question, you may use 
 the any of the data from lab 2, the MODTRAN model, the RRTM model, the GEOCARB 
 model, or a combination thereof. Please get your topic approved by either 
-Dr. Gilligan or Ms. Best by `r date_fmt(topic_approval_date)`. The final 
+Professor Gilligan or Ms. Best by `r date_fmt(topic_approval_date)`. The final 
 project is **due `r date_fmt(due_date)` at `r time_fmt(due_date)`**.
 
 ## Solo or Team Projects

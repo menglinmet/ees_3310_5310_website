@@ -27,9 +27,9 @@ You should have received an email invitation to join a shared folder
 [vanderbilt.box.com](https://vanderbilt.box.com). 
 Please accept this invitation and upload your presentation to the 
 "Independent-Project" folder inside the "EES-3310-5310-Lab-Presentations"
-folder before lab on Monday.
+folder before lab on Monday, Mar. 16.
 
-The final report will be due Wednesday Oct. 17. Turn in your final report
+The final report will be due Thursday, Mar. 12. Turn in your final report
 by committing and pushing your RMarkdown project to GitHub, including a final 
 version of the report knitted to a PDF or Word document.
 

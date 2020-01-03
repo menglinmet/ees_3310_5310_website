@@ -16,6 +16,7 @@
     "format_day_date_range", "format_handout_reading",
     "format_handout_reading_item", "format_month", "format_page_range",
     "format_textbook_reading", "format_textbook_reading_item", "format_wday",
+    "get_date_by_cal_id", "get_date_by_class_num", "get_date_by_key",
     "get_semestr_metadata", "get_semestr_tz", "default_semestr_metadata",
     "type2base", "type2idx", "type2prefix", "type2col",
     "col2idx", "col2type",
