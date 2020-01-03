@@ -2,7 +2,7 @@
 title: "Course Description"
 date: "2017-04-13T00:00:00"
 ---
-#### <a href="/files/EES_3310_5310_Syllabus.pdf" target="_blank"><i class="fa fa-file-pdf-o" style="margin-right:0.25em;"></i> **Printable syllabus**</a>
+#### [{{< PDF_LOGO >}} **Printable Syllabus**]("/files/EES_3310_5310_Syllabus.pdf)
 
 # **Course Description**
 
@@ -252,9 +252,9 @@ that will be due on {{< FINAL_EXAM_DATE >}}
 |                       |       |      |
 |:---------------------:|------:|-----:|
 | Class participation   |  5%   |      |
-| Midterm Exam          | 30%   |      |
-| Laboratory & Homework | 33%   |      |
-| Final Exam            | 32%   |      |
+| Midterm Exam          | 25%   |      |
+| Laboratory            | 45%   |      |
+| Final Exam            | 25%   |      |
 
 
 # **Final Note:**

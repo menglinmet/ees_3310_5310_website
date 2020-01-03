@@ -16,34 +16,34 @@
       <td><b>{{ .title }}<b/></td>
       {{ if .reading }}
       <td align="center"><a href="{{ .reading }}">
-          <i class="fa fa-book fa-lg"></i></a></td>
+          <i class="fas fa-book fa-lg"></i></a></td>
       {{ else }}
         <td align="center"><font color="f1f1f1">
-          <i class="fa fa-book fa-lg"></i></font></td>
+          <i class="far fa-book fa-lg"></i></font></td>
       {{ end }}
 
       {{ if .lecture }}
       <td align="center"><a href="{{ .lecture  }}">
-          <i class="fa {{ if $.Site.Params.fontAwesomePro -}} fa-presentation {{- else -}} fa-comment {{- end }} fa-lg"></i></a></td>
+          <i class="far {{ if $.Site.Params.fontAwesomePro -}} fa-presentation {{- else -}} fa-comment {{- end }} fa-lg"></i></a></td>
       {{ else }}
         <td align="center"><font color="f1f1f1">
-          <i class="fa {{ if $.Site.Params.fontAwesomePro -}} fa-presentation {{- else -}} fa-comment {{- end }} fa-lg"></i></font></td>
+          <i class="fal {{ if $.Site.Params.fontAwesomePro -}} fa-presentation {{- else -}} fa-comment {{- end }} fa-lg"></i></font></td>
       {{ end }}
 
       {{ if .lab }}
       <td align="center"><a href="{{ .Site.baseurl }}/lab/{{ .lab }}">
-          <i class="fa fa-flask fa-lg"></i></a></td>
+          <i class="fas fa-flask fa-lg"></i></a></td>
       {{ else }}
         <td align="center"><font color="f1f1f1">
-          <i class="fa fa-flask fa-lg"></i></font></td>
+          <i class="far fa-flask fa-lg"></i></font></td>
       {{ end }}
 
       {{ if .assignment }}
       <td align="center"><a href="{{ .Site.baseurl }}/assignment/{{ .assignment }}">
-          <i class="fa fa-keyboard-o fa-lg"></i></a></td>
+          <i class="far fa-keyboard fa-lg"></i></a></td>
       {{ else }}
         <td align="center"><font color="f1f1f1">
-          <i class="fa fa-keyboard-o fa-lg"></i></font></td>
+          <i class="fal fa-keyboard fa-lg"></i></font></td>
       {{ end }}
     </tr>
     {{ end }}

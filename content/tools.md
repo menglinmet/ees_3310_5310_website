@@ -27,11 +27,11 @@ title: Tools
 
 ### Installing {{< R_LOGO >}} {#installing-r}
 
-* Download R from <https://cran.rstudio.com/>
+* Download R from [https://cran.rstudio.com/](https://cran.rstudio.com/)
     * Windows: 
-        * Download and install the ["base distribution" of R 3.5.1](https://cran.rstudio.com/bin/windows/base/).
+        * Download and install the ["base distribution" of R 3.6.2](https://cran.rstudio.com/bin/windows/base/).
     * MacOS:
-        * Download and install [R version 3.5.1](https://cran.rstudio.com/bin/macosx/R-3.5.1.pkg)
+        * Download and install [R version 3.6.2](https://cran.rstudio.com/bin/macosx/)
     * Linux:
         * You should be able to install R from your Linux distribution's package manager:
             * `sudo apt-get install r-base r-base-dev` for Debian or Ubuntu
@@ -46,12 +46,12 @@ like `/usr/bin/git` then it's installed. If there is no response, then you
 need to install git.
   
 * Windows:
-    * Download and install git from <https://git-scm.com>
+    * Download and install git from [https://git-scm.com](https://git-scm.com)
         * Choose the default options for the installer.
     * Optionally, you might want to also install Tortoise Git, which integrates
       git into the Windows explorer, so you can execute git commands from the 
       context menu when you right-click on files or directories in the explorer.
-      You can download Tortoise Git from <https://tortoisegit.org/>
+      You can download Tortoise Git from [https://tortoisegit.org/](https://tortoisegit.org/)
     * Introduce yourself to git (you only need to do this once).
         1. Open a "git bash" window (git will give you the option to do this 
            when it finishes installing) or you can do so from the Windows Start 
@@ -66,7 +66,7 @@ need to install git.
            using your real name and email.
 * MacOS:
     * If git is not already installed on your computer, you can download and
-      install it from <https://git-scm.com>
+      install it from [https://git-scm.com](https://git-scm.com)
     * Introduce yourself to git (you only need to do this once).
         1. Open the Terminal
         2. Type the following at the terminal prompt:
@@ -98,27 +98,10 @@ It is important for git to knows your name and email address so it can
 keep track of who is editing files when you are working collaboratively and
 so it gives you credit for the files you have authored and edited.
 
-### Installing {{< LATEX_LOGO >}} {#installing-latex}
-
-It is optional to install LaTeX. You will be able to do all the work for the 
-labs without it, but if you do install it, it will give you the option to 
-produce nicely formatted PDF (Acrobat) output from your RMarkdown files
-(for lab reports, presentations, etc.).
-
-* Windows and MacOS: Install MikTeX from <https://miktex.org>. You probably
-  want to select the "private TeX installation" option ("only for me").
-  The Windows installer will also ask you what paper size you prefer, and
-  you probably want to choose "letter" instead of the default "A4" (for 
-  European users).
-* Linux: Install `texlive` from your distribution's package manager:
-    * `sudo apt-get install texlive` for Debian and Ubuntu, 
-    * `sudo yum install texlive` or `sudo dfm install texlive` for 
-  Fedora, Red Hat, etc.
-
 ### Installing {{< RSTUDIO_LOGO >}} {#installing-rstudio}
 
 * Go to the download page for the free desktop edition of RStudio at 
-  <https://www.rstudio.com/products/rstudio/download/#download> and
+  [https://www.rstudio.com/products/rstudio/download/#download](https://www.rstudio.com/products/rstudio/download/#download) and
   download the installer for your operating system. Windows, MacOS, 
   and the Debian, Ubuntu, Fedora, RedHat, and openSUSE editions of
   Linux are all supported.
@@ -131,18 +114,20 @@ produce nicely formatted PDF (Acrobat) output from your RMarkdown files
       a window that displays the R version, saying something like this:
       
       ```
-      R version 3.5.1 (2018-07-02) -- "Feather Spray"
-      Copyright (C) 2018 The R Foundation for Statistical Computing
+      R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night"
+      Copyright (C) 2019 The R Foundation for Statistical Computing
       Platform: x86_64-w64-mingw32/x64 (64-bit)
-
+      
       R is free software and comes with ABSOLUTELY NO WARRANTY.
       You are welcome to redistribute it under certain conditions.
       Type 'license()' or 'licence()' for distribution details.
-
+      
+        Natural language support but running in an English locale
+      
       R is a collaborative project with many contributors.
       Type 'contributors()' for more information and
       'citation()' on how to cite R or R packages in publications.
-
+      
       Type 'demo()' for some demos, 'help()' for on-line help, or
       'help.start()' for an HTML browser interface to help.
       Type 'q()' to quit R.
@@ -160,16 +145,45 @@ produce nicely formatted PDF (Acrobat) output from your RMarkdown files
           `.Rnw` files, and choose `pdfLaTeX` for typesetting LaTeX files into
           PDF.
   
+### Installing {{< LATEX_LOGO >}} {#installing-latex}
 
+**It is optional to install LaTeX.** You will be able to do all the work for the 
+labs without it, but if you do install it, it will give you the option to 
+produce nicely formatted PDF (Acrobat) output from your RMarkdown files
+(for lab reports, presentations, etc.).
+
+* Windows and MacOS: Install MikTeX from [https://miktex.org](https://miktex.org). You probably
+  want to select the "private TeX installation" option ("only for me").
+  The Windows installer will also ask you what paper size you prefer, and
+  you probably want to choose "letter" instead of the default "A4" (for 
+  European users).
+* Linux: Install `texlive` from your distribution's package manager:
+    * `sudo apt-get install texlive` for Debian and Ubuntu, 
+    * `sudo yum install texlive` or `sudo dfm install texlive` for 
+  Fedora, Red Hat, etc.
+* An alternative that works on all three operating systems is to install the 
+  `tinytex` package for R. From the RStudio console, you would type the following:
+  
+    ```
+    install.packages('tinytex')
+    tinytex::install_tinytex()
+    ```
+    
+    If you want to uninstall `tinytex` later, you can just type this
+    command at the RStudio console:
+    
+    ```
+    tinytex::uninstall_tinytex()`
+    ```
 
 
 #### Getting a GitHUB {{< GITHUB_LOGO >}} account {#github-account}
 
-* Go to <https://github.com> and register for a free account
-* After you have set up your account, go to <https://education.github.com/students> and register your account for the free extras you can get as a student.
+* Go to [https://github.com](https://github.com) and register for a free account
+* After you have set up your account, go to [https://education.github.com/students](https://education.github.com/students) and register your account for the free extras you can get as a student.
 * Send an email to Prof. Gilligan and {{< TA_FORMAL_NAME >}} to let us know your GitHUB account name.
   You can send the email from 
-  [this link](mailto:{{< PROF_EMAIL_ADDRESS >}},{{< TA_EMAIL_ADDRESS >}}?subject=EES 3310 Github Account Name)
+  {{< mailto-prof-and-ta subj="EES 3310/5310 GitHub account" >}}this link{{< /mailto-prof-and-ta >}}
 
 ## Resources for Learning More {#resources}
 
@@ -177,22 +191,22 @@ produce nicely formatted PDF (Acrobat) output from your RMarkdown files
 
 * Our principal resource will be the book, 
   _[R for Data Science](https://r4ds.had.co.nz/)_. You can buy
-  a printed copy or use the free web version at <https://r4ds.had.co.nz/>
+  a printed copy or use the free web version at [https://r4ds.had.co.nz/](https://r4ds.had.co.nz/)
 * RStudio also has very useful "Cheat Sheets" that you can access from the
   help menu. These are two-page PDF files that explain the basics of things
   you may want to do with R:
-      * Manipulating tibbles and data frames with `dplyr`
-      * Visualizing data (making graphs and charts) with `ggplot2`
-      * Manipulating lists and vectors with `purrr`
-      * Using RMarkdown
-      * There is also a cheatsheet for the RStudio IDE (Integrated Development
-        Environment), which explains how to do things with RStudio, with a list
-        of keyboard shortcuts for many common tasks.
-      * There are several additional cheatsheets that aren't listed on the 
-        Help menu, but you can see them if you click on 
-        "[Browse Cheatsheets...](https://www.rstudio.com/resources/cheatsheets/)"
-        at the bottom of the Cheatsheet menu or visit 
-        <https://www.rstudio.com/resources/cheatsheets/>
+  * Manipulating tibbles and data frames with `dplyr`
+  * Visualizing data (making graphs and charts) with `ggplot2`
+  * Manipulating lists and vectors with `purrr`
+  * Using RMarkdown
+  * There is also a cheatsheet for the RStudio IDE (Integrated Development
+    Environment), which explains how to do things with RStudio, with a list
+    of keyboard shortcuts for many common tasks.
+  * There are several additional cheatsheets that aren't listed on the 
+    Help menu, but you can see them if you click on 
+    "[Browse Cheatsheets...](https://www.rstudio.com/resources/cheatsheets/)"
+    at the bottom of the Cheatsheet menu or visit 
+    [https://www.rstudio.com/resources/cheatsheets/](https://www.rstudio.com/resources/cheatsheets/)
 
 ### {{< GIT_LOGO >}} and GitHUB {{< GITHUB_LOGO >}} Resources {#git-resources}
 
