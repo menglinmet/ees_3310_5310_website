@@ -357,7 +357,7 @@ laboratory, but we will focus on three important aspects:
 # Software Tools
 
 All the software you will need is installed on the computers in our laboratory
-classroom (SC 2200, right next to the Science and Engineering Library).  If you
+classroom (Wilson 120).  If you
 want to install it on your personal computer, all the software we use is free
 and open source.
 

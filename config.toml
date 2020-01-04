@@ -153,7 +153,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "_scripts$", "_
   midtermDate = "2020-02-19"
   finalExamDate = "2020-04-29"
   background = "img/BoxcarPair.jpg"
-  backgroundCredit = "[NASA Terra/CERES](https://terra.nasa.gov/news/study-long-term-global-warming-needs-external-drivers)"
+  backgroundCredit = "[NASA Terra/CERES](https://terra.nasa.gov/news/study-long-term-global-warming-needs-external-drivers \"NASA: CERES Clouds and the Earth's Radiant Energy System. Radiant longwave energy (left) and reflected sunlight (right)\")"
   math = "true"
   backgroundColor = "white"
   backgroundSize = "cover"
@@ -168,7 +168,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "_scripts$", "_
 
   [params.lectures]
     times = "MWF 9:10--10:00"
-    classroom = "SC 1120 (Basement of the Math building)"
+    classroom = "Stevenson 5722 (7th floor of Building #5)"
 
   [params.lab]
     times = "Mon. 2:10--5:00"
@@ -180,9 +180,9 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "_scripts$", "_
     title = "Prof."
     email = "jonathan.gilligan@vanderbilt.edu"
     phone = "322-2420"
-    url = "www.jonathangilligan.org"
+    url = "https://www.jonathangilligan.org"
     office = "Stevenson 5725 (7th floor of building #5)"
-    officeHours = "Mon. 10:10--11:00, Thu. 10:00--11:00, or by appointment"
+    officeHours = "Tues. 2:00--3:00, Wed. 10:10--11:00, or by appointment"
 
   [params.ta]
     hasTA = true
@@ -191,7 +191,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "_scripts$", "_
     title = "Ms."
     email = "kelsea.b.best@vanderbilt.edu"
     office = "Stevenson 5703A (7th floor of building #5)"
-    officeHours = "Wed. 3:00--4:00, Fri. 10:10--11:00, or by appointment"
+    officeHours = "TBA"
 
   [params.assignments]
     labs = true
@@ -202,3 +202,4 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "_scripts$", "_
     copyright = "Copyright 2020, <a href=\"https://www.jonathangilligan.org\" target=\"_blank\">Jonathan Gilligan</a>."
     licenseIcon = "/img/cc-by.svg"
     licenseURL = "https://creativecommons.org/licenses/by/4.0/"
+    licenseTitle = "Creative Commons Attribution License"

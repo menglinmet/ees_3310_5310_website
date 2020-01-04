@@ -315,15 +315,30 @@ generate_assignments <- function(semester) {
 
   context <- list(type = "semester schedule")
 
-  selection <- quos(date, title = topic, lecture = page_lecture, topic)
-  if ("page_reading" %in% names(schedule)) {
+  cols <- names(schedule)
+
+  selection <- quos(date, title = topic, lecture = page_lecture, topic,
+                    class_num)
+  if ("page_reading" %in% cols) {
     selection <- c(selection, reading = quo(page_reading))
   }
-  if ("page_hw" %in% names(schedule)) {
-    selection <- c(selection, assignment = quo(page_hw))
+  if ("page_hw" %in% cols) {
+    schedule <- schedule %>%
+      dplyr::left_join(
+        dplyr::select(semester$hw_asgt, hw_num, hw_title = title,
+                      hw_is_numbered = is_numbered, key_hw = hw_key),
+        by = "key_lab")
+    selection <- c(selection, assignment = quo(page_hw),
+                   quos(hw_num, hw_title))
   }
-  if ("page_lab" %in% names(schedule)) {
-    selection <- c(selection, lab = quo(page_lab))
+  if ("page_lab" %in% cols) {
+    schedule <- schedule %>%
+      dplyr::left_join(
+        dplyr::select(semester$lab_asgt, lab_num, lab_title = title,
+                      key_lab = lab_key),
+        by = "key_lab")
+    selection <- c(selection, lab = quo(page_lab),
+                   quos(lab_num, lab_title))
   }
 
 

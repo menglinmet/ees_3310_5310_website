@@ -2,7 +2,7 @@
 title: "Policies"
 date: "2017-04-13T00:00:00"
 ---
-#### <a href="/files/EES_3310_5310_Syllabus.pdf" target="_blank"><i class="fa fa-file-pdf-o" style="margin-right:0.25em;"></i> **Printable syllabus**</a>
+#### <a href="/files/EES_3310_5310_Syllabus.pdf" target="_blank"><i class="far fa-file-pdf" style="margin-right:0.25em;"></i> **Printable syllabus**</a>
 
 # **Assignment policy**
 
@@ -31,7 +31,8 @@ for which it is assigned.**
 
 #### Preparation
 
-**You should the lab description and do any preparatory activities before
+Except for the first day of class, 
+**You should the read lab description and do any preparatory activities before
 coming to lab**
 
 #### Reports
@@ -41,8 +42,9 @@ to a Word document or PDF file. To turn in your report, you must:
 
 * Clone the assignment from {{< GITHUB >}} classroom
 * Use the RMarkdown template to complete the exercises
-* Successfully compile the RMarkdown into a Word or PDF document
-* Commit your work (including the RMarkdown **and** the Word or PDF output)
+* Successfully knit the RMarkdown into a Word or PDF document
+* Use git to commit your work (including the RMarkdown **and** the Word or 
+  PDF output)
 * Push your committed work to {{< GITHUB >}} before the deadline.
 
 
