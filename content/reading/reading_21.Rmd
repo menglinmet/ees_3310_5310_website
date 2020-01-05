@@ -20,7 +20,7 @@ make_rmd_output_format(FALSE):
 
 ### Required Reading (everyone):
 
-* Climate Casino, 6--9.
+* Climate Casino, Ch. 6--9.
 
 ### Reading Notes:
 
