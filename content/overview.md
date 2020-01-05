@@ -2,7 +2,7 @@
 title: "Course Description"
 date: "2017-04-13T00:00:00"
 ---
-#### [{{< PDF_LOGO >}} **Printable Syllabus**]("/files/EES_3310_5310_Syllabus.pdf)
+#### [{{< PDF_LOGO >}} **Printable Syllabus**](/files/EES_3310_5310_Syllabus.pdf "PDF syllabus")
 
 # **Course Description**
 
