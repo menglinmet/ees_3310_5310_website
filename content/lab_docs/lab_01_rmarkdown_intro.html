@@ -337,17 +337,20 @@ You use <code>_{}</code> and <code>^{}</code> with whatever you want to appear i
 or superscript inside the braces <code>{}</code>:
 <code>$I_{out} = \sigma T^{4}$</code> appears as <span class="math inline">\(I_{out} = \sigma T^{4}\)</span></p>
 <p>You can include square root signs using <code>\sqrt</code>: <code>$x = \sqrt{y \times z}$</code> appears
-as <span class="math inline">\(x = \sqrt{y \times z}\)</span>. You can do other roots like this:
-<code>$T = \sqrt[4]{I_{out} / \sigma}$</code> appears as <span class="math inline">\(T = \sqrt[4]{I_{out} / \sigma}\)</span>.</p>
+as <span class="math inline">\(x = \sqrt{y \times z}\)</span>. You can do other roots like this:</p>
+<pre><code>$T = \sqrt[4]{I_{out} / \sigma}$</code></pre>
+<p>appears as
+<span class="math inline">\(T = \sqrt[4]{I_{out} / \sigma}\)</span>.</p>
 <p>To get display math, which appears on its own line, you use double dollar signs.
 This is useful when you want to write a mathematical expression that is much taller
 than a line of text. In display mode you can display fractions using
-<code>\frac{numerator expression}{denominator expression}</code>, as in this example:
-<code>$$\varepsilon \sigma T^4 = \frac{(1 - \alpha)}{4} \times I_{solar}$$</code> appears as</p>
-<p><span class="math display">\[ \varepsilon \sigma T^4 = \frac{(1 - \alpha)}{4} \times I_{solar}\]</span>
-<code>$$T_{bare rock} = \sqrt[4]{\frac{(1 - \alpha)}{4 \varepsilon \sigma} \times I_{solar}}$$</code>
-appears as</p>
-<p><span class="math display">\[T_{bare rock} = \sqrt[4]{\frac{(1 - \alpha)}{4 \varepsilon \sigma} \times I_{solar}}\]</span></p>
+<code>\frac{numerator expression}{denominator expression}</code>, as in this example:</p>
+<pre><code>$$\varepsilon \sigma T^4 = \frac{(1 - \alpha)}{4} \times I_{solar}$$</code></pre>
+<p>appears as
+<span class="math display">\[ \varepsilon \sigma T^4 = \frac{(1 - \alpha)}{4} \times I_{solar}\]</span></p>
+<pre><code>$$T_{bare rock} = \sqrt[4]{\frac{(1 - \alpha)}{4 \varepsilon \sigma} \times I_{solar}}$$</code></pre>
+<p>appears as
+<span class="math display">\[T_{bare rock} = \sqrt[4]{\frac{(1 - \alpha)}{4 \varepsilon \sigma} \times I_{solar}}\]</span></p>
 <p>There is a lot more to the LaTeX notation that you can use in
 RMarkdown, but what I have shown here is sufficient for everything you will
 do in this class.
@@ -477,8 +480,6 @@ inserting commas to separate thousands, millions, etc.</p>
 <p>The other script allows you to produce a layer diagram, similar to the ones in
 Chapter 3 of <em>Global Warming: Understanding the Forecast</em>.</p>
 <pre class="r"><code>make_layer_diagram(2)</code></pre>
-<pre><code>## Warning: `data_frame()` is deprecated, use `tibble()`.
-## This warning is displayed once per session.</code></pre>
 <p><img src="/lab_docs/lab_01_rmarkdown_intro_files/figure-html/example_layer_diagram-1.png" width="672" /></p>
 </div>
 </div>

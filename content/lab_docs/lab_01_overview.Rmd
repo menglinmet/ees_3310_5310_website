@@ -55,7 +55,7 @@ The laboratories in this course are computational. My goals for the laboratory s
         is an exception and you should read the documentation  for the first lab
         during the following week, but **do be sure to read the documents for
         lab #2 before you come to lab on
-        Monday, Jan. 13
+        Monday, Jan. 13**
     * Accept the assignment on GitHub Classroom (click on the Assignment link in
       the course web site). If you will be bringing your own computer to the
       lab, you may want to clone the assignment onto your own computer before
@@ -64,7 +64,7 @@ The laboratories in this course are computational. My goals for the laboratory s
       when you log in at the beginning of class.
       
 * In the first lab, on 
-* Monday, Jan. 6, 
+  Monday, Jan. 6, 
   Ms. Best will explain all of the different software we
   will be using and will walk you through all the steps of using Git to work
   with your assignments.

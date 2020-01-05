@@ -339,18 +339,26 @@ or superscript inside the braces `{}`:
 
 You can include square root signs using `\sqrt`: `$x = \sqrt{y \times z}$` appears
 as $x = \sqrt{y \times z}$. You can do other roots like this: 
-`$T = \sqrt[4]{I_{out} / \sigma}$` appears as $T = \sqrt[4]{I_{out} / \sigma}$.
+```
+$T = \sqrt[4]{I_{out} / \sigma}$
+``` 
+appears as 
+$T = \sqrt[4]{I_{out} / \sigma}$.
 
 To get display math, which appears on its own line, you use double dollar signs. 
 This is useful when you want to write a mathematical expression that is much taller 
 than a line of text. In display mode you can display fractions using 
 `\frac{numerator expression}{denominator expression}`, as in this example:
-`$$\varepsilon \sigma T^4 = \frac{(1 - \alpha)}{4} \times I_{solar}$$` appears as
-
-$$ \varepsilon \sigma T^4 = \frac{(1 - \alpha)}{4} \times I_{solar}$$
-`$$T_{bare rock} = \sqrt[4]{\frac{(1 - \alpha)}{4 \varepsilon \sigma} \times I_{solar}}$$`
+```
+$$\varepsilon \sigma T^4 = \frac{(1 - \alpha)}{4} \times I_{solar}$$
+``` 
 appears as
+$$ \varepsilon \sigma T^4 = \frac{(1 - \alpha)}{4} \times I_{solar}$$
 
+```
+$$T_{bare rock} = \sqrt[4]{\frac{(1 - \alpha)}{4 \varepsilon \sigma} \times I_{solar}}$$
+```
+appears as
 $$T_{bare rock} = \sqrt[4]{\frac{(1 - \alpha)}{4 \varepsilon \sigma} \times I_{solar}}$$
 
 There is a lot more to the LaTeX notation that you can use in 

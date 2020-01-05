@@ -338,7 +338,7 @@ build_assignments <- function(schedule, semester, copy_slides = TRUE) {
   invisible(schedule)
 }
 
-prepare_schedule <- function(semester, copy_slides = TRUE) {
+prepare_schedule <- function(semester) {
   schedule <- init_schedule(semester)
   tmp <- schedule_strip_finals(schedule, semester)
   schedule <- tmp$schedule
@@ -352,13 +352,14 @@ prepare_schedule <- function(semester, copy_slides = TRUE) {
 
   set_schedule_globals(schedule, semester)
 
-  schedule <- build_assignments(schedule, semester, copy_slides = copy_slides)
-
   invisible(schedule)
 }
 
 generate_assignments <- function(semester) {
   schedule <- prepare_schedule(semester)
+
+  schedule <- build_assignments(schedule, semester)
+
   message("Done building assignments...")
 
   g_schedule <<- schedule

@@ -351,31 +351,114 @@ The final exam will be cumulative over all the material covered during the term.
 %\clearpage
 \section{Honor Code:}
 This course, like all courses at Vanderbilt, is conducted under the Honor Code.
-
-I encourage you to to seek help from me, from \TaTitle,
-or from other classmates or friends in your studying. I also encourage working together
-on lab and homework assignments: you may talk with your friends and classmates about
-those assignments, compare notes on how you are working a problem, and you
-may look at your classmates' work.
-But you must work through the problems yourself
-in the work you turn in: \textbf{Even if you have discussed the solution with others you must
-work through the steps yourself and express the answers in your own words. You may not
-simply copy someone else's answer.}
-
-Tests are different from homework and labs: \textbf{%
-%all work you turn in and
-all work on tests and exams must be entirely your own}.
-\textbf{You may not work together with anyone or receive any help from anyone but me
-% or \TaTitle\
-on exams and tests (this includes take-home exams and tests)}.
-
-\iffalse
-Writing assignments will contain instructions how the honor code applies.
+\begin{description}
+\item[Studying:] As you study for this class, I encourage you to to seek help from me%
+\ifTA
+, from \TaTitle,
+\else
+\
 \fi
+or from other classmates or friends.
+\item[Lab Assignments:] I encourage working together, and in most lab assignments
+you will be explicitly told to work with a partner. I also encourage you to
+talk with other classmates, as well as friends and acquaintances outside of
+class. You may discuss assignments, compare notes on how you are working a
+problem, and you may look at your classmates' work on homework assignments.
+But you must work through the problems yourself in the work you turn in:
+\textbf{Even if you have discussed the solution with others you must
+work through the steps yourself and express the answers in your own words.
+You may not simply copy someone else's answer.}
+\item[Tests and Exams:] Tests are different from homework and labs:
+\textbf{all work on tests and exams must be entirely your own}.
+\textbf{You may not work together with anyone or receive any help from anyone
+but me%
+\ifTA
+or \TaTitle
+\fi
+\ on exams and tests (this includes the take-home final exam)}.
+\end{description}
+
 If you ever
 have questions about how the Honor Code applies to your work
-in this course, please ask me.
+in this course, please ask me%
+\ifTA
+\ or \TaTitle
+\fi
+.
 \textbf{Uncertainty about the Honor Code does not excuse a violation.}
+
+\subsection{Research Integrity}
+
+Beyond the University Honor Code, this course also emphasizes the scientific
+ethical principles of research integrity.
+Honesty is a very important part of research integrity, but it is only one part.
+Clearly, science cannot work if scientists are not scrupulously honest about
+the results of their research and there is no tolerance for scientists who
+lie. But research integrity goes much farther. Real science happens in the
+context of a scientific community and the integrity of this community is
+critical. The ethical principles of research
+integrity have grown over the centuries to protect the integrity of the
+scientific ommunity. Indeed, the mathematician and poet Jacob Bronowski wrote,
+in his book, \emph{Science and Human Values\/} (Harper \& Row, 1956) that what makes
+science work and makes it great is much less about the intellectual brilliance
+and skills of individual scientists than about the ethical commitment to truth
+and human dignity by the community of scientists.
+
+Science does not proceed only by making leaps of discovery
+but also by making useful mistakes and then discovering and correcting the
+errors in those mistakes. Because of this, scientific integrity requires
+scientists to be extremely transparent and forthcoming about all the details of
+their research. It is not enough to sincerely report a discovery or an idea in
+good faith, but one must also provide others with the tools to critically
+examine that discovery and idea, and if a scientist learns, even many years
+later, that a report or discovery contained an error, they must
+correct the error and actively inform other scientists about it.
+
+When a scientist discovers an error in their past work and does not promptly
+and actively correct it, other scientists may continue to rely on the truth of
+that result and thus waste time, effort, and money.
+Thus, both making one's own work available to others so they can have the
+opportunity to find errors, and also to promptly and publicly report any
+errors that one finds in one's own work are two critical pieces of research
+integrity.
+
+Another aspect also involves the communal nature of science: None of us works
+in isolation, and every scienntist's work builds on work by others.
+There are two reasons why it is critical to acknowledge the role of others' work
+in our own research reports: First, it is important to give others the credit
+for their contributions to our shared body of sceintific knowledge. Secondly,
+it is important for others to know where the data and methods we use come from.
+If I use someone else's data or methods for an analysis and it later turns out
+that there were problems with their data or methods, then it is important for
+people reading my work to be able to examine my work and evaluate how those
+errors might affect my own results.
+
+I want to emphasize that these considerations about research integrity are not
+just negative things. They are very positive, which is why so many researchers
+are embracing them.
+\textbf{By being transparent and forthcoming, and by encouraging
+others to reproduce your research results, you can enhance your reputation},
+both for honesty (you show that you have nothing to hide) and for being a
+good citizen of the scientific community by making it easy for other researchers
+to learn from your work and build on it to make new discoveries and build
+new and more powerful tools for analyzing data.
+
+Where this is relevant to this course on Global Climate Change is in our
+practice of reproducible research in the laboratory portion of the course.
+Making our work, however humble, fully open and transparent so that others
+may examine it, criticize it, or build on it to develop new tools and make
+new discoveries is an essential part of research integrity.
+
+In your lab reports it will be important for you to document where the data you
+worked with comes from (this will mostly be clearly spelled out in the
+assignments) and what methods you used to analyze it. Using the tools of R and
+RMarkdown will make it easy to almost automatically include this kind of
+transparency in your reports. As you do this throughout this course, you will
+learn the best practices adopted by the scientific community and develop habits
+of openness, transparency, and reproducibility for any research you do in the
+future in any area of society, whether in science, journalism, business, or
+other endeavors.
+
 \section{Final Note:}
 I have made every effort to plan a busy, exciting, and instructive semester.
 I may find during the term that I need to revise the syllabus to give more time
@@ -421,7 +504,10 @@ In 2017, Professor Gilligan and Professor Michael Vandenbergh shared
 the Morrison Prize for the highest-impact paper on sustainability law and
 policy published in the previous year. Professors Gilligan and Vandenbergh
 have developed this work into a book, \emph{Beyond Politics: The Private
-Governance Approach to Climate Change\/} (Cambridge University Press, 2017).
+Governance Approach to Climate Change\/} (Cambridge University Press, 2017),
+which received a Chancellor's Research Award from Vanderbilt and was praised
+by \emph{Environmental Forum\/} as one of the most important books on the
+environment of the last 50 years.
 
 Apart from his academic work, Professor Gilligan dabbles in writing for the
 theater. His stage adaptation of Nathaniel Hawthorne's \emph{The Scarlet Letter},
@@ -429,7 +515,12 @@ co-written with his mother Carol Gilligan, has been staged at The Culture
 Project in New York City, starring
 Marisa Tomei, Ron Cephas Jones, and Bobby Cannavale, and was later performed
 at Prime Stage Theatre, Pittsburgh and in a touring production by The National
-Players.
+Players. Most recently, it was performed as the principal fall 2019 production
+of the Fullerton College Classic Dramatic Series in Fullerton CA,
+directed by Michael Mueller,
+and is currently in repertory for the 2019--2020 season of the
+Classic Repertory Company in Watertown, MA.
+
 Prof.\ Gilligan and Carol Gilligan also wrote the libretto for an opera,
 \emph{Pearl}, in collaboration composer Amy Scurria, and producer/conductor
 Sara Jobin, which was performed at Shakespeare \& Company in Lenox MA,
@@ -469,7 +560,7 @@ detailed daily assignments.
 \setlength{\lightrulewidth}{0.05pt}
 \begin{center}
 % latex table generated in R 3.6.2 by xtable 1.8-4 package
-% Sun Jan 05 04:25:58 2020
+% Sun Jan 05 15:56:36 2020
 \begin{tabular}{l@{~}c@{~}r>{\raggedright}m{2.6in}>{\centering}m{2in}c}
   \toprule
   \multicolumn{3}{c}{\bfseries Date} & \multicolumn{1}{c}{\bfseries Topic} &\multicolumn{1}{c}{\bfseries Reading} &\\
@@ -528,7 +619,7 @@ Fri., & Feb. &  28 & Policy Myths & \emph{\ShortPielke\/} Ch.~2, \emph{\ShortNor
 
 \begin{center}
 % latex table generated in R 3.6.2 by xtable 1.8-4 package
-% Sun Jan 05 04:25:59 2020
+% Sun Jan 05 15:56:36 2020
 \begin{tabular}{l@{~}c@{~}r>{\raggedright}m{2.6in}>{\centering}m{2in}c}
   \toprule
   \multicolumn{3}{c}{\bfseries Date} & \multicolumn{1}{c}{\bfseries Topic} &\multicolumn{1}{c}{\bfseries Reading} &\\
