@@ -8,6 +8,10 @@ format_textbook_reading_item <- function(reading_item) {
     output <- stringr::str_c(output, ", ", reading_item$pages)
   }
   output <- output %>% stringr::str_trim() %>% add_period()
+  if (! is.na(reading_item$item_extra)) {
+    extra <- stringr::str_trim(reading_item$item_extra) %>% add_period()
+    output <- output %>% cat_nl(extra)
+  }
   output
 }
 

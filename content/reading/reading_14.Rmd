@@ -21,7 +21,9 @@ make_rmd_output_format(FALSE):
 ### Required Reading (everyone):
 
 * Understanding the Forecast, Ch. 7, p. 84.
+  (You already read this, but please review it again).
 * Understanding the Forecast, Ch. 8, pp. 93--97.
+  (You already read this, but please review it again).
 * Understanding the Forecast, Ch. 11, pp. 147--149.
 * Handout: [Jonathan Gilligan, "Handout on Isotopes,"](/files/reading_handouts/Isotope_Handout.pdf){target="_blank"}.
 

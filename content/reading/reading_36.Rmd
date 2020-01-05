@@ -22,6 +22,7 @@ make_rmd_output_format(FALSE):
 
 * The Climate Fix, Ch. 5, pp. 117--132.
 * Climate Casino, Ch. 13.
+  Read the whole chapter, but focus especially on pp. 152--156.
 * Handout: [G.C. Hegerl and S. Solomon, "Risks of Climate Engineering," Science **325**, 955 (2009)](http://science.sciencemag.org.proxy.library.vanderbilt.edu/content/325/5943/955){target="_blank"}.
 
 ### Reading Notes:
@@ -38,5 +39,3 @@ We will discuss geoengineering as an alternative to rapidly cutting greenhouse g
 * Where Pielke talks about "Plan B," Nordhaus describes geoengineering as "**salvage therapy**" for the planet. How does his account of solar radiation management compare to Pielke's? Where do the two agree and where do they disagree?
 * Nordhaus, as an economist, focuses a lot on costs, comparing the costs and the benefits of any policy. How does he asses the costs and benefits of geoengineering?
 * The short paper by Hegerl and Solomon presents solar radiation management geoengineering from the perspective of two top climate scientists. As you read their thoughts, which focus almost entirely on the scientific aspects, how do you think of this in comparison to the policy focus in Nordhaus's and Pielke's discussions?
-
-Read the all of Ch. 13 in _Climate Casino_, but focus especially on pp. 152--156
