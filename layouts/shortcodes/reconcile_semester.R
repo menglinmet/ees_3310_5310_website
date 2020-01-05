@@ -148,6 +148,7 @@ check_asgt <- function(asgt, items, type, assertion = FALSE) {
 }
 
 renumber_cal <- function(cal, type) {
+  metadata <- get_semestr_metadata()
   qnum_col <- make_qpcol("num", type, FALSE)
   base <- type2base(type)
   mod_cancelled <- metadata$mods_tbl['cancelled']
@@ -243,8 +244,46 @@ renumber_asgt <- function(asgt, items, links, type) {
   asgt
 }
 
-reconcile_semester_db <- function(db_file) {
+reconcile_semester_db <- function(db_file, backup = TRUE, overwrite = FALSE,
+                                  new_db_name = NULL, backup_db_name = NULL,
+                                  dry_run = FALSE) {
   tz <- get_semestr_tz()
+
+    if (is.null(new_db_name)) {
+      new_db_name <- db_name
+    }
+
+    if (! overwrite && ! dry_run) {
+      assertthat::assert_that(! file.exists(new_db_name),
+                              msg = stringr::str_c("New database file ",
+                                                   new_db_name,
+                                                   " exists and overwrite is FALSE"))
+    }
+
+  if (backup && ! dry_run) {
+    if (is.null(backup_db_name)) {
+      db_dir <- dirname(db_file)
+      db_base <- basename(db_file)
+      db_ext <- stringr::str_extract(db_base, "\\.[A-Za-z0-9_\\-]+$")
+      db_base <- stringr::str_replace(db_base, "\\.[A-Za-z0-9_\\-]+$", "")
+      idx <- 0
+      repeat {
+        tmp <- stringr::str_c(db_base, "_bak")
+        if (idx > 0) {
+          tmp <- stringr::str_c(tmp, sprintf("%03d", idx))
+        }
+        tmp <- stringr::str_c(tmp, db_ext)
+        backup_db_name <- file.path(db_dir, tmp)
+        if (! file.exists(backup_db_name)) {
+          break
+        }
+        idx <- idx + 1
+      }
+    }
+    file.copy(db_file, backup_db_name, overwrite = TRUE,
+              copy.mode = TRUE, copy.date = TRUE)
+  }
+
   db <- DBI::dbConnect(RSQLite::SQLite(), db_file, flags = RSQLite::SQLITE_RO)
 
   md_1 <- dplyr::tbl(db, "metadata") %>% dplyr::collect()
@@ -266,23 +305,25 @@ reconcile_semester_db <- function(db_file) {
   rev_mods_tbl <- purrr::set_names(names(mods_tbl), as.character(mods_tbl))
 
   metadata <- list(type2idx_tbl = type2idx_tbl, type2col_tbl = type2col_tbl,
-                   idx2type     = idx2type_tbl, col2type     = col2type_tbl,
-                   idx2col      = idx2col_tbl,  col2idx      = col2idx_tbl,
-                   prefixes     = prefixes_tbl,
+                   idx2type_tbl = idx2type_tbl, col2type_tbl = col2type_tbl,
+                   idx2col_tbl  = idx2col_tbl,  col2idx_tbl  = col2idx_tbl,
+                   prefixes_tbl = prefixes_tbl,
                    bases_tbl    = bases_tbl,   rev_base_tbl  = rev_base_tbl,
                    mods_tbl     = mods_tbl,    rev_mods_tbl  = rev_mods_tbl)
   assign("metadata", metadata, envir = .globals)
 
-  for (t in c("calendar",
-              "due_links",     "due_dates",
-              "rd_links",                   "rd_items",  "rd_src",  "class_topics",
-              "hw_links",      "hw_asgt",   "hw_items",  "hw_sol",  "hw_topics",
-              "lab_links",     "lab_asgt",  "lab_items", "lab_sol", # "lab_topics",
-              "exam_links",    "exams",
-              "holiday_links", "holidays",
-              "event_links",   "events",
-              "notices",
-              "text_codes")) {
+  table_lst <- c("calendar",
+                 "due_links",     "due_dates",
+                 "rd_links",                   "rd_items",  "rd_src",  "class_topics",
+                 "hw_links",      "hw_asgt",   "hw_items",  "hw_sol",  "hw_topics",
+                 "lab_links",     "lab_asgt",  "lab_items", "lab_sol", # "lab_topics",
+                 "exam_links",    "exams",
+                 "holiday_links", "holidays",
+                 "event_links",   "events",
+                 "notices",
+                 "text_codes")
+
+  for (t in table_lst) {
     df <- dplyr::tbl(db, t) %>% dplyr::collect()
     assign(t, df)
   }
@@ -363,11 +404,38 @@ reconcile_semester_db <- function(db_file) {
   cal_holiday <- cal_holiday %>% add_key_prefix("holiday")
   cal_event   <- cal_event   %>% add_key_prefix("event")
 
-  cal <- dplyr::bind_rows(cal_class, cal_hw, cal_lab, cal_due, cal_exam,
+  calendar <- dplyr::bind_rows(cal_class, cal_hw, cal_lab, cal_due, cal_exam,
                           cal_holiday, cal_event) %>%
     dplyr::arrange(date, cal_id) %>%
     dplyr::mutate(week = 1 + (class_num - 1) %/% 3) %>%
     dplyr::select(cal_id, date, cal_key, cal_type, class_num, week,
                   cancelled, make_up, dplyr::everything())
 
+
+  metadata <- md_1
+  base_mods <- md_2
+  frames <- c(table_lst, "metadata", "base_mods")
+
+  ret_vals <- list()
+  for (df_n in frames) {
+    df <- get(df_n)
+    ret_vals[[df_n]] <- df
+  }
+
+
+  if (! dry_run) {
+    db <- DBI::dbConnect(RSQLite::SQLite(), new_db_name,
+                         flags = RSQLite::SQLITE_RWC)
+    on.exit(if (DBI::dbIsValid(db)) DBI::dbDisconnect(db))
+
+    for (df_n in frames) {
+      df <- get(df_n)
+      dplyr::copy_to(db, df = df, name = df_n,
+                     overwrite = TRUE, temporary = FALSE)
+    }
+
+    DBI::dbDisconnect(db)
+  }
+
+  invisible(ret_vals)
 }

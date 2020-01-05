@@ -62,23 +62,25 @@ load_semester_db <- function(db_file, root_crit = NULL) {
   md_1 <- dplyr::tbl(db, "metadata") %>% dplyr::collect()
   md_2 <- dplyr::tbl(db, "base_mods") %>% dplyr::collect()
 
-  type2idx_tbl <- purrr::set_names(md_1$idx,    md_1$type)
-  idx2type_tbl <- purrr::set_names(md_1$type,   md_1$idx)
-  type2col_tbl <- purrr::set_names(md_1$col,    md_1$type)
-  col2type_tbl <- purrr::set_names(md_1$type,   md_1$col)
-  idx2col_tbl  <- purrr::set_names(md_1$col,    md_1$idx)
-  col2idx_tbl  <- purrr::set_names(md_1$idx,    md_1$col)
+  type2idx_tbl <- purrr::set_names(md_1$idx, md_1$type)
+  idx2type_tbl <- purrr::set_names(md_1$type, md_1$idx)
+  type2col_tbl <- purrr::set_names(md_1$col, md_1$type)
+  col2type_tbl <- purrr::set_names(md_1$type, md_1$col)
+  idx2col_tbl  <- purrr::set_names(md_1$col, md_1$idx)
+  col2idx_tbl  <- purrr::set_names(md_1$idx, md_1$col)
   prefixes_tbl <- purrr::set_names(md_1$prefix, md_1$type)
-  bases_tbl    <- purrr::set_names(md_1$base,   md_1$type)
-  rev_base_tbl <- purrr::set_names(md_1$type,   as.character(md_1$base))
 
-  mods_tbl     <- purrr::set_names(md_2$mod,    md_2$key)
-  rev_mods_tbl <- purrr::set_names(md_2$key,    as.character(md_2$mod))
+  bases_tbl    <- as.integer(md_1$base) %>% purrr::set_names(md_1$type)
+  rev_base_tbl <- purrr::set_names(names(bases_tbl), as.character(bases_tbl))
+
+
+  mods_tbl     <- as.integer(md_2$mod) %>% purrr::set_names(md_2$key)
+  rev_mods_tbl <- purrr::set_names(names(mods_tbl), as.character(mods_tbl))
 
   metadata <- list(type2idx_tbl = type2idx_tbl, type2col_tbl = type2col_tbl,
-                   idx2type     = idx2type_tbl, col2type     = col2type_tbl,
-                   idx2col      = idx2col_tbl,  col2idx      = col2idx_tbl,
-                   prefixes     = prefixes_tbl,
+                   idx2type_tbl = idx2type_tbl, col2type_tbl = col2type_tbl,
+                   idx2col_tbl  = idx2col_tbl,  col2idx_tbl  = col2idx_tbl,
+                   prefixes_tbl = prefixes_tbl,
                    bases_tbl    = bases_tbl,   rev_base_tbl  = rev_base_tbl,
                    mods_tbl     = mods_tbl,    rev_mods_tbl  = rev_mods_tbl)
   assign("metadata", metadata, envir = .globals)

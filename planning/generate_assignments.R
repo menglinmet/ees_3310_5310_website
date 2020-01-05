@@ -287,7 +287,7 @@ build_lab_assignment <- function(schedule, date, cal_entry, semester) {
   invisible(schedule)
 }
 
-build_assignments <- function(schedule, semester) {
+build_assignments <- function(schedule, semester, copy_slides = TRUE) {
   dates <- schedule$date
 
   has_labs <- "id_lab" %in% names(schedule)
@@ -323,7 +323,9 @@ build_assignments <- function(schedule, semester) {
       lab_key <- NA
     }
 
-    schedule <- schedule %>% copy_slides(d, cal_entry, semester)
+    if (copy_slides) {
+      schedule <- schedule %>% copy_slides(d, cal_entry, semester)
+    }
     schedule <- schedule %>%
       build_reading_assignment(d, cal_entry, semester)
     if (has_hw) {
@@ -336,7 +338,7 @@ build_assignments <- function(schedule, semester) {
   invisible(schedule)
 }
 
-prepare_schedule <- function(semester) {
+prepare_schedule <- function(semester, copy_slides = TRUE) {
   schedule <- init_schedule(semester)
   tmp <- schedule_strip_finals(schedule, semester)
   schedule <- tmp$schedule
@@ -350,7 +352,7 @@ prepare_schedule <- function(semester) {
 
   set_schedule_globals(schedule, semester)
 
-  schedule <- build_assignments(schedule, semester)
+  schedule <- build_assignments(schedule, semester, copy_slides = copy_slides)
 
   invisible(schedule)
 }
