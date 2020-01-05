@@ -250,7 +250,7 @@ reconcile_semester_db <- function(db_file, backup = TRUE, overwrite = FALSE,
   tz <- get_semestr_tz()
 
     if (is.null(new_db_name)) {
-      new_db_name <- db_name
+      new_db_name <- db_file
     }
 
     if (! overwrite && ! dry_run) {
