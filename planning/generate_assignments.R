@@ -1,3 +1,22 @@
+#' Initialize a schedule data frame
+#'
+#' Iniializes the bare bones of a schedule object.
+#'
+#' @param semester A named list of semester data, as returned from
+#'   [`load_semester_db()`].
+#'
+#' @return A tibble with columns `id` (integer ID #), `date`,
+#' `key` (text index for the row), and `cal_type` (text indicating the kind of
+#' entry, in a form that would be suitable for a legal column name).
+#'
+#' @family schedule preparation functions
+#' @seealso [`load_semester_db()`], [`prepare_schedule()`],
+#' @examples
+#' \dontrun{
+#' semester <- load_semester_db(db_file_name)
+#' schedule <- init_schedule(semestter)
+#' }
+#'
 init_schedule <- function(semester) {
   schedule <- semester$calendar %>%
     dplyr::filter(cal_type %in% c("class", "exam", "homework", "lab", "holiday")) %>%
@@ -9,6 +28,30 @@ init_schedule <- function(semester) {
   invisible(schedule)
 }
 
+
+#' Remove final exams from schedule data frame
+#'
+#' Removes the final exam and alternate final exam from a schedule data frame.
+#'
+#' @param schedule A data frame, as returned from [`init_schedule()`].
+#' @param semester A named list of semester data, as returned from
+#'   [`load_semester_db()`].
+#'
+#' @return A named list containing two tibbles with the same columns as
+#'   `schedule`: `schedule` is the schedule without the final exam rows,
+#'   and `final_exams` contains the final exam rows.
+#' @family schedule preparation functions
+#' @seealso [`load_semester_db()`], [`prepare_schedule()`],
+#' @examples
+#' \dontrun{
+#' semester <- load_semester_db(db_file_name)
+#' schedule <- init_schedule(semestter)
+#' lst      <- strip_finals(schedule, semester)
+#' schedule <- lst$scedule
+#' final_exams <- lst$final_exams
+#' }
+#'
+#'
 schedule_strip_finals <- function(schedule, semester) {
   final_exams <- schedule %>%
     dplyr::filter(key %in% add_key_prefix(c("FINAL_EXAM", "ALT_FINAL_EXAM"), "exam"))
@@ -43,7 +86,7 @@ schedule_widen <- function(schedule, final_exams, semester,
   topics <- semester$class_topics %>%
     dplyr::select(key_class = cal_key, topic)
   exam_topics <- semester$exams %>%
-    dplyr::select(key_exam = exam_key, topic_exam = exam) %>%
+    dplyr::select(key_exam = exam_key, topic_exam = exam_name) %>%
     add_key_prefix(type = "exam", col = "key_exam")
   class_nums <- semester$calendar %>%
     dplyr::select(id_class = cal_id, class_num)
@@ -293,7 +336,7 @@ build_assignments <- function(schedule, semester) {
   invisible(schedule)
 }
 
-generate_assignments <- function(semester) {
+prepare_schedule <- function(semester) {
   schedule <- init_schedule(semester)
   tmp <- schedule_strip_finals(schedule, semester)
   schedule <- tmp$schedule
@@ -309,6 +352,11 @@ generate_assignments <- function(semester) {
 
   schedule <- build_assignments(schedule, semester)
 
+  invisible(schedule)
+}
+
+generate_assignments <- function(semester) {
+  schedule <- prepare_schedule(semester)
   message("Done building assignments...")
 
   g_schedule <<- schedule

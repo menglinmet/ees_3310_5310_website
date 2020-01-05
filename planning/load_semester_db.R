@@ -2,6 +2,35 @@
 # Package-level globals (idea copied from rmarkdown::render.R)
 .globals <- new.env(parent = emptyenv())
 
+check_cal_for_duplicates <- function(calendar) {
+  purrr::keep(calendar$cal_id, duplicated)
+}
+
+missing_entries <- function(calendar, due_dates, type) {
+    dplyr::filter(calendar, cal_type == type) %$% cal_id %>%
+    setdiff(due_dates$cal_id)
+}
+
+validate_missing <- function(missing_entries, descr) {
+  msg <- stringr::str_c("Missing ", descr, ": (",
+                        stringr::str_c(missing_entries, collapse = ", "),
+                        ").")
+  assertthat::validate_that(is_empty(missing_entries), msg = msg)
+}
+
+check_for_missing <- function(calendar, items, type, descr, assertion = FALSE) {
+  missing <- missing_entries(calendar, items, type)
+  valid <- validate_missing(missing, descr)
+  if (! isTRUE(valid)) {
+    if (isTRUE(assertion)) {
+      stop(valid)
+    } else {
+      warning(valid)
+    }
+  }
+  valid
+}
+
 #' Load schedule for semester from database
 #'
 #' Loads schedule for class meetings, reading and homework assignments,
@@ -33,33 +62,36 @@ load_semester_db <- function(db_file, root_crit = NULL) {
   md_1 <- dplyr::tbl(db, "metadata") %>% dplyr::collect()
   md_2 <- dplyr::tbl(db, "base_mods") %>% dplyr::collect()
 
-  type2idx  <- purrr::set_names(md_1$idx, md_1$type)
-  idx2type  <- purrr::set_names(md_1$type, md_1$idx)
-  type2col  <- purrr::set_names(md_1$col, md_1$type)
-  col2type  <- purrr::set_names(md_1$type, md_1$col)
-  idx2col   <- purrr::set_names(md_1$col, md_1$idx)
-  col2idx   <- purrr::set_names(md_1$idx, md_1$col)
-  prefixes  <- purrr::set_names(md_1$prefix, md_1$type)
-  bases     <- purrr::set_names(md_1$base, md_1$type)
-  rev_base  <- purrr::set_names(md_1$type, as.character(md_1$base))
+  type2idx_tbl <- purrr::set_names(md_1$idx,    md_1$type)
+  idx2type_tbl <- purrr::set_names(md_1$type,   md_1$idx)
+  type2col_tbl <- purrr::set_names(md_1$col,    md_1$type)
+  col2type_tbl <- purrr::set_names(md_1$type,   md_1$col)
+  idx2col_tbl  <- purrr::set_names(md_1$col,    md_1$idx)
+  col2idx_tbl  <- purrr::set_names(md_1$idx,    md_1$col)
+  prefixes_tbl <- purrr::set_names(md_1$prefix, md_1$type)
+  bases_tbl    <- purrr::set_names(md_1$base,   md_1$type)
+  rev_base_tbl <- purrr::set_names(md_1$type,   as.character(md_1$base))
 
-  mods <- purrr::set_names(md_2$mod, md_2$key)
-  rev_mods <- purrr::set_names(md_2$key, as.character(md_2$mod))
+  mods_tbl     <- purrr::set_names(md_2$mod,    md_2$key)
+  rev_mods_tbl <- purrr::set_names(md_2$key,    as.character(md_2$mod))
 
-  metadata <- list(type2idx = type2idx, type2col = type2col,
-                   idx2type = idx2type, col2type = col2type,
-                   idx2col  = idx2col,  col2idx  = col2idx,
-                   prefixes = prefixes, bases = bases, rev_base = rev_base,
-                   mods = mods, rev_mods = rev_mods)
+  metadata <- list(type2idx_tbl = type2idx_tbl, type2col_tbl = type2col_tbl,
+                   idx2type     = idx2type_tbl, col2type     = col2type_tbl,
+                   idx2col      = idx2col_tbl,  col2idx      = col2idx_tbl,
+                   prefixes     = prefixes_tbl,
+                   bases_tbl    = bases_tbl,   rev_base_tbl  = rev_base_tbl,
+                   mods_tbl     = mods_tbl,    rev_mods_tbl  = rev_mods_tbl)
   assign("metadata", metadata, envir = .globals)
 
-  for (t in c("calendar", "due_dates", "events",
-              "exams", "holidays", "notices",
-              "due_links", "event_links", "exam_links", "holiday_links",
-              "hw_links", "lab_links", "rd_links",
-              "hw_asgt", "hw_items", "hw_sol", "hw_topics",
-              "lab_asgt", "lab_items", "lab_sol", # "lab_topics",
-              "rd_items", "rd_src", "class_topics",
+  for (t in c("calendar",
+              "due_links",     "due_dates",
+              "rd_links",                   "rd_items",  "rd_src",  "class_topics",
+              "hw_links",      "hw_asgt",   "hw_items",  "hw_sol",  "hw_topics",
+              "lab_links",     "lab_asgt",  "lab_items", "lab_sol", # "lab_topics",
+              "exam_links",    "exams",
+              "holiday_links", "holidays",
+              "event_links",   "events",
+              "notices",
               "text_codes")) {
     df <- dplyr::tbl(db, t) %>% dplyr::collect()
     assign(t, df)
@@ -72,25 +104,15 @@ load_semester_db <- function(db_file, root_crit = NULL) {
 
   bare_dates <- calendar %>% dplyr::select(cal_id, date)
 
-  duplicates <- purrr::keep(calendar$cal_id, duplicated)
-  assertthat::assert_that(is_empty(duplicates),
-                          msg = stringr::str_c("Duplicated cal_ids: (",
-                                               stringr::str_c(duplicates, collapse = ", "),
-                                               ")."))
+  duplicates <- check_cal_for_duplicates(calendar)
+  msg <- stringr::str_c("Duplicated cal_ids: (",
+                        stringr::str_c(duplicates, collapse = ", "),
+                        ").")
+  assertthat::assert_that(is_empty(duplicates), msg = msg)
 
   due_dates <- due_links %>% dplyr::left_join(due_dates, by = "due_key")
 
-  missing_due_dates <- calendar %>%
-    dplyr::filter(cal_type == "due date") %$% cal_id %>%
-    setdiff(due_dates$cal_id)
-  valid_due_dates <-
-    assertthat::assert_that(length(missing_due_dates) == 0,
-                            msg = stringr::str_c("Missing due dates: (",
-                                                 stringr::str_c(missing_due_dates, collapse = ", "),
-                                                 ")."))
-  if (! isTRUE(valid_due_dates)) {
-    warning(valid_due_dates)
-  }
+  check_for_missing(calendar, due_dates, "due date", "due dates", FALSE)
 
   calendar <- calendar %>%
     dplyr::left_join( dplyr::select(due_dates, cal_id, due_type = type,
@@ -112,17 +134,8 @@ load_semester_db <- function(db_file, root_crit = NULL) {
                                      sol_pub_cal_id  = cal_id),
                        by = "sol_pub_key")
 
-  missing_hw <- calendar %>%
-    dplyr::filter(cal_type == "homework") %$% cal_id %>%
-    setdiff(hw_asgt$cal_id)
-  valid_hw <-
-    assertthat::assert_that(length(missing_hw) == 0,
-                            msg = stringr::str_c("Missing homework assignments: (",
-                                                 stringr::str_c(missing_hw, collapse = ", "),
-                                                 ")."))
-  if (! isTRUE(valid_hw)) {
-    warning(valid_hw)
-  }
+  check_for_missing(calendar, hw_asgt, "homework", "homework assignments",
+                    FALSE)
 
   rd_items <- rd_items %>% dplyr::inner_join(rd_links, by = "rd_key") %>%
     dplyr::left_join(rd_src, by = "src_key") %>%
@@ -130,18 +143,7 @@ load_semester_db <- function(db_file, root_crit = NULL) {
                                  prologue, epilogue, textbook, handout),
                      ~as.logical(.) %>% tidyr::replace_na(FALSE))
 
-  missing_reading <- calendar %>%
-    dplyr::filter(cal_type == "class") %$% cal_id %>%
-    setdiff(rd_items$cal_id)
-  valid_reading <-
-    assertthat::validate_that(length(missing_reading) == 0,
-                              msg = stringr::str_c("Missing reading assignments: (",
-                                                   stringr::str_c(missing_reading,
-                                                                  collapse = ", "),
-                                                   ")."))
-  if (! isTRUE(valid_reading)) {
-    warning(valid_reading)
-  }
+  check_for_missing(calendar, rd_items, "class", "reading assignments", FALSE)
 
 
   lab_asgt <- lab_asgt %>% dplyr::inner_join(lab_links, by = "lab_key") %>%
@@ -152,18 +154,7 @@ load_semester_db <- function(db_file, root_crit = NULL) {
                                     pres_cal_id = cal_id),
                       by = "presentation_key")
 
-  missing_labs <- calendar %>%
-    dplyr::filter(cal_type == "lab") %$% cal_id %>%
-    setdiff(lab_asgt$cal_id)
-  valid_labs <-
-    assertthat::validate_that(length(missing_labs) == 0,
-                              msg = stringr::str_c("Missing lab assignments: (",
-                                                   stringr::str_c(missing_labs,
-                                                                  collapse = ", "),
-                                                   ")."))
-  if (! isTRUE(valid_labs)) {
-    warning(valid_labs)
-  }
+  check_for_missing(calendar, lab_asgt, "lab", "lab assignments", FALSE)
 
   lab_items <- lab_items %>% dplyr::inner_join(lab_links, by = "lab_key")
   lab_sol <- lab_sol %>% dplyr::inner_join(lab_links, by = "lab_key") %>%
@@ -172,47 +163,13 @@ load_semester_db <- function(db_file, root_crit = NULL) {
                        by = "sol_pub_key")
 
   events <- events %>% dplyr::inner_join(event_links, by = "event_key")
-
-  missing_events <- calendar %>%
-    dplyr::filter(cal_type == "event") %$% cal_id %>%
-    setdiff(events$cal_id)
-  valid_events <-
-    assertthat::validate_that(length(missing_events) == 0,
-                              msg = stringr::str_c("Missing events: (",
-                                                   stringr::str_c(missing_events,
-                                                                  collapse = ", "),
-                                                   ")."))
-  if (! isTRUE(valid_events)) {
-    warning(valid_events)
-  }
+  check_for_missing(calendar, events, "event", "events", FALSE)
 
   exams <- exams %>% dplyr::inner_join(exam_links, by = "exam_key")
-
-  missing_exams <- calendar %>%
-    dplyr::filter(cal_type == "exam") %$% cal_id %>%
-    setdiff(exams$cal_id)
-  valid_exams <-
-    assertthat::assert_that(length(missing_exams) == 0,
-                            msg = stringr::str_c("Missing exams: (",
-                                                 stringr::str_c(missing_exams,
-                                                                collapse = ", "),
-                                                 ")."))
-  if (! isTRUE(valid_exams)) {
-    warning(valid_exams)
-  }
-
+  check_for_missing(calendar, exams, "exam", "exams", FALSE)
 
   holidays <- holidays %>% dplyr::inner_join(holiday_links, by = "holiday_key")
-
-  missing_holidays <- calendar %>%
-    dplyr::filter(cal_type == "holiday") %$% cal_id %>%
-    setdiff(holidays$cal_id)
-  valid_holidays <-
-    assertthat::assert_that(length(missing_holidays) == 0,
-                            msg = stringr::str_c("Missing holidays: (",
-                                                 stringr::str_c(missing_holidays,
-                                                                collapse = ", "),
-                                                 ")."))
+  check_for_missing(calendar, holidays, "holiday", "holidays", FALSE)
 
   notices <- notices %>%
     dplyr::inner_join( dplyr::select(calendar, cal_id, cal_key),

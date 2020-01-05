@@ -100,12 +100,12 @@ default_semestr_metadata <- function() {
     prefixes = c(class = "CLS", lab = "LAB", homework = "HW",
                  "due date" = "DUE", exam = "EXAM", holiday = "VAC",
                  event = "EVT" ),
-    bases = c(class = 1000, lab = 2000, homework = 3000, "due date" = 4000,
-              exam = 5000, holiday = 6000, event = 7000),
+    bases = c(class = 1000L, lab = 2000L, homework = 3000L, "due date" = 4000L,
+              exam = 5000L, holiday = 6000L, event = 7000L),
     rev_base = c("1000" = "class",  "2000" = "lab", "3000" = "homework",
                  "4000" = "due date", "5000" = "exam",  "6000" = "holiday",
                  "7000" = "event"),
-    mods = c(cancelled = 100,  make_up = 200),
+    mods = c(cancelled = 100L,  make_up = 200L),
     rev_mods = c("100" = "cancelled", "200" = "make_up" )
   )
 }
