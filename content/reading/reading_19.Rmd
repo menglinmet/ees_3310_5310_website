@@ -18,12 +18,11 @@ make_rmd_output_format(FALSE):
 ---
 ## Reading:
 
-No new reading for today.
+No reading for today.
 
 ### Notes:
 
-The midterm exam will be a mixture of about 40% multiple-choice questions and 60% free-response short-answer questions.
-It will cover all the reading through Wednesday, Feb. 12.
+The midterm exam will cover all the reading through Wednesday, Feb. 12.
 
 I will provide a sheet with the important numbers (such as the Stefan-Boltzmann constant, the lapse rate of the atmosphere, 
 the solar constant, and so forth), and the important equations (such as the Stefan-Boltzmann law, the barometric law, 

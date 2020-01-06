@@ -152,7 +152,8 @@ expand_codes <- function(text, context, semester, delim = c("<%", "%>"),
     }
   }
 
-  if (stringr::str_to_lower(.globals$text_mode) == "latex") {
+  if (exists("text_mode", envir = .globals) &&
+      stringr::str_to_lower(.globals$text_mode) == "latex") {
     text_codes <- semester$text_codes$latex
   } else {
     text_codes <- semester$text_codes$md

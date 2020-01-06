@@ -1,2 +1,6 @@
 db_save/
 calendar.csv
+*_bak.sqlite3
+*_bak[0-9][0-9][0-9].sqlite3
+test_db.sqlite3
+foo.md
