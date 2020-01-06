@@ -99,7 +99,7 @@ make_reading_assignment <- function(reading_entry) {
   output <- "## Reading:"
   if (! has_any_reading) {
     output <- stringr::str_c(stringr::str_trim(output), "",
-                    "No new reading for today.",
+                    "No reading for today.",
                     "", sep = "\n")
   } else {
     if (has_req_reading) {
@@ -165,7 +165,7 @@ make_reading_page <- function(cal_id, semester){
   assertthat::assert_that(length(rd_date) == 1,
                           msg = "A calendar ID should have a unique date (make_reading)")
   rd_topic <- unique(reading$topic)
-  assertthat::assert_that(length(rd_date) == 1,
+  assertthat::assert_that(length(rd_topic) == 1,
                           msg = "A calendar ID should have a unique topic (make_reading)")
   class_num <- unique(reading$class_num)
   assertthat::assert_that(length(rd_date) == 1,

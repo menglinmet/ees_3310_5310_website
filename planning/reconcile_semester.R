@@ -160,7 +160,8 @@ renumber_cal <- function(cal, type) {
       !!qnum_col := seq_along(cal_id),
       cal_id = base + !!qnum_col + ifelse(cancelled, mod_cancelled,
                                          ifelse(make_up, mod_make_up, 0))
-    )
+    ) %>%
+    dplyr::distinct()
   cal
 }
 
@@ -173,7 +174,8 @@ renumber_links <- function(links, cal, type) {
 
   links <- dplyr::select(links, key_col) %>%
     dplyr::left_join(bare_cal, by = key_col) %>%
-    dplyr::select(cal_id, !!qkey_col, !!qnum_col)
+    dplyr::select(cal_id, !!qkey_col, !!qnum_col) %>%
+    dplyr::distinct()
   links
 }
 
@@ -210,6 +212,7 @@ renumber_items <- function(items, links, type) {
     dplyr::mutate( item_order_ = !!qitem_col %% 100L,
                   !!qitem_col := item_order_ + levels[!!qkey_col] ) %>%
     dplyr::select( - item_order_ ) %>%
+    dplyr::distinct() %>%
     dplyr::arrange(!!qitem_col)
 
   items
@@ -239,6 +242,7 @@ renumber_asgt <- function(asgt, items, links, type) {
 
   asgt <- asgt %>%
     dplyr::mutate( !!qid_col := (levels[!!qkey_col]) %% 100 ) %>%
+    dplyr::distinct() %>%
     dplyr::arrange(!!qid_col)
 
   asgt
@@ -324,7 +328,7 @@ reconcile_semester_db <- function(db_file, backup = TRUE, overwrite = FALSE,
                  "text_codes")
 
   for (t in table_lst) {
-    df <- dplyr::tbl(db, t) %>% dplyr::collect()
+    df <- dplyr::tbl(db, t) %>% dplyr::collect() %>% dplyr::distinct()
     assign(t, df)
   }
 

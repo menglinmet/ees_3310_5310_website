@@ -152,7 +152,11 @@ expand_codes <- function(text, context, semester, delim = c("<%", "%>"),
     }
   }
 
-  text_codes <- semester$text_codes$md
+  if (stringr::str_to_lower(.globals$text_mode) == "latex") {
+    text_codes <- semester$text_codes$latex
+  } else {
+    text_codes <- semester$text_codes$md
+  }
 
   dbg_checkpoint(g_expnaion_env, local_env)
   dbg_checkpoint(g_text_codes, text_codes)
