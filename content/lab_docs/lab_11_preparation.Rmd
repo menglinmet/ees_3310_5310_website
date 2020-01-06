@@ -208,12 +208,12 @@ lab):
    fifth million-ton cut?)
    \vspace{2cm}
 
-5. If the EPA imposed a tax of \$30 per ton on CO~2~ emissions, complete the 
+5. If the EPA imposed a tax of $30 per ton on CO~2~ emissions, complete the 
    table to indicate the new marginal profit and total profit at each level of 
    emission.
    \vspace{2cm}
 
-6. Under a \$30 per ton tax, what level of CO~2~ emissions would produce the 
+6. Under a $30 per ton tax, what level of CO~2~ emissions would produce the 
    maximum total profit? What would its total profit be? How much less is this 
    than the total profit you reported in question 2?
    \vspace{2cm}
