@@ -1,6 +1,7 @@
 lessons:
 - date: '2020-01-06'
   title: Introduction
+  lecture: /slides/class_01
   class_num: 1
   lab: lab_01_assignment
   lab_num: 1

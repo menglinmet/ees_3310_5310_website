@@ -794,7 +794,7 @@ lie. But research integrity goes much farther. Real science happens in the
 context of a scientific community and the integrity of this community is
 critical. The ethical principles of research
 integrity have grown over the centuries to protect the integrity of the
-scientific ommunity. Indeed, the mathematician and poet Jacob Bronowski wrote,
+scientific community. Indeed, the mathematician and poet Jacob Bronowski wrote,
 in his book, \emph{Science and Human Values\/} (Harper \& Row, 1956) that what makes
 science work and makes it great is much less about the intellectual brilliance
 and skills of individual scientists than about the ethical commitment to truth
