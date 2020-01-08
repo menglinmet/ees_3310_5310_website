@@ -4,6 +4,11 @@ date: "2017-04-13T00:00:00"
 ---
 #### {{< link href="/files/EES_3310_5310_Syllabus.pdf" title="PDF syllabus" >}}{{< PDF_LOGO >}} **Printable Syllabus**{{< /link >}}
 
+This page contains an abbreviated outline of the syllabus. 
+The [full syllabus](/files/EES_3310_5310_Syllabus.pdf) (printed and PDF)
+are the definitive sources of information and policy for this course,
+so you should read that carefully at the beginning of the term.
+
 # **Course Description**
 
 ## Basic Info:
@@ -109,6 +114,30 @@ for themselves.
 **What counts is whether you can present your own position clearly and support
 it with solid evidence and reasoned argument.**
 
+# Important Dates:
+
+Many of you have athletic and other commitments during the term and may travel for
+personal reasons. As you plan for your semester, particularly if you are purchasing
+nonrefundable airplane tickets, consult the syllabus.
+
+If you have away games that require you to miss a scheduled test or group laboratory activity, let me know well in advance.
+
+* The mid-term test is on **{{< MIDTERM_DATE >}}**.
+* The take-home final exam is on **{{< FINAL_EXAM_DATE >}}**.
+* On **{{< ENERGY_GAME_DATE >}}**, we will be playing a game in lab to simulate 
+  the challenge of converting New York City to using clean energy and on 
+  **{{< ROLE_PLAY_DATE >}}**, we will be doing a participatory role-playing
+  exercise in lab, where you will play out different kinds of policies
+  for reducing greenhouse gas emissions. It is especially important for you to 
+  be present for these labs.
+* On **{{< PROJECT_PRESENT_DATE >}}** and **{{< DECARB_PRESENT_DATE >}}**,
+  you will be giving presentations in the lab about your team projects on 
+  climate science and the transition to clean energy, respectively.
+* The final exam will be in a take-home essay format and it is due at
+  **{{< FINAL_EXAM_DATE_TIME >}}**. 
+  You submit the final exam electronically, so you do not need to be on campus
+  for this.
+
 # **Structure of the Course:**
 
 I divide the semester into two parts:
@@ -144,22 +173,33 @@ time and prepared for the labs.
 
 # Reading Material
 
-There are three required textbooks. Supplementary reading on the Internet or in
-handouts will also be assigned during the term and posted on the course web
-site.
+There are three required textbooks and one recommended book.
+I will also assign supplementary reading on the Internet or in handouts 
+during the term and I will post these on Brightspace.
 
-## Required Reading Materials
+## Required Textbooks:
 
-* {{< LONG_ARCHER >}}
+* {{< LONG_ARCHER >}}.
   Be sure you get the second edition because it is significantly different
   from the first.
-* {{< LONG_NORDHAUS >}}
-* {{< LONG_PIELKE >}}
+* {{< LONG_NORDHAUS >}}.
+* {{< LONG_PIELKE >}}.
 
 There is a companion web site to {{< MEDIUM_ARCHER >}} at
 [climatemodels.uchicago.edu](https://climatemodels.uchicago.edu),
 which includes interactive online computer models that we will use for some
 exercises in the book.
+
+### Optional Textbook:
+
+* {{< LONG_WICKHAM >}}. This book gives a great introduction to using R for
+  analyzing data, aimed at newcomers and beginners. The book is available in 
+  print, but you can also read the whole thing online for free 
+  at <https://r4ds.had.co.nz/>
+  
+  You do not need to read this book, but it may be very helpful as you are 
+  learning R. It focuses on explaining how to use the "`tidyverse`" group
+  of R tools that we will be using extensively in lab.
 
 ## Overview of Reading Materials
 
