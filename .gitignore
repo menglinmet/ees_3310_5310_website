@@ -2,6 +2,7 @@
 /docs/
 /lectures/semester/
 /public/
+/static/static/
 *cache/
 .Rproj.user/
 node_modules/

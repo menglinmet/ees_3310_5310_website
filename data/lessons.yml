@@ -8,6 +8,7 @@ lessons:
   lab_title: Introduction to Reproducible Research
 - date: '2020-01-08'
   title: What is Climate Change?
+  lecture: /slides/class_02
   class_num: 2
   reading: /reading/reading_02
 - date: '2020-01-10'
