@@ -16,12 +16,23 @@ make_rmd_output_format(FALSE):
     includes:
       in_header: ees3310.sty
 ---
+## Notice:
+
+**Correction:** There was a typo in the original version of this assignment sheet.
+The reading from _Climate Casio_ for Wednesday Jan. 8 should have been 
+chapters 1--2, not chapters 2--3. We will read chapter 3 later in the semester
+when we discuss climate modeling, so you will not have wasted your effort,
+but I wanted to issue this clarification about the error in the original 
+assignment, and to clear up confusion since the reading notes discussed chapters
+1--2.
+
+
 ## Reading:
 
 ### Required Reading (everyone):
 
 * Understanding the Forecast, Ch. 1.
-* Climate Casino, Ch. 2--3.
+* Climate Casino, Ch. 1--2.
 
 ### Reading Notes:
 

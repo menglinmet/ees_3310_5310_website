@@ -16,6 +16,11 @@ make_rmd_output_format(FALSE):
     includes:
       in_header: ees3310.sty
 ---
+## Notice:
+
+If you have a laptop or tablet that you can bring to class and connect to the internet, I recommend you do so today so you can work along with me in using the online  models.
+
+
 ## Reading:
 
 ### Required Reading (everyone):
