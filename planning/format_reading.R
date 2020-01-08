@@ -179,6 +179,9 @@ make_reading_page <- function(cal_id, semester){
     dplyr::left_join( dplyr::select(semester$hw_items, -hw_num, -cal_id),
                       by = "hw_key")
 
+  notices <- semester$notices %>%
+    dplyr::filter(cal_id == !!cal_id, ! is.na(notice))
+
   # For debugging...
   dbg_checkpoint(this_class_num, class_num)
   dbg_checkpoint(this_class_date, rd_date)
@@ -198,6 +201,7 @@ make_reading_page <- function(cal_id, semester){
   rd_page <- stringr::str_c(
     header,
     # make_short_hw_assignment(homework) %>% escape_dollar(),
+    make_notice(notices),
     make_reading_assignment(reading) %>% escape_dollar(),
     sep = "\n"
   )

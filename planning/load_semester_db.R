@@ -173,7 +173,9 @@ load_semester_db <- function(db_file, root_crit = NULL) {
   holidays <- holidays %>% dplyr::inner_join(holiday_links, by = "holiday_key")
   check_for_missing(calendar, holidays, "holiday", "holidays", FALSE)
 
-  notices <- notices %>%
+  notices <- notices %>% dplyr::group_by(type) %>%
+    dplyr::mutate(cal_key = add_key_prefix(cal_key, type[1])) %>%
+    dplyr::ungroup() %>%
     dplyr::inner_join( dplyr::select(calendar, cal_id, cal_key),
                        by = "cal_key")
 

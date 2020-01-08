@@ -1,7 +1,7 @@
 ---
 title: "Reading Assignments Sheet"
 author: "EES 3310/5310 Global Climate Change"
-date: "Spring Semester, 2020"
+date: "Spring Semester, 2020. Revised 8 Jan."
 output:
   pdf_document: 
     includes:
@@ -14,6 +14,16 @@ output:
 ```{r setup, include=FALSE, message = FALSE, warning=FALSE, cache=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE, cache=FALSE)
 ```
+
+# Correction: 
+
+There was a typo in the original version of this assignment sheet.
+The reading from _Climate Casio_ for Wednesday Jan. 8 should have been 
+chapters 1--2, not chapters 2--3. We will read chapter 3 later in the semester
+when we discuss climate modeling, so you will not have wasted your effort,
+but I wanted to issue this clarification about the error in the original 
+assignment, and to clear up confusion since the reading notes discussed chapters
+1--2.
 
 # Disclaimer
 
@@ -127,16 +137,20 @@ make_rd_asgt_for_master <- function(id, schedule, semester) {
     class_num <- cal_entry$class_num
     key <- cal_entry$key_class
   }
-  
+
   this_reading_asgt <- make_reading_assignment(reading) %>% escape_dollar()
   
+  notices <- semester$notices %>%
+  dplyr::filter(cal_id == id, ! is.na(notice))
+
+  this_notice <- make_notice(notices)
+
   section_heading <-  format_section_heading(
     title = rd_topic,
     class_date = format_class_day_date(rd_date, abbr_month = TRUE, abbr_wday = TRUE),
     class_number = class_num
   )
     
-  
   # homework <- semester$hw_asgt %>% dplyr::filter(cal_id == !!cal_id) %>%
   #   # merge_dates(semester) %>%
   #   dplyr::left_join( dplyr::select(semester$hw_items, -hw_num, -cal_id),
@@ -148,6 +162,7 @@ make_rd_asgt_for_master <- function(id, schedule, semester) {
   this_asgt <- cat_nl(section_heading, 
                       # this_hw_asgt,
                       this_reading_asgt,
+                      this_notice,
                       start_par = TRUE, extra_lines = 1)
   this_asgt
 }
