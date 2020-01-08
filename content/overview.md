@@ -257,6 +257,105 @@ that will be due on {{< FINAL_EXAM_DATE >}}
 | Final Exam            | 25%   |      |
 
 
+# Honor Code:
+
+This course, like all courses at Vanderbilt, is conducted under the Honor Code.
+
+* **Studying:** As you study for this class, I encourage you to to seek help 
+  from me{{< IF_TA >}}, from {{% TA_FORMAL_NAME %}}, {{< /IF_TA >}} or from other classmates or friends.
+
+* **Lab Assignments:** I encourage working together, and in most lab assignments
+  you will be explicitly told to work with a partner. I also encourage you to
+  talk with other classmates, as well as friends and acquaintances outside of
+  class. You may discuss assignments, compare notes on how you are working a
+  problem, and you may look at your classmates' work on homework assignments.
+  But you must work through the problems yourself in the work you turn in:
+  **Even if you have discussed the solution with others you must
+  work through the steps yourself and express the answers in your own words.
+  You may not simply copy someone else's answer.**
+
+* **Tests and Exams:** Tests are different from homework and labs:
+  **all work on tests and exams must be entirely your own**.
+  **You may not work together with anyone or receive any help from anyone
+  but me{{< IF_TA >}} or from {{% TA_FORMAL_NAME %}}{{< /IF_TA >}}
+  on exams and tests (this includes the take-home final exam)}.
+
+If you ever have questions about how the Honor Code applies to your work
+in this course, please ask me{{< IF_TA >}} or {{% TA_FORMAL_NAME %}}{{< /IF_TA >}}.
+**Uncertainty about the Honor Code does not excuse a violation.**
+
+## Research Integrity
+
+Beyond the University Honor Code, this course also emphasizes the scientific
+ethical principles of research integrity.
+Honesty is a very important part of research integrity, but it is only one part.
+Clearly, science cannot work if scientists are not scrupulously honest about
+the results of their research and there is no tolerance for scientists who
+lie. But research integrity goes much farther. Real science happens in the
+context of a scientific community and the integrity of this community is
+critical. The ethical principles of research
+integrity have grown over the centuries to protect the integrity of the
+scientific community. Indeed, the mathematician and poet Jacob Bronowski wrote,
+in his book, _Science and Human Values_ (Harper & Row, 1956) that what makes
+science work and makes it great is much less about the intellectual brilliance
+and skills of individual scientists than about the ethical commitment to truth
+and human dignity by the community of scientists.
+
+Science does not proceed only by making leaps of discovery
+but also by making useful mistakes and then discovering and correcting the
+errors in those mistakes. Because of this, scientific integrity requires
+scientists to be extremely transparent and forthcoming about all the details of
+their research. It is not enough to sincerely report a discovery or an idea in
+good faith, but one must also provide others with the tools to critically
+examine that discovery and idea, and if a scientist learns, even many years
+later, that a report or discovery contained an error, they must
+correct the error and actively inform other scientists about it.
+
+When a scientist discovers an error in their past work and does not promptly
+and actively correct it, other scientists may continue to rely on the truth of
+that result and thus waste time, effort, and money.
+Thus, both making one's own work available to others so they can have the
+opportunity to find errors, and also to promptly and publicly report any
+errors that one finds in one's own work are two critical pieces of research
+integrity.
+
+Another aspect also involves the communal nature of science: None of us works
+in isolation, and every scientist's work builds on work by others.
+There are two reasons why it is critical to acknowledge the role of others' work
+in our own research reports: First, it is important to give others the credit
+for their contributions to our shared body of scientific knowledge. Secondly,
+it is important for others to know where the data and methods we use come from.
+If I use someone else's data or methods for an analysis and it later turns out
+that there were problems with their data or methods, then it is important for
+people reading my work to be able to examine my work and evaluate how those
+errors might affect my own results.
+
+I want to emphasize that these considerations about research integrity are not
+just negative things. They are very positive, which is why so many researchers
+are embracing them.
+**By being transparent and forthcoming, and by encouraging
+others to reproduce your research results, you can enhance your reputation**,
+both for honesty (you show that you have nothing to hide) and for being a
+good citizen of the scientific community by making it easy for other researchers
+to learn from your work and build on it to make new discoveries and build
+new and more powerful tools for analyzing data.
+
+Where this is relevant to this course on Global Climate Change is in our
+practice of reproducible research in the laboratory portion of the course.
+Making our work, however humble, fully open and transparent so that others
+may examine it, criticize it, or build on it to develop new tools and make
+new discoveries is an essential part of research integrity.
+
+In your lab reports it will be important for you to document where the data you
+worked with comes from (this will mostly be clearly spelled out in the
+assignments) and what methods you used to analyze it. Using the tools of R and
+RMarkdown will make it easy to almost automatically include this kind of
+transparency in your reports. As you do this throughout this course, you will
+learn the best practices adopted by the scientific community and develop habits
+of openness, transparency, and reproducibility for any research you do in the
+future in any area of society, whether in science, journalism, business, or
+other endeavors.
+
 # **Final Note:**
 
 I have made every effort to plan a busy, exciting, and instructive semester.

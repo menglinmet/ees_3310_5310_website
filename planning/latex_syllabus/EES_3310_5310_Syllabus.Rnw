@@ -819,10 +819,10 @@ errors that one finds in one's own work are two critical pieces of research
 integrity.
 
 Another aspect also involves the communal nature of science: None of us works
-in isolation, and every scienntist's work builds on work by others.
+in isolation, and every scientist's work builds on work by others.
 There are two reasons why it is critical to acknowledge the role of others' work
 in our own research reports: First, it is important to give others the credit
-for their contributions to our shared body of sceintific knowledge. Secondly,
+for their contributions to our shared body of scientific knowledge. Secondly,
 it is important for others to know where the data and methods we use come from.
 If I use someone else's data or methods for an analysis and it later turns out
 that there were problems with their data or methods, then it is important for
