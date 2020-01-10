@@ -27,7 +27,7 @@ data_dir = "_data"
 script_dir = "_scripts"
 
 library(pacman)
-p_load(zoo, xml2, tidyverse, stringr, lubridate)
+p_load(xml2, tidyverse, lubridate)
 
 theme_set(theme_bw(base_size = 15))
 
@@ -35,14 +35,21 @@ theme_set(theme_bw(base_size = 15))
 
 if (!dir.exists(data_dir)) dir.create(data_dir)
 
-nashville_weather <- readRDS('_data/nashville_weather.Rds')
-chicago_weather <- readRDS('_data/chicago_weather.Rds')
+github_repo <- "gilligan-ees-3310-2020/lab-02-documentation"
+github_url <- str_c("https://github.com", github_repo, sep = "/")
+
+nashville_weather = readRDS('_data/nashville_weather.Rds')
+chicago_weather = readRDS('_data/chicago_weather.Rds')
 ```
 # Introduction
 
 This is a brief introduction to data types, data structures, and 
 some of the functions and packages that we will use to manipulate
 data in the labs.
+
+This document was generated using RMarkdown and if you want to see the source
+code for it, you can clone the GitHub repository
+<`r github_url`>.
 
 There is a lot more, and two particular resources that I would recommend to you
 are available free on the web.
@@ -94,7 +101,7 @@ we will not be using in these labs.
 The documents give lots of examples showing what the functions do and
 explanations of how to do many common tasks. Especially for `ggplot2`, it can
 be very useful to look at the graphs in the examples to find something that
-looks like what  you're trying to do and then seeing the code that made that
+looks like what you're trying to do and then seeing the code that made that
 happen.
 
 
@@ -124,7 +131,7 @@ important kinds of data that we may work with are:
   data. 
   
     The difference between character data and factor data is that factor
-    data has an explicit set of allowed values and has an integer number 
+    data has an explicit set of allowed values and has an integer number
     associated with each of those values. 
     
     For instance, if I have a factor variable with the allowed values "up" and 
@@ -272,9 +279,9 @@ The tibble also shows the kind of variable that each column represents:
 `prcp`, `tmin`, and `tmax` are double-precision floating point data 
 (i.e., real numbers).
 
-In some ways, a tibble or `data.frame` is like a names list of vectors, where
+In some ways, a tibble or `data.frame` is like a named list of vectors, where
 each vector is a column and its name is the name of the column. We can access
-individual  columns using the dollar sign, just as with regular named lists:
+individual columns using the dollar sign, just as with regular named lists:
 
 ```{r tibble_column, include=TRUE}
 precipitation = nashville_weather$prcp
@@ -376,7 +383,7 @@ head(nashville_weather)
 ```
 
 Let's get rid of the `id` column, since we don't really care about the ID
-number, that meteorological agencies use to identify the weather station.  and
+number, that meteorological agencies use to identify the weather station. And
 let's get rid of the `location` column because we know that the data set is from
 Nashville, so having that information repeated on each row is a waste of space.
 To do this, we just  call select, specifying the tibble or `data.frame` to
@@ -397,7 +404,7 @@ head(x)
 ```
 
 We can specify a range of consecutive columns by giving the first and last with
-a  colon between them:
+a colon between them:
 
 ```{r nw_keep_2, include=TRUE}
 x = select(nashville_weather, date:tmax)
@@ -437,7 +444,7 @@ x = filter(nashville_weather, date == ymd("2016-06-10"))
 x
 ```
 
-In the code above, I used the `ymd` function from `lubridate` to translate a
+In the code above, I used the `ymd` function from `lubridate` to translate a 
 character value "2016-06-10" to the date value for June 10, 2016.
 
 You can combine conditions in `filter` by using `&` to indicate
@@ -469,7 +476,7 @@ head(x)
 ```
 
 Summaries are useful for finding averages and extreme values. Let's find the
-maximum and minimum temperatures  and the most extreme rainfall in the whole
+maximum and minimum temperatures and the most extreme rainfall in the whole
 data set:
 
 ```{r summarize_simple, include=TRUE}
@@ -492,7 +499,7 @@ We can also generate grouped summaries:
 
 ```{r summarize_grouped_1, include=TRUE}
 x = ungroup(summarize(group_by(nashville_weather, year(date)), 
-            prcp.max = max(prcp), prcp.tot = sum(prcp)))
+                      prcp.max = max(prcp), prcp.tot = sum(prcp)))
 head(x)
 ```
 This provides the maximum one-day precipitation and the total annual 
@@ -502,7 +509,7 @@ Note how difficult it is to read that grouped summary expression: the `group_by`
 function is inside `summarize`, which is inside `ungroup`. 
 
 The `tidyverse` offers us a much nicer way to put these kind of complicated
-expressions together  using what it calls the "pipe" operator, `%>%`.  The pipe
+expressions together using what it calls the "pipe" operator, `%>%`.  The pipe
 operator chains operations together, taking the result of the one on the left
 and inserting it into the one on the right.
 
@@ -510,8 +517,8 @@ We can use the pipe operator to rewrite the expression above as
 
 ```{r summarize_grouped_pipes, include=TRUE}
 x = nashville_weather %>% group_by(year(date)) %>% 
-    summarize(prcp.max = max(prcp), prcp.tot = sum(prcp)) %>%
-    ungroup()
+  summarize(prcp.max = max(prcp), prcp.tot = sum(prcp)) %>%
+  ungroup()
 head(x)
 ```
 Now the expression is easier to read: First we group `nashville_weather` by
@@ -519,23 +526,23 @@ year, then we summarize it by calculating the maximum daily precipitation and
 the yearly total for each year, and finally, after we summarize we ungroup.
 
 You can combine any set of the `tidyverse` functions using the pipe operator, so
-you could `select` columns,  `filter` rows, `mutate` the values of columns, and
+you could `select` columns, `filter` rows, `mutate` the values of columns, and
 `summarize`, using the `%>%` pipe operator to connect all of the different
 operations in sequence.
 
-The final `dplyr` command we're going to look at is `bind_rows`, which lets us
+The final `dplyr` command we're going to look at is `bind_rows`, which lets us 
 combine tibbles:
 
 ```{r bind_rows, include=TRUE}
 weather = bind_rows(nashville_weather, chicago_weather)
 ```
 This creates a single tibble that has all of the rows from `nashville_weather`
-on  top and all the rows from `chicago_weather` on the bottom. Because the two
+on top and all the rows from `chicago_weather` on the bottom. Because the two
 tibbles have the same columns, the columns are matched up.
 
 We can operate on this combined tibble:
 
-```{r process_combined_data_frame}
+```{r process_combined_tibble}
 weather_summary = weather %>% 
   mutate(year = year(date), t.range = tmax - tmin) %>%
   group_by(year, location) %>%   
@@ -553,7 +560,7 @@ into a single column. For instance, consider this data frame, which was
 read in from a spreadsheet of global temperatures produced at NASA:
 
 ```{r giss_temp_example}
-giss_zonal <- readRDS('_data/giss_zonal.Rds')
+giss_zonal = readRDS('_data/giss_zonal.Rds')
 head(giss_zonal)
 ```
 
@@ -577,7 +584,7 @@ ggplot(giss_zonal, aes(x = year)) +
 ```
 
 This is a big mess. It would be hard to clean up the appearance, and would
-require a lot of  retyping if we decided to group the data into different bands
+require a lot of retyping if we decided to group the data into different bands
 of latitude.
 
 We can do this much more easily with the `gather` function:
@@ -616,7 +623,6 @@ ggplot(tidy_zonal, aes(x = year, y = anomaly, color = latitude)) +
   geom_line() +
   labs(x = "Year", y = "Temperature anomaly")
 ```
-
 The code for making the plot was a lot simpler, and by using an ordered factor,
 we could control the order of the latitude bands in the legend, which now
 appear in a sensible order. It is much easier to look at this graph and quickly
@@ -704,7 +710,7 @@ ggplot(data = tidy_zonal, # the data
 
 
 We can also use different mappings for different layers. Here, I add the 
-`shape` aethetic to the points to distinguish daily maximum and minimum 
+`shape` aesthetic to the points to distinguish daily maximum and minimum
 temperatures.
 
 Here, we run into an important issue with R: there are some days where the 
@@ -765,7 +771,7 @@ ggplot(data = annual_extremes # the data
   geom_point(aes(x = year, y = tmax, color = location, shape = "max"), 
              size = 2) +
   xlim(1990,2000) + 
-  labs(x = "Year", y = "Temperature Anomaly")
+  labs(x = "Year", y = "Temperature Anomaly") # labels for the coordinates
 ```
 
 We can also take finer control of the axis formatting:
@@ -783,7 +789,7 @@ ggplot(data = annual_extremes # the data
              size = 2) +
   scale_x_continuous(limits=c(1990,2000), 
                      breaks = c(1990, 1992, 1994, 1996, 1998, 2000)) + 
-  #  ^^^ the "breaks" parameter for an axis tells R where to put the labels
+  # ^^^ the "breaks" parameter for an axis tells R where to put the labels
   labs(x = "Year", y = "Temperature Anomaly") # labels for the coordinates
 ```
 

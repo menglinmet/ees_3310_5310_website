@@ -17,28 +17,22 @@ output:
       in_header: ees3310.sty
 ---
 
-<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
-<script src="/rmarkdown-libs/elevate-section-attrs/elevate-section-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction">Introduction</a>
-<ul>
+<li><a href="#introduction">Introduction</a><ul>
 <li><a href="#r-for-data-science">R for Data Science</a></li>
 <li><a href="#online-documentation-for-the-tidyverse">Online documentation for the tidyverse</a></li>
 </ul></li>
-<li><a href="#data-in-r">Data in R</a>
-<ul>
+<li><a href="#data-in-r">Data in R</a><ul>
 <li><a href="#kinds-of-variables">Kinds of variables</a></li>
-<li><a href="#vectors-lists-data-frames-and-tibbles.">Vectors, Lists, Data Frames, and Tibbles.</a>
-<ul>
+<li><a href="#vectors-lists-data-frames-and-tibbles.">Vectors, Lists, Data Frames, and Tibbles.</a><ul>
 <li><a href="#vectors">Vectors</a></li>
 <li><a href="#lists">Lists</a></li>
 <li><a href="#data-frames-and-tibbles">Data frames and tibbles</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#the-tidyverse">The Tidyverse</a>
-<ul>
+<li><a href="#the-tidyverse">The Tidyverse</a><ul>
 <li><a href="#re-shaping-tibbles-gather-and-spread">Re-shaping tibbles: <code>gather</code> and <code>spread</code></a></li>
 </ul></li>
 <li><a href="#graphing-data">Graphing Data</a></li>
@@ -50,6 +44,9 @@ output:
 <p>This is a brief introduction to data types, data structures, and
 some of the functions and packages that we will use to manipulate
 data in the labs.</p>
+<p>This document was generated using RMarkdown and if you want to see the source
+code for it, you can clone the GitHub repository
+<a href="https://github.com/gilligan-ees-3310-2020/lab-02-documentation" class="uri">https://github.com/gilligan-ees-3310-2020/lab-02-documentation</a>.</p>
 <p>There is a lot more, and two particular resources that I would recommend to you
 are available free on the web.</p>
 <div id="r-for-data-science" class="section level2">
@@ -246,7 +243,7 @@ location.</p>
 <code>id</code> and <code>location</code> are character data, <code>date</code> is Date data, and
 <code>prcp</code>, <code>tmin</code>, and <code>tmax</code> are double-precision floating point data
 (i.e., real numbers).</p>
-<p>In some ways, a tibble or <code>data.frame</code> is like a names list of vectors, where
+<p>In some ways, a tibble or <code>data.frame</code> is like a named list of vectors, where
 each vector is a column and its name is the name of the column. We can access
 individual columns using the dollar sign, just as with regular named lists:</p>
 <pre class="r"><code>precipitation = nashville_weather$prcp
@@ -344,7 +341,7 @@ and they will allow us to do some powerful analysis.</p>
 ## 5 USW00013897 1948-01-05   0    -2.2   8.9 Nashville, TN
 ## 6 USW00013897 1948-01-06   0    -1.1  10.6 Nashville, TN</code></pre>
 <p>Let’s get rid of the <code>id</code> column, since we don’t really care about the ID
-number, that meteorological agencies use to identify the weather station. and
+number, that meteorological agencies use to identify the weather station. And
 let’s get rid of the <code>location</code> column because we know that the data set is from
 Nashville, so having that information repeated on each row is a waste of space.
 To do this, we just call select, specifying the tibble or <code>data.frame</code> to
@@ -489,7 +486,7 @@ x</code></pre>
 ## 1       NA       NA</code></pre>
 <p>We can also generate grouped summaries:</p>
 <pre class="r"><code>x = ungroup(summarize(group_by(nashville_weather, year(date)), 
-            prcp.max = max(prcp), prcp.tot = sum(prcp)))
+                      prcp.max = max(prcp), prcp.tot = sum(prcp)))
 head(x)</code></pre>
 <pre><code>## # A tibble: 6 x 3
 ##   `year(date)` prcp.max prcp.tot
@@ -510,8 +507,8 @@ operator chains operations together, taking the result of the one on the left
 and inserting it into the one on the right.</p>
 <p>We can use the pipe operator to rewrite the expression above as</p>
 <pre class="r"><code>x = nashville_weather %&gt;% group_by(year(date)) %&gt;% 
-    summarize(prcp.max = max(prcp), prcp.tot = sum(prcp)) %&gt;%
-    ungroup()
+  summarize(prcp.max = max(prcp), prcp.tot = sum(prcp)) %&gt;%
+  ungroup()
 head(x)</code></pre>
 <pre><code>## # A tibble: 6 x 3
 ##   `year(date)` prcp.max prcp.tot
@@ -558,7 +555,7 @@ tail(weather_summary)</code></pre>
 <p>Sometimes you want to gather many columns in a data table, data frame, or tibble
 into a single column. For instance, consider this data frame, which was
 read in from a spreadsheet of global temperatures produced at NASA:</p>
-<pre class="r"><code>giss_zonal &lt;- readRDS(&#39;_data/giss_zonal.Rds&#39;)
+<pre class="r"><code>giss_zonal = readRDS(&#39;_data/giss_zonal.Rds&#39;)
 head(giss_zonal)</code></pre>
 <pre><code>## # A tibble: 6 x 9
 ##    year x64n_90n x44n_64n x24n_44n equ_24n x24s_equ x44s_24s x64s_44s x90s_64s
@@ -631,8 +628,8 @@ head(tidy_zonal)</code></pre>
 <pre class="r"><code>ggplot(tidy_zonal, aes(x = year, y = anomaly, color = latitude)) +
   geom_line() +
   labs(x = &quot;Year&quot;, y = &quot;Temperature anomaly&quot;)</code></pre>
-<p><img src="/lab_docs/lab_02_overview_files/figure-html/plot_zonal_tibble-1.png" width="672" /></p>
-<p>The code for making the plot was a lot simpler, and by using an ordered factor,
+<p><img src="/lab_docs/lab_02_overview_files/figure-html/plot_zonal_tibble-1.png" width="672" />
+The code for making the plot was a lot simpler, and by using an ordered factor,
 we could control the order of the latitude bands in the legend, which now
 appear in a sensible order. It is much easier to look at this graph and quickly
 recognize that the far northern latitudes (64N-90N, and to a lesser extent
@@ -722,7 +719,7 @@ for what we’re going to do.</p>
   labs(x = &quot;Year&quot;, y = &quot;Temperature Anomaly&quot;) # labels for the coordinates</code></pre>
 <p><img src="/lab_docs/lab_02_overview_files/figure-html/second_plot-1.png" width="672" /></p>
 <p>We can also use different mappings for different layers. Here, I add the
-<code>shape</code> aethetic to the points to distinguish daily maximum and minimum
+<code>shape</code> aesthetic to the points to distinguish daily maximum and minimum
 temperatures.</p>
 <p>Here, we run into an important issue with R: there are some days where the
 measurements of daily maximum or minimum temperature are missing for one of
@@ -777,7 +774,7 @@ outside of the mapping. Here I specify the size and color of lines:</p>
   geom_point(aes(x = year, y = tmax, color = location, shape = &quot;max&quot;), 
              size = 2) +
   xlim(1990,2000) + 
-  labs(x = &quot;Year&quot;, y = &quot;Temperature Anomaly&quot;)</code></pre>
+  labs(x = &quot;Year&quot;, y = &quot;Temperature Anomaly&quot;) # labels for the coordinates</code></pre>
 <p><img src="/lab_docs/lab_02_overview_files/figure-html/fourth_plot-1.png" width="672" /></p>
 <p>We can also take finer control of the axis formatting:</p>
 <pre class="r"><code>ggplot(data = annual_extremes # the data
@@ -792,7 +789,7 @@ outside of the mapping. Here I specify the size and color of lines:</p>
              size = 2) +
   scale_x_continuous(limits=c(1990,2000), 
                      breaks = c(1990, 1992, 1994, 1996, 1998, 2000)) + 
-  #  ^^^ the &quot;breaks&quot; parameter for an axis tells R where to put the labels
+  # ^^^ the &quot;breaks&quot; parameter for an axis tells R where to put the labels
   labs(x = &quot;Year&quot;, y = &quot;Temperature Anomaly&quot;) # labels for the coordinates</code></pre>
 <p><img src="/lab_docs/lab_02_overview_files/figure-html/fifth_plot-1.png" width="672" /></p>
 <p>And, of course, we could use <code>gather</code> to simplify this graph. Gather re-organizes
