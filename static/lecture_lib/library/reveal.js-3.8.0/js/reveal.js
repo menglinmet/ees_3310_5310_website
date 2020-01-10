@@ -101,6 +101,7 @@
 
 			// Enable keyboard shortcuts for navigation
 			keyboard: true,
+			shift_keyboard: true,
 
 			// Optional function that blocks keyboard events when retuning false
 			keyboardCondition: null,
@@ -1435,16 +1436,16 @@
 
 		// Define our contextual list of keyboard shortcuts
 		if( config.navigationMode === 'linear' ) {
-			keyboardShortcuts['&#8594;  ,  &#8595;  ,  SPACE  ,  N  ,  L  ,  J'] = 'Next slide';
-			keyboardShortcuts['&#8592;  ,  &#8593;  ,  P  ,  H  ,  K']           = 'Previous slide';
+			keyboardShortcuts['&#8594;  ,  &#8595;  ,  SPACE  ,  N  ,  L  ,  J'] = 'Next';
+			keyboardShortcuts['&#8592;  ,  &#8593;  ,  P  ,  H  ,  K']     = 'Previous';
 		}
 		else {
-			keyboardShortcuts['N  ,  SPACE']   = 'Next slide';
-			keyboardShortcuts['P']             = 'Previous slide';
-			keyboardShortcuts['&#8592;  ,  H'] = 'Navigate left';
-			keyboardShortcuts['&#8594;  ,  L'] = 'Navigate right';
-			keyboardShortcuts['&#8593;  ,  K'] = 'Navigate up';
-			keyboardShortcuts['&#8595;  ,  J'] = 'Navigate down';
+			keyboardShortcuts['&#8595;  ,  SPACE']   = 'Next';
+			keyboardShortcuts['&#8593;']             = 'Previous';
+			keyboardShortcuts['&#8592;  ,  H']       = 'Navigate left';
+			keyboardShortcuts['&#8594;  ,  L']       = 'Navigate right';
+			keyboardShortcuts['P  ,  K']             = 'Navigate up';
+			keyboardShortcuts['N  ,  J']             = 'Navigate down';
 		}
 
 		keyboardShortcuts['Home  ,  &#8984;/CTRL &#8592;'] = 'First slide';
@@ -1486,7 +1487,7 @@
 				dom.wrapper.addEventListener( 'touchend', onTouchEnd, false );
 		}
 
-		if( config.keyboard ) {
+		if( config.keyboard && config.shift_keyboard ) {
 			document.addEventListener( 'keydown', onDocumentKeyDown, false );
 			document.addEventListener( 'keypress', onDocumentKeyPress, false );
 		}
@@ -5122,7 +5123,13 @@
 		}
 
 		// Shorthand
-		var keyCode = event.keyCode;
+		var keyCode    = event.keyCode;
+		var shiftState = event.shiftKey;
+		var ctrlState  = event.ctrlKey;
+		var metaState  = event.metaKey;
+		var altKey     = event.altKey;
+
+		// console.log("key = " + keyCode + ", shift = " + shiftState);
 
 		// Remember if auto-sliding was paused so we can toggle it
 		var autoSlideWasPaused = autoSlidePaused;
@@ -5141,7 +5148,8 @@
 
 		// Prevent all other events when a modifier is pressed
 		var unusedModifier = 	!prevSlideShortcut && !firstSlideShortcut && !lastSlideShortcut &&
-								( event.shiftKey || event.altKey || event.ctrlKey || event.metaKey );
+		              ( event.altKey || event.ctrlKey || event.metaKey );
+//								( event.shiftKey || event.altKey || event.ctrlKey || event.metaKey );
 
 		// Disregard the event if there's a focused element or a
 		// keyboard modifier key is present
@@ -5152,11 +5160,21 @@
 		var key;
 
 		// Custom key bindings for togglePause should be able to resume
-		if( typeof config.keyboard === 'object' ) {
-			for( key in config.keyboard ) {
-				if( config.keyboard[key] === 'togglePause' ) {
-					resumeKeyCodes.push( parseInt( key, 10 ) );
-				}
+	  if (! shiftState) {
+  		if( typeof config.keyboard === 'object' ) {
+  			for( key in config.keyboard ) {
+  				if( config.keyboard[key] === 'togglePause' ) {
+  					resumeKeyCodes.push( parseInt( key, 10 ) );
+  				}
+  			}
+  		}
+		} else {
+  		if( typeof config.shift_keyboard === 'object' ) {
+  			for( key in config.shift_keyboard ) {
+  				if( config.shift_keyboard[key] === 'togglePause' ) {
+  					resumeKeyCodes.push( parseInt( key, 10 ) );
+  				}
+  			}
 			}
 		}
 
@@ -5167,30 +5185,48 @@
 		var triggered = false;
 
 		// 1. User defined key bindings
-		if( typeof config.keyboard === 'object' ) {
+		// console.log("Testing user-defined bindings.");
+	  if (! shiftState) {
+  		if( typeof config.keyboard === 'object' ) {
+  			for( key in config.keyboard ) {
+  				// Check if this binding matches the pressed key
+  				if( parseInt( key, 10 ) === keyCode) {
+            // console.log("Found unshift key ", keyCode);
+  					let value = config.keyboard[ key ];
+  					// Callback function
+  					if( typeof value === 'function' ) {
+  						value.apply( null, [ event ] );
+  					}
+  					// String shortcuts to reveal.js API
+  					else if( typeof value === 'string' && typeof Reveal[ value ] === 'function' ) {
+  						Reveal[ value ].call();
+  					}
+  					triggered = true;
+  				}
+  			}
+  		}
+	  } else {
+	    // console.log("Shifted.");
+  		if( typeof config.shift_keyboard === 'object' ) {
+  		  // console.log("Testing shift_keyboard.");
+  			for( key in config.shift_keyboard ) {
+  				// Check if this binding matches the pressed key
+  				if( parseInt( key, 10 ) === keyCode) {
+            // console.log("Found shift key ", keyCode);
+  					let value = config.shift_keyboard[ key ];
 
-			for( key in config.keyboard ) {
-
-				// Check if this binding matches the pressed key
-				if( parseInt( key, 10 ) === keyCode ) {
-
-					var value = config.keyboard[ key ];
-
-					// Callback function
-					if( typeof value === 'function' ) {
-						value.apply( null, [ event ] );
-					}
-					// String shortcuts to reveal.js API
-					else if( typeof value === 'string' && typeof Reveal[ value ] === 'function' ) {
-						Reveal[ value ].call();
-					}
-
-					triggered = true;
-
-				}
-
-			}
-
+  					// Callback function
+  					if( typeof value === 'function' ) {
+  						value.apply( null, [ event ] );
+  					}
+  					// String shortcuts to reveal.js API
+  					else if( typeof value === 'string' && typeof Reveal[ value ] === 'function' ) {
+  						Reveal[ value ].call();
+  					}
+  					triggered = true;
+  				}
+  			}
+		  }
 		}
 
 		// 2. Registered custom key bindings
@@ -5223,22 +5259,31 @@
 			// Assume true and try to prove false
 			triggered = true;
 
-			// P, PAGE UP
-			if( keyCode === 80 || keyCode === 33 ) {
-				navigatePrev();
+			// PAGE UP, UP
+			if( keyCode === 33 || keyCode === 38 ) {
+			  if (shiftState && keyCode === 38) {
+			    navigateUp();
+			  } else {
+	  			navigatePrev();
+			  }
 			}
-			// N, PAGE DOWN
-			else if( keyCode === 78 || keyCode === 34 ) {
-				navigateNext();
+			// PAGE DOWN, DOWN
+			else if( keyCode === 34 || keyCode === 40 ) {
+			  // console.log("Key navigation to next");
+			  if (shiftState && keyCode === 40) {
+			    navigateDown();
+			  } else {
+  				navigateNext();
+			  }
 			}
 			// H, LEFT
 			else if( keyCode === 72 || keyCode === 37 ) {
 				if( firstSlideShortcut ) {
 					slide( 0 );
 				}
-				else if( !isOverview() && config.navigationMode === 'linear' ) {
-					navigatePrev();
-				}
+//				else if( !isOverview() && config.navigationMode === 'linear' ) {
+//					navigatePrev();
+//				}
 				else {
 					navigateLeft();
 				}
@@ -5248,30 +5293,30 @@
 				if( lastSlideShortcut ) {
 					slide( Number.MAX_VALUE );
 				}
-				else if( !isOverview() && config.navigationMode === 'linear' ) {
-					navigateNext();
-				}
+//				else if( !isOverview() && config.navigationMode === 'linear' ) {
+//					navigateNext();
+//				}
 				else {
 					navigateRight();
 				}
 			}
-			// K, UP
-			else if( keyCode === 75 || keyCode === 38 ) {
-				if( !isOverview() && config.navigationMode === 'linear' ) {
-					navigatePrev();
-				}
-				else {
+			// K, P
+			else if( keyCode === 75 || keyCode === 80 ) {
+//				if( !isOverview() && config.navigationMode === 'linear' ) {
+//					navigatePrev();
+//				}
+//				else {
 					navigateUp();
-				}
+//				}
 			}
-			// J, DOWN
-			else if( keyCode === 74 || keyCode === 40 ) {
-				if( !isOverview() && config.navigationMode === 'linear' ) {
-					navigateNext();
-				}
-				else {
+			// J, N
+			else if( keyCode === 74 || keyCode === 78 ) {
+//				if( !isOverview() && config.navigationMode === 'linear' ) {
+//					navigateNext();
+//				}
+//				else {
 					navigateDown();
-				}
+//				}
 			}
 			// HOME
 			else if( keyCode === 36 ) {
@@ -5345,7 +5390,7 @@
 	function onTouchStart( event ) {
 
 		/*
-		 console.log("Touch start event: length = " + event.touches.length + " (" + event.touches[0].clientX + ", " + event.touches[0].clientY + ")" +
+		 // console.log("Touch start event: length = " + event.touches.length + " (" + event.touches[0].clientX + ", " + event.touches[0].clientY + ")" +
                	" " + event.name);
 		/*
 		*/
@@ -5388,31 +5433,31 @@
 
 				if( deltaX > touch.threshold && Math.abs( deltaX ) > swipeAspect * Math.abs( deltaY ) ) {
 					touch.captured = true;
-					console.log("left");
+					// console.log("left");
 					navigateLeft();
 				}
 				else if( deltaX < -touch.threshold && Math.abs( deltaX ) > swipeAspect * Math.abs( deltaY ) ) {
 					touch.captured = true;
-					console.log("right");
+					// console.log("right");
 					navigateRight();
 				}
 				else if( deltaY > touch.threshold ) {
 					touch.captured = true;
 					if  ( Math.abs( deltaY ) < swipeAspect * Math.abs( deltaX ) ) {
-						console.log("up");
+						// console.log("up");
 						navigateUp();
 					} else {
-						console.log("next");
+						// console.log("next");
 						navigateNext();
 					}
 				}
 				else if( deltaY < -touch.threshold ) {
 					touch.captured = true;
 					if ( Math.abs( deltaY ) < swipeAspect * Math.abs( deltaX ) ) {
-						console.log("down");
+						// console.log("down");
 						navigateDown();
 					} else {
-						console.log("prev");
+						// console.log("prev");
 						navigatePrev();
 					}
 				}
@@ -5437,7 +5482,7 @@
 							Math.abs( deltaX[1] ) > Math.abs( deltaY[1] ) )
 						) ) {
 							touch.captured = true;
-							console.log("next(2)");
+							// console.log("next(2)");
 							navigateNext();
 					} else if ( ( deltaY[0] > touch.threshold && deltaY[1] > touch.threshold ) &&
 						(
@@ -5445,7 +5490,7 @@
 							  Math.abs( deltaX[1] ) < Math.abs( deltaY[1] ) )
 							) ) {
 					touch.captured = true;
-					console.log("up(2)");
+					// console.log("up(2)");
 					navigateUp();
 				}
 				else if( ( deltaX[0] < -touch.threshold && deltaX[1] < -touch.threshold ) &&
@@ -5454,7 +5499,7 @@
 										Math.abs( deltaX[1] ) > Math.abs( deltaY[1] )  )
 						 		) ) {
 									touch.captured = true;
-									console.log("prev(2)");
+									// console.log("prev(2)");
 									navigatePrev();
 				} else if ( ( deltaY[0] < -touch.threshold && deltaY[1] < -touch.threshold ) &&
  	 							(
@@ -5462,7 +5507,7 @@
 	 										Math.abs( deltaX[1] ) < Math.abs( deltaY[1] ) )
  								) ) {
 					touch.captured = true;
-					console.log("down(2)");
+					// console.log("down(2)");
 					navigateDown();
 				}
 
@@ -5496,7 +5541,7 @@
 	 */
 	function onTouchEnd( event ) {
 		/*
-		console.log( "Touch end event: length = " + event.touches.length + ", startCount = " + touch.startCount +
+		// console.log( "Touch end event: length = " + event.touches.length + ", startCount = " + touch.startCount +
 		             " event: " + event + " touches = " + event.touches );
 		/*
 		 */

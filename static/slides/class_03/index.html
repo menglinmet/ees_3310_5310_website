@@ -821,18 +821,18 @@ Venus
                     { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/zoom-js/zoom.js', async: true },
           { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/notes/notes.js', async: true }
         ],
-        keyboard: {
-    	    67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
-    	    66: function() { RevealChalkboard.toggleChalkboard() },	  // toggle chalkboard when 'b' is pressed
-    	    46: function() { RevealChalkboard.clear() },	            // clear chalkboard when 'DEL' is pressed
-    	     8: function() { RevealChalkboard.reset() },	            // reset chalkboard data on current slide when 'BACKSPACE' is pressed
-    	    68: function() { RevealChalkboard.download() },	          // downlad recorded chalkboard drawing when 'd' is pressed
+        shift_keyboard: {
+    	    63: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'C' is pressed
+    	    66: function() { RevealChalkboard.toggleChalkboard() },	  // toggle chalkboard when 'B' is pressed
+    	    88: function() { RevealChalkboard.clear() },	            // clear chalkboard when 'X' is pressed
+    	    82: function() { RevealChalkboard.reset() },	            // reset chalkboard data on current slide when 'R' is pressed
+    	    68: function() { RevealChalkboard.download() },	          // downlad recorded chalkboard drawing when 'D' is pressed
         },
               	// Shortcut for showing all fragments
-      	skipFragmentsShowShortcut: 'R',
+      	skipFragmentsShowShortcut: 'S',
 
       	// Shortcut for hiding all fragments
-      	skipFragmentsHideShortcut: 'T',
+      	skipFragmentsHideShortcut: 'H',
       	      });
     </script><script>
   	function createSingletonNodejg( container, tagname, classname, innerHTML ) {
