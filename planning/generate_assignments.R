@@ -407,6 +407,6 @@ generate_assignments <- function(semester) {
 }
 
 regenerate_assignments <- function() {
-  semester <- load_semester_db("planning/ees_3310/dest_semester.sqlite3")
+  semester <- load_semester_db("planning/EES_3310_5310.sqlite3")
   generate_assignments(semester)
 }
