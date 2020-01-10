@@ -1,7 +1,6 @@
 library(pacman)
 
 p_load(tidyverse)
-p_load(stringr)
 p_load(scales)
 p_load(xml2)
 
