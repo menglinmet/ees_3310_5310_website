@@ -327,7 +327,6 @@ body {
   word-wrap: break-word;
   box-shadow: none; }
 
-.reveal .code,
 .reveal code {
   font-family: "Anonymous Pro", monospace;
   color: #268bd2; }
@@ -522,19 +521,10 @@ body {
 .reveal .bare div > p,
 .reveal .bare div > img,
 .reveal .bare p,
-.reveal .bare img,
-.reveal .bare table,
-.reveal .bare thead,
-.reveal .bare tbody,
-.reveal .bare tr,
-.reveal .bare th,
-.reveal .bare td {
-  margin: 0;
-  border: none;
-  padding: 0; }
-
 .reveal .bare img {
-  shadow: none; }
+  margin: 0;
+  border: 0;
+  padding: 0; }
 
 .reveal .flush div,
 .reveal .flush img,
@@ -547,12 +537,5 @@ body {
   font-size: 30%;
   text-align: right;
   color: #a0a0a0; }
-
-div.column {
-  width: 49%;
-  vertical-align: top; }
-
-div.topalign {
-  vertical-align: top; }
 
 /*# sourceMappingURL=solarized_jg.css.map */
