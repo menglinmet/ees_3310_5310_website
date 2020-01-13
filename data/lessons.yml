@@ -18,6 +18,7 @@ lessons:
   reading: /reading/reading_03
 - date: '2020-01-13'
   title: Greenhouse Effect
+  lecture: /slides/class_04
   class_num: 4
   reading: /reading/reading_04
   lab: lab_02_assignment
