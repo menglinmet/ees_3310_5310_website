@@ -26,6 +26,7 @@ lessons:
   lab_title: Working with climate data
 - date: '2020-01-15'
   title: Greenhouse Gases
+  lecture: /slides/class_05
   class_num: 5
   reading: /reading/reading_05
 - date: '2020-01-17'

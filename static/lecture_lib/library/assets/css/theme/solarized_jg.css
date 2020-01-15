@@ -538,4 +538,11 @@ body {
   text-align: right;
   color: #a0a0a0; }
 
+div.column {
+  width: 49%;
+  vertical-align: top; }
+
+div.topalign {
+  vertical-align: top; }
+
 /*# sourceMappingURL=solarized_jg.css.map */
