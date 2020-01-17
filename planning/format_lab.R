@@ -30,10 +30,13 @@ make_lab_solution_page <- function(sol, semester) {
     title = sol$sol_title,
     author = sol$sol_author,
     lab_number = sol$lab_num,
-    lab_date = lubridate::as_date(sol$lab_date) %>% as.character(),
-    sol_date = lubridate::as_date(sol$sol_pub_date) %>% as.character(),
+    lab_date = lubridate::as_datetime(sol$lab_date) %>%
+      lubridate::as_date() %>% as.character(),
+    sol_date = lubridate::as_datetime(sol$sol_pub_date) %>%
+      lubridate::as_date() %>% as.character(),
     pubdate = as.character(sol$sol_pub_date),
-    date = lubridate::as_date(sol$report_date) %>% as.character(),
+    date = lubridate::as_datetime(sol$report_date) %>%
+      lubridate::as_date() %>% as.character(),
     pdf_url = sol$sol_pdf_url,
     slug = sprintf("lab_%02d_%s", sol$lab_num,
                    sol$sol_filename)) %>%
@@ -173,6 +176,8 @@ make_lab_assignment_content <- function(key, semester, use_solutions = FALSE) {
       # merge_dates(semester, id_col = "sol_pub_cal_id",
       #             date_col = "sol_pub_date") %>%
       dplyr::filter(sol_pub_date <= lubridate::now()) %>%
+      dplyr::mutate(lab_date = assignment$date,
+                    report_date = assignment$report_date) %>%
       dplyr::arrange(sol_pub_date)
 
     if (nrow(solutions) > 0) {
@@ -182,10 +187,11 @@ make_lab_assignment_content <- function(key, semester, use_solutions = FALSE) {
       sol_links <- purrr::map(purrr::transpose(solutions),
                               ~make_lab_solution(.x, semester))
       if (is.list(sol_links)) {
-        sol_links <- purrr::transpose(sol_links)
+        sol_links <- purrr::transpose(sol_links) %>%
+          purrr::map_df(~vec_cast(.x, class(.x)))
       }
       output <- cat_nl(output,
-                       stringr::str_c("[", sol_links$sol_title, "](",
+                       stringr::str_c("[", sol_links$title, "](",
                                       sol_links$url, '){target="_blank"}') %>%
                          itemize())
     }

@@ -411,7 +411,8 @@ reconcile_semester_db <- function(db_file, backup = TRUE, overwrite = FALSE,
   calendar <- dplyr::bind_rows(cal_class, cal_hw, cal_lab, cal_due, cal_exam,
                           cal_holiday, cal_event) %>%
     dplyr::arrange(date, cal_id) %>%
-    dplyr::mutate(week = 1 + (class_num - 1) %/% 3) %>%
+    dplyr::mutate(week = 1 + (class_num - 1) %/% 3,
+                  date = as.character(lubridate::as_date(date))) %>%
     dplyr::select(cal_id, date, cal_key, cal_type, class_num, week,
                   cancelled, make_up, dplyr::everything())
 
