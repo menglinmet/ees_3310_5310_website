@@ -188,7 +188,7 @@ make_lab_assignment_content <- function(key, semester, use_solutions = FALSE) {
                               ~make_lab_solution(.x, semester))
       if (is.list(sol_links)) {
         sol_links <- purrr::transpose(sol_links) %>%
-          purrr::map_df(~vec_cast(.x, class(.x)))
+          purrr::map_df(~vctrs::vec_cast(.x, class(.x)))
       }
       output <- cat_nl(output,
                        stringr::str_c("[", sol_links$title, "](",

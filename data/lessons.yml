@@ -38,6 +38,7 @@ lessons:
   title: Martin Luther King, Jr. Day
 - date: '2020-01-22'
   title: Review of Greenhouse Effect
+  lecture: /slides/class_07
   class_num: 7
   reading: /reading/reading_07
 - date: '2020-01-24'

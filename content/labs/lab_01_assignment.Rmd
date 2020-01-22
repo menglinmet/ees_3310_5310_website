@@ -38,3 +38,9 @@ Starting with the second lab session, on Monday, January 13, you should both **d
 ## Assignment
 
 Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/UNOxC36Q>.
+
+## Solutions
+
+**Solutions for Lab Exercises**:
+
+* [Lab #1 Answers](/lab_solutions/lab_01_answers){target="_blank"}
