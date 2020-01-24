@@ -9,10 +9,10 @@ slug: lab_05_assignment
 output:
 - blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
-    toc: no
+    toc: yes
   pdf_document:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
-    toc: no
+    toc: yes
     includes:
       in_header: ees3310.sty
 ---

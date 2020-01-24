@@ -226,7 +226,7 @@ make_lab_assignment_page <- function(key, semester, use_solutions = FALSE) {
     pubdate = as.character(semester$semester_dates$pub_date),
     date = lubridate::as_date(assignment$date) %>% as.character(),
     slug = sprintf("lab_%02d_assignment", assignment$lab_num),
-    output = make_rmd_output_format(FALSE)
+    output = make_rmd_output_format(TRUE)
   ) %>%
     purrr::discard(~isTRUE(is.na(.x))) %>%
     yaml::as.yaml() %>% stringr::str_trim("right") %>%
