@@ -3,9 +3,16 @@ p_load(tidyverse, scales, xml2)
 
 ssource <- function(filename, chdir = F) {
   if(!file.exists(filename)) {
-    if(exists("script_dir")) script_dir = script_dir
-    else if (exists("script.dir")) script_dir = script.dir
-    else if (dir.exists("scripts")) script_dir = "scripts"
+    if(exists("script_dir", envir = globalenv()))
+      script_dir = get("script_dir", envir = globalenv())
+    else if (exists("script.dir", envir = globalenv()))
+      script_dir = get("script.dir", envir = globalenv())
+    else if (dir.exists("_scripts"))
+      script_dir = "_scripts"
+    else if (dir.exists(rprojroot::find_rstudio_root_file("_scripts")))
+      script_dir = ("_scripts")
+    else
+      script_dir = "."
     if(dir.exists(script_dir)) filename = file.path(script_dir, filename)
   }
   source(filename, chdir = chdir,
@@ -145,8 +152,8 @@ run_modtran <- function(filename = NULL,
                 "altitude_km", "looking")) %>%
     map(~as.character(.x[1])) %>%
     modify_at("atmosphere", ~str_to_lower(.x) %>%
-             str_replace_all(c("[^a-z0-9]+" = " ", "  +" = " ")) %>%
-             str_trim()
+                str_replace_all(c("[^a-z0-9]+" = " ", "  +" = " ")) %>%
+                str_trim()
     ) %>%
     simplify()
   for(k in c('h2o_fixed', 'atmosphere', 'clouds', 'looking')) {
@@ -192,18 +199,19 @@ read_modtran_profile <- function(filename = NULL, text = NULL) {
     close(f)
   }
   im <- str_detect(lines, "^ +ATMOSPHERIC PROFILES") %>% which()
-  header <- im[[1]] + 2
-  start <- im[[1]] + 5
-  end <- im[[2]] - 2
+  header <- im[[3]] + 2
+  start <- header + 2
+  end <- im[[4]] - 2
   col_names <- lines[[header]] %>% str_trim() %>% str_split(" +") %>% unlist() %>%
     str_replace_all("([^a-zA-Z0-9_]+)", ".") %>%
     str_replace_all(c('^\\.' = '', '\\.$' = ''))
   dups <- duplicated(col_names) %>% which()
   col_names[dups] <- col_names[dups] %>% str_c(seq_along(dups), sep = ".")
   profile <- lines[start:end] %>% str_trim() %>% str_c(collapse = "\n") %>%
-    read_table2(col_names=col_names[1:10])
-  profile <- profile[,2:4]
-  names(profile) <- col_names[2:4]
+    read_table2(col_names=col_names)
+  profile <- profile %>% select(Z, P, T, H2O, O3, CO2, CH4) %>%
+    # convert from MBAR to ppmv
+    mutate(H2O = H2O * 1E6 / P)
   profile
 }
 
@@ -292,7 +300,8 @@ plot_modtran <- function(filename = NULL, text = NULL,
                          annotate_y_1 = 0.49, annotate_y_2 = 0.44,
                          annotate_size = 5, text_size = 10,
                          legend_text_size = 10, legend_size = 0.2,
-                         line_scale = 1, direction = "out") {
+                         line_scale = 1, direction = "out",
+                         lambda = NULL) {
   if (! is.null(modtran_data)) {
     x <- modtran_data
   } else if (! is.null(filename) && is.list(filename) &&
@@ -335,7 +344,9 @@ plot_modtran <- function(filename = NULL, text = NULL,
              ordered(., levels = c("MODTRAN", sort(unique(.), decreasing = TRUE)))
     ) %>% na.omit() %>% filter(between(k, k_limits[1], k_limits[2]))
 
-  lambda = c(1, 2, 2.5, 3, 3.5, 4, 5:10, 12, 14, 17, 20, 25, 30, 35, 40, 50, 100)
+  if (is.null(lambda)) {
+    lambda = c(1, 2, 2.5, 3, 3.5, 4, 5:10, 12, 14, 17, 20, 25, 30, 35, 40, 50, 100)
+  }
 
   spectrum <- spectrum %>% select(k, tk) %>% na.omit() %>%
     filter(between(k, k_limits[1], k_limits[2]))
@@ -393,7 +404,7 @@ plot_modtran <- function(filename = NULL, text = NULL,
           panel.grid.minor=element_line(size=0.1,color="gray95"),
           legend.key.size = unit(legend_size,"npc"),
           legend.text = element_text(size=legend_text_size),
-          legend.position = c(1,1), legend.justification = c(1,1),
+          legend.position = c(0.99,0.99), legend.justification = c(1,1),
           legend.key.height = unit(1, "lines"), legend.key.width = unit(2, "lines"),
           legend.background = element_rect(color = "black", fill = "white"))
 

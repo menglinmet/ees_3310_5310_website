@@ -179,11 +179,19 @@ examine the data. This function returns a list with 7 elements:</p>
 <ul>
 <li><p><code>spectrum</code> is a data tibble with the spectral information (wavelength <code>lambda</code>,
 wavenumber <code>k</code>, outgoing IR intensity <code>tk</code>, and a number of other variables.)</p></li>
-<li><p><code>profile</code> is the profile of the atmosphere: a tibble with three columns:</p>
+<li><p><code>profile</code> is the profile of the atmosphere: a tibble with seven columns:</p>
 <ul>
 <li><code>Z</code> is the altitude in km,</li>
 <li><code>P</code> is the atmospheric pressure, in millibars, and</li>
 <li><code>T</code> is the temperature in Kelvin.</li>
+<li><code>H2O</code> is the concentration of water vapor, in parts per million at each
+altitude.</li>
+<li><code>O3</code> is the concentration of ozone, in parts per million at each
+altitude.</li>
+<li><code>CO2</code> is the concentration of carbon dioxide, in parts per million at each
+altitude.</li>
+<li><code>CH4</code> is the concentration of methane, in parts per million at each
+altitude.</li>
 </ul></li>
 <li><p><code>co2</code> is the atmospheric CO<sub>2</sub> concentration</p></li>
 <li><p><code>ch4</code> is the atmospheric methane concentration</p></li>
@@ -587,7 +595,7 @@ by the model to calculate
 ground.</p>
 <p>Assume <span class="math inline">\(\varepsilon = 1\)</span>, and I have already provided the value of the
 Stefan-Boltzmann constant <span class="math inline">\(\sigma\)</span>, as the R variable <code>sigma_sb</code>,
-which equals 0.0000000567.
+which equals 5.670×10<sup>-8</sup>.
 (I defined it in the script “utils.R”, which I loaded in the “setup” chunk
 in the RMarkdown document).</p>
 <p>Next, look at the outgoing heat flux at the top of the atmosphere (70 km)
@@ -595,7 +603,7 @@ reported by the MODTRAN model. Is it greater or less than the heat flux
 that you calculated was emitted by the ground?</p></li>
 <li><p>Use the outgoing heat flux at the top of the atmosphere to calcuate the
 skin temperature (use the equation
-<span class="math inline">\(I_{\text{out}} = \varepsilon \sigma T_{\text{skin}}^4)\)</span>).
+<span class="math inline">\(I_{\text{out}} = \varepsilon \sigma T_{\text{skin}}^4\)</span>).
 What is the skin temperature, and how does it compare to the ground
 temperature and the temperature at the tropopause, as reported by the
 MODTRAN model?</p>
