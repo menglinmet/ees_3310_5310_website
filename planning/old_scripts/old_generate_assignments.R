@@ -619,7 +619,8 @@ make_hw_solution_page <- function(solution, assignment, slug = NA_character_) {
     pubdate = as.character(solution$hw_sol_pub_date),
     date = as.character(assignment$hw_due_date),
     pdf_url = solution$hw_sol_pdf_url,
-    slug = str_c(slug, "_", solution$hw_sol_filename)) %>%
+    slug = str_c(slug, "_", solution$hw_sol_filename)
+    ) %>%
     discard(is.na) %>%
     c(
       output = make_rmd_output_format(TRUE)

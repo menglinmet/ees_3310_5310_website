@@ -39,7 +39,8 @@ make_lab_solution_page <- function(sol, semester) {
       lubridate::as_date() %>% as.character(),
     pdf_url = sol$sol_pdf_url,
     slug = sprintf("lab_%02d_%s", sol$lab_num,
-                   sol$sol_filename)) %>%
+                   sol$sol_filename)
+  ) %>%
     purrr::discard(~isTRUE(is.na(.x))) %>%
     c(
       output = make_rmd_output_format(TRUE)
@@ -85,7 +86,8 @@ make_lab_doc_page <- function(doc, semester) {
     date = as.character(doc$date),
     bibliography = doc$bibliography,
     pdf_url = doc$document_pdf_url,
-    slug = sprintf("lab_%02d_%s", doc$lab_num, doc$doc_filename)) %>%
+    slug = sprintf("lab_%02d_%s", doc$lab_num, doc$doc_filename)
+  ) %>%
     purrr::discard(~isTRUE(is.na(.x))) %>%
     c(
       output = make_rmd_output_format(TRUE)
@@ -135,10 +137,10 @@ make_lab_assignment_content <- function(key, semester, use_solutions = FALSE) {
   output <- cat_nl(output, "## Reading", start_par = TRUE, extra_lines = 1)
   if (nrow(docs) > 0) {
     if (is.na(assignment$alt_preamble)) {
-    output <- cat_nl(output,
-                     stringr::str_c("**Before you come to lab**, please read the following document",
-                                    ifelse(nrow(docs) > 1, "s", ""), ":"),
-                     start_par = TRUE, extra_lines = 1)
+      output <- cat_nl(output,
+                       stringr::str_c("**Before you come to lab**, please read the following document",
+                                      ifelse(nrow(docs) > 1, "s", ""), ":"),
+                       start_par = TRUE, extra_lines = 1)
     } else {
       output <- cat_nl(output, assignment$alt_preamble, start_par = TRUE,
                        extra_lines = 1)
@@ -225,10 +227,12 @@ make_lab_assignment_page <- function(key, semester, use_solutions = FALSE) {
     github_classroom_assignment_url = assignment$assignment_url,
     pubdate = as.character(semester$semester_dates$pub_date),
     date = lubridate::as_date(assignment$date) %>% as.character(),
-    slug = sprintf("lab_%02d_assignment", assignment$lab_num),
-    output = make_rmd_output_format(TRUE)
+    slug = sprintf("lab_%02d_assignment", assignment$lab_num)
   ) %>%
     purrr::discard(~isTRUE(is.na(.x))) %>%
+    c(
+      output = make_rmd_output_format(TRUE)
+    ) %>%
     yaml::as.yaml() %>% stringr::str_trim("right") %>%
     stringr::str_c(delim, ., delim, sep = "\n")
 

@@ -39,7 +39,8 @@ make_hw_solution_page <- function(solution, semester, slug = NA_character_) {
     pubdate = as.character(solution$hw_sol_pub_date),
     date = as.character(solution$hw_due_date),
     pdf_url = solution$hw_sol_pdf_url,
-    slug = stringr::str_c(slug, "_", solution$hw_sol_filename)) %>%
+    slug = stringr::str_c(slug, "_", solution$hw_sol_filename)
+  ) %>%
     purrr::discard(~isTRUE(is.na(.x))) %>%
     c(
       output = make_rmd_output_format(TRUE)
@@ -134,7 +135,7 @@ make_hw_asgt_content <- function(key, semester, use_solutions = FALSE) {
       stringr::str_c(purrr::discard(prologue$homework,
                                     ~is.na(.x) | .x == "") %>%
                        unique(),
-            collapse = "\n\n")
+                     collapse = "\n\n")
   } else {
     prologue_str <- NULL
   }
@@ -144,7 +145,7 @@ make_hw_asgt_content <- function(key, semester, use_solutions = FALSE) {
       stringr::str_c(purrr::discard(epilogue$homework,
                                     ~is.na(.x) | .x == "") %>%
                        unique(),
-            collapse = "\n\n")
+                     collapse = "\n\n")
   } else {
     epilogue_str <-  NULL
   }
@@ -181,17 +182,17 @@ make_hw_asgt_content <- function(key, semester, use_solutions = FALSE) {
   }
   if (all(is.null(grad_hw_items), is.null(ugrad_hw_items))) {
     output <- stringr::str_c(stringr::str_trim(output), "",
-                    everyone_hw_items,
-                    "", sep = "\n")
+                             everyone_hw_items,
+                             "", sep = "\n")
   } else {
     output <- stringr::str_c(stringr::str_trim(output), "",
-                    itemize(c(everyone_hw_items, ugrad_hw_items, grad_hw_items)),
-                    "", sep = "\n")
+                             itemize(c(everyone_hw_items, ugrad_hw_items, grad_hw_items)),
+                             "", sep = "\n")
   }
 
   output <- stringr::str_c(stringr::str_trim(output), "",
-                  epilogue_str, "",
-                  sep = "\n"
+                           epilogue_str, "",
+                           sep = "\n"
   )
 
   everyone_notes <- dplyr::bind_rows(prologue_notes, everyone_notes, epilogue_notes) %>%
@@ -267,9 +268,11 @@ make_hw_asgt_page <- function(key, semester, use_solutions = FALSE) {
     slug = hw_slug,
     pubdate = as.character(pub_date),
     date = as.character(hw_date),
-    output = make_rmd_output_format(FALSE)
   ) %>%
     purrr::discard(~isTRUE(is.na(.x))) %>%
+    c(
+      output = make_rmd_output_format(FALSE)
+    ) %>%
     yaml::as.yaml() %>%
     stringr::str_trim("right") %>%
     stringr::str_c(delim, ., delim, sep = "\n")
@@ -319,10 +322,10 @@ make_short_hw_assignment <- function(key, semester) {
   if (any(hw_topics$undergraduate_only | hw_topics$graduate_only)) {
     hw_topics <- hw_topics %>%
       dplyr::mutate(topic = stringr::str_c(topic, " (",
-                                  ifelse(undergraduate_only, "undergrads",
-                                         ifelse(graduate_only, "grad. students",
-                                                "everyone")),
-                                  ")"))
+                                           ifelse(undergraduate_only, "undergrads",
+                                                  ifelse(graduate_only, "grad. students",
+                                                         "everyone")),
+                                           ")"))
   }
   hw_topics <- hw_topics %$% topic
   if (length(hw_topics) > 1) {

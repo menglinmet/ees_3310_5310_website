@@ -6,8 +6,8 @@ weight: 16
 slug: reading_16
 pubdate: '2019-12-31'
 date: '2020-02-12'
-make_rmd_output_format(FALSE):
-- blogdown::html_page:
+output:
+  blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
     toc: no
   pdf_document:
