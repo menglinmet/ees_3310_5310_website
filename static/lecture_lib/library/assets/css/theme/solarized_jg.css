@@ -388,6 +388,12 @@ body {
 .reveal .yellowtitle h5 {
   color: yellow; }
 
+.reveal .whiteslide section {
+  background-color: white; }
+
+.reveal .blackslide section {
+  background-color: black; }
+
 .reveal .blacktitle h1,
 .reveal .blacktitle h2,
 .reveal .blacktitle h3,
@@ -395,17 +401,45 @@ body {
 .reveal .blacktitle h5 {
   color: black; }
 
-.blacktext p,
-.blacktext li,
-.blacktext ul,
-.blacktext ol {
+.reveal .blacktext div
+.reveal .blacktext section {
   color: black; }
+
+.reveal .blacktext p,
+.reveal .blacktext li,
+.reveal .blacktext ul,
+.reveal .blacktext ol {
+  color: black; }
+
+.reveal .yellowtext div
+.reveal .yellowtext section {
+  color: yellow; }
 
 .reveal .yellowtext p,
 .reveal .yellowtext li,
 .reveal .yellowtext ul,
 .reveal .yellowtext ol {
   color: yellow; }
+
+.reveal .darkredtext div
+.reveal .darkredtext section {
+  color: darkred; }
+
+.reveal .darkredtext p,
+.reveal .darkredtext li,
+.reveal .darkredtext ul,
+.reveal .darkredtext ol {
+  color: darkred; }
+
+.reveal .darkbluetext div
+.reveal .darkbluetext section {
+  color: darkblue; }
+
+.reveal .darkbluetext p,
+.reveal .darkbluetext li,
+.reveal .darkbluetext ul,
+.reveal .darkbluetext ol {
+  color: darkblue; }
 
 .reveal .ninetyfive {
   font-size: 95%; }
