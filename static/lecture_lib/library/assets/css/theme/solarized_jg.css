@@ -441,6 +441,10 @@ body {
 .reveal .darkbluetext ol {
   color: darkblue; }
 
+.reveal .hundred,
+div.hundred {
+  font-size: 100% !important; }
+
 .reveal .ninetyfive {
   font-size: 95%; }
 
@@ -567,10 +571,38 @@ body {
   padding: 0;
   border: none; }
 
-.credit p {
-  font-size: 30%;
-  text-align: right;
+.reveal .credit div,
+.reveal .credit p {
+  text-align: right; }
+
+.reveal .credit div,
+.reveal .credit p,
+.reveal .credit ul {
+  font-size: 30%; }
+
+.reveal .credit p,
+.reveal .credit ul,
+.reveal .credit ol,
+.reveal .credit li {
   color: #a0a0a0; }
+
+.reveal .leftalign div,
+.reveal .leftalign p,
+.reveal .leftalign ul,
+.reveal .leftalign ol {
+  text-align: left; }
+
+.reveal .rightalign div,
+.reveal .rightalign p,
+.reveal .rightalign ul,
+.reveal .rightalign ol {
+  text-align: right; }
+
+.reveal .centeralign div,
+.reveal .centeralign p,
+.reveal .centeralign ul,
+.reveal .centeralign ol {
+  text-align: center; }
 
 div.column {
   width: 49%;
