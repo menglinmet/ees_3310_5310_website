@@ -107,27 +107,27 @@ The default value is 1360.</p></li>
 <li><p><code>surface_type</code> is the type of surface (this is used to calcualte the
 albedo). The default is `earth average. The options are:</p>
 <ul>
-<li>“<code>earth average</code>”: The average albedo of the earth (0.30)</li>
-<li>“<code>asphalt</code>”: Dark asphalt (0.08)</li>
-<li>“<code>concrete</code>”: Concrete (0.55)</li>
-<li>“<code>desert</code>”: Typical desert (0.40)</li>
-<li>“<code>forest</code>”: Typical forest (0.15)</li>
-<li>“<code>grass</code>”: Typical grassland (0.25)</li>
-<li>“<code>ocean</code>”: Ocean (0.10)</li>
-<li>“<code>snow</code>”: Typical snow (0.85)</li>
-<li>“<code>ice</code>”: Large ice masses covering ocean or land (0.60)</li>
-<li>“<code>soil</code>”: Bare soil (0.17)</li>
-<li>"<code>custom": Custom albedo (if you choose this, you need to also supply  a value for</code>albedo`)</li>
+<li><code>"earth average"</code>: The average albedo of the earth (0.30)</li>
+<li><code>"asphalt"</code>: Dark asphalt (0.08)</li>
+<li><code>"concrete"</code>: Concrete (0.55)</li>
+<li><code>"desert"</code>: Typical desert (0.40)</li>
+<li><code>"forest"</code>: Typical forest (0.15)</li>
+<li><code>"grass"</code>: Typical grassland (0.25)</li>
+<li><code>"ocean"</code>: Ocean (0.10)</li>
+<li><code>"snow"</code>: Typical snow (0.85)</li>
+<li><code>"ice"</code>: Large ice masses covering ocean or land (0.60)</li>
+<li><code>"soil"</code>: Bare soil (0.17)</li>
+<li><code>"custom"</code>: Custom albedo (if you choose this, you need to also supply
+a value for <code>albedo</code>)</li>
 </ul></li>
 <li><p><code>tropopause_km</code> is the altitude of the tropopause, in kilometers above
 sea level. The default value is 15. On the earth, the tropopause varies
 from around 9 km at the poles to around 17 km near the equator.</p></li>
-<li><p><code>lapse_rate</code> is the lapse rate, in Kelvin per kilometer. The default is</p>
-<ol start="6" style="list-style-type: decimal">
-<li>The dry adiabatic lapse rate is 10, so it’s physically impossible to
+<li><p><code>lapse_rate</code> is the lapse rate, in Kelvin per kilometer.
+The default is 6.
+The dry adiabatic lapse rate is 10, so it’s physically impossible to
 have a lapse rate greater than 10 and results with <code>lapse_rate</code>
-greater than 10 won’t make sense.</li>
-</ol></li>
+greater than 10 won’t make sense.</p></li>
 <li><p><code>low_cloud_frac</code> is the fraction (from 0–1) of the sky covered by
 low (stratus) clouds. The default is 0.</p></li>
 <li><p><code>high_cloud_frac</code> is the fraction (from 0–1) of the sky covered by
@@ -140,18 +140,18 @@ You can reduce this to simulate the indirect aerosol effect.</p></li>
 quantities of aerosols typical of a number of different environments.
 Options are:</p>
 <ul>
-<li>“<code>none</code>”: No aerosols</li>
-<li>“<code>ocean</code>”: Typical ocean aerosols (sea-spray, salt, etc.)</li>
-<li>“<code>desert</code>”: Typical desert aerosols (dust, sand)</li>
-<li>“<code>city</code>”: Typical city with soot (black carbon) and sulfate aerosols.</li>
-<li>“<code>city just sulfates</code>”: Just sulfate aerosols typical of a city.</li>
-<li>“<code>city just soot</code>”: Just soot (black carbon) aerosols typical of a
+<li><code>"none"</code>: No aerosols</li>
+<li><code>"ocean"</code>: Typical ocean aerosols (sea-spray, salt, etc.)</li>
+<li><code>"desert"</code>: Typical desert aerosols (dust, sand)</li>
+<li><code>"city"</code>: Typical city with soot (black carbon) and sulfate aerosols.</li>
+<li><code>"city just sulfates"</code>: Just sulfate aerosols typical of a city.</li>
+<li><code>"city just soot"</code>: Just soot (black carbon) aerosols typical of a
 city.</li>
-<li>“<code>land</code>”: Typical rural land (dust, etc.)</li>
-<li>“<code>polluted land</code>”: Typical rural land suffering from pollution
+<li><code>"land"</code>: Typical rural land (dust, etc.)</li>
+<li><code>"polluted land"</code>: Typical rural land suffering from pollution
 (e.g., from farming)</li>
-<li>“<code>antarctic</code>”: Typical aerosols for Antarctica</li>
-<li>“<code>volcano</code>”: Similar sulfate and dust to the Mt. Pinatubo volcanic
+<li><code>"antarctic"</code>: Typical aerosols for Antarctica</li>
+<li><code>"volcano"</code>: Similar sulfate and dust to the Mt. Pinatubo volcanic
 eruption.</li>
 </ul></li>
 </ul>
@@ -294,7 +294,7 @@ modtran_baseline$i_out</code></pre>
 <pre><code>## [1] 298.6712</code></pre>
 <pre class="r"><code>plot_modtran(modtran_baseline)</code></pre>
 <p><img src="/lab_docs/lab_04_instructions_files/figure-html/modtran_examples-1.png" width="672" /></p>
-<p>You can also leave out the <code>file</code> argument to <code>read_modtran</code> if you don’t need
+<p>You can also leave out the <code>file</code> argument to <code>run_modtran</code> if you don’t need
 to save the MODTRAN output to a file.</p>
 <pre class="r"><code>modtran_doubled_co2 = run_modtran(co2_ppm = 800)
 modtran_doubled_co2$i_out</code></pre>
@@ -307,21 +307,27 @@ modtran_doubled_co2$i_out</code></pre>
 <h1>New R and RMarkdown tricks</h1>
 <p>Sometimes you may want to use different text into your document, depending
 on what the result of a calculation is.</p>
-<p>For instance, I might have a function called <code>foo</code> that returns a number
-and I want to write something different if <code>foo(x)</code> &gt; x than if
+<p>For instance, I might define a function and call it by a random name,
+like <code>foo</code>. Suppose this function <code>foo</code> returns a number
+and I want my R code to behave differently if <code>foo(x)</code> &gt; x than if
 <code>foo(x)</code> &lt; x. Here, the function <code>ifelse</code> can come in handy.</p>
 <pre class="r"><code>foo = function(x) {
   x^2
 }</code></pre>
-<p>Now I can write <code>ifelse(foo(x) &lt; x, "less than", "greater than")</code>:
-When x = 0.5, <code>foo(x)</code> is
-less than x,
-but when x = 2.0, <code>foo(x)</code> is
-greater than x.</p>
+<p>Now I can write <code>ifelse(foo(x) &lt; x, "less than", "greater than")</code>:</p>
+<pre class="r"><code>x = 0.5
+print(str_c(&quot;foo(&quot;, x, &quot;) is &quot;, ifelse(foo(x) &lt; x, &quot;less than&quot;, &quot;greater than&quot;),
+            &quot; &quot;, x))</code></pre>
+<pre><code>## [1] &quot;foo(0.5) is less than 0.5&quot;</code></pre>
+<pre class="r"><code>x = 2.0
+print(str_c(&quot;foo(&quot;, x, &quot;) is &quot;, ifelse(foo(x) &lt; x, &quot;less than&quot;, &quot;greater than&quot;),
+            &quot; &quot;, x))</code></pre>
+<pre><code>## [1] &quot;foo(2) is greater than 2&quot;</code></pre>
 <p>You may have spotted a problem with the code above: What if <code>foo(x)</code> = x?
 Then I need another <code>ifelse</code>:
 <code>ifelse(foo(x) &lt; x, "less than", ifelse(foo(x) &gt; x, "greater than", "equal to"))</code>.
-This is cumbersome to type into your text, so you might want to write a function:</p>
+This is cumbersome to type into your text, so you might want to write a
+function, which I will call <code>compare_f</code>:</p>
 <pre class="r"><code>compare_f = function(f, x) {
   # f is a function
   # x is a number or a numeric variable
@@ -330,10 +336,27 @@ This is cumbersome to type into your text, so you might want to write a function
          ifelse(result &gt; x, &quot;greater than&quot;, 
                 &quot;equal to&quot;))
 }</code></pre>
-<p>Now I can just write <code>compare_f(foo, x)</code>:
-When x = 0.5, <code>foo(x)</code> is less than x, but
-when x = 2.0, <code>foo(x)</code> is greater than x and
-when x = 1.0, <code>foo(x)</code> is equal to x.</p>
+<p>Now I can just write <code>compare_f(foo, x)</code>:</p>
+<pre class="r"><code>x = 0.5
+print(str_c(&quot;foo(&quot;, x, &quot;) is &quot;, compare_f(foo, x), &quot; &quot;, x))</code></pre>
+<pre><code>## [1] &quot;foo(0.5) is less than 0.5&quot;</code></pre>
+<pre class="r"><code>x = 1.0
+print(str_c(&quot;foo(&quot;, x, &quot;) is &quot;, compare_f(foo, x), &quot; &quot;, x))</code></pre>
+<pre><code>## [1] &quot;foo(1) is equal to 1&quot;</code></pre>
+<pre class="r"><code>x = 2.0
+print(str_c(&quot;foo(&quot;, x, &quot;) is &quot;, compare_f(foo, x), &quot; &quot;, x))</code></pre>
+<pre><code>## [1] &quot;foo(2) is greater than 2&quot;</code></pre>
+<p>You can also incorporate this output into your RMarkdown text.
+The RMarkdown text</p>
+<pre class="markdown"><code>When x = 0.5 foo(x) `r compare_f(foo, 0.5)` x, 
+and when x = 1.0 foo(x) `r compare_f(foo, 1.0)` x,
+and when x = 2.0 foo(x) `r compare_f(foo, 2.0)` x.</code></pre>
+<p>Will produce the following:</p>
+<blockquote>
+<p>When x = 0.5 foo(x) less than x,
+and when x = 1.0 foo(x) equal to x,
+and when x = 2.0 foo(x) greater than x.</p>
+</blockquote>
 <p>This may seem kind of strange, but it can be helpful if you have a report
 that you prepare regularly with different data and want to be able to
 update by running RMarkdown with different data sets, and have the text
@@ -376,7 +399,7 @@ model at <a href="http://climatemodels.uchicago.edu/rrtm/" class="uri">http://cl
 <code>run_rrtm</code>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Make a tibble containing the values of the lapse rate and the corresponding
-equilibrium surface temperature, and make a plot with lapse rate on the
+equilibrium surface temperature, and <strong>make a plot</strong> with lapse rate on the
 horizontal axis and surface temperature on the vertical axis.</p></li>
 <li><p>Describe how the equilibrium surface temperature varies as the lapse rate
 varies.</p></li>
@@ -390,7 +413,8 @@ varies.</p></li>
 <p><strong>Note:</strong> this exercise only considers the effect of clouds on longwave
 radiation and ignores the effect of clouds on albedo, which is also important.</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Run the MODTRAN model with present-day CO<sub>2</sub> (400 ppm) and a tropical atmosphere.
+<li><p>Run the MODTRAN model with present-day CO<sub>2</sub> (400 ppm) and a tropical
+atmosphere.
 Plot the outgoing infrared spectrum.</p>
 <p>Run MODTRAN four times: first with no clouds, and then with three different
 kinds of clouds: standard cirrus, altostratus, and stratus. These correspond
@@ -417,7 +441,8 @@ spectrum corresponding to the strong CO<sub>2</sub> absorption
 (roughly 600–750 cm<sup>-1</sup>) and the infrared window
 (roughly 800–1200 cm<sup>-1</sup>).</p>
 <ul>
-<li>Which corresponds to higher emission temperatures and which to lower temperatures?</li>
+<li>Which corresponds to higher emission temperatures and which to lower
+temperatures?</li>
 <li>Why do you think this is?</li>
 </ul></li>
 <li><p>For the atmosphere with normal water vapor (<code>h2o_scale = 1</code>), how does
@@ -445,9 +470,11 @@ output measures the intensity of longwave radiation reaching the sensor.
 In this exercise, the sensor is on the ground looking up, so <code>i_out</code>
 measures the downward radiation reaching the ground.)</p>
 <p>Describe how <span class="math inline">\(I_{\text{down}}\)</span> compares for the four conditions.</p>
-<pre><code> * Do the clouds have a heating or cooling effect?
- * Which clouds have the greatest effect?
- * What does this suggest about how clouds affect the ground temperature?</code></pre>
+<ul>
+<li>Do the clouds have a heating or cooling effect?</li>
+<li>Which clouds have the greatest effect?</li>
+<li>What does this suggest about how clouds affect the ground temperature?</li>
+</ul>
 <p>As you do this exercise, think about a winter night with clear skies
 versus a winter night with cloudy skies.</p></li>
 <li><p>Plot the longwave radiation spectra for the four MODTRAN runs from part (c).
@@ -484,7 +511,7 @@ temperature into your R code).</p>
 setting <code>relative_humidity = 0</code> (this turns off the water vapor feedback).
 At each concentration of CO<sub>2</sub>, adjust <code>T_surface</code> to bring the heat into
 balance (so the output has <code>Q</code> equal to zero). Now what is the climate
-sensitivity <span class="math inline">\(\Delta T_{2 \times \text{CO}_2}\)</span>?</p></li>
+sensitivity (<span class="math inline">\(\Delta T_{2 \times \text{CO}_2}\)</span>)?</p></li>
 <li><p>Compare the climate sensitivity (<span class="math inline">\(\Delta T_{2 \times \text{CO}_2}\)</span>) in
 part (a) (with water-vapor feedback) and part (b) (without water-vapor
 feedback).
