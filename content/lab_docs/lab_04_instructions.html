@@ -348,14 +348,14 @@ print(str_c(&quot;foo(&quot;, x, &quot;) is &quot;, compare_f(foo, x), &quot; &q
 <pre><code>## [1] &quot;foo(2) is greater than 2&quot;</code></pre>
 <p>You can also incorporate this output into your RMarkdown text.
 The RMarkdown text</p>
-<pre class="markdown"><code>When x = 0.5 foo(x) `r compare_f(foo, 0.5)` x, 
-and when x = 1.0 foo(x) `r compare_f(foo, 1.0)` x,
-and when x = 2.0 foo(x) `r compare_f(foo, 2.0)` x.</code></pre>
+<pre class="markdown"><code>When x = 0.5 foo(x) is `r compare_f(foo, 0.5)` x, 
+and when x = 1.0 foo(x) is `r compare_f(foo, 1.0)` x,
+and when x = 2.0 foo(x) is `r compare_f(foo, 2.0)` x.</code></pre>
 <p>Will produce the following:</p>
 <blockquote>
-<p>When x = 0.5 foo(x) less than x,
-and when x = 1.0 foo(x) equal to x,
-and when x = 2.0 foo(x) greater than x.</p>
+<p>When x = 0.5 foo(x) is less than x,
+and when x = 1.0 foo(x) is equal to x,
+and when x = 2.0 foo(x) is greater than x.</p>
 </blockquote>
 <p>This may seem kind of strange, but it can be helpful if you have a report
 that you prepare regularly with different data and want to be able to
