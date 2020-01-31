@@ -61,6 +61,7 @@ lessons:
   reading: /reading/reading_10
 - date: '2020-01-31'
   title: 'The Carbon Cycle: Mineral Weathering'
+  lecture: /slides/class_11
   class_num: 11
   reading: /reading/reading_11
 - date: '2020-02-03'
