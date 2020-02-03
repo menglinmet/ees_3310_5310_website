@@ -66,6 +66,7 @@ lessons:
   reading: /reading/reading_11
 - date: '2020-02-03'
   title: Perturbing the Carbon Cycle
+  lecture: /slides/class_12
   class_num: 12
   reading: /reading/reading_12
   lab: lab_04_assignment

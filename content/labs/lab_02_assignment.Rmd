@@ -70,3 +70,9 @@ As long as there is a file with results, we will be generous with partial credit
 ## Assignment
 
 Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/pHx7-JvR>.
+
+## Solutions
+
+**Solutions for Lab Exercises**:
+
+* [Lab #2 Answers](/lab_solutions/lab_02_answers){target="_blank"}
