@@ -1,7 +1,7 @@
 ---
 title: Clouds and Convection
 lab_date: '2020-02-03'
-report_due_date: '2020-02-19'
+report_due_date: '2020-02-10'
 lab_number: 4
 github_classroom_assignment_url: https://classroom.github.com/a/CMNnw7n7
 pubdate: '2019-12-31'
