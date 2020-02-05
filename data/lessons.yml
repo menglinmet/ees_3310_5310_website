@@ -74,6 +74,7 @@ lessons:
   lab_title: Clouds and Convection
 - date: '2020-02-05'
   title: Climates of the Past
+  lecture: /slides/class_13
   class_num: 13
   reading: /reading/reading_13
 - date: '2020-02-07'
