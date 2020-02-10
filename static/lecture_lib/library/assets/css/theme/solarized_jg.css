@@ -365,6 +365,9 @@ body {
 .reveal .leftslide ol {
   margin-left: 1em; }
 
+.reveal .leftslide table {
+  margin-left: 0; }
+
 .reveal .leftslide h1,
 .reveal .leftslide h2 {
   text-align: center; }

@@ -84,6 +84,7 @@ lessons:
   reading: /reading/reading_14
 - date: '2020-02-10'
   title: Review
+  lecture: /slides/class_15
   class_num: 15
   reading: /reading/reading_15
   lab: lab_05_assignment

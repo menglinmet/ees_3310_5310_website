@@ -52,7 +52,6 @@ settings and also dumps a "spike" of CO~2~ into the atmosphere and runs for
 another 2 million years with the new parameters to see how the climate and
 carbon cycle adjust to the new parameters and the CO~2~ spike.
 
-
 The quantities that are graphed include:
 
 pCO2
@@ -179,7 +178,6 @@ c)  Repeat this run with a range of degassing values for the simulation phase
 d)  Plot the weathering as a function of atmospheric CO~2~ concentration, using
     the data from the model runs you did in part (c).
 
-
 ### Exercise 8.2: Effect of solar intensity on steady-state CO~2~ concentration
 
 The rate of weathering is a function of CO~2~ concentration and sunlight, 
@@ -199,7 +197,6 @@ The roots of plants accelerate weathering by two processes: First, as they
 grow, they open up the soil, making it more permeable to air and water.
 Second, the roots pump CO~2~ down into the soil.
 
-
 Run a simulation with no CO~2~ spike at the transition and with no plants in 
 the spinup, but with plants present in the simulation.
 
@@ -209,7 +206,6 @@ Does it go up or down right after the transition? WHat happens later on?
 b) What happens to atmospheric CO~2~, and why?
 
 c) When the CO~2~ concentration changes, where does the carbon go?
-
 
 ## Exercise from Chapter 10
 

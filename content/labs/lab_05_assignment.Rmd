@@ -3,6 +3,7 @@ title: The Geochemical Carbon Cycle
 lab_date: '2020-02-10'
 report_due_date: '2020-02-17'
 lab_number: 5
+github_classroom_assignment_url: https://classroom.github.com/a/IU9oZGaQ
 pubdate: '2019-12-31'
 date: '2020-02-10'
 slug: lab_05_assignment
@@ -28,4 +29,4 @@ This lab will use the GEOCARB model to explore the geochemical carbon cycle. We 
 
 ## Assignment
 
-The GitHub Classroom assignment link has not been posted yet.
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/IU9oZGaQ>.
