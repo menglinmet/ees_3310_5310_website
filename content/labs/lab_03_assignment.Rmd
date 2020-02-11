@@ -64,3 +64,9 @@ knit correctly.
 ## Assignment
 
 Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/W38ehSvQ>.
+
+## Solutions
+
+**Solutions for Lab Exercises**:
+
+* [Lab #3 Answers](/lab_solutions/lab_03_answers){target="_blank"}
