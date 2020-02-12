@@ -92,6 +92,7 @@ lessons:
   lab_title: The Geochemical Carbon Cycle
 - date: '2020-02-12'
   title: Climate Models
+  lecture: /slides/class_16
   class_num: 16
   reading: /reading/reading_16
 - date: '2020-02-14'
