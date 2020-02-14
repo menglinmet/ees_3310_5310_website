@@ -657,4 +657,33 @@ div.column {
 div.topalign {
   vertical-align: top; }
 
+div.leftcol {
+  text-align: left;
+  margin-right: auto; }
+
+div.rightcol {
+  text-align: right;
+  margin-left: auto; }
+
+div.centercol {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto; }
+
+.reveal .textcenter div,
+.reveal .textcenter p {
+  text-align: center; }
+
+.reveal .textleft div,
+.reveal .textleft p {
+  text-align: left; }
+
+.reveal .textright div,
+.reveal .textright p {
+  text-align: right; }
+
+.reveal .centertext div,
+.reveal .centertext p {
+  text-align: center; }
+
 /*# sourceMappingURL=solarized_jg.css.map */
