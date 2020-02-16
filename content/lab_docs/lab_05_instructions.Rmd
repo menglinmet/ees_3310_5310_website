@@ -74,13 +74,13 @@ Degas
 
 tCO2
   ~ is the total amount of CO~2~ dissolved in the ocean, adding all of its forms:
-  $$ \ce{\text{tco2} = [CO2] + [H2CO3] + [HCO3-] + [CO3^{2-}]}. $$
+  $$ \text{tco2} = \ce{[CO2] + [H2CO3] + [HCO3-] + [CO3^{2-}]}. $$
 
 alk
   ~ is the ocean alkalinity: the total amount of acid ($\ce{H+}$) necessary to
   neutralize the carbonate and bicarbonate in the ocean. The detailed definition
   is complicated, but to a good approximation, 
-  $\ce{\text{alk} = [HCO3-] + 2 [CO3^{2-}]}$. This is not crucial for this lab.
+  $\text{alk} = \ce{[HCO3-] + 2 [CO3^{2-}]}$. This is not crucial for this lab.
 
 CO3
   ~ is the concentration of dissolved carbonate ($\ce{CO3^{2-}}$) in the ocean,
