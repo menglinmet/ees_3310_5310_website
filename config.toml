@@ -95,56 +95,56 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "_scripts$", "_
   weight = 1
   identifier = "home"
   name = "Home"
-  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-home\"></i>"
+  pre = "<i class=\"sidebar-button-icon fas fa-lg fa-home\"></i> "
   url = "/"
 [[menu.main]]
   weight = 2
   identifier = "overview"
   name = "Overview"
-  pre = "<i class=\"fa fa-globe\"></i>"
+  pre = "<i class=\"sidebar-button-icon fas fa-lg fa-globe\"></i> "
   url = "/overview"
 [[menu.main]]
   weight = 3
   identifier = "schedule"
   name = "Schedule"
-  pre = "<i class=\"material-icons\">date_range</i>"
+  pre = "<i class=\"sidebar-button-icon fal fa-lg fa-calendar-alt\"></i> "
   url = "/schedule"
 [[menu.main]]
   weight = -4
   identifier = "labs"
   name = "Labs"
-  pre = "<i class=\"fa fa-flask\"></i>"
-  url = "/projects"
-[[menu.main]]
-  weight = -4
-  identifier = "projects"
-  name = "Projects"
-  pre = "<i class=\"material-icons\">near_me</i>"
-  url = "/projects"
+  pre = "<i class=\"sidebar-button-icon fas fa-lg fa-flask\"></i> "
+  url = "/labs"
 [[menu.main]]
   weight = 5
+  identifier = "exams"
+  name = "Exams"
+  pre = "<i class=\"sidebar-button-icon far fa-lg fa-pencil\"></i> "
+  url = "/exams"
+[[menu.main]]
+  weight = 6
   identifier = "policies"
   name = "Policies"
-  pre = "<i class=\"material-icons\">gavel</i>"
+  pre = "<i class=\"material-icons\">gavel</i> "
   url = "/policies"
 [[menu.main]]
-  weight = -6
+  weight = -7
   identifier = "downloads"
   name = "Downloads"
-  pre = "<i class=\"material-icons\">get_app</i>"
+  pre = "<i class=\"sidebar-button-icon fas fa-lg fa-download\"></i> "
   url = "/downloads"
 [[menu.main]]
-  weight = 7
+  weight = 8
   identifier = "tools"
   name = "Tools"
-  pre = "<i class=\"material-icons\">build</i>"
+  pre = "<i class=\"sidebar-button-icon fas fa-lg fa-wrench\"></i> "
   url = "/tools"
 
 [[menu.footer]]
   weight = 2
   identifier = "GitHub"
   name = "Class Repos"
-  pre = "<i class=\"button-icon fa fa-2x fa-github\"></i>"
+  pre = "<i class=\"button-icon fab fa-2x fa-github\"></i>"
   url = "https://github.com/gilligan-ees-3310-2020"
 
 [params]
