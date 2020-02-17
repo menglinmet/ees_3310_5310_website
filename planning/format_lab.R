@@ -39,7 +39,8 @@ make_lab_solution_page <- function(sol, semester) {
       lubridate::as_date() %>% as.character(),
     pdf_url = sol$sol_pdf_url,
     slug = sprintf("lab_%02d_%s", sol$lab_num,
-                   sol$sol_filename)
+                   sol$sol_filename),
+    fontsize = "12pt"
   ) %>%
     purrr::discard(~isTRUE(is.na(.x))) %>%
     c(
@@ -86,7 +87,8 @@ make_lab_doc_page <- function(doc, semester) {
     date = as.character(doc$date),
     bibliography = doc$bibliography,
     pdf_url = doc$document_pdf_url,
-    slug = sprintf("lab_%02d_%s", doc$lab_num, doc$doc_filename)
+    slug = sprintf("lab_%02d_%s", doc$lab_num, doc$doc_filename),
+    fontsize = "12pt"
   ) %>%
     purrr::discard(~isTRUE(is.na(.x))) %>%
     c(
@@ -227,8 +229,9 @@ make_lab_assignment_page <- function(key, semester, use_solutions = FALSE) {
     github_classroom_assignment_url = assignment$assignment_url,
     pubdate = as.character(semester$semester_dates$pub_date),
     date = lubridate::as_date(assignment$date) %>% as.character(),
-    slug = sprintf("lab_%02d_assignment", assignment$lab_num)
-  ) %>%
+    slug = sprintf("lab_%02d_assignment", assignment$lab_num),
+    fontsize = "12pt"
+    ) %>%
     purrr::discard(~isTRUE(is.na(.x))) %>%
     c(
       output = make_rmd_output_format(TRUE)

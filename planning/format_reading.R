@@ -208,7 +208,8 @@ make_reading_page <- function(cal_id, semester){
     class_number = class_num, weight = class_num,
     slug = sprintf("reading_%02d", class_num),
     pubdate = as.character(semester$semester_dates$pub_date),
-    date = lubridate::as_date(rd_date) %>% as.character()
+    date = lubridate::as_date(rd_date) %>% as.character(),
+    fontsize = "12pt"
   ) %>%
     purrr::discard(~isTRUE(is.na(.x))) %>%
     c(

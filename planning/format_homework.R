@@ -39,7 +39,8 @@ make_hw_solution_page <- function(solution, semester, slug = NA_character_) {
     pubdate = as.character(solution$hw_sol_pub_date),
     date = as.character(solution$hw_due_date),
     pdf_url = solution$hw_sol_pdf_url,
-    slug = stringr::str_c(slug, "_", solution$hw_sol_filename)
+    slug = stringr::str_c(slug, "_", solution$hw_sol_filename),
+    fontsize = "12pt"
   ) %>%
     purrr::discard(~isTRUE(is.na(.x))) %>%
     c(
@@ -266,6 +267,7 @@ make_hw_asgt_page <- function(key, semester, use_solutions = FALSE) {
     short_assignment_type = short_hw_type,
     assignment_number = hw_num, weight = hw_idx,
     slug = hw_slug,
+    fontsize = "12pt",
     pubdate = as.character(pub_date),
     date = as.character(hw_date),
   ) %>%
