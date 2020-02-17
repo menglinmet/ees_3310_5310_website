@@ -123,8 +123,6 @@ try them and run into trouble, so if you're going to get fancy with
 RMarkdown bibliographies I would recommend that you use either `.ris`, 
 `.bib`, or `.biblatex` files.
 
-\clearpage
-
 | Format | File extension |
 |:-------|:--------------|
 | EndNote | `.enl` |
@@ -137,8 +135,9 @@ RMarkdown bibliographies I would recommend that you use either `.ris`,
 | Copac | `.copac` |
 | JSON citeproc | `.json` |
 
-You can export files in many of these formats (especially RIS and BibTeX) from
-most bibliographic software packages, such as EndNote, Mendeley, and Zotero.
+You can also export bibliographic data in many of these formats 
+(especially RIS and BibTeX) from most bibliographic software packages, 
+such as EndNote, Mendeley, and Zotero.
 
 # Citations
 

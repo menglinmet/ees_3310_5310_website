@@ -4,6 +4,7 @@ lab_date: '2020-03-16'
 presentation_date: '2020-03-16'
 report_due_date: '2020-03-12'
 lab_number: 9
+github_classroom_assignment_url: https://classroom.github.com/a/0npRsLty
 pubdate: '2019-12-31'
 date: '2020-03-16'
 slug: lab_09_assignment
@@ -40,4 +41,4 @@ No reading has been posted yet for this lab.
 
 ## Assignment
 
-The GitHub Classroom assignment link has not been posted yet.
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/0npRsLty>.
