@@ -7,6 +7,7 @@ pubdate: '1580709600'
 date: '2020-01-24'
 pdf_url: /files/lab_solutions/lab_02/lab_02_answers.pdf
 slug: lab_02_answers
+fontsize: 12pt
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

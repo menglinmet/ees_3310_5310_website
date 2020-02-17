@@ -6,6 +6,7 @@ pubdate: '2019-12-31'
 date: '2020-02-10'
 pdf_url: /files/lab_docs/lab_05/lab_05_instructions.pdf
 slug: lab_05_instructions
+fontsize: 12pt
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

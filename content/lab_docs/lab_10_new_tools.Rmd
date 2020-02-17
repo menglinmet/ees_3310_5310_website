@@ -7,6 +7,7 @@ pubdate: '2019-12-31'
 date: '2020-03-23'
 pdf_url: /files/lab_docs/decarb_lab_bottom_up/new_tools.pdf
 slug: lab_10_new_tools
+fontsize: 12pt
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

@@ -6,6 +6,7 @@ weight: 29
 slug: reading_29
 pubdate: '2019-12-31'
 date: '2020-03-20'
+fontsize: 12pt
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

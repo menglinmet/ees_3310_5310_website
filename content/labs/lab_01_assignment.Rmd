@@ -7,6 +7,7 @@ github_classroom_assignment_url: https://classroom.github.com/a/UNOxC36Q
 pubdate: '2019-12-31'
 date: '2020-01-06'
 slug: lab_01_assignment
+fontsize: 12pt
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

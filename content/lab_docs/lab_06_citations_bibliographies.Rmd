@@ -8,6 +8,7 @@ date: '2020-02-17'
 bibliography: lab_06.bib
 pdf_url: /files/lab_docs/lab_06/citations_bibliographies.pdf
 slug: lab_06_citations_bibliographies
+fontsize: 12pt
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
@@ -96,10 +97,8 @@ It runs on Windows, MacOS, and Linux.
 If you prefer, you can also use bibliographic software, such as 
 Zotero,[^2] Mendeley, or EndNote, and export your bibliography in
 RIS format (as a `.ris` file), BibTeX format (as a `.bib` file),
-or BibLaTeX format (as a `.biblatex` file).
-RMarkdown claims to support the following file types as well, but I 
-have not tried them, so I would not be able to provide much help if you
-try them and run into trouble.
+or BibLaTeX format (as a `.biblatex` file). I can help if you decide to 
+use one of these file types.
 
 [^2]: I recommend Zotero, which is a free, easy to use, and very powerful
 bibliography tool that supports Windows, MacOS, and Linux, and has
@@ -117,6 +116,12 @@ You can also sign up for a free account on
 that will let you back up your bibliography database to the cloud, synchronize
 your bibliographies across multiple computers, and share bibliographies with 
 other people.
+
+RMarkdown also claims to support the following file types as well, but I 
+have not tried them, so I would not be able to provide much help if you
+try them and run into trouble, so if you're going to get fancy with 
+RMarkdown bibliographies I would recommend that you use either `.ris`, 
+`.bib`, or `.biblatex` files.
 
 \clearpage
 
@@ -302,4 +307,3 @@ download it from <https://jabref.org>.
 
 # References
 
-"

@@ -7,6 +7,7 @@ lab_number: 6
 pubdate: '2019-12-31'
 date: '2020-02-17'
 slug: lab_06_assignment
+fontsize: 12pt
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

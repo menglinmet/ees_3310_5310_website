@@ -6,6 +6,7 @@ pubdate: '2019-12-31'
 date: '2020-02-17'
 pdf_url: /files/lab_docs/lab_06/lab_06_instructions.pdf
 slug: lab_06_instructions
+fontsize: 12pt
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
@@ -52,9 +53,12 @@ consit of exploring the "why" portion of previous questions that only asked you
 to describe patterns in the data or it may be evaluating relationships between 
 other variables not assesed in prior labs. To answer your question, you may use 
 the any of the data from lab 2, the MODTRAN model, the RRTM model, the GEOCARB 
-model, or a combination thereof. Please get your topic approved by either 
-Professor Gilligan or Ms. Best by `r date_fmt(topic_approval_date)`. The final 
-project is **due `r date_fmt(due_date)` at `r time_fmt(due_date)`**.
+model, or a combination thereof. 
+
+Please get your topic approved by either 
+Professor Gilligan or Ms. Best by `r date_fmt(topic_approval_date)`. 
+
+The lab report for your project is **due `r date_fmt(due_date)` at `r time_fmt(due_date)`**.
 
 ## Solo or Team Projects
 
@@ -155,6 +159,29 @@ A portion of your final report grade will reflect effective use of
 R/RMarkdown/Github, the clarity and succinctness of your writing, 
 visual representations of data, appropriate discussion of results, 
 and insights into future analyses. 
+
+## Making PDF output from RMarkdown
+
+To make PDF output from RMarkdown, you need to install a program called
+"LaTeX" (pronounced "layteck", rhyming with "tech"). I describe how to do 
+this on ["Tools" section](https://ees3310.jgilligan.org/tools/#installing-latex) 
+of the class web site, but I will summarize here: 
+The easiest way to install LaTeX for RMarkdown is to use the `tinytex` 
+package in R. To do this, execute the following commands at the RStudio 
+console:
+```r
+install.packages("tinytex")
+library(tinytex)
+install_tinytex(extra_packages=c("mhchem", "mathptmx"))
+```
+This may take 5-10 minutes to complete, so you probably want to wait until a
+time when you won't need your computer for a bit before you do it.
+
+An alternative, but which is more involved and will use more space on your disk,
+would be to install the [MikTeX package](https://miktex.org) from 
+[miktex.org](https://miktex.org). Instructions for doing this are presented on
+the [Tools](https://ees3310.jgilligan.org/tools/#installing-latex) section of the 
+class web site.
 
 # Presentation (`r date_fmt(presentation_due_date)`)
 

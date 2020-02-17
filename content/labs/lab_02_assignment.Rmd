@@ -7,6 +7,7 @@ github_classroom_assignment_url: https://classroom.github.com/a/pHx7-JvR
 pubdate: '2019-12-31'
 date: '2020-01-13'
 slug: lab_02_assignment
+fontsize: 12pt
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

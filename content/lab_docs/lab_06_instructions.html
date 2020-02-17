@@ -6,6 +6,7 @@ pubdate: '2019-12-31'
 date: '2020-02-17'
 pdf_url: /files/lab_docs/lab_06/lab_06_instructions.pdf
 slug: lab_06_instructions
+fontsize: 12pt
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
@@ -24,7 +25,9 @@ output:
 <li><a href="#solo-or-team-projects">Solo or Team Projects</a></li>
 <li><a href="#choosing-a-topic">Choosing a Topic</a></li>
 </ul></li>
-<li><a href="#writen-report-due-mar.-12">Writen Report (Due Mar. 12)</a></li>
+<li><a href="#writen-report-due-mar.-12">Writen Report (Due Mar. 12)</a><ul>
+<li><a href="#making-pdf-output-from-rmarkdown">Making PDF output from RMarkdown</a></li>
+</ul></li>
 <li><a href="#presentation-mar.-16">Presentation (Mar. 16)</a></li>
 </ul>
 </div>
@@ -44,9 +47,10 @@ consit of exploring the “why” portion of previous questions that only asked 
 to describe patterns in the data or it may be evaluating relationships between
 other variables not assesed in prior labs. To answer your question, you may use
 the any of the data from lab 2, the MODTRAN model, the RRTM model, the GEOCARB
-model, or a combination thereof. Please get your topic approved by either
-Professor Gilligan or Ms. Best by Feb. 21. The final
-project is <strong>due Mar. 12 at 11:59 PM</strong>.</p>
+model, or a combination thereof.</p>
+<p>Please get your topic approved by either
+Professor Gilligan or Ms. Best by Feb. 21.</p>
+<p>The lab report for your project is <strong>due Mar. 12 at 11:59 PM</strong>.</p>
 <div id="solo-or-team-projects" class="section level2">
 <h2>Solo or Team Projects</h2>
 <p>You may choose to do this project individually or with a partner as a team
@@ -140,6 +144,26 @@ A portion of your final report grade will reflect effective use of
 R/RMarkdown/Github, the clarity and succinctness of your writing,
 visual representations of data, appropriate discussion of results,
 and insights into future analyses.</p>
+<div id="making-pdf-output-from-rmarkdown" class="section level2">
+<h2>Making PDF output from RMarkdown</h2>
+<p>To make PDF output from RMarkdown, you need to install a program called
+“LaTeX” (pronounced “layteck”, rhyming with “tech”). I describe how to do
+this on <a href="https://ees3310.jgilligan.org/tools/#installing-latex">“Tools” section</a>
+of the class web site, but I will summarize here:
+The easiest way to install LaTeX for RMarkdown is to use the <code>tinytex</code>
+package in R. To do this, execute the following commands at the RStudio
+console:</p>
+<pre class="r"><code>install.packages(&quot;tinytex&quot;)
+library(tinytex)
+install_tinytex(extra_packages=c(&quot;mhchem&quot;, &quot;mathptmx&quot;))</code></pre>
+<p>This may take 5-10 minutes to complete, so you probably want to wait until a
+time when you won’t need your computer for a bit before you do it.</p>
+<p>An alternative, but which is more involved and will use more space on your disk,
+would be to install the <a href="https://miktex.org">MikTeX package</a> from
+<a href="https://miktex.org">miktex.org</a>. Instructions for doing this are presented on
+the <a href="https://ees3310.jgilligan.org/tools/#installing-latex">Tools</a> section of the
+class web site.</p>
+</div>
 </div>
 <div id="presentation-mar.-16" class="section level1">
 <h1>Presentation (Mar. 16)</h1>
