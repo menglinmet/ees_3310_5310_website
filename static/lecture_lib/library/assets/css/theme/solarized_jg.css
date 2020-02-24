@@ -650,6 +650,10 @@ div.bare.ptop-3 {
 .reveal .centeralign ol {
   text-align: center; }
 
+div.vcenter {
+  display: flex;
+  align-items: center; }
+
 div.column {
   width: 49%;
   vertical-align: top; }
