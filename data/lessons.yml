@@ -127,6 +127,7 @@ lessons:
   lab_title: RMarkdown for Reports
 - date: '2020-02-26'
   title: How Will Climate Change Affect Our Lives? (Part 2)
+  lecture: /slides/class_22
   class_num: 22
   reading: /reading/reading_22
 - date: '2020-02-28'
