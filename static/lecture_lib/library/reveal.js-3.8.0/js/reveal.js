@@ -1436,16 +1436,16 @@
 
 		// Define our contextual list of keyboard shortcuts
 		if( config.navigationMode === 'linear' ) {
-			keyboardShortcuts['&#8594;  ,  &#8595;  ,  SPACE  ,  N  ,  L  ,  J'] = 'Next';
-			keyboardShortcuts['&#8592;  ,  &#8593;  ,  P  ,  H  ,  K']     = 'Previous';
+			keyboardShortcuts['&#8594;  ,  &#8595;  ,  SPACE  ,  N'] = 'Next';
+			keyboardShortcuts['&#8592;  ,  &#8593;  ,  P']     = 'Previous';
 		}
 		else {
 			keyboardShortcuts['&#8595;  ,  SPACE']   = 'Next';
 			keyboardShortcuts['&#8593;']             = 'Previous';
-			keyboardShortcuts['&#8592;  ,  H']       = 'Navigate left';
-			keyboardShortcuts['&#8594;  ,  L']       = 'Navigate right';
-			keyboardShortcuts['P  ,  K']             = 'Navigate up';
-			keyboardShortcuts['N  ,  J']             = 'Navigate down';
+			keyboardShortcuts['&#8592; , L']       = 'Navigate left';
+			keyboardShortcuts['&#8594; , R']       = 'Navigate right';
+			keyboardShortcuts['P , SHIFT &#8593;']             = 'Navigate up';
+			keyboardShortcuts['N , SHIFT &#8595;']             = 'Navigate down';
 		}
 
 		keyboardShortcuts['Home  ,  &#8984;/CTRL &#8592;'] = 'First slide';
@@ -5102,7 +5102,8 @@
 	  // console.log("key press: " + event.which + " code = " + event.charCode);
 
 		// Check if the pressed key is question mark
-		if( event.shiftKey && event.charCode === 63 ) {
+		if( (event.shiftKey && event.charCode === 63) ||
+		    (! event.shiftKey && event.charCode === 104) ) {
 			toggleHelp();
 		}
 
@@ -5276,8 +5277,8 @@
   				navigateNext();
 			  }
 			}
-			// H, LEFT
-			else if( keyCode === 72 || keyCode === 37 ) {
+			// L, LEFT
+			else if( keyCode === 76 || keyCode === 37 ) {
 				if( firstSlideShortcut ) {
 					slide( 0 );
 				}
@@ -5288,8 +5289,8 @@
 					navigateLeft();
 				}
 			}
-			// L, RIGHT
-			else if( keyCode === 76 || keyCode === 39 ) {
+			// R, RIGHT
+			else if( keyCode === 82 || keyCode === 39 ) {
 				if( lastSlideShortcut ) {
 					slide( Number.MAX_VALUE );
 				}
@@ -5300,8 +5301,8 @@
 					navigateRight();
 				}
 			}
-			// K, P
-			else if( keyCode === 75 || keyCode === 80 ) {
+			// P
+			else if( keyCode === 80 ) {
 //				if( !isOverview() && config.navigationMode === 'linear' ) {
 //					navigatePrev();
 //				}
@@ -5309,8 +5310,8 @@
 					navigateUp();
 //				}
 			}
-			// J, N
-			else if( keyCode === 74 || keyCode === 78 ) {
+			// N
+			else if( keyCode === 78 ) {
 //				if( !isOverview() && config.navigationMode === 'linear' ) {
 //					navigateNext();
 //				}
@@ -5339,7 +5340,8 @@
 				}
 			}
 			// TWO-SPOT, SEMICOLON, B, V, PERIOD, LOGITECH PRESENTER TOOLS "BLACK SCREEN" BUTTON
-			else if( keyCode === 58 || keyCode === 59 || keyCode === 66 || keyCode === 86 || keyCode === 190 || keyCode === 191 ) {
+			else if( keyCode === 58 || keyCode === 59 || keyCode === 66 || keyCode === 86 || keyCode === 190 ||
+			  (! event.shiftKey && keyCode === 191)) {
 				togglePause();
 			}
 			// F
