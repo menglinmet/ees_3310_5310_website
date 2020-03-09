@@ -143,6 +143,7 @@ lessons:
   title: Spring Break
 - date: '2020-03-09'
   title: 'The Kaya Identity: Energy Use, Efficiency, and Conservation'
+  lecture: /slides/class_24
   class_num: 24
   reading: /reading/reading_24
   lab: lab_08_assignment
