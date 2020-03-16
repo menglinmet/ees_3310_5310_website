@@ -150,92 +150,87 @@ lessons:
   lab_num: 8
   lab_title: 'Energetic: A Clean Energy Game'
 - date: '2020-03-11'
-  title: 'Reducing Carbon Emissions: Bottom-Up Approaches'
-  class_num: 25
-  reading: /reading/reading_25
+  title: Class Cancelled (COVID-19)
 - date: '2020-03-13'
-  title: 'Reducing Carbon Emissions: Top-Down Approaches'
-  class_num: 26
-  reading: /reading/reading_26
+  title: Class Cancelled (COVID-19)
 - date: '2020-03-16'
-  title: The Cost of Reducing Emissions
-  class_num: 27
-  reading: /reading/reading_27
+  lecture: /slides/class_25
+  class_num: 25
   lab: lab_09_assignment
   lab_num: 9
   lab_title: Group Project Presentations
 - date: '2020-03-18'
-  title: Goals of Climate Policy
+  title: 'Reducing Carbon Emissions: Bottom-Up Approaches'
+  class_num: 26
+  reading: /reading/reading_26
+- date: '2020-03-20'
+  title: 'Reducing Carbon Emissions: Top-Down Approaches'
+  class_num: 27
+  reading: /reading/reading_27
+- date: '2020-03-23'
+  title: The Cost of Reducing Emissions
   class_num: 28
   reading: /reading/reading_28
-- date: '2020-03-20'
-  title: Costs and Benefits
-  class_num: 29
-  reading: /reading/reading_29
-- date: '2020-03-23'
-  title: Pricing Carbon
-  class_num: 30
-  reading: /reading/reading_30
   lab: lab_10_assignment
   lab_num: 10
   lab_title: 'Decarbonizing the World''s Energy Supply: Bottom-Up Approaches'
 - date: '2020-03-25'
-  title: Carbon Pricing Instruments
+  title: Goals of Climate Policy
+  class_num: 29
+  reading: /reading/reading_29
+- date: '2020-03-27'
+  title: Costs and Benefits
+  class_num: 30
+  reading: /reading/reading_30
+- date: '2020-03-30'
+  title: Pricing Carbon
   class_num: 31
   reading: /reading/reading_31
-- date: '2020-03-27'
-  title: Discounting and the Value of Time
-  class_num: 32
-  reading: /reading/reading_32
-- date: '2020-03-30'
-  title: The Limits of Economic Approaches
-  class_num: 33
-  reading: /reading/reading_33
   lab: lab_11_assignment
   lab_num: 11
   lab_title: Role-Playing Emissions Regulations
 - date: '2020-04-01'
-  title: The Case for Renewable Energy
-  class_num: 34
-  reading: /reading/reading_34
+  title: Carbon Pricing Instruments
+  class_num: 32
+  reading: /reading/reading_32
 - date: '2020-04-03'
-  title: The Case for Nuclear Energy
-  class_num: 35
-  reading: /reading/reading_35
+  title: Discounting and the Value of Time
+  class_num: 33
+  reading: /reading/reading_33
 - date: '2020-04-06'
   title: 'Geoengineering: Solar Radiation Management'
-  class_num: 36
-  reading: /reading/reading_36
+  class_num: 34
+  reading: /reading/reading_34
   lab: lab_12_assignment
   lab_num: 12
   lab_title: 'Group Project: Decarbonization Policy for a Country'
 - date: '2020-04-08'
   title: 'Geoengineering: Carbon Dioxide Management'
-  class_num: 37
-  reading: /reading/reading_37
+  class_num: 35
+  reading: /reading/reading_35
 - date: '2020-04-10'
   title: Pragmatism and Climate Policy
-  class_num: 38
-  reading: /reading/reading_38
+  class_num: 36
+  reading: /reading/reading_36
 - date: '2020-04-13'
   title: Global Warming Gridlock
-  class_num: 39
-  reading: /reading/reading_39
+  class_num: 37
+  reading: /reading/reading_37
   lab: lab_13_assignment
   lab_num: 13
   lab_title: Continuing Work on the Decarbonization Policy Analysis
 - date: '2020-04-15'
   title: 'Beyond Gridlock: Second-Best Policies'
-  class_num: 40
-  reading: /reading/reading_40
+  class_num: 38
+  reading: /reading/reading_38
 - date: '2020-04-17'
   title: Obstacles and Perspectives
-  class_num: 41
-  reading: /reading/reading_41
+  class_num: 39
+  reading: /reading/reading_39
 - date: '2020-04-20'
   title: Review
-  class_num: 42
-  reading: /reading/reading_42
+  class_num: 40
+  reading: /reading/reading_40
   lab: lab_14_assignment
   lab_num: 14
   lab_title: Presentations on Decarbonization Projects
