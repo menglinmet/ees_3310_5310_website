@@ -154,11 +154,12 @@ lessons:
 - date: '2020-03-13'
   title: Class Cancelled (COVID-19)
 - date: '2020-03-16'
+  title: Learning in a Global Pandemic
   lecture: /slides/class_25
   class_num: 25
   lab: lab_09_assignment
   lab_num: 9
-  lab_title: Group Project Presentations
+  lab_title: Online Drop-In Consultations
 - date: '2020-03-18'
   title: 'Reducing Carbon Emissions: Bottom-Up Approaches'
   class_num: 26
