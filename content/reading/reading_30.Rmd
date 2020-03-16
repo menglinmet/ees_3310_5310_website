@@ -1,11 +1,11 @@
 ---
-title: Pricing Carbon
-class_date: '2020-03-23'
+title: Costs and Benefits
+class_date: '2020-03-27'
 class_number: 30
 weight: 30
 slug: reading_30
 pubdate: '2019-12-31'
-date: '2020-03-23'
+date: '2020-03-27'
 fontsize: 12pt
 output:
   blogdown::html_page:
@@ -21,5 +21,5 @@ output:
 
 ### Required Reading (everyone):
 
-* Climate Casino, Ch. 19.
+* Climate Casino, Ch. 18.
 

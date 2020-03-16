@@ -1,11 +1,11 @@
 ---
-title: 'Beyond Gridlock: Second-Best Policies'
-class_date: '2020-04-15'
+title: Review
+class_date: '2020-04-20'
 class_number: 40
 weight: 40
 slug: reading_40
 pubdate: '2019-12-31'
-date: '2020-04-15'
+date: '2020-04-20'
 fontsize: 12pt
 output:
   blogdown::html_page:
@@ -19,7 +19,8 @@ output:
 ---
 ## Reading:
 
-### Required Reading (everyone):
+No reading for today.
 
-* Handout: [M.P. Vandenbergh and J.M. Gilligan, _Beyond Politics_ (Cambridge, 2017)](/files/reading_handouts/Beyond_Politics_Chapter_1.pdf){target="_blank"}, Ch. 1.
+### Notes:
 
+No reading for today. We will review the semester and discuss climate change and climate policy in the big picture.

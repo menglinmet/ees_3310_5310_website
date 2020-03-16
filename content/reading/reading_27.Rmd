@@ -1,11 +1,11 @@
 ---
-title: The Cost of Reducing Emissions
-class_date: '2020-03-16'
+title: 'Reducing Carbon Emissions: Top-Down Approaches'
+class_date: '2020-03-20'
 class_number: 27
 weight: 27
 slug: reading_27
 pubdate: '2019-12-31'
-date: '2020-03-16'
+date: '2020-03-20'
 fontsize: 12pt
 output:
   blogdown::html_page:
@@ -21,13 +21,16 @@ output:
 
 ### Required Reading (everyone):
 
-* Climate Casino, Ch. 14, pp. 157--165.
-* Climate Casino, Ch. 15.
+* The Climate Fix, Ch. 4.
+
+### Optional Extra Reading:
+
+* Handout: [Roger A. Pielke, Jr., "The British Climate Change Act: a critical evaluation and proposed alternative approach," Environmental Research Letters **4**, 024010 (2009).](http://iopscience.iop.org/article/10.1088/1748-9326/4/2/024010/meta){target="_blank"}.
+* Handout: [Rogar A. Pielke, Jr., "Mamizu Climate Policy: An Evaluation of Japanese Carbon Emission Reduction Targets," Environmental Research Letters **4**, 044001 (2009)](http://iopscience.iop.org/article/10.1088/1748-9326/4/4/044001/meta){target="_blank"}.
+* Handout: [Roger A. Pielke, Jr., "An Evaluation of the Targets and Timetables of Proposed Australian Emissions Reduction Policies," Environmental Science & Policy **14**, 20 (2011).](https://www-sciencedirect-com.proxy.library.vanderbilt.edu/science/article/pii/S1462901110001383){target="_blank"}.
 
 ### Reading Notes:
 
-Here, we focus on the cost of reducing emissions. You should skim the material from Ch. 14 lightly and focus on reading Ch. 15 carefully.
-Remember how, in the reading notes for Oct. 9, I warned you about the potential confusion between "mitigating factors," (the benefits of global warming, such as reduced heating costs for people who live in cold climates and longer growing seasons for farmers, which can offset some of the harms) and "mitigation," which means cutting greenhouse gas emissions. Here, we are talking about the latter.
+We will continue discussing this chapter and work examples in class of Pielke's calculations.
 
-* Nordhaus distinguishes two kinds of economic analysis of the cost of mitigation: Top-down and bottom-up (pp. 174--76 and Fig. 25). What is the difference? Do you think one is more reliable than the other? Why or why not?
-* Nordhaus discusses two aspects of mitigating greenhouse gas emissions: the technical aspects that determine what a perfect policy that is efficiently implemented could do; and the human aspects, which cause policies to be imperfectly designed and inefficently implemented in the real world. Compare the two curves in Fig. 26.
+The optional extra reading comprises three articles by Roger Pielke, in which he applies the methods he describes in this chapter to analyze proposed decarbonization policies in the U.K., Japan, and Australia.

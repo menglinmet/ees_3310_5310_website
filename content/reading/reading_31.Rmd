@@ -1,11 +1,11 @@
 ---
-title: Carbon Pricing Instruments
-class_date: '2020-03-25'
+title: Pricing Carbon
+class_date: '2020-03-30'
 class_number: 31
 weight: 31
 slug: reading_31
 pubdate: '2019-12-31'
-date: '2020-03-25'
+date: '2020-03-30'
 fontsize: 12pt
 output:
   blogdown::html_page:
@@ -21,5 +21,5 @@ output:
 
 ### Required Reading (everyone):
 
-* Handout: [J.M. Gilligan, "The Economics of Regulating Greenhouse Gases: Command & Control, Emissions Trading, and Emissions Taxes," handout](/files/reading_handouts/Economics_of_Regulating_Greenhouse_Gases.pdf){target="_blank"}.
+* Climate Casino, Ch. 19.
 

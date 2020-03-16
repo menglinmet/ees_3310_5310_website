@@ -1,0 +1,52 @@
+cal_key,type,topic,notice
+INTRO,class,Introduction,NA
+INTRO_CLIMATE_CHANGE,class,What is Climate Change?,"**Correction:** There was a typo in the original version of this assignment sheet.
+The reading from _Climate Casio_ for Wednesday Jan. 8 should have been 
+chapters 1--2, not chapters 2--3. We will read chapter 3 later in the semester
+when we discuss climate modeling, so you will not have wasted your effort,
+but I wanted to issue this clarification about the error in the original 
+assignment, and to clear up confusion since the reading notes discussed chapters
+1--2.
+"
+ENERGY_BALANCE,class,Energy Balance and Climate,NA
+LAYER_GREENHOUSE,class,Greenhouse Effect,NA
+SPECTRAL_GREENHOUSE,class,Greenhouse Gases,"If you have a laptop or tablet that you can bring to class and connect to the internet, I recommend you do so today so you can work along with me in using the \MODTRAN\ model.
+"
+VERTICAL_STRUCTURE,class,Vertical Structure of the Atmosphere,"If you have a laptop or tablet that you can bring to class and connect to the internet, I recommend you do so today so you can work along with me in using the online  models.
+"
+GREENHOUSE_REVIEW,class,Review of Greenhouse Effect,"If you have a laptop or tablet that you can bring to class and connect to the internet, I recommend you do so today so you can work along with me in using the online models."
+FEEDBACKS,class,Feedbacks,"If you have a laptop or tablet that you can bring to class and connect to the internet, I recommend you do so today so you can work along with me in using the online models to examine climate feedbacks."
+OCEAN_BIOSPHERE_FEEDBACKS,class,Feedbacks (part 2),NA
+OCEAN_BREATHES,class,The Carbon Cycle,NA
+ROCKS_BREATHE,class,The Carbon Cycle (part 2),"If you have a laptop or tablet that you can bring to class and connect to the internet, I recommend you do so today so you can work along with me in using the \GEOCARB\ model."
+PERTURBED_CARBON,class,The Perturbed Carbon Cycle,NA
+PALEO_PROXIES,class,Climates of the Past,NA
+PLEISTOCENE,class,Climates of the Past (part 2),NA
+CLIMATE_REVIEW,class,Review,NA
+CLIMATE_MODELS,class,Climate Models,NA
+FUTURE_CLIMATES,class,Future Climate Change,NA
+REVIEW_FOR_MIDTERM,class,Catching up and Review,NA
+MIDTERM_TEST,class,TEST #1,NA
+ABRUPT_CLIMATE_CHANGE,class,Future Climate Change (part 2),NA
+CLIMATE_IMAPACTS_1,class,Impacts of Climate Change,NA
+CLIMATE_IMAPACTS_2,class,Impacts of Climate Change (part 2),NA
+POLICY_MYTHS,class,Policy Myths,NA
+KAYA_IDENTITY,class,Energy Use and Conservation,NA
+TOP_DOWN_DECARBONIZATION,class,Global Decarbonization Policies,NA
+BOTTOM_UP_DECARBONIZATION,class,Global Decarbonization Policies (part 2),NA
+RENEWABLE_ENERGY,class,The Case for Renewables,NA
+GEOENGINEERING_SOLAR_RADIATION,class,Geoengineering,NA
+GEOENGINEERING_CARBON_CAPTURE,class,Geoengineering (part 2),NA
+COST_OF_MITIGATION,class,The cost of slowing Climate Change,NA
+DISCOUNTING,class,Discounting and the Value of Time,NA
+POLICY_GOALS,class,Goals of Climate Policy,NA
+COSTS_AND_BENEFITS,class,Costs and Benefits,NA
+SOCIAL_COST_OF_CARBON,class,Pricing Carbon,NA
+CARBON_PRICING_INSTRUMENTS,class,Carbon Pricing Instruments,NA
+CARBON_TRADING_GAME,class,Class Exercise,NA
+CARBON_TRADING_REVIEW,class,Reprise of economics and carbon trading,NA
+POLICY_DIRECTIONS,class,Another direction for climate policy,NA
+GLOBAL_WARMING_GRIDLOCK,class,A global viewpoint,NA
+BEYOND_GRIDLOCK,class,Second-Best policies,NA
+PRAGMATIC_POLICIES,class,A pragmatic future for climate policy,NA
+SEMESTER_REVIEW,class,Review,NA

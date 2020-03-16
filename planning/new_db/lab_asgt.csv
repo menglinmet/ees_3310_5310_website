@@ -1,0 +1,133 @@
+lab_id,lab_key,title,description,assignment_url,report_due_key,presentation_key,alt_preamble,no_items,uses_github_classroom
+1,INTRO,Introduction to Reproducible Research,"This lab will introduce the principles of reproducible research and the tools we will use to perform the tasks of reproducible research.
+
+During lab on <% wday(context$date, label = TRUE, abbr=FALSE) %>, you will set up a free account on GitHub, as described in ""[Introduction to Git and GitHub Classroom](/lab_docs/lab_01_git_intro/)."" After you sign up on GitHub will probably also want to register on GitHub as a student (<https://education.github.com/students>), to get a bunch of free extra features.",https://classroom.github.com/a/UNOxC36Q,INTRO_REPORT,NA,"Ordinarily, you should do the lab reading **_before_** you come to lab, but the first lab of the semester happens on the first day of class, so you will not have a chance to do this. Because of this, the first lab of the semester will consist of introducing you to the software tools we will be using for the semester, and you do not have to do any advance preparation. The material linked here is supplementary and you should read it during the week following the first lab.
+
+Starting with the second lab session, on <% format_day_date_by_key(calendar, ""DATA"", ""lab"", abbr_month = FALSE, abbr_wday = FALSE) %>, you should both **do the reading** and **accept the GitHub classroom assignment** (this will be explained in the first lab session) _before_ you come to lab.",0,1
+2,DATA,Working with climate data,"This lab will introduce working with climate data using R and RMarkdown. 
+
+There are two parts to this lab assignment: 
+
+1. Part 1 is more like traditional homework. It consists of several exercises from chapter 3 of _<% MEDIUM_ARCHER %>_, working with layer models of the greenhouse effect:
+   * **All students** do Chapter 3, exercises 2--3.
+   * **Graduate students** should also do Chapter 3, exercise 1.
+
+     For the exercises, use the following numbers:
+
+     * I~solar~ = 1350 W/m^2^
+     * $\sigma = 5.67 \times 10^{-8}$
+     * $\alpha = 0.30$
+     * $\varepsilon = 1.0$
+
+     For Part 1, you have a choice of either working it like traditional homework on paper or else doing it with RMarkdown, using an RMarkdown template in the repository for the assignment.
+     If you do it in Rmarkdown, you will use the template file I provided and fill in the R code to do the calculations and then use RMarkdown to include the answers in the text of the document.
+
+2. For part 2, you will practice using R to organize and analyze data on the climate. We will download temperature and CO~2~ measurements from scientific archives of climate data and practice producing tables of measurements, making plots of the measurements, and analyzing the series of measurements to determine the trends over time (rates of increase or decrease).
+
+Both parts of the lab are due by the beginning of class on Friday, Jan. 24. If you do the layer model exercises on paper, turn in your work at the beginning of class. If you do the exercises with RMarkdown, knit your document to PDF or Word format and push it to GitHub. For Part 2, you must knit your work into a PDF or Word document and push the result to GitHub.
+
+## Reminder:
+
+**To turn in your RMarkdown homework you need to complete three steps:""**
+
+1. Successfully **knit** `Lab_02_assignment_part_2.Rmd` into a `.pdf` or 
+   Word (`.docx`) file. 
+   
+     If you choose to do Part 1 in RMarkdown instead 
+     of on paper, also knit `Lab_02_assignment_part_1.Rmd`. Otherwise you will
+     turn in Part 1 on paper at the beginning of class on Friday Jan. 24.
+2. **Commit** your `.Rmd` (rmarkdown) document **and** the `.pdf` or `.docx` 
+   file to your local git repository on your computer.
+3. **Push** your local repository to GitHub, so Ms. Best and Prof. Gilligan 
+   can see your final results.
+
+**The last version of your work that you have pushed by the deadline is what will be graded.**
+You will lose a lot of points if there is not a `.pdf` or `.docx` file with results.
+
+As long as there is a file with results, we will be generous with partial credit.
+",https://classroom.github.com/a/pHx7-JvR,DATA_REPORT,NA,NA,0,1
+3,MODTRAN,Infrared light in the atmosphere,"This lab will use the MODTRAN computer model to simulate the transmission of different wavelengths of infrared light through the atmosphere and explore the effect that different greenhouse gases have on infrared light and the earth's temperature.
+
+There are two files for this lab.
+
+1. Start by reading `Lab_03_instructions.pdf`, which describes things you need
+to know for this lab (about the R functions for working with the MODTRAN model
+and the data that it produces, as well as some useful R functions that we will
+use in procesing and graphing data for this lab.)
+
+This file also has the exercises you will do for this lab.
+
+2. When you come to lab, you will work through the exercises, and you will
+edit the file `Lab_03_exercises.Rmd` to write your answers and show your
+work.
+
+## Instructions:
+
+* Accept this assignment.
+* Clone a local copy of the file repository from github to your
+  own computer.
+* In your local repository, answer the exercises in the template
+  `Lab_03_data_exercises.Rmd`.
+* When you are done, knit your `.Rmd` files into PDF files.
+* Use git to commit your changes (including the edits to the `.Rmd` files
+  and the new PDF files) to your local git repository.
+* Push the changes from your local git repository to github.
+
+    The last changes that you push before the due date 
+    (9:00 AM on <% format_day_date_by_key(calendar, ""MODTRAN_REPORT"", ""due date"") %>) will be graded.
+
+I advise using git to commit changes frequently as you work and push those commits
+to github.
+
+I also advise knitting your answers frequently to make sure that they 
+knit correctly.
+",https://classroom.github.com/a/W38ehSvQ,MODTRAN_REPORT,NA,NA,0,1
+4,CLOUD_LAPSE,Clouds and Convection,"This lab will explore two different phenomena: First, we will explore the effect that clouds have on infrared transmission and the climate and second we will explore the role of the lapse rate and convection in modifying the greenhouse effect.",https://classroom.github.com/a/CMNnw7n7,CLOUD_LAPSE_REPORT,NA,NA,0,1
+5,GEOCARB,The Geochemical Carbon Cycle,This lab will use the GEOCARB model to explore the geochemical carbon cycle. We will trace what happens following a large release of carbon dioxide into the atmosphere.,https://classroom.github.com/a/IU9oZGaQ,GEOCARB_REPORT,NA,NA,0,1
+6,PROJECT,Group Projects,"In this lab, you and a partner will begin to develop your own question to explore using computer models and/or archives of climate data",https://classroom.github.com/a/0npRsLty,PROJECT_REPORT,PROJECT_PRESENTATIONS,NA,0,1
+9,PROJECT_PRESENTATIONS,Group Project Presentations,"You and your partners will give a presentation about your project in lab
+today. 
+
+You should have received an email invitation to join a shared folder 
+""EES-3310-5310-Lab-Presentations"""" on 
+[vanderbilt.box.com](https://vanderbilt.box.com). 
+Please accept this invitation and upload your presentation to the 
+""Independent-Project"" folder inside the ""EES-3310-5310-Lab-Presentations""
+folder before lab on <% format_day_date_by_key(calendar, ""PROJECT_PRESENTATIONS"", ""due date"", abbr_wday = FALSE, abbr_month = TRUE) %>.
+
+The final report will be due <% format_day_date_by_key(calendar, ""PROJECT_REPORT"", ""due date"", abbr_wday = FALSE, abbr_month = TRUE) %>. Turn in your final report
+by committing and pushing your RMarkdown project to GitHub, including a final 
+version of the report knitted to a PDF or Word document.
+",https://classroom.github.com/a/0npRsLty,PROJECT_REPORT,PROJECT_PRESENTATIONS,NA,0,1
+10,DECARB_BOTTOM_UP,Decarbonizing the World's Energy Supply: Bottom-Up Approaches,"You will use the Kaya identity to analyze challenges to decarbonizing the world's energy supply, following the ""bottom-up"" approach that we read about in <%MEDIUM_PIELKE%>.
+
+I have posted a revised version of the lab instructions here. These don't change the assignment at all, but they correct the typos that I announced in lab on Monday about section 6.",NA,DECARB_BOTTOM_UP_REPORT,NA,NA,0,1
+11,DECARB_TOP_DOWN,Decarbonizing the World's Energy Supply: Top-Down Approaches,"This week, you will continue analyzing decarbonization policy, but this time you will use what's called a ""top-down"" approach in which you assume the rates of growth of population and the economy from macroeconomic models, and then figure out what rate of decarbonization is implied by various policy goals.
+
+Note that the due date for the report is in two weeks, not one week.",NA,DECARB_TOP_DOWN_REPORT,NA,NA,0,1
+12,ROLE_PLAY,Role-Playing Emissions Regulations,"This week, we will do something very different. We will role-play different kinds of greenhouse gas emissions regulations: 
+
+* ""**Command-and-Control**,"" in which the EPA mandates the maximum emissions for each company, 
+* ""**Cap and Trade**,"" in which the EPA mandates the total emissions, and gives each company a certain number of permits, but the companies can buy and sell permits,
+* ""**Emissions Tax**,"" in which the EPA imposes a tax on each ton of emissions, and then reduces other taxes to keep the total government revenue constant.
+
+Students will play different roles: some will act as government regulators at the Environmental Protection Agency and others will act as managers of different companies that must balance their desire to make money against the environmental damage from the pollution they emit.
+
+There is no report to complete for this lab, but there is a short homework assignment in preparation for the lab. The homework will be due when you come to lab on <% wday(get_date_by_key(calendar, ""ROLE_PLAY"", ""lab""), label = TRUE, abbr = FALSE) %>. Full credit will be given for making a good effort on the preparation homework and for showing up and participating in the lab exercise.",NA,NA,NA,NA,0,1
+13,DECARB_PROJECT,Group Project: Decarbonization Policy for a Country,"You and a partner will pick a country and begin working on a policy analysis for reducing its greenhouse gas emissions.
+
+## Important Update
+
+The original assignment said to analyze **both** the 2030 goal for the Paris nationally determined contribution **and** the 2050 goal that you choose. 
+
+I have decided that is too much work, so you should **only** do the analysis of how the country would achieve the **2050** goal that you choose (you **do not** have to analyze the difficulty of meeting the 2030 goal).",NA,DECARB_PROJECT_REPORT,DECARB_PROJECT_PRESENTATIONS,NA,0,1
+14,DECARB_PROJECT_CONT,Continuing Work on the Decarbonization Policy Analysis,Lab attendence is optional today. <% TA_FORMAL_NAME %> and I will be there to answer questions and discuss your projects with you.,NA,DECARB_PROJECT_REPORT,DECARB_PROJECT_PRESENTATIONS,NA,0,1
+15,DECARB_PRESENTATIONS,Presentations on Decarbonization Projects,"You and your partners will present the results of your decarbonization policy 
+analysis. 
+
+Please upload your decarbonization presentation to the `Decarbonization-Project`
+folder inside the `EES-3310-5310-Lab-Presentations` folder on 
+[`vanderbilt.box.com`](https://vanderbilt.box.com) before lab on <% wday(get_date_by_key(calendar, ""DECARB_PRESENTATIONS"", ""due date""), label = TRUE, abbr = FALSE) %>.",NA,DECARB_PROJECT_REPORT,DECARB_PROJECT_PRESENTATIONS,NA,0,1
+7,RMARKDOWN_FOR_REPORTS,RMarkdown for Reports,"In this lab, we will discuss using RMarkdown for writing papers and formal lab reports. You will also have time to continue working on your projects and get help from <% TA_FORMAL_NAME %> and <% PROF_SHORT_FORMAL_NAME %>",NA,PROJECT_REPORT,PROJECT_PRESENTATIONS,NA,0,1
+8,ENERGY_GAME,Energetic: A Clean Energy Game,We will split into groups and play a board game that simulates converting New York City to using clean energy,NA,NA,NA,NA,0,0
+1,PROJECT_CONT,Continuing Work on Group Projects,"You and your partner will continue to work on your group projects. Lab attendance is optional today, but Ms. Best and I will be available in the lab classroom to answer questions and discuss your projects.",NA,PROJECT_REPORT,PROJECT_PRESENTATIONS,NA,1,1

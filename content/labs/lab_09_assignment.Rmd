@@ -2,7 +2,7 @@
 title: Group Project Presentations
 lab_date: '2020-03-16'
 presentation_date: '2020-03-16'
-report_due_date: '2020-03-12'
+report_due_date: '2020-03-19'
 lab_number: 9
 github_classroom_assignment_url: https://classroom.github.com/a/0npRsLty
 pubdate: '2019-12-31'
@@ -31,7 +31,7 @@ Please accept this invitation and upload your presentation to the
 "Independent-Project" folder inside the "EES-3310-5310-Lab-Presentations"
 folder before lab on Monday, Mar. 16.
 
-The final report will be due Thursday, Mar. 12. Turn in your final report
+The final report will be due Thursday, Mar. 19. Turn in your final report
 by committing and pushing your RMarkdown project to GitHub, including a final 
 version of the report knitted to a PDF or Word document.
 

@@ -1,0 +1,8 @@
+type,idx,col,prefix,base
+class,class,class,CLS,1000
+lab,lab,lab,LAB,2000
+homework,homework,hw,HW,3000
+due date,due_date,due,DUE,4000
+exam,exam,exam,EXAM,5000
+holiday,holiday,holiday,VAC,6000
+event,event,event,EVT,7000
