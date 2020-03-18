@@ -377,94 +377,11 @@ body {
   top: 50px;
   margin-bottom: 6in; }
 
-.reveal .whitetitle h1,
-.reveal .whitetitle h2,
-.reveal .whitetitle h3,
-.reveal .whitetitle h4,
-.reveal .whitetitle h5 {
-  color: white; }
-
-.reveal .yellowtitle h1,
-.reveal .yellowtitle h2,
-.reveal .yellowtitle h3,
-.reveal .yellowtitle h4,
-.reveal .yellowtitle h5 {
-  color: yellow; }
-
 .reveal .whiteslide section {
   background-color: white; }
 
 .reveal .blackslide section {
   background-color: black; }
-
-.reveal .blacktitle h1,
-.reveal .blacktitle h2,
-.reveal .blacktitle h3,
-.reveal .blacktitle h4,
-.reveal .blacktitle h5 {
-  color: black; }
-
-.reveal .blacktext div
-.reveal .blacktext section {
-  color: black; }
-
-.reveal .blacktext p,
-.reveal .blacktext li,
-.reveal .blacktext ul,
-.reveal .blacktext ol {
-  color: black; }
-
-.reveal .yellowtext div
-.reveal .yellowtext section {
-  color: yellow; }
-
-.reveal .yellowtext p,
-.reveal .yellowtext li,
-.reveal .yellowtext ul,
-.reveal .yellowtext ol {
-  color: yellow; }
-
-.reveal .darkredtext div
-.reveal .darkredtext section {
-  color: darkred; }
-
-.reveal .darkredtext p,
-.reveal .darkredtext li,
-.reveal .darkredtext ul,
-.reveal .darkredtext ol {
-  color: darkred; }
-
-.reveal .darkbluetext div
-.reveal .darkbluetext section {
-  color: darkblue; }
-
-.reveal .darkbluetext p,
-.reveal .darkbluetext li,
-.reveal .darkbluetext ul,
-.reveal .darkbluetext ol {
-  color: darkblue; }
-
-.reveal .hundred,
-div.hundred {
-  font-size: 100% !important; }
-
-.reveal .ninetyfive {
-  font-size: 95%; }
-
-.reveal .ninety {
-  font-size: 90%; }
-
-.reveal .eightyfive {
-  font-size: 85%; }
-
-.reveal .eighty {
-  font-size: 80%; }
-
-.reveal .seventyfive {
-  font-size: 75%; }
-
-.reveal .seventy {
-  font-size: 70%; }
 
 .reveal .nomargin div,
 .reveal .nomargin p,
@@ -707,5 +624,96 @@ img.vmid {
 .reveal .centertext div,
 .reveal .centertext p {
   text-align: center; }
+
+.reveal .whitetitle h1,
+.reveal .whitetitle h2,
+.reveal .whitetitle h3,
+.reveal .whitetitle h4,
+.reveal .whitetitle h5 {
+  color: white; }
+
+.reveal .yellowtitle h1,
+.reveal .yellowtitle h2,
+.reveal .yellowtitle h3,
+.reveal .yellowtitle h4,
+.reveal .yellowtitle h5 {
+  color: yellow; }
+
+.reveal .blacktitle h1,
+.reveal .blacktitle h2,
+.reveal .blacktitle h3,
+.reveal .blacktitle h4,
+.reveal .blacktitle h5 {
+  color: black; }
+
+.reveal .blacktext div
+.reveal .blacktext section {
+  color: black; }
+
+.reveal .blacktext p,
+.reveal .blacktext li,
+.reveal .blacktext ul,
+.reveal .blacktext ol,
+.reveal .blacktext a:link,
+.reveal .blacktext a:visited {
+  color: black; }
+
+.reveal .yellowtext div
+.reveal .yellowtext section {
+  color: yellow; }
+
+.reveal .yellowtext p,
+.reveal .yellowtext li,
+.reveal .yellowtext ul,
+.reveal .yellowtext ol,
+.reveal .yellowtext a:link,
+.reveal .yellowtext a:visited {
+  color: yellow; }
+
+.reveal .darkredtext div
+.reveal .darkredtext section {
+  color: darkred; }
+
+.reveal .darkredtext p,
+.reveal .darkredtext li,
+.reveal .darkredtext ul,
+.reveal .darkredtext ol,
+.reveal .darkredtext a:link,
+.reveal .darkredtext a:visited {
+  color: darkred; }
+
+.reveal .darkbluetext div
+.reveal .darkbluetext section {
+  color: darkblue; }
+
+.reveal .darkbluetext p,
+.reveal .darkbluetext li,
+.reveal .darkbluetext ul,
+.reveal .darkbluetext ol,
+.reveal .darkbluetext a:link,
+.reveal .darkbluetext a:visited {
+  color: darkblue; }
+
+.reveal .hundred,
+div.hundred {
+  font-size: 100% !important; }
+
+.reveal .ninetyfive {
+  font-size: 95%; }
+
+.reveal .ninety {
+  font-size: 90%; }
+
+.reveal .eightyfive {
+  font-size: 85%; }
+
+.reveal .eighty {
+  font-size: 80%; }
+
+.reveal .seventyfive {
+  font-size: 75%; }
+
+.reveal .seventy {
+  font-size: 70%; }
 
 /*# sourceMappingURL=solarized_jg.css.map */
