@@ -40,134 +40,134 @@ time_fmt = function(d) {
 
 # Introduction
 
-You have done several structured labs that provided opportunities to learn 
-about R, RMarkdown, and several different aspects of climate science (data 
-                                                                      analysis and several computer models).  
-For the next few weeks, you will have a chance to utilize the skills you have 
-learned thus far in lab to explore a research question pertaining to your 
-specific interests. 
-This series of labs consists of a written lab report in RMarkdown and a 
-presentation to the class. For this project, you will choose a question or idea 
-pertaining to one of the previous labs and explore the topic a deeper. This may 
-consit of exploring the "why" portion of previous questions that only asked you 
-to describe patterns in the data or it may be evaluating relationships between 
-other variables not assesed in prior labs. To answer your question, you may use 
-the any of the data from lab 2, the MODTRAN model, the RRTM model, the GEOCARB 
-model, or a combination thereof. 
+You have done several structured labs that provided opportunities to learn
+about R, RMarkdown, and several different aspects of climate science (data
+analysis and several computer models).
+For the next few weeks, you will have a chance to utilize the skills you have
+learned thus far in lab to explore a research question pertaining to your
+specific interests.
+This series of labs consists of a written lab report in RMarkdown and a
+presentation to the class. For this project, you will choose a question or idea
+pertaining to one of the previous labs and explore the topic a deeper. This may
+consit of exploring the "why" portion of previous questions that only asked you
+to describe patterns in the data or it may be evaluating relationships between
+other variables not assesed in prior labs. To answer your question, you may use
+the any of the data from lab 2, the MODTRAN model, the RRTM model, the GEOCARB
+model, or a combination thereof.
 
-Please get your topic approved by either 
-Professor Gilligan or Ms. Best by `r date_fmt(topic_approval_date)`. 
+Please get your topic approved by either
+Professor Gilligan or Ms. Best by `r date_fmt(topic_approval_date)`.
 
 The lab report for your project is **due `r date_fmt(due_date)` at `r time_fmt(due_date)`**.
 
 ## Solo or Team Projects
 
-You may choose to do this project individually or with a partner as a team 
-effort. If you work with a partner, you may work together to design the 
+You may choose to do this project individually or with a partner as a team
+effort. If you work with a partner, you may work together to design the
 question, obtain and analyze data, make a team presentation, and write a report
 together. We expect teams to include a note in the report that indicates which
 member contributed what to the report (this does not need to be super detailed
-                                       and can say, "Alice and Bob designed the experiment together. Bob wrote the
-code to run the models. Alice wrote the code for the data analysis. 
+and can say, "Alice and Bob designed the experiment together. Bob wrote the
+code to run the models. Alice wrote the code for the data analysis.
 Alice and Bob contributed equally to writing the discussion and conclusions.")
-This is similar to the requirement at many research journals that 
+This is similar to the requirement at many research journals that
 co-authored papers include a statement of what each author contributed.
 
 ## Choosing a Topic
 
-For undergraduates, we recommend that you choose a topic from one of the 
-exercises that you did in labs #2--5 and think of a new question along the same 
+For undergraduates, we recommend that you choose a topic from one of the
+exercises that you did in labs #2--5 and think of a new question along the same
 lines as the questions that exercise asked.
-For graduate students, we expect you to try something more ambitious than just 
-simple extensions of the questions from the lab exercises, but it is still fine 
+For graduate students, we expect you to try something more ambitious than just
+simple extensions of the questions from the lab exercises, but it is still fine
 to take one of the lab exercises as a starting point.
 
-If you want to do something really different than what we have done previously 
-in lab, that is fine. But check with one of us to make sure your plan is 
+If you want to do something really different than what we have done previously
+in lab, that is fine. But check with one of us to make sure your plan is
 appropriate and feasible (we don't want you to bite off more than you can chew).
 
-**Be CrEaTiVe!** Now is the time to really explore parts of the class that you 
-have found interesting and present your findings in a unique, exciting way. 
+**Be CrEaTiVe!** Now is the time to really explore parts of the class that you
+have found interesting and present your findings in a unique, exciting way.
 
 # Writen Report (Due `r date_fmt(due_date)`)
 
-Your report should be comprehensive, yet not overly verbose. One recommendation 
-for achieving this is to create an outline to organize your thoughts before 
-initializing writing and data analysis. The report needs to include the 
+Your report should be comprehensive, yet not overly verbose. One recommendation
+for achieving this is to create an outline to organize your thoughts before
+initializing writing and data analysis. The report needs to include the
 following components:
 
 * Introduction
 
-    * _Provide background information that frames the problem you are 
-      addressing. At the end of the introduction, the reader should understand 
-      exactly **what the problem is** that you are addressing and why that 
-      problem is **interesting** and **relevant** to the climate system._
-    
+  * _Provide background information that frames the problem you are
+    addressing. At the end of the introduction, the reader should understand
+    exactly **what the problem is** that you are addressing and why that
+    problem is **interesting** and **relevant** to the climate system._
+
 * Methods
 
-    * _Describe the methods for answering your question. The methods section 
-      should be written such that someone completely unfamiliar with your 
-      project could follow your steps and recreate your results._
+  * _Describe the methods for answering your question. The methods section
+    should be written such that someone completely unfamiliar with your
+    project could follow your steps and recreate your results._
 
-    * This section should contain the R code you use to do the analysis:
+  * This section should contain the R code you use to do the analysis:
 
-        + Getting data into R: download from the internet, read it in from 
-          files on your computer, run models, etc.
+    + Getting data into R: download from the internet, read it in from
+      files on your computer, run models, etc.
 
-        + Process data to clean it up: use functions like `mutate`, `gather`, 
-          `summarize`, etc. to convert the data into a useful form.
+    + Process data to clean it up: use functions like `mutate`, `gather`,
+      `summarize`, etc. to convert the data into a useful form.
 
-        + Analyze data: anything you do to analyze the data, such as generating 
-          descriptive statistics like the mean or standard deviation, fitting 
-          linear models to get slopes (rates of change), etc.
+    + Analyze data: anything you do to analyze the data, such as generating
+      descriptive statistics like the mean or standard deviation, fitting
+      linear models to get slopes (rates of change), etc.
 
 * Results
 
-    * _Describe the results of your analyses. Include apropriate charts, 
-      tables, graphs, and other quantitative representations of data._ 
+  * _Describe the results of your analyses. Include apropriate charts,
+    tables, graphs, and other quantitative representations of data._
 
-    * This section should have R code for making graphs, tables, etc.
+  * This section should have R code for making graphs, tables, etc.
 
 * Conclusions/Discussion
 
-    * _Discuss the implications for the results you found using data from your 
-      results section._
-    
-         * Why are these results significant or interesting? 
- 
-         * What data supports these conclusions? 
- 
-         * What are the broader implications of these results? 
- 
-         * From the results that you have found, what are the next steps to 
-           take in this line of research? What other questions have arisen as a 
-           result of your analyses?
+  * _Discuss the implications for the results you found using data from your
+    results section._
+
+    * Why are these results significant or interesting?
+
+    * What data supports these conclusions?
+
+    * What are the broader implications of these results?
+
+    * From the results that you have found, what are the next steps to
+      take in this line of research? What other questions have arisen as a
+      result of your analyses?
 
 * Works Cited
 
-    * _Include a works cited section to credit the research and thoughts that 
-      are not your own. Be sure to use citations throughout your report where 
-      necessary._
+  * _Include a works cited section to credit the research and thoughts that
+    are not your own. Be sure to use citations throughout your report where
+    necessary._
 
-    * We will post a separate document that explains how to do citations and 
-      bibliographies in RMarkdown.
+  * We will post a separate document that explains how to do citations and
+    bibliographies in RMarkdown.
 
-Final reports are to be pushed to your Lab 6 Github repository 
-_no later than `r time_fmt(due_date)` on `r date_fmt(due_date)`_. 
-**You must push the .Rmd file *and* the knitted PDF** to Github. 
-A portion of your final report grade will reflect effective use of 
-R/RMarkdown/Github, the clarity and succinctness of your writing, 
-visual representations of data, appropriate discussion of results, 
-and insights into future analyses. 
+Final reports are to be pushed to your Lab 6 Github repository
+_no later than `r time_fmt(due_date)` on `r date_fmt(due_date)`_.
+**You must push the .Rmd file *and* the knitted PDF** to Github.
+A portion of your final report grade will reflect effective use of
+R/RMarkdown/Github, the clarity and succinctness of your writing,
+visual representations of data, appropriate discussion of results,
+and insights into future analyses.
 
 ## Making PDF output from RMarkdown
 
 To make PDF output from RMarkdown, you need to install a program called
-"LaTeX" (pronounced "layteck", rhyming with "tech"). I describe how to do 
-this on ["Tools" section](https://ees3310.jgilligan.org/tools/#installing-latex) 
-of the class web site, but I will summarize here: 
-The easiest way to install LaTeX for RMarkdown is to use the `tinytex` 
-package in R. To do this, execute the following commands at the RStudio 
+"LaTeX" (pronounced "layteck", rhyming with "tech"). I describe how to do
+this on ["Tools" section](https://ees3310.jgilligan.org/tools/#installing-latex)
+of the class web site, but I will summarize here:
+The easiest way to install LaTeX for RMarkdown is to use the `tinytex`
+package in R. To do this, execute the following commands at the RStudio
 console:
 ```r
 install.packages("tinytex")
@@ -176,156 +176,159 @@ install_tinytex(extra_packages=c("mhchem", "mathptmx"))
 ```
 This may take 5-10 minutes to complete, so you probably want to wait until a
 time when you won't need your computer for a bit before you do it.
-                          
-                          An alternative, but which is more involved and will use more space on your disk,
-                          would be to install the [MikTeX package](https://miktex.org) from 
-                          [miktex.org](https://miktex.org). Instructions for doing this are presented on
-                          the [Tools](https://ees3310.jgilligan.org/tools/#installing-latex) section of the 
-                                        class web site.
-                                      
-                                      # Presentation (`r date_fmt(presentation_due_date)`)
-                                      
-                                      I have moved the due date for the presentation to 
-                                      `r date_fmt(presentation_due_date)` and I am giving you two options.
-                                      Whichever option you take (written or recorded video), it will be due
-                                      on the presentation date `r date_fmt(presentation_due_date)`, not the 
-                                      report due date.
-                                      
-                                      1. You and your team can coordinate a recorded video presentation of 5--10
-                                      minutes per person about your presentation. 
-                                      
-                                      * You may use any software that you're comfortable with to record your
-     presentation. 
-     
+
+An alternative, but which is more involved and will use more space on your disk,
+would be to install the [MikTeX package](https://miktex.org) from
+[miktex.org](https://miktex.org). Instructions for doing this are presented on
+the [Tools](https://ees3310.jgilligan.org/tools/#installing-latex) section of
+the class web site.
+
+# Presentation (`r date_fmt(presentation_due_date)`)
+
+I have moved the due date for the presentation to
+`r date_fmt(presentation_due_date)` and I am giving you two options.
+Whichever option you take (written or recorded video), it will be due
+on the presentation date `r date_fmt(presentation_due_date)`, not the
+report due date.
+
+1. You and your team can coordinate a recorded video presentation of 5--10
+minutes per person about your presentation.
+
+   * You may use any software that you're comfortable with to record your
+     presentation.
+
    * Powerpoint has a recorder that will let you to record yourself giving
-     a powerpoint presentation. 
-     However, this is not set up well to record multiple people in 
+     a powerpoint presentation.
+     However, this is not set up well to record multiple people in
      different places jointly recording a presentation, so it's best if you
-                                      are doing your project by yourself.
-                                      
-                                      To use the recorder, open the "Slide Show" 
-                                      menu (see the figure below), select "Use presenter view", and click on
-                                      "Record slide show"
-                                      
-                                      ![Powerpoint slide show menu](_images/lab_06/record_pp_slideshow.png)
-                                      
-                                      Then you will see the presenter view, as shown below.
-                                      
-                                      ![Powerpoint recording presenter view](_images/lab_06/pp_recording_view.jpg)
-                                      
-                                      You will see your slide show with a video inset showing the view from 
-                                      your webcam (if you have one). After you click on the "record" button,
-                                      Powerpoint will record your voice narration and video from your webcam 
-                                      as well as the slideshow. 
-                                      
-                                      You can click on "pause" if you need to pause partway
-                                      through to collect your thoughts.
-                                      
-                                      You can draw on the slides by clicking on the pen or highlighter tool
-                                      at the bottom of the screen.  You can also use your mouse as a laser
-                                      pointer to point at things on your slideshow  by right clicking, opening 
-                                      the "Pointer options" menu, and choosing "Laser pointer".
-                                      
-                                      When you're done, click the "Stop" button at the top of the recording 
+     are doing your project by yourself.
+
+     To use the recorder, open the "Slide Show"
+     menu (see the figure below), select "Use presenter view", and click on
+     "Record slide show"
+
+     ![Powerpoint slide show menu](_images/lab_06/record_pp_slideshow.png)
+
+     Then you will see the presenter view, as shown below.
+
+     ![Powerpoint recording presenter view](_images/lab_06/pp_recording_view.jpg)
+
+     You will see your slide show with a video inset showing the view from
+     your webcam (if you have one). After you click on the "record" button,
+     Powerpoint will record your voice narration and video from your webcam
+     as well as the slideshow.
+
+     You can click on "pause" if you need to pause partway
+     through to collect your thoughts.
+
+     You can draw on the slides by clicking on the pen or highlighter tool
+     at the bottom of the screen.  You can also use your mouse as a laser
+     pointer to point at things on your slideshow  by right clicking, opening
+     the "Pointer options" menu, and choosing "Laser pointer".
+
+     When you're done, click the "Stop" button at the top of the recording
      screen.
-     
-     You can play back your slideshow by clicking "From the beginning" in 
+
+     You can play back your slideshow by clicking "From the beginning" in
      the "Start slideshow" are at the left of the slideshow menu.
-     
+
      The video and audio narration will be stored in the powerpoint file
      when you save the presentation.
-  
-   * If you want to use different software to record yourself giving your
-     slideshow, that's fine too. 
-                                      
-                                      * Brightspace has a tool called "Kaltura capture" for capturing video 
-                                      and screens and you can learn more here:
-                                        <https://www.vanderbilt.edu/brightspace/how-do-i-use-kaltura-capture-in-kaltura/>.
-                                      
-                                      * You can also use Zoom: 
-                                        
-                                        * Start a Zoom meeting with your partner or partners, unmute your 
-                                      microphones, and enable video if you want to have video insets 
-                                      from your team's webcams as you make your presentation.
-       * Next, the person who started the meeting should do the following
-         steps:
-         
-         * start the powerpoint presentation 
-         * Then, go to the Zoom window, click "Share Screen", and share the 
-           powerpoint presentation window.
-           
-           Now everyone on the meeting can see the Powerpoint window.
-         * Finally, go back to the Zoom window and click "Record" to start 
-           recording.
-         * Be sure you have Zoom configured to record to your computer,
-           not the cloud. 
-           
-           This is because their cloud processors are backed up from all the
-           people using Zoom, so there may be a very long delay (a whole day 
-           or more) before the video is ready to download.
-       * Now you can go to the Powerpoint window and do your presentation. 
-         It will be recorded on Zoom.
-         
-         * If you want to transfer control of the Powerpoint window to a 
-           pertner on the Zoom call, there are instructions here:
-           <https://support.zoom.us/hc/en-us/articles/201362673-Request-or-Give-Remote-Control>
 
-           Here is a summary: a partner on the Zoom call can click on the 
-           "View options" menu on the shared Powerpoint window and click
-           "Request remote control" and then the person who started the 
-           meeting can allow remote control.
-           
-           Alternately, the person who started the meeting can initiate this
-           and click the "Remote Control" button at the bottom of the Zoom
-           meeting screen and give remote control to the partner.
-           
-           When the partner is done with remote conntrolling the presentation,
-           they can click the "View Options" menu and select 
-           "Give up Remote Control."
-           
-           You can tell the remote control status because when you are 
-           remotely controlling someone else's shared screen, the title
-                                      at the top of the window turns from green (for passively viewing)
-                                      to yellow and says "You are controlling _so-and-so_'s screen", 
-                                      where _so-and-so_ is the person's name.
-       * When you're done, Zoom will process the video and save it on your 
-                                      computer.
-                                      * After you're done recording your presentation, upload it to Box and share
-     the Box folder with 
+   * If you want to use different software to record yourself giving your
+     slideshow, that's fine too.
+
+    * Brightspace has a tool called "Kaltura capture" for capturing video
+      and screens and you can learn more here:
+      <https://www.vanderbilt.edu/brightspace/how-do-i-use-kaltura-capture-in-kaltura/>.
+
+    * You can also use Zoom:
+
+      * Start a Zoom meeting with your partner or partners, unmute your
+        microphones, and enable video if you want to have video insets
+        from your team's webcams as you make your presentation.
+      * Next, the person who started the meeting should do the following
+        steps:
+
+        * start the powerpoint presentation
+        * Then, go to the Zoom window, click "Share Screen", and share the
+          powerpoint presentation window.
+
+          Now everyone on the meeting can see the Powerpoint window.
+
+        * Finally, go back to the Zoom window and click "Record" to start
+          recording.
+        * Be sure you have Zoom configured to record to your computer,
+          not the cloud.
+
+          This is because their cloud processors are backed up from all the
+          people using Zoom, so there may be a very long delay (a whole day
+          or more) before the video is ready to download.
+        * Now you can go to the Powerpoint window and do your presentation.
+          It will be recorded on Zoom.
+
+      * If you want to transfer control of the Powerpoint window to a
+        pertner on the Zoom call, there are instructions here:
+        <https://support.zoom.us/hc/en-us/articles/201362673-Request-or-Give-Remote-Control>
+
+        Here is a summary: a partner on the Zoom call can click on the
+        "View options" menu on the shared Powerpoint window and click
+        "Request remote control" and then the person who started the
+        meeting can allow remote control.
+
+        Alternately, the person who started the meeting can initiate this
+        and click the "Remote Control" button at the bottom of the Zoom
+        meeting screen and give remote control to the partner.
+
+        When the partner is done with remote conntrolling the presentation,
+        they can click the "View Options" menu and select
+        "Give up Remote Control."
+
+        You can tell the remote control status because when you are
+        remotely controlling someone else's shared screen, the title
+        at the top of the window turns from green (for passively viewing)
+        to yellow and says "You are controlling _so-and-so_'s screen",
+        where _so-and-so_ is the person's name.
+
+      * When you're done, Zoom will process the video and save it on your
+        computer.
+   * After you're done recording your presentation, upload it to Box and share
+     the Box folder with
      Professor Gilligan and Ms. Best.
      As an optional alternative, you can upload it to YouTube and send the link
-     to 
+     to
      Professor Gilligan and Ms. Best.
 
-2. The other option, instead of recording a video, is to write a short 
+2. The other option, instead of recording a video, is to write a short
    (roughly 2 page, double-spaced) press release to accompany your report.
-   
-   Your report has the format of a formal scientific report, with an 
+
+   Your report has the format of a formal scientific report, with an
    introduction, methods, results, discussion, and conclusions.
    The press release should be a description of your project for the general
    public. It should have the following:
-   
-   1. Start by briefly describing the important result (what you found out from 
-      your project) and make it sound exciting or interesting in one or two 
-      sentences. This is what journalists call the _lede_: The first sentence 
+
+   1. Start by briefly describing the important result (what you found out from
+      your project) and make it sound exciting or interesting in one or two
+      sentences. This is what journalists call the _lede_: The first sentence
       of a story should grab the reader and make them want to read more. Write
-      in the third person, so something like, "A team of students at Vanderbilt 
+      in the third person, so something like, "A team of students at Vanderbilt
       University discovered ..."
-      
-   2. Next, back up and introduce the research team 
-      (names and other information about yourselves that the reader might be 
-      interested in, such as your major, if you're a first-year, sophomore, 
-                                      etc.), describe the  research question you are investigating,
-                          and explain why someone would be interested in it.
-                          
-                          3. Now that the reader knows your quesiton and why they might be interested
-                          in it, you can describe what you found out and what its significance is.
-                          This should be the bulk of your press release. Try to make your research
-                          question and the answer you found relevant to people's lives by connecting
-      them to aspects of climate change that someone in the general public may 
+
+   2. Next, back up and introduce the research team
+      (names and other information about yourselves that the reader might be
+      interested in, such as your major, if you're a first-year, sophomore,
+      etc.), describe the  research question you are investigating,
+      and explain why someone would be interested in it.
+
+   3. Now that the reader knows your quesiton and why they might be interested
+      in it, you can describe what you found out and what its significance is.
+      This should be the bulk of your press release. Try to make your research
+      question and the answer you found relevant to people's lives by connecting
+      them to aspects of climate change that someone in the general public may
       be thinking about.
-      
-   4. Finally, you can describe very briefly and in very general terms that are 
-      accessible to someone who doesn't know much about climate change what you 
-                          did to answer the question (this should _not_ have technical detail; it 
-                                                      should be a very general description in simple language).
+
+   4. Finally, you can describe very briefly and in very general terms that are
+      accessible to someone who doesn't know much about climate change what you
+      did to answer the question (this should _not_ have technical detail; it
+      should be a very general description in simple language).
+
