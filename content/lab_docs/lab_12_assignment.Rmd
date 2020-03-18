@@ -1,9 +1,9 @@
 ---
 title: 'Project: Decarbonization Policy for One Country'
 lab_number: 12
-lab_date: '2020-04-06'
+lab_date: '2020-04-13'
 pubdate: '2019-12-31'
-date: '2020-04-06'
+date: '2020-04-13'
 bibliography: decarbonization.bib
 pdf_url: /files/lab_docs/decarb_project/country_decarbonization_assignment.pdf
 slug: lab_12_assignment
@@ -69,12 +69,8 @@ You and your team will
 turn in a written report (one report
 from the whole team is acceptable)
 before midnight on 
-Friday, April 17
-and
-give a short (five minutes per person) presentation in
-the final lab on 
 Monday, April 20.
- 
+
 The report is not meant to be an exhaustive research report. I expect a length
 of around 5 pages of doublespaced
 text (or equivalently, around 3 pages singlespaced)

@@ -1,9 +1,9 @@
 ---
 title: Role-Playing Emissions Regulations
-lab_date: '2020-03-30'
+lab_date: '2020-04-06'
 lab_number: 11
 pubdate: '2019-12-31'
-date: '2020-03-30'
+date: '2020-04-06'
 slug: lab_11_assignment
 fontsize: 12pt
 output:
