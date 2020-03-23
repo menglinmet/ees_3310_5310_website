@@ -3,6 +3,7 @@ title: 'Decarbonizing the World''s Energy Supply: Bottom-Up Approaches'
 lab_date: '2020-03-23'
 report_due_date: '2020-04-13'
 lab_number: 10
+github_classroom_assignment_url: https://classroom.github.com/a/dOyjPLlo
 pubdate: '2019-12-31'
 date: '2020-03-23'
 slug: lab_10_assignment
@@ -32,4 +33,4 @@ in The Climate Fix.
 
 ## Assignment
 
-The GitHub Classroom assignment link has not been posted yet.
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/dOyjPLlo>.
