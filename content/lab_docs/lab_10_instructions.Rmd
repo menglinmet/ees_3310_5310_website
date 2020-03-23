@@ -130,7 +130,7 @@ if (length(ref_year) != 1 || length(target_year) != 1) {
 ```
 # Introduction
 
-The purpose of this homework is to get a sense of the challenges to cutting 
+The purpose of this lab is to get a sense of the challenges to cutting 
 emissions significantly by analyzing several representative emissions-reduction
 policies.
 These policy analyses will follow the methods Roger Pielke used in 
@@ -194,7 +194,7 @@ population _P_,
 per-capita gross-domestic product _g_, 
 energy intensity of the economy _e_, 
 and carbon intensity of the energy supply _f_. 
-When you calculate decarbonization rates in this homework project, you will be 
+When you calculate decarbonization rates in this lab project, you will be 
 focusing on the carbon intensity of the economy, which is given by the 
 product _ef_.
 
@@ -226,8 +226,8 @@ The tabs on the right-hand side of the web page show:
   If you hold the mouse pointer over a data point on either graph, a tool-tip 
   will pop up showing the value of that variable in that year.
 
-* "**Calculations**" shows the steps for you to follow for each country in this 
-  homework exercise.
+* "**Calculations**" shows the steps for you to follow for the country you have
+  chosen
 
 * "**Implied Decarbonization**" shows the historical trend in the carbon 
   intensity of the economy (_ef_) and the implied future changes in order to 
@@ -346,14 +346,13 @@ your work to the "Bottom-up Analysis" table to make sure you know how to do it.
 
 # The Assignment
 
-For this assignment, analyze the economy and carbon emissions from the whole 
-world, and then for individual countries.
+For this assignment, analyze the economy and carbon emissions from a country 
+that you will choose.
 
 ## Decarbonization Lab, due `r long_due_date_1`
 
 For this lab, you will choose one of the following countries and
-perform a bottom-up analysis of decarbonization policy for that country or 
-region: 
+perform a bottom-up analysis of decarbonization policy for that country: 
 `r head(bottom_up_country_options$country, -1) %>% str_c(collapse = ", ") %>%
   str_c(", or ", tail(bottom_up_country_options$country, 1))`.
 
@@ -506,10 +505,6 @@ To analyze the policy for your country:
    `r target_year`, assuming that emissions continue to grow at 
    historical rates. 
     
-   I recommend that you write R chunks in your report in a way that you
-   can copy and paste the chunks from one country or region into the analysis
-   for the other countries or regions.
-    
    It may also be useful to define functions for frequently used 
    (e.g., see the example `growth` function in the handout on "New Tools for
    Data Analysis")
@@ -517,7 +512,8 @@ To analyze the policy for your country:
    Check your work against the bottom-up numbers in the ``Bottom-Up Analysis'' 
    table on the bottom of the left-hand pane of the web application.
 
-#. Calculate the emissions target for each country: Set the reference year for 
+#. Calculate the emissions target for the country you've chosen: 
+   Set the reference year for 
    emissions reduction to `r ref_year`, and set the target emissions
    reduction using the table below:
    
@@ -550,10 +546,8 @@ To analyze the policy for your country:
    set the emissions reduction to the emissions reduction you are trying to 
    achieve.
 
-   For each country, how much CO~2~ (_F_) would each country emit in
-   `r target_year` in order to meet your policy goal? 
-   (Remember to work this whole exercise for whole world before starting on 
-   the individual countries.)
+   How much CO~2~ (_F_) would the country you're analyzing emit in
+   `r target_year` in order to meet its policy goal?
     
    Let's work an example using Argentina:
    ```{r argentina_example, echo = TRUE, eval=TRUE, include=TRUE, warning=FALSE, message=FALSE}
@@ -601,14 +595,18 @@ To analyze the policy for your country:
    (look them up in the ``Bottom up Analysis'' table) 
    from _r~F~_, which you just calculated in step~7, 
    to get the rate of change of _ef_. 
+   
+   The rate of decarbonization has the opposite sign to the rate of change of
+   _ef_: If the economy is decarbonizing by 20% per year, that means that the 
+   rate of change of _ef_ is $-0.20$.
+   
    Multiply the rate of change of _ef_ by -1 to get the rate of decarbonization
-   (because negative rate of change is a positive rate of decarbonization and
-   vice-versa). 
-   Multiply by 100 to get the percent implied rate of decarbonization.
+   and multiply by 100 to express it as a percentage change per year.
 
-8. How does the implied rate of decarbonization for each nation compare to the 
-   historical rate of decarbonization (i.e., the trend in _ef_ reported in the 
+8. How does the implied rate of change of _ef_ for the country you're analyzing
+   compare to the 
+   historical rate (i.e., the trend in _ef_ reported in the 
    "Bottom up Analysis" table)? 
-   Which nation will have the hardest time meeting this emission goal without 
-   damaging its economy?
+   Do you think your country will have a hard time meeting its emission goal 
+   without damaging its economy?
 

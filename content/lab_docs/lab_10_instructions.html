@@ -40,7 +40,7 @@ output:
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>The purpose of this homework is to get a sense of the challenges to cutting
+<p>The purpose of this lab is to get a sense of the challenges to cutting
 emissions significantly by analyzing several representative emissions-reduction
 policies.
 These policy analyses will follow the methods Roger Pielke used in
@@ -91,7 +91,7 @@ population <em>P</em>,
 per-capita gross-domestic product <em>g</em>,
 energy intensity of the economy <em>e</em>,
 and carbon intensity of the energy supply <em>f</em>.
-When you calculate decarbonization rates in this homework project, you will be
+When you calculate decarbonization rates in this lab project, you will be
 focusing on the carbon intensity of the economy, which is given by the
 product <em>ef</em>.</p>
 <p>After you have set the parameters you want, the bottom of the left panel will
@@ -118,8 +118,8 @@ Explore the trends for the different variables and notice which seem to be
 following a steady growth or reduction and which do not.</p>
 <p>If you hold the mouse pointer over a data point on either graph, a tool-tip
 will pop up showing the value of that variable in that year.</p></li>
-<li><p>“<strong>Calculations</strong>” shows the steps for you to follow for each country in this
-homework exercise.</p></li>
+<li><p>“<strong>Calculations</strong>” shows the steps for you to follow for the country you have
+chosen</p></li>
 <li><p>“<strong>Implied Decarbonization</strong>” shows the historical trend in the carbon
 intensity of the economy (<em>ef</em>) and the implied future changes in order to
 meet the policy goal that you set.</p></li>
@@ -214,13 +214,12 @@ your work to the “Bottom-up Analysis” table to make sure you know how to do 
 </div>
 <div id="the-assignment" class="section level1">
 <h1>The Assignment</h1>
-<p>For this assignment, analyze the economy and carbon emissions from the whole
-world, and then for individual countries.</p>
+<p>For this assignment, analyze the economy and carbon emissions from a country
+that you will choose.</p>
 <div id="decarbonization-lab-due-monday-april-13" class="section level2">
 <h2>Decarbonization Lab, due Monday, April 13</h2>
 <p>For this lab, you will choose one of the following countries and
-perform a bottom-up analysis of decarbonization policy for that country or
-region:
+perform a bottom-up analysis of decarbonization policy for that country:
 Australia, New Zealand, Canada, China, India, Japan, South Korea, Mexico, Germany, or United Kingdom.</p>
 <p>For the bottom-up analysis, use the Kaya Identity to make reasonable
 extrapolations of the population and per-capita GDP through 2050.</p>
@@ -339,15 +338,13 @@ growth rate of the total emissions <em>F</em>.
 Calculate the total CO<sub>2</sub> emissions (<em>F</em>) from the country in
 2050, assuming that emissions continue to grow at
 historical rates.</p>
-<p>I recommend that you write R chunks in your report in a way that you
-can copy and paste the chunks from one country or region into the analysis
-for the other countries or regions.</p>
 <p>It may also be useful to define functions for frequently used
 (e.g., see the example <code>growth</code> function in the handout on “New Tools for
 Data Analysis”)</p>
 <p>Check your work against the bottom-up numbers in the ``Bottom-Up Analysis’’
 table on the bottom of the left-hand pane of the web application.</p></li>
-<li><p>Calculate the emissions target for each country: Set the reference year for
+<li><p>Calculate the emissions target for the country you’ve chosen:
+Set the reference year for
 emissions reduction to 2005, and set the target emissions
 reduction using the table below:</p>
 <p>The IPCC developed many representative concentration pathways (RCPs)
@@ -411,10 +408,8 @@ for different parts of the world listed in the table below:</p>
 set the reference year to 2005;
 set the emissions reduction to the emissions reduction you are trying to
 achieve.</p>
-<p>For each country, how much CO<sub>2</sub> (<em>F</em>) would each country emit in
-2050 in order to meet your policy goal?
-(Remember to work this whole exercise for whole world before starting on
-the individual countries.)</p>
+<p>How much CO<sub>2</sub> (<em>F</em>) would the country you’re analyzing emit in
+2050 in order to meet its policy goal?</p>
 <p>Let’s work an example using Argentina:</p>
 <pre class="r"><code>F_2005_argentina = get_kaya_data(&quot;Argentina&quot;) %&gt;% 
   filter(year == 2005) %$% F
@@ -454,16 +449,18 @@ the rate of reduction of <em>ef</em>, the carbon intensity of the economy.
 and <em>r<sub>g</sub></em>
 (look them up in the ``Bottom up Analysis’’ table)
 from <em>r<sub>F</sub></em>, which you just calculated in step~7,
-to get the rate of change of <em>ef</em>.
-Multiply the rate of change of <em>ef</em> by -1 to get the rate of decarbonization
-(because negative rate of change is a positive rate of decarbonization and
-vice-versa).
-Multiply by 100 to get the percent implied rate of decarbonization.</p></li>
-<li><p>How does the implied rate of decarbonization for each nation compare to the
-historical rate of decarbonization (i.e., the trend in <em>ef</em> reported in the
+to get the rate of change of <em>ef</em>.</p>
+<p>The rate of decarbonization has the opposite sign to the rate of change of
+<em>ef</em>: If the economy is decarbonizing by 20% per year, that means that the
+rate of change of <em>ef</em> is <span class="math inline">\(-0.20\)</span>.</p>
+<p>Multiply the rate of change of <em>ef</em> by -1 to get the rate of decarbonization
+and multiply by 100 to express it as a percentage change per year.</p></li>
+<li><p>How does the implied rate of change of <em>ef</em> for the country you’re analyzing
+compare to the
+historical rate (i.e., the trend in <em>ef</em> reported in the
 “Bottom up Analysis” table)?
-Which nation will have the hardest time meeting this emission goal without
-damaging its economy?</p></li>
+Do you think your country will have a hard time meeting its emission goal
+without damaging its economy?</p></li>
 </ol>
 </div>
 </div>
