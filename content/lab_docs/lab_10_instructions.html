@@ -21,7 +21,6 @@ output:
 
 <div id="TOC">
 <ul>
-<li><a href="#note">Note</a></li>
 <li><a href="#introduction">Introduction</a><ul>
 <li><a href="#data-resources">Data Resources</a><ul>
 <li><a href="#using-the-interactive-web-application">Using the interactive web application:</a></li>
@@ -31,7 +30,7 @@ output:
 <li><a href="#growth-rates-and-trends">Growth Rates and Trends</a></li>
 </ul></li>
 <li><a href="#the-assignment">The Assignment</a><ul>
-<li><a href="#decarbonization-lab-1-due-tuesday-october-30">Decarbonization Lab #1, due Tuesday, October 30</a><ul>
+<li><a href="#decarbonization-lab-due-monday-april-13">Decarbonization Lab, due Monday, April 13</a><ul>
 <li><a href="#outline">Outline:</a></li>
 <li><a href="#detailed-steps">Detailed steps:</a></li>
 </ul></li>
@@ -39,15 +38,6 @@ output:
 </ul>
 </div>
 
-<div id="note" class="section level1">
-<h1>Note</h1>
-<p>This is a revised and corrected version of the instructions. I corrected the
-error in step 6 that a student called to my attention during lab today.</p>
-<p>I also added a concise outline of the steps before the detailed step-by-step
-instructions.</p>
-<p>Nothing has changed about the substance of the lab. All I have done is to
-clarify and correct the original instructions.</p>
-</div>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>The purpose of this homework is to get a sense of the challenges to cutting
@@ -60,20 +50,19 @@ your own lab report individually.</p>
 <div id="data-resources" class="section level2">
 <h2>Data Resources</h2>
 <p>To make things simple for you, I have prepared an interactive web application,
-available at &lt;<a href="https://ees3310.jgilligan.org/decarbonization/" class="uri">https://ees3310.jgilligan.org/decarbonization/</a>}, with almost all
+available at <a href="https://ees3310.jgilligan.org/decarbonization/" class="uri">https://ees3310.jgilligan.org/decarbonization/</a>, with almost all
 the data you will need for this project.
 It contains historical data on population, GDP, energy consumption, and
 CO<sub>2</sub> emissions for many countries and regions of the world.</p>
 <p>I have also provided an R package that you can install on your own computer
 through R Studio:</p>
-<pre class="r"><code>library(pacman)
-p_load_gh(&quot;jonathan-g/kayadata&quot;)</code></pre>
+<pre class="r"><code>install.packages(&quot;kayadata&quot;)</code></pre>
 <p>Finally, there is an experimental version of the interactive web application
 that you can install and run on your computer using RStudio, but it is still
 experimental and may not work perfectly.
 You can install it in RStudio like this:</p>
 <pre class="r"><code>library(pacman)
-p_load_gh(&quot;jonathan-g/kayadata&quot;)</code></pre>
+p_load_gh(&quot;jonathan-g/kayatool&quot;)</code></pre>
 <p>and then you can run the application like this:</p>
 <pre class="r"><code>library(kayatool)
 launch_kayatool()</code></pre>
@@ -227,37 +216,23 @@ your work to the “Bottom-up Analysis” table to make sure you know how to do 
 <h1>The Assignment</h1>
 <p>For this assignment, analyze the economy and carbon emissions from the whole
 world, and then for individual countries.</p>
-<div id="decarbonization-lab-1-due-tuesday-october-30" class="section level2">
-<h2>Decarbonization Lab #1, due Tuesday, October 30</h2>
-<p>For this lab, you will do a bottom-up analysis of the following countries/regions:</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">class</th>
-<th align="left">regions</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Grad Students</td>
-<td align="left">World, United States, China, India, Brazil</td>
-</tr>
-<tr class="even">
-<td align="left">Undergraduates</td>
-<td align="left">World, United States, China</td>
-</tr>
-</tbody>
-</table>
+<div id="decarbonization-lab-due-monday-april-13" class="section level2">
+<h2>Decarbonization Lab, due Monday, April 13</h2>
+<p>For this lab, you will choose one of the following countries and
+perform a bottom-up analysis of decarbonization policy for that country or
+region:
+Australia, New Zealand, Canada, China, India, Japan, South Korea, Mexico, Germany, or United Kingdom.</p>
 <p>For the bottom-up analysis, use the Kaya Identity to make reasonable
 extrapolations of the population and per-capita GDP through 2050.</p>
-<p>Repeat the steps below for each country or region:</p>
 <div id="outline" class="section level3">
 <h3>Outline:</h3>
-<p>To analyze the policy for each country:</p>
-<ol style="list-style-type: decimal">
+<p>To analyze the policy for your country:</p>
+<ol>
 <li>Get the Kaya identity data for the country</li>
 <li>Figure out appropriate starting years for calculating the historical trends
 for the Kaya variables <em>P</em>, <em>g</em>, <em>e</em>, and <em>f</em>.</li>
+<li>Comment on whether you think it’s reasonable to extrapolate the historical
+trend.</li>
 <li>Calculate the <em>historical trends</em> for the Kaya variables from the starting
 year you determined in step (2).</li>
 <li>Use the <em>historical trends</em> to extrapolate projected values for <em>P</em>, <em>g</em>,
@@ -268,55 +243,58 @@ measured emissions <em>F</em> in 2005, from the Kaya data for your
 country.</li>
 <li>Calculate the <em>implied rate of change</em> of <em>F</em> between 2018
 and 2050, in order to reduce emissions to the policy goal that
-you calculated in step (5).</li>
+you calculated in step (6).</li>
 <li>Combine the <em>implied rate of change</em> of <em>F</em> with the <em>historical trends</em> of
 <em>P</em> and <em>g</em> to calculate the <em>implied rate of change</em> of <em>ef</em> that you
-calculated in step (3) in order to meet the policy goal from step (5).</li>
-<li>Compare the <em>implied rate of change</em> of <em>ef</em> that you calculated in step (7)
+calculated in step (4) in order to meet the policy goal from step (6).</li>
+<li>Compare the <em>implied rate of change</em> of <em>ef</em> that you calculated in step (8)
 to the <em>historical trend</em> of <em>ef</em> that you can determine from the
-<em>historical trends</em> of <em>e</em> and <em>f</em> that you calculated in step (3).</li>
+<em>historical trends</em> of <em>e</em> and <em>f</em> that you calculated in step (4).</li>
 </ol>
 </div>
 <div id="detailed-steps" class="section level3">
 <h3>Detailed steps:</h3>
-<p>Each step has two alternative methods: using the interactive web application or
-using the <code>kayadata</code> library in RStudio:</p>
-<ol style="list-style-type: decimal">
-<li><p>Open the web app at <a href="https://ees3310.jgilligan.org/decarbonization" class="uri">https://ees3310.jgilligan.org/decarbonization</a>,
-select the country you want to analyze, to start, leave the
-“Calculate trends starting in” at its default value (1980),
-and write down the most current (2018) values for
-<em>P</em>, <em>g</em>, <em>e</em>, <em>f</em>, <em>ef</em>, and <em>F</em>.</p>
-<p>Alternately, use the <code>kayadata</code> package in RStudio to load the data for
-your country or region. Below is an example of looking up the data
-for the OECD:</p>
+<ol>
+<li><p>Use the <code>kayadata</code> package in RStudio to load the data for
+your country. Below is an example of looking up the data
+for the United States:</p>
 <pre class="r"><code>library(kayadata)
-oecd_data = get_kaya_data(&quot;OECD&quot;)
-oecd_latest_year = oecd_data %&gt;% filter(year == 2017)</code></pre>
+usa_data = get_kaya_data(&quot;United States&quot;)
+latest_year = max(usa_data$year)
+usa_current = usa_data %&gt;% filter(year == latest_year)</code></pre>
 <p>You can get a list of all the countries and regions that are available
-from <code>kaya_region_list()</code>.</p>
-<p><strong>Start with the whole world first and do the whole analysis for the
-world before doing it for the individual countries.</strong></p></li>
-<li><p>Next, go to the “Trends” tab and look at the graphs of
+from the function <code>kaya_region_list()</code>.</p></li>
+<li><p>Next, go to the “Trends” tab in the interactive application at
+<a href="https://ees3310.jgilligan.org/decarbonization" class="uri">https://ees3310.jgilligan.org/decarbonization</a> and look at the graphs of
 ln(<em>P</em>), ln(<em>g</em>), ln(<em>e</em>), ln(<em>f</em>), and ln(<em>ef</em>).</p>
 <ul>
-<li>Write down the rate of change for each variable.</li>
-<li>For each graph compare the real data (in red) to the trend line
-(the straight blue line).</li>
-<li>Does the trend line look a like a good description of the data?</li>
-<li>Is there a better starting year for calculating trends?
-If so, adjust ``Calculate trends starting in’’ to this year</li>
-<li>Do you anticipate a problem if we make policy by assuming that
+<li><p>For each graph compare the real data (in red) to the trend line
+(the straight blue line).</p></li>
+<li><p>Does the trend line look a like a good description of the data?</p></li>
+<li><p>Is there a better starting year for calculating trends?
+If so, adjust ``Calculate trends starting in’’ to this year.
+Make a note of the starting year
+(you may use different start years for different variables).</p></li>
+<li><p>Do you anticipate a problem if we make policy by assuming that
 the Kaya identity variables will follow the trend line for the next
-several decades?</li>
-</ul>
-<p>You should also plot these in your report using RMarkdown.
+several decades?</p>
+<p>You should also plot each variable in your report using RMarkdown.
 Following from the example above, you can use the <code>plot_kaya</code> function:</p>
-<pre class="r"><code>plot_kaya(oecd_data, &quot;e&quot;, log_scale = TRUE, font_size = 12)</code></pre>
-<p><img src="/lab_docs/lab_10_instructions_files/figure-html/plot_oecd_data-1.png" width="672" /></p>
+<pre class="r"><code>    plot_kaya(usa_data, &quot;e&quot;, log_scale = TRUE, start_year = 1990, 
+              trend_line = TRUE,  trend_color = &quot;red&quot;, font_size = 12)</code></pre>
+<p><img src="/lab_docs/lab_10_instructions_files/figure-html/plot_usa_data-1.png" width="672" /></p>
 <p>Be sure to set <code>log_scale = TRUE</code> in the <code>plot_kaya</code> function because
 a constant percentage rate of
 change corresponds to a linear trend in the logarithm of the variable.</p></li>
+</ul></li>
+<li><p>Examine the plot for each variable.
+Does the data (plotted on a logarithmic scale) look like
+it’s following a reasonably constant trend for many years? In other words,
+do the data lie close to the trend line you plotted?</p>
+<p>Would you be confident predicting that the changes over the next 30 years
+will continue to follow the trend line in your plot?</p>
+<p>Explain why you either are or are not confident in extrapolating the data
+using the trend lines in the plots.</p></li>
 <li><p>Next, calculate the rates of change of
 <em>P</em>, <em>g</em>, <em>e</em>, and <em>f</em> (the Population, per-capita GDP, energy intensity of
 the economy, and carbon-intensity of the energy supply) from your starting
@@ -324,28 +302,35 @@ year through 2018, using the <code>lm</code> function in R.</p>
 <p>A constant rate of change is represented by a linear relationship between
 the natural logarithm of the kaya variable and time: for the variable
 <code>P</code> (population), we would write this formula in R as <code>log(P)~year</code>.</p>
-<p>Here is an example of calculating the rate of change of <em>e</em>
-(the energy intensity of the economy) for the OECD, using the variable
-<code>oecd_data</code> that you calculated above:</p>
+<p>Here is an example of calculating the rates of change of <em>P</em> and <em>e</em>
+(the energy intensity of the economy) for the United States,
+using the variable <code>usa_data</code> that you calculated above:</p>
 <pre class="r"><code># Load the broom library for organizing lm results
 library(broom)
 # Load the magrittr library with helper functions for piping data
 library(magrittr)
 
-e_trend = oecd_data %&gt;% filter(year &gt;= 1980) %&gt;%
+P_trend = usa_data %&gt;% filter(year &gt;= 1980) %&gt;%
+  lm(log(P) ~ year, data = .) %&gt;%
+  tidy() %&gt;% filter(term == &quot;year&quot;) %$% estimate
+
+# Note that for different variables, I may choose 
+# to use different starting years in calculating the 
+# trends
+e_trend = usa_data %&gt;% filter(year &gt;= 1990) %&gt;%
   lm(log(e) ~ year, data = .) %&gt;%
   tidy() %&gt;% filter(term == &quot;year&quot;) %$% estimate</code></pre>
 <p>For more detailed explanation of the code above, see the handout
 “New Tools for Data Analysis.”</p>
-<p>Here, we find that <code>e_trend</code> = -0.0141
-(-1.41% per year).</p>
+<p>Here, we find that <code>e_trend</code> = -0.02
+(-2% per year).</p>
 <p>You can check your results against the interactive web application by
 looking at the rates of change reported on the “Trends” tab.
 Be sure to set the start year on the web app to the same values that you
 used for calculating the slopes in RMarkdown.</p>
 <p>These numbers are the slopes of the trend lines that you looked at in part 2.</p></li>
-<li><p>Using the rates of change that you determined in part 3,
-use the formulas from the “Growth Rates and Trends” section to compute the
+<li><p>Using the rates of change that you determined in the previous step,
+use the formulas from the “Growth Rates and Trends” section to predict the
 values for
 <em>P</em>, <em>g</em>, <em>e</em>, and <em>f</em>
 in the year 2050.</p>
@@ -375,68 +360,53 @@ for different parts of the world listed in the table below:</p>
 <caption>(#tab:rcp_26_table)Percent reduction in CO<sub>2</sub> emissions in 2050, relative to 2005.</caption>
 <thead>
 <tr class="header">
-<th align="left">Region</th>
-<th align="right">Emissions reduction</th>
+<th align="left">Country</th>
+<th align="right">Target reduction</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Australia/New Zealand</td>
+<td align="left">Australia</td>
 <td align="right">82%</td>
 </tr>
 <tr class="even">
+<td align="left">New Zealand</td>
+<td align="right">82%</td>
+</tr>
+<tr class="odd">
 <td align="left">Canada</td>
 <td align="right">72%</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">China</td>
 <td align="right">78%</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">India</td>
 <td align="right">73%</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Japan</td>
 <td align="right">66%</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">South Korea</td>
 <td align="right">67%</td>
 </tr>
-<tr class="odd">
-<td align="left">United States</td>
-<td align="right">73%</td>
-</tr>
 <tr class="even">
-<td align="left">Africa</td>
-<td align="right">28%</td>
-</tr>
-<tr class="odd">
-<td align="left">Latin America</td>
+<td align="left">Mexico</td>
 <td align="right">40%</td>
 </tr>
-<tr class="even">
-<td align="left">Middle East</td>
-<td align="right">32%</td>
-</tr>
 <tr class="odd">
-<td align="left">Southeast Asia</td>
-<td align="right">-17%</td>
-</tr>
-<tr class="even">
-<td align="left">Western Europe</td>
+<td align="left">Germany</td>
 <td align="right">74%</td>
 </tr>
-<tr class="odd">
-<td align="left">World</td>
-<td align="right">36%</td>
+<tr class="even">
+<td align="left">United Kingdom</td>
+<td align="right">74%</td>
 </tr>
 </tbody>
 </table>
-<p>Note that Southeast Asia has a negative reduction.
-This means that countries in this region are allowed a 17% <em>increase</em>
-in CO<sub>2</sub> emissions (<em>F</em>).</p>
 <p>Set the target year in the web app to 2050;
 set the reference year to 2005;
 set the emissions reduction to the emissions reduction you are trying to
@@ -445,15 +415,15 @@ achieve.</p>
 2050 in order to meet your policy goal?
 (Remember to work this whole exercise for whole world before starting on
 the individual countries.)</p>
-<p>Let’s work an example using the Middle East:</p>
-<pre class="r"><code>F_2005_middle_east = get_kaya_data(&quot;Middle East&quot;) %&gt;% 
+<p>Let’s work an example using Argentina:</p>
+<pre class="r"><code>F_2005_argentina = get_kaya_data(&quot;Argentina&quot;) %&gt;% 
   filter(year == 2005) %$% F
-F_2005_middle_east</code></pre>
-<pre><code>## [1] 1365.124</code></pre>
-<pre class="r"><code>middle_east_reduction = 0.32
-F_goal_middle_east = F_2005_middle_east * (1 - middle_east_reduction)
-F_goal_middle_east</code></pre>
-<pre><code>## [1] 928.2841</code></pre>
+F_2005_argentina</code></pre>
+<pre><code>## [1] 138.5412</code></pre>
+<pre class="r"><code>argentina_reduction = 0.40
+F_goal_argentina = F_2005_argentina * (1 - argentina_reduction)
+F_goal_argentina</code></pre>
+<pre><code>## [1] 83.12471</code></pre>
 <p>Check this result against the interactive web application.</p></li>
 <li><p>Look up what the CO<sub>2</sub> emission is in 2018 and calculate the
 rate of change in <em>F</em> that would be necessary to achieve your policy target.
@@ -469,15 +439,14 @@ This is the rate of change of <em>F</em>. A positive number means growth and a
 negative number means a reduction.
 The percentage rate of change per year is 100 times this number.</li>
 </ol>
-<p>For our Middle East example:</p>
-<pre class="r"><code>F_2017_middle_east = get_kaya_data(&quot;Middle East&quot;) %&gt;% 
+<p>For our Argentina example:</p>
+<pre class="r"><code>F_2017_argentina = get_kaya_data(&quot;Argentina&quot;) %&gt;% 
   filter(year == 2017) %$% F
-r_F_middle_east = log(F_goal_middle_east / F_2017_middle_east) / 
-  (2050 - 2017)
-r_F_middle_east</code></pre>
-<pre><code>## [1] -0.02442946</code></pre>
-<p>so total emissions for the Middle East would need to drop by
--2.44% per year between 2018
+r_F_argentina = log(F_goal_argentina / F_2017_argentina) / (2050 - 2017)
+r_F_argentina</code></pre>
+<pre><code>## [1] -0.0241004</code></pre>
+<p>so total emissions for the Argentina would need to drop by
+-2.41% per year between 2018
 and 2050</p></li>
 <li><p>Now calculate the decarbonization rate implied by the policy goal. This is
 the rate of reduction of <em>ef</em>, the carbon intensity of the economy.

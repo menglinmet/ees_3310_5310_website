@@ -243,27 +243,23 @@ When you call the function, it executes all of the code between the curly braces
 and returns the last value calculated before the closing brace.
 Thus, we can call the function like this to estimate the world population
 in 2050</p>
-<pre class="r"><code>P_2017 = 7.53 # world population was 7.53 billion
+<pre class="r"><code>P_2018 = 7.59 # world population was 7.59 billion
 r_P = 0.0141  # growth rate is 1.41% per yer
-P_2050 = growth(q_0 = P_2017, rate = r_P, start_year = 2017, end_year = 2050)
+P_2050 = growth(q_0 = P_2018, rate = r_P, start_year = 2018, end_year = 2050)
 P_2050</code></pre>
-<pre><code>## [1] 11.99146</code></pre>
+<pre><code>## [1] 11.91778</code></pre>
 <p>If you don’t specify the name of the parameter, the function fills them out in
 order, so we could also write</p>
-<pre class="r"><code>P_2017 = 7.53 # world population was 7.53 billion
+<pre class="r"><code>P_2018 = 7.59 # world population was 7.53 billion
 r_P = 0.0141  # growth rate is 1.41% per yer
-P_2050 = growth(P_2017, r_P, 2017, 2050)
+P_2050 = growth(P_2018, r_P, 2018, 2050)
 P_2050</code></pre>
-<pre><code>## [1] 11.99146</code></pre>
+<pre><code>## [1] 11.91778</code></pre>
 </div>
 <div id="kayadata-an-r-package-for-analyzing-kaya-identity-data" class="section level1">
 <h1><code>kayadata</code>: an R package for analyzing Kaya-identity data</h1>
 <p>You can install the <code>kayadata</code> package as follows:</p>
-<pre class="r"><code>library(devtools)
-install_github(&quot;jonathan-g/kayadata&quot;)</code></pre>
-<p>or</p>
-<pre class="r"><code>library(pacman)
-p_load_current_gh(&quot;jonathan-g/kayadata&quot;)</code></pre>
+<pre class="r"><code>install.packages(&quot;kayadata&quot;)</code></pre>
 <p>Once you have installed the <code>kayadata</code> package, you load it as follows:</p>
 <pre class="r"><code>library(kayadata)</code></pre>
 <p>This package has several useful functions:</p>
@@ -353,9 +349,9 @@ data for.</li>
 </ul></li>
 <li><code>get_fuel_mix(region_name)</code>: Get the mixture of primary energy sources used
 by a country or region.
-* <strong>Argument:</strong> <code>region_name</code> is the name of the country or region you
-want data for (e.g., “United States”, “World”, “China”, etc.).
 <ul>
+<li><strong>Argument:</strong> <code>region_name</code> is the name of the country or region you
+want data for (e.g., “United States”, “World”, “China”, etc.).</li>
 <li><strong>Results:</strong> The function returns a data frame with the following columns:
 <ul>
 <li><code>region</code>: The country or region</li>
@@ -370,7 +366,7 @@ year.</li>
 that kind of energy source.</li>
 </ul></li>
 </ul></li>
-<li><code>plot_kaya(kaya_data, variable, start_year, stop_year, y_lab, log_scale,  trend_line, points, font_size)</code>: Plot a time series showing trends in a
+<li><code>plot_kaya(kaya_data, variable, start_year, stop_year, y_lab, log_scale, trend_line, points, font_size)</code>: Plot a time series showing trends in a
 Kaya variable.
 <ul>
 <li><p><strong>Arguments:</strong></p>
@@ -416,6 +412,7 @@ The default is to set <code>font_size = 20</code> if you don’t specify a value
 plot_kaya(kd, &quot;F&quot;)</code></pre>
 <p><img src="/lab_docs/lab_10_new_tools_files/figure-html/example_kaya_plot-1.png" width="672" /></p>
 <pre class="r"><code>plot_kaya(kd, &quot;F&quot;, log_scale = TRUE, font_size = 12, trend_line = TRUE)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="/lab_docs/lab_10_new_tools_files/figure-html/example_kaya_plot_2-1.png" width="672" /></p>
 <pre class="r"><code>plot_kaya(kd, &quot;F&quot;, points = FALSE, start_year = NULL, font_size = 12)</code></pre>
 <p><img src="/lab_docs/lab_10_new_tools_files/figure-html/example_kaya_plot_3-1.png" width="672" /></p></li>
@@ -464,8 +461,10 @@ nameplate capacity that the power plant can produce over an average
 year.</p>
 <p>The average power output from a power plant is the nameplate capacity
 times the capacity factor:
-<span class="math display">\[ \text{average power} = \text{nameplate capacity} \times 
-     \text{capacity factor} \]</span></p></li>
+<span class="math display">\[ 
+\text{average power} = \text{nameplate capacity} \times 
+\text{capacity factor} 
+\]</span></p></li>
 </ul></li>
 </ul>
 </div>
