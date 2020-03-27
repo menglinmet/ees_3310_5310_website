@@ -5,7 +5,7 @@ lab_number: 6
 lab_date: '2020-02-17'
 pubdate: '2019-12-31'
 date: '2020-02-17'
-bibliography: lab_06.bib
+bibliography: lab-06.bib
 pdf_url: /files/lab_docs/lab_06/citations_bibliographies.pdf
 slug: lab_06_citations_bibliographies
 fontsize: 12pt
@@ -74,12 +74,12 @@ title: ""My Lab Report""
 subtitle: ""EES 3310: Global Climate Change""
 author: ""Jonathan Gilligan""
 date: ""Sept. 27, 2018""
-bibliography: ""my_bibliography.bib""
+bibliography: ""my-bibliography.bib""
 ---
 ```
 
 RMarkdown can figure out the kind of bibliography file it is from the file 
-extension (`.bib`, etc.). I have provided an example BibTeX file, `lab_05.bib` 
+extension (`.bib`, etc.). I have provided an example BibTeX file, `lab-06.bib` 
 that has examples of entries.
 
 For the examples here, I will work with a format called BibTeX because most

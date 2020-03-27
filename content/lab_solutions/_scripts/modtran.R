@@ -177,8 +177,7 @@ run_modtran <- function(filename = NULL,
   if (! is.null(filename)) {
     write(body, filename)
   }
-  Sys.sleep(5)
-
+  Sys.sleep(1)
 
   output <- str_c(body, collapse = "\n") %>% read_modtran(text = .)
   invisible(output)
@@ -346,7 +345,7 @@ plot_modtran <- function(filename = NULL, text = NULL,
     ) %>% na.omit() %>% filter(between(k, k_limits[1], k_limits[2]))
 
   if (is.null(lambda)) {
-    lambda = c(1, 2, 2.5, 3, 3.5, 4, 5:10, 12, 14, 17, 20, 25, 30, 35, 40, 50, 100)
+  lambda = c(1, 2, 2.5, 3, 3.5, 4, 5:10, 12, 14, 17, 20, 25, 30, 35, 40, 50, 100)
   }
 
   spectrum <- spectrum %>% select(k, tk) %>% na.omit() %>%

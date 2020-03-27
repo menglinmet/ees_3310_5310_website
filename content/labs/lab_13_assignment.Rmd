@@ -1,7 +1,6 @@
 ---
-title: Continuing Work on the Decarbonization Policy Analysis
+title: Continue Working on Decarbonization
 lab_date: '2020-04-13'
-report_due_date: '2020-04-17'
 lab_number: 13
 pubdate: '2019-12-31'
 date: '2020-04-13'
@@ -19,7 +18,7 @@ output:
 ---
 # Overview:
 
-Lab attendence is optional today. Ms. Best and I will be there to answer questions and discuss your projects with you.
+No new lab assignment: Continue working on your decarbonization assignments
 
 ## Reading
 

@@ -1,0 +1,9 @@
+\contentsline {section}{Introduction}{1}{section*.2}%
+\contentsline {section}{Zero-Emissions Baseline}{1}{section*.3}%
+\contentsline {section}{The Exercise}{2}{section*.4}%
+\contentsline {subsection}{The Players}{2}{section*.5}%
+\contentsline {subsection}{The Game}{3}{section*.6}%
+\contentsline {subsection}{Acknowledgements}{4}{section*.7}%
+\contentsline {subsection}{Homework}{5}{section*.8}%
+\contentsline {subsubsection}{Table 1: Profits vs.\nobreakspace {}Emissions}{7}{section*.9}%
+\contentsline {subsubsection}{Table 2: Environmental Harm vs.\nobreakspace {}Emissions}{8}{section*.10}%
