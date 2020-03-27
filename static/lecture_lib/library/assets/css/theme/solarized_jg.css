@@ -617,6 +617,11 @@ img.vmid {
 .reveal .textleft p {
   text-align: left; }
 
+.reveal .textleft ul,
+.reveal .textleft ol,
+.reveal .textleft dl {
+  display: block; }
+
 .reveal .textright div,
 .reveal .textright p {
   text-align: right; }
@@ -624,6 +629,11 @@ img.vmid {
 .reveal .centertext div,
 .reveal .centertext p {
   text-align: center; }
+
+.reveal .textright ul,
+.reveal .textright ol,
+.reveal .textright dl {
+  display: block; }
 
 .reveal .whitetitle h1,
 .reveal .whitetitle h2,
