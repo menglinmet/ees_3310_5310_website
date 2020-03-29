@@ -156,7 +156,7 @@ week, from the options of
 ```
 
 The lab report is due (knitted to PDF document, committed, and pushed
-to GitHub) by the end of the day `r long_due_date_1`
+to GitHub) by the end of the day `r long_due_date_2`
 
 # The Assignment:
 
