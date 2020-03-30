@@ -190,6 +190,7 @@ lessons:
   reading: /reading/reading_30
 - date: '2020-03-30'
   title: Pricing Carbon
+  lecture: /slides/class_31
   class_num: 31
   reading: /reading/reading_31
   lab: lab_11_assignment
