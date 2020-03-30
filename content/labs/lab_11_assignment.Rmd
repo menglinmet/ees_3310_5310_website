@@ -3,6 +3,7 @@ title: 'Decarbonizing the World''s Energy Supply: Top-Down Approaches'
 lab_date: '2020-03-30'
 report_due_date: '2020-04-20'
 lab_number: 11
+github_classroom_assignment_url: https://classroom.github.com/a/NGCyeJwe
 pubdate: '2019-12-31'
 date: '2020-03-30'
 slug: lab_11_assignment
@@ -31,4 +32,4 @@ Note that the due date for the report is in two weeks, not one week.
 
 ## Assignment
 
-The GitHub Classroom assignment link has not been posted yet.
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/NGCyeJwe>.
