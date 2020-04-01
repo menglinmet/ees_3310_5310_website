@@ -198,6 +198,7 @@ lessons:
   lab_title: 'Decarbonizing the World''s Energy Supply: Top-Down Approaches'
 - date: '2020-04-01'
   title: Carbon Pricing Instruments
+  lecture: /slides/class_32
   class_num: 32
   reading: /reading/reading_32
 - date: '2020-04-03'
