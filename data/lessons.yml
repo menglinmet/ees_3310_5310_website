@@ -216,6 +216,7 @@ lessons:
   lab_title: Role-Playing Emissions Regulations
 - date: '2020-04-08'
   title: 'Geoengineering: Carbon Dioxide Management'
+  lecture: /slides/class_35
   class_num: 35
   reading: /reading/reading_35
 - date: '2020-04-10'
