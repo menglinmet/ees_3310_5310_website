@@ -21,5 +21,9 @@ output:
 
 ### Required Reading (everyone):
 
+* Handout: [J.M. Gilligan and M.P. Vandenbergh, "A Framework for Assessing the Impact of Private Climate Governance," Energy Research and Social Sciences **60**, 101,400 (2020)](/files/reading_handouts/gilligan_framework_2020.pdf){target="_blank"}.
+
+### Optional Extra Reading:
+
 * Handout: [M.P. Vandenbergh and J.M. Gilligan, _Beyond Politics_ (Cambridge, 2017)](/files/reading_handouts/Beyond_Politics_Chapter_1.pdf){target="_blank"}, Ch. 1.
 
