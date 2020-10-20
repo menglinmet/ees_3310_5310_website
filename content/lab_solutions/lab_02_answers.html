@@ -19,19 +19,23 @@ output:
       in_header: ees3310.sty
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
 <li><a href="#instructions">Instructions</a></li>
-<li><a href="#exercises-from-chapter-3">Exercises from Chapter 3</a><ul>
+<li><a href="#exercises-from-chapter-3">Exercises from Chapter 3</a>
+<ul>
 <li><a href="#worked-example-for-one-layer-atmosphere">Worked Example for One-Layer Atmosphere</a></li>
 <li><a href="#exercise-3.1-grad.-students-only">Exercise 3.1 (Grad. students only)</a></li>
 <li><a href="#exercise-3.2">Exercise 3.2</a></li>
 <li><a href="#exercise-3.3">Exercise 3.3</a></li>
 </ul></li>
-<li><a href="#part-2">Part 2:</a><ul>
+<li><a href="#part-2">Part 2:</a>
+<ul>
 <li><a href="#exercises-with-co2-data-from-the-mauna-loa-observatory">Exercises with CO<sub>2</sub> Data from the Mauna Loa Observatory</a></li>
-<li><a href="#exercises-with-global-temperature-data-from-nasa">Exercises with Global Temperature Data from NASA</a><ul>
+<li><a href="#exercises-with-global-temperature-data-from-nasa">Exercises with Global Temperature Data from NASA</a>
+<ul>
 <li><a href="#did-global-warming-stop-after-1998">Did Global Warming Stop after 1998?</a></li>
 </ul></li>
 </ul></li>
@@ -440,8 +444,8 @@ and a linear fit:</p>
   geom_smooth(method=&quot;lm&quot;) +
   labs(x = &quot;Year&quot;, y = &quot;CO2 concentration (ppm)&quot;)</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<pre><code>## Warning: Removed 13 rows containing non-finite values (stat_smooth).</code></pre>
-<pre><code>## Warning: Removed 13 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 9 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 9 row(s) containing missing values (geom_path).</code></pre>
 <p><img src="/lab_solutions/lab_02_answers_files/figure-html/plot_mlo_seas-1.png" width="672" /></p>
 <p>Now fit a linear function to find the annual trend of <code>co2.seas</code>. Save
 the results of your fit in a variable called <code>trend.seas</code>.</p>
@@ -451,8 +455,8 @@ tidy(trend.seas)</code></pre>
 <pre><code>## # A tibble: 2 x 5
 ##   term        estimate std.error statistic p.value
 ##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-## 1 (Intercept) -2767.    15.5         -179.       0
-## 2 date            1.57   0.00779      201.       0</code></pre>
+## 1 (Intercept) -2777.    15.6         -178.       0
+## 2 date            1.57   0.00784      201.       0</code></pre>
 <p>Compare the trend you fit to the raw <code>co2.filled</code> data to the trend you fit
 to the seasonally adjusted data.</p>
 <p><strong>Note:</strong> I just intend students to informally look at the trend in the graph
@@ -493,7 +497,8 @@ any of those would correspond to a missing value, and should be indicated by
 the resulting tibble to a variable <code>giss_temp</code></p>
 <pre class="r"><code>giss_temp = read_csv(file.path(data_dir, &quot;global_temp_land_sea.csv&quot;), 
                      skip = 1, na = &quot;***&quot;, col_names = TRUE)</code></pre>
-<pre><code>## Parsed with column specification:
+<pre><code>## 
+## -- Column specification --------------------------------------------------------
 ## cols(
 ##   Year = col_double(),
 ##   Jan = col_double(),
@@ -520,11 +525,11 @@ head(giss_temp, 5)</code></pre>
 <pre><code>## # A tibble: 5 x 19
 ##    Year   Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1  1880 -0.17 -0.23 -0.08 -0.15 -0.09 -0.2  -0.17 -0.09 -0.13 -0.22 -0.21 -0.16
-## 2  1881 -0.19 -0.13  0.04  0.06  0.07 -0.18  0.01 -0.02 -0.14 -0.2  -0.17 -0.06
-## 3  1882  0.18  0.16  0.06 -0.15 -0.14 -0.21 -0.15 -0.06 -0.13 -0.23 -0.15 -0.35
-## 4  1883 -0.28 -0.35 -0.11 -0.18 -0.17 -0.06 -0.06 -0.13 -0.21 -0.11 -0.23 -0.1 
-## 5  1884 -0.12 -0.08 -0.36 -0.39 -0.34 -0.34 -0.32 -0.27 -0.26 -0.24 -0.32 -0.3 
+## 1  1880 -0.17 -0.23 -0.08 -0.15 -0.08 -0.19 -0.17 -0.09 -0.13 -0.22 -0.21 -0.16
+## 2  1881 -0.18 -0.13  0.04  0.07  0.08 -0.17  0.02 -0.02 -0.14 -0.2  -0.17 -0.05
+## 3  1882  0.18  0.16  0.06 -0.15 -0.13 -0.21 -0.14 -0.05 -0.13 -0.22 -0.15 -0.34
+## 4  1883 -0.28 -0.35 -0.11 -0.17 -0.16 -0.06 -0.05 -0.12 -0.19 -0.1  -0.21 -0.1 
+## 5  1884 -0.12 -0.07 -0.35 -0.39 -0.32 -0.34 -0.31 -0.27 -0.26 -0.24 -0.32 -0.3 
 ## # ... with 6 more variables: `J-D` &lt;dbl&gt;, `D-N` &lt;dbl&gt;, DJF &lt;dbl&gt;, MAM &lt;dbl&gt;,
 ## #   JJA &lt;dbl&gt;, SON &lt;dbl&gt;</code></pre>
 <p>Something is funny here: Each row corresponds to a year, but there are columns
@@ -571,15 +576,14 @@ Save the result in a variable called <code>giss_monthly</code></p>
 
 head(giss_monthly)</code></pre>
 <pre><code>## # A tibble: 6 x 13
-##    Year    Jan   Feb   Mar   Apr   May   Jun   Jul    Aug   Sep   Oct   Nov
-##   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1  1880 -0.17  -0.23 -0.08 -0.15 -0.09 -0.2  -0.17 -0.09  -0.13 -0.22 -0.21
-## 2  1881 -0.19  -0.13  0.04  0.06  0.07 -0.18  0.01 -0.02  -0.14 -0.2  -0.17
-## 3  1882  0.18   0.16  0.06 -0.15 -0.14 -0.21 -0.15 -0.06  -0.13 -0.23 -0.15
-## 4  1883 -0.28  -0.35 -0.11 -0.18 -0.17 -0.06 -0.06 -0.13  -0.21 -0.11 -0.23
-## 5  1884 -0.12  -0.08 -0.36 -0.39 -0.34 -0.34 -0.32 -0.27  -0.26 -0.24 -0.32
-## 6  1885 -0.580 -0.32 -0.25 -0.41 -0.44 -0.42 -0.32 -0.290 -0.27 -0.22 -0.22
-## # ... with 1 more variable: Dec &lt;dbl&gt;</code></pre>
+##    Year    Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec
+##   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  1880 -0.17  -0.23 -0.08 -0.15 -0.08 -0.19 -0.17 -0.09 -0.13 -0.22 -0.21 -0.16
+## 2  1881 -0.18  -0.13  0.04  0.07  0.08 -0.17  0.02 -0.02 -0.14 -0.2  -0.17 -0.05
+## 3  1882  0.18   0.16  0.06 -0.15 -0.13 -0.21 -0.14 -0.05 -0.13 -0.22 -0.15 -0.34
+## 4  1883 -0.28  -0.35 -0.11 -0.17 -0.16 -0.06 -0.05 -0.12 -0.19 -0.1  -0.21 -0.1 
+## 5  1884 -0.12  -0.07 -0.35 -0.39 -0.32 -0.34 -0.31 -0.27 -0.26 -0.24 -0.32 -0.3 
+## 6  1885 -0.570 -0.32 -0.25 -0.4  -0.44 -0.42 -0.32 -0.3  -0.27 -0.22 -0.22 -0.09</code></pre>
 <p>Next, it will be difficult to plot all of the data if the months are organized as
 columns. What we want is to transform the data tibble into one with three columns:
 “year”, “month”, and “anomaly”. We can do this easily using the <code>gather</code> function
@@ -597,8 +601,10 @@ and the anomaly in “anomaly”.</li>
 which lists the quarterly approval ratings for U.S. presidents from 1945–1974:</p>
 <pre class="r"><code>df = presidents@.Data %&gt;% matrix(ncol=4, byrow = TRUE) %&gt;%
   as_tibble() %&gt;% set_names(paste0(&quot;Q&quot;, 1:4)) %&gt;% mutate(year = 1944 + seq(n()))</code></pre>
-<pre><code>## Warning: `as_tibble.matrix()` requires a matrix with column names or a `.name_repair` argument. Using compatibility `.name_repair`.
-## This warning is displayed once per session.</code></pre>
+<pre><code>## Warning: The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is omitted as of tibble 2.0.0.
+## Using compatibility `.name_repair`.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
 <pre class="r"><code>print(&quot;First 10 rows of df are&quot;)</code></pre>
 <pre><code>## [1] &quot;First 10 rows of df are&quot;</code></pre>
 <pre class="r"><code>print(head(df, 10))</code></pre>
@@ -696,8 +702,8 @@ giss_g = giss_g %&gt;%
   geom_line() +
   geom_point() +
   labs(x = &quot;Year&quot;, y = &quot;Temperature Anomaly (Celsius)&quot;)</code></pre>
-<pre><code>## Warning: Removed 10 row(s) containing missing values (geom_path).</code></pre>
-<pre><code>## Warning: Removed 10 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 3 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing missing values (geom_point).</code></pre>
 <p><img src="/lab_solutions/lab_02_answers_files/figure-html/plot_giss-1.png" width="672" /></p>
 <p>That plot probably doesn’t look like much, because it’s very noisy.
 Use the function <code>rollapply</code> from the package <code>zoo</code> to create
@@ -773,8 +779,8 @@ tidy(recent_trend)</code></pre>
 <pre><code>## # A tibble: 2 x 5
 ##   term        estimate std.error statistic   p.value
 ##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-## 1 (Intercept) -37.5     0.802        -46.7 4.27e-202
-## 2 date          0.0190  0.000402      47.2 2.34e-204</code></pre>
+## 1 (Intercept) -37.8     0.791        -47.8 3.90e-208
+## 2 date          0.0192  0.000396      48.4 1.82e-210</code></pre>
 <div id="did-global-warming-stop-after-1998" class="section level3">
 <h3>Did Global Warming Stop after 1998?</h3>
 <p>It is a common skeptic talking point that global warming stopped in 1998.
@@ -800,18 +806,18 @@ we won’t get a full year average from it.</p>
   group_by(Year) %&gt;% 
   summarize(anomaly = mean(anomaly)) %&gt;%
   ungroup() %&gt;%
-  mutate(date = Year + 0.5)
-
-head(giss_annual)</code></pre>
+  mutate(date = Year + 0.5)</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre class="r"><code>head(giss_annual)</code></pre>
 <pre><code>## # A tibble: 6 x 3
 ##    Year anomaly  date
 ##   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
-## 1  1979   0.162 1980.
-## 2  1980   0.257 1980.
-## 3  1981   0.321 1982.
-## 4  1982   0.137 1982.
-## 5  1983   0.311 1984.
-## 6  1984   0.155 1984.</code></pre>
+## 1  1979   0.166 1980.
+## 2  1980   0.261 1980.
+## 3  1981   0.323 1982.
+## 4  1982   0.14  1982.
+## 5  1983   0.314 1984.
+## 6  1984   0.158 1984.</code></pre>
 <p>This code groups the giss data by the year, so that one group will have
 January–December 1979, another will have January–December 1980, and
 so forth.</p>
@@ -876,8 +882,8 @@ tidy(giss_trend)</code></pre>
 <pre><code>## # A tibble: 2 x 5
 ##   term        estimate std.error statistic p.value
 ##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-## 1 (Intercept) -28.0      7.68        -3.65 0.00185
-## 2 date          0.0142   0.00386      3.69 0.00169</code></pre>
+## 1 (Intercept) -27.8      7.70        -3.60 0.00203
+## 2 date          0.0141   0.00387      3.64 0.00186</code></pre>
 <p>Now, combine the two tibbles into one tibble:</p>
 <pre class="r"><code>giss_combined &lt;- bind_rows(giss_before, giss_after)</code></pre>
 <p>Now let’s use ggplot to plot <code>giss_combined</code>:</p>
