@@ -314,6 +314,7 @@ print(length(x))
 print("Dimensions of dplyr::storms is ")
 dim(dplyr::storms)
 ```
+
 That's `r nrow(dplyr::storms)` rows and `r ncol(dplyr::storms)` columns.
 You can also get just the number of rows or the number of columns
 with `nrow()` and `ncol()`.
@@ -369,7 +370,9 @@ tools for modifying and manipulating tibbles:
   or minimum value of that column)
 * `group_by` and `ungroup` let you perform calculations with grouping (e.g., in 
   combination with summarize, you can group by year to produce separate summaries 
-  for each year)
+  for each year). 
+  When you are using `summarize()` you can give it the argument, 
+  `.groups = "drop"` as a substitute for calling `ungroup()` afterward.
 * `bind_rows` to combine multiple tibbles that have the same kinds of columns
    by stacking one above the other.
 
@@ -499,10 +502,12 @@ x
 We can also generate grouped summaries:
 
 ```{r summarize_grouped_1, include=TRUE}
-x = ungroup(summarize(group_by(nashville_weather, year(date)), 
-                      prcp.max = max(prcp), prcp.tot = sum(prcp)))
+x = summarize(group_by(nashville_weather, year(date)), 
+                      prcp.max = max(prcp), prcp.tot = sum(prcp),
+              .groups = "drop")
 head(x)
 ```
+
 This provides the maximum one-day precipitation and the total annual 
 precipitation for each year
 
@@ -518,10 +523,10 @@ We can use the pipe operator to rewrite the expression above as
 
 ```{r summarize_grouped_pipes, include=TRUE}
 x = nashville_weather %>% group_by(year(date)) %>% 
-  summarize(prcp.max = max(prcp), prcp.tot = sum(prcp)) %>%
-  ungroup()
+  summarize(prcp.max = max(prcp), prcp.tot = sum(prcp), .groups = "drop")
 head(x)
 ```
+
 Now the expression is easier to read: First we group `nashville_weather` by
 year, then we summarize it by calculating the maximum daily precipitation and
 the yearly total for each year, and finally, after we summarize we ungroup.
@@ -537,6 +542,7 @@ combine tibbles:
 ```{r bind_rows, include=TRUE}
 weather = bind_rows(nashville_weather, chicago_weather)
 ```
+
 This creates a single tibble that has all of the rows from `nashville_weather`
 on top and all the rows from `chicago_weather` on the bottom. Because the two
 tibbles have the same columns, the columns are matched up.
@@ -548,8 +554,7 @@ weather_summary = weather %>%
   mutate(year = year(date), t.range = tmax - tmin) %>%
   group_by(year, location) %>%   
   summarize(prcp.max = max(prcp), prcp.tot = sum(prcp), 
-            t.range.max = max(t.range)) %>%
-  ungroup() %>%
+            t.range.max = max(t.range), .groups = "drop") %>%
   arrange(year, location)
 tail(weather_summary)
 ```
@@ -573,14 +578,14 @@ If we wanted to plot all of these, we could do something like this:
 
 ```{r bad_zonal_plot, include=TRUE}
 ggplot(giss_zonal, aes(x = year)) + 
-  geom_line(aes(y = x64n_90n, color = "64N-90N")) +
-  geom_line(aes(y = x44n_64n, color = "44N-64N")) +
-  geom_line(aes(y = x24n_44n, color = "24N-44N")) +
-  geom_line(aes(y = equ_24n, color = "EQU-24N")) +
-  geom_line(aes(y = x24s_equ, color = "24S-EQU")) +
-  geom_line(aes(y = x44s_24s, color = "44S-24S")) +
-  geom_line(aes(y = x64s_44s, color = "64S-44S")) +
-  geom_line(aes(y = x90s_64s, color = "90S-64S")) +
+  geom_line(aes(y = x64n_90n, color = "64N-90N"), na.rm = TRUE) +
+  geom_line(aes(y = x44n_64n, color = "44N-64N"), na.rm = TRUE) +
+  geom_line(aes(y = x24n_44n, color = "24N-44N"), na.rm = TRUE) +
+  geom_line(aes(y = equ_24n,  color = "EQU-24N"), na.rm = TRUE) +
+  geom_line(aes(y = x24s_equ, color = "24S-EQU"), na.rm = TRUE) +
+  geom_line(aes(y = x44s_24s, color = "44S-24S"), na.rm = TRUE) +
+  geom_line(aes(y = x64s_44s, color = "64S-44S"), na.rm = TRUE) +
+  geom_line(aes(y = x90s_64s, color = "90S-64S"), na.rm = TRUE) +
   labs(x = "Year", y = "Temperature anomaly")
 ```
 
@@ -621,9 +626,10 @@ head(tidy_zonal)
 Now let's plot it:
 ```{r plot_zonal_tibble, include = TRUE}
 ggplot(tidy_zonal, aes(x = year, y = anomaly, color = latitude)) +
-  geom_line() +
+  geom_line(na.rm = TRUE) +
   labs(x = "Year", y = "Temperature anomaly")
 ```
+
 The code for making the plot was a lot simpler, and by using an ordered factor,
 we could control the order of the latitude bands in the legend, which now
 appear in a sensible order. It is much easier to look at this graph and quickly
@@ -693,7 +699,7 @@ ggplot(data = tidy_zonal, # the data
        # the mapping of variables to aesthetics
        mapping = aes(x = year, y = anomaly, color = latitude)
        ) +
-  geom_point() + # the geometry
+  geom_point(na.rm = TRUE) + # the geometry
   labs(x = "Year", y = "Temperature Anomaly") # labels for the coordinates
 ```
 
@@ -704,8 +710,8 @@ ggplot(data = tidy_zonal, # the data
        # the mapping of variables to aesthetics
        mapping = aes(x = year, y = anomaly, color = latitude)
        ) +
-  geom_point() + # the geometry of the first layer
-  geom_line() +  # the geometry of the second layer
+  geom_point(na.rm = TRUE) + # the geometry of the first layer
+  geom_line(na.rm = TRUE) +  # the geometry of the second layer
   labs(x = "Year", y = "Temperature Anomaly") # labels for the coordinates
 ```
 
@@ -740,14 +746,15 @@ annual_extremes = weather %>% mutate(year = year(date)) %>%
   # or tmin for that year will be recorded as 
   # NA (missing) 
   summarize(tmin = min(tmin, na.rm = T),      
-            tmax = max(tmax, na.rm = T)) %>%  
-  ungroup()                                   
+            tmax = max(tmax, na.rm = T), .groups = "drop")
                                               
                                               
 ggplot(data = annual_extremes # the data
        ) +
-  geom_point(aes(x = year, y = tmin, color = location, shape = "min")) +
-  geom_point(aes(x = year, y = tmax, color = location, shape = "max")) +
+  geom_point(aes(x = year, y = tmin, color = location, shape = "min"), 
+             na.rm = TRUE) +
+  geom_point(aes(x = year, y = tmax, color = location, shape = "max"), 
+             na.rm = TRUE) +
   xlim(1990,2000) +                  # set the x-axis to go from 1990-2000
   labs(x = "Year", y = "Temperature Anomaly") # labels for the coordinates
 ```
@@ -764,13 +771,13 @@ outside of the mapping. Here I specify the size and color of lines:
 ggplot(data = annual_extremes # the data
        ) +
   geom_line(aes(x = year, y = tmin, group = location), 
-            color = "darkblue", size = 1) +
+            color = "darkblue", size = 1, na.rm = TRUE) +
   geom_line(aes(x = year, y = tmax, group = location), 
-            color = "darkred", size = 0.3) +
+            color = "darkred", size = 0.3, na.rm = TRUE) +
   geom_point(aes(x = year, y = tmin, color = location, shape = "min"), 
-             size = 2) +
+             size = 2, na.rm = TRUE) +
   geom_point(aes(x = year, y = tmax, color = location, shape = "max"), 
-             size = 2) +
+             size = 2, na.rm = TRUE) +
   xlim(1990,2000) + 
   labs(x = "Year", y = "Temperature Anomaly") # labels for the coordinates
 ```
@@ -781,13 +788,13 @@ We can also take finer control of the axis formatting:
 ggplot(data = annual_extremes # the data
        ) +
   geom_line(aes(x = year, y = tmin, group = location), 
-            color = "darkblue", size = 1) +
+            color = "darkblue", size = 1, na.rm = TRUE) +
   geom_line(aes(x = year, y = tmax, group = location), 
-            color = "darkred", size = 0.3) +
+            color = "darkred", size = 0.3, na.rm = TRUE) +
   geom_point(aes(x = year, y = tmin, color = location, shape = "min"), 
-             size = 2) +
+             size = 2, na.rm = TRUE) +
   geom_point(aes(x = year, y = tmax, color = location, shape = "max"), 
-             size = 2) +
+             size = 2, na.rm = TRUE) +
   scale_x_continuous(limits=c(1990,2000), 
                      breaks = c(1990, 1992, 1994, 1996, 1998, 2000)) + 
   # ^^^ the "breaks" parameter for an axis tells R where to put the labels
@@ -821,9 +828,10 @@ annual_extremes_gathered = annual_extremes %>%
 
 ggplot(data = annual_extremes_gathered # the data
        ) +
-  geom_line( aes(x = year, y = value, color = location, size = Temperature)) +
+  geom_line( aes(x = year, y = value, color = location, size = Temperature), 
+             na.rm = TRUE) +
   geom_point(aes(x = year, y = value, color = location, shape = Temperature), 
-             size = 2) +
+             size = 2, na.rm = TRUE) +
   # set coordinates for "size"
   scale_size_manual(values = c(tmax = 1.0, tmin = 0.1)) + 
   # Set coordinates for the x-axis.
@@ -832,4 +840,3 @@ ggplot(data = annual_extremes_gathered # the data
   scale_color_brewer(palette = "Set1", name = "City") + 
   labs(x = "Year", y = "Temperature Anomaly") # labels for the coordinates
 ```
-

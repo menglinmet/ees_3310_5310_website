@@ -18,11 +18,13 @@ output:
       in_header: ees3310.sty
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#the-assignment">The Assignment:</a><ul>
+<li><a href="#the-assignment">The Assignment:</a>
+<ul>
 <li><a href="#outline">Outline:</a></li>
 <li><a href="#detailed-instructions">Detailed Instructions:</a></li>
 </ul></li>
@@ -170,7 +172,8 @@ kable(fm, digits = 2)</code></pre>
 </tbody>
 </table>
 <pre class="r"><code># Get the emission factors
-factors &lt;- emissions_factors()
+factors &lt;- emissions_factors() %&gt;% 
+  mutate(fuel = lvls_expand(fuel, new_levels = levels(fm_2050$fuel)))
 kable(factors, digits = 2)</code></pre>
 <table>
 <thead>
@@ -204,7 +207,8 @@ kable(factors, digits = 2)</code></pre>
 </table>
 <pre class="r"><code># Combine the emission factors data frame with the 
 # fuel mix data frame:
-fm_2050 &lt;- fm_2050 %&gt;% left_join(factors, by = &quot;fuel&quot;) %&gt;%
+fm_2050 &lt;- fm_2050 %&gt;% 
+left_join(factors, by = &quot;fuel&quot;) %&gt;%
 # This line is to fix a problem with the kaya_data package,
 # because I forgot to put an emissions factor for Hydro power.
 mutate(emission_factor = replace_na(emission_factor, 0))

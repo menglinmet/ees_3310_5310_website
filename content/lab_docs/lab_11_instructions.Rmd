@@ -237,14 +237,16 @@ For each country:
     
    ```{r example_fuel_mix_2}
    # Get the emission factors
-   factors <- emissions_factors()
+   factors <- emissions_factors() %>% 
+     mutate(fuel = lvls_expand(fuel, new_levels = levels(fm_2050$fuel)))
    kable(factors, digits = 2)
    ```
     
    ```{r example_fuel_mix_3}
    # Combine the emission factors data frame with the 
    # fuel mix data frame:
-   fm_2050 <- fm_2050 %>% left_join(factors, by = "fuel") %>%
+   fm_2050 <- fm_2050 %>% 
+   left_join(factors, by = "fuel") %>%
    # This line is to fix a problem with the kaya_data package,
    # because I forgot to put an emissions factor for Hydro power.
    mutate(emission_factor = replace_na(emission_factor, 0))
