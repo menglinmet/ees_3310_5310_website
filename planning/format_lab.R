@@ -191,7 +191,8 @@ make_lab_assignment_content <- function(key, semester, use_solutions = FALSE) {
       sol_links <- purrr::map(purrr::transpose(solutions),
                               ~make_lab_solution(.x, semester))
       if (is.list(sol_links)) {
-        sol_links <- purrr::transpose(sol_links) %>%
+        g_sol_links <<- sol_links
+        sol_links <- sol_links %>%
           purrr::map_df(~vctrs::vec_cast(.x, class(.x)))
       }
       output <- cat_nl(output,

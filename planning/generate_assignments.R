@@ -132,12 +132,18 @@ schedule_widen <- function(schedule, final_exams, semester,
     dplyr::mutate(page = NA_character_) %>%
     tidyr::pivot_wider(names_from = cal_type,
                        values_from = c(id, key, page)) %>%
-    dplyr::select(-page_exam, -page_holiday) %>%
+    dplyr::select(-dplyr::any_of(c("page_exam", "page_holiday"))) %>%
     dplyr::mutate(page_lecture = NA_character_) %>%
     dplyr::left_join( topics, by = "key_class") %>%
-    dplyr::left_join( class_nums, by = "id_class" ) %>%
-    dplyr::left_join( exam_topics, by = "key_exam") %>%
-    dplyr::left_join( holiday_topics, by = "key_holiday")
+    dplyr::left_join( class_nums, by = "id_class" )
+  if (rlang::has_name(schedule, "key_exam")) {
+    schedule <- schedule %>%
+    dplyr::left_join( exam_topics, by = "key_exam")
+  }
+  if (rlang::has_name(schedule, "key_holiday")) {
+    schedule <- schedule %>%
+      dplyr::left_join( holiday_topics, by = "key_holiday")
+  }
 
   schedule <- schedule %>% dplyr::mutate(topic = purrr::pmap_chr(., t_topic)) %>%
     dplyr::select(-dplyr::starts_with("topic_"))

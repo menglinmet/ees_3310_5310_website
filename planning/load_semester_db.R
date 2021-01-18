@@ -102,7 +102,8 @@ load_semester_db <- function(db_file, root_crit = NULL) {
   DBI::dbDisconnect(db)
 
   calendar <- calendar %>%
-    dplyr::mutate(date = lubridate::as_datetime(date, tz = tz))
+    dplyr::mutate(date = lubridate::as_datetime(date, tz = tz)) %>%
+    filter(!is.na(date), !is.na(cal_id))
 
   bare_dates <- calendar %>% dplyr::select(cal_id, date)
 
