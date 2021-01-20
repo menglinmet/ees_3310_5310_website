@@ -1,0 +1,22 @@
+---
+lab_date: '2021-03-15'
+report_due_date: '2021-03-22'
+lab_number: 7
+pubdate: '2020-12-31'
+date: '2021-03-15'
+slug: lab_07_assignment
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+---
+
+# Overview:
+
+## Reading
+No reading has been posted yet for this lab.
+
+## Assignment
+
+## Assignment
+
+The GitHub Classroom has not been posted yet.

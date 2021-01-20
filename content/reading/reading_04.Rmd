@@ -1,0 +1,21 @@
+---
+title: Greenhouse Effect
+class_date: '2021-02-01'
+class_number: 4
+weight: 4
+slug: reading_04
+pubdate: '2020-12-31'
+date: '2021-02-01'
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+---
+## Reading:
+
+### Required Reading (everyone):
+
+* Understanding the Forecast, Ch. 3, pp. 23--26.
+
+### Reading Notes:
+
+Study the one-layer model. We will work through it in detail during class.

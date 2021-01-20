@@ -1,0 +1,19 @@
+---
+title: Catching up and Review
+class_date: '2021-03-05'
+class_number: 18
+weight: 18
+slug: reading_18
+pubdate: '2020-12-31'
+date: '2021-03-05'
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+---
+## Reading:
+
+No new reading for today.
+
+### Notes:
+
+We will use today to catch up and review for the midterm exam. Bring your questions.

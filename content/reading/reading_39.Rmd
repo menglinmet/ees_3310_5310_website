@@ -1,0 +1,21 @@
+---
+title: Global Warming Gridlock
+class_date: '2021-04-23'
+class_number: 39
+weight: 39
+slug: reading_39
+pubdate: '2020-12-31'
+date: '2021-04-23'
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+---
+## Reading:
+
+### Required Reading (everyone):
+
+* Handout: [David Victor, _Global Warming Gridlock_, (Cambridge University Press, 2011)](/files/reading_handouts/Victor_GlobalWarmingGridlock_Chapter01.pdf){target="_blank"}, Ch. 1.
+
+### Reading Notes:
+
+I have posted Chapter 1 online. The entire book is [available as an e-book](https://catalog.library.vanderbilt.edu/discovery/fulldisplay?docid=cambookslvl10.1017/CBO9780511975714&context=PC&vid=01VAN_INST:vanui&search_scope=MyInst_and_CI&tab=Everything&lang=en) online through the Vanderbilt Library.

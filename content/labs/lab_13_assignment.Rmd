@@ -1,0 +1,24 @@
+---
+lab_date: '2021-04-19'
+lab_number: 13
+pubdate: '2020-12-31'
+date: '2021-04-19'
+slug: lab_13_assignment
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+---
+
+# Overview:
+
+## Reading
+
+**Before you come to lab**, please read the following document:
+
+* [Preparation for Lab on Regulating Greenhouse Gas Emissions](/lab_docs/lab_13_preparation){target="_blank"}
+
+## Assignment
+
+## Assignment
+
+The GitHub Classroom has not been posted yet.

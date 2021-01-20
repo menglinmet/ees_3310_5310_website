@@ -1,0 +1,29 @@
+---
+title: 'Reducing Carbon Emissions: Top-Down Approaches'
+class_date: '2021-03-24'
+class_number: 26
+weight: 26
+slug: reading_26
+pubdate: '2020-12-31'
+date: '2021-03-24'
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+---
+## Reading:
+
+### Required Reading (everyone):
+
+* The Climate Fix, Ch. 4.
+
+### Optional Extra Reading:
+
+* Handout: [Roger A. Pielke, Jr., "The British Climate Change Act: a critical evaluation and proposed alternative approach," Environmental Research Letters **4**, 024010 (2009).](http://iopscience.iop.org/article/10.1088/1748-9326/4/2/024010/meta){target="_blank"}.
+* Handout: [Rogar A. Pielke, Jr., "Mamizu Climate Policy: An Evaluation of Japanese Carbon Emission Reduction Targets," Environmental Research Letters **4**, 044001 (2009)](http://iopscience.iop.org/article/10.1088/1748-9326/4/4/044001/meta){target="_blank"}.
+* Handout: [Roger A. Pielke, Jr., "An Evaluation of the Targets and Timetables of Proposed Australian Emissions Reduction Policies," Environmental Science & Policy **14**, 20 (2011).](https://www-sciencedirect-com.proxy.library.vanderbilt.edu/science/article/pii/S1462901110001383){target="_blank"}.
+
+### Reading Notes:
+
+We will continue discussing this chapter and work examples in class of Pielke's calculations.
+
+The optional extra reading comprises three articles by Roger Pielke, in which he applies the methods he describes in this chapter to analyze proposed decarbonization policies in the U.K., Japan, and Australia.

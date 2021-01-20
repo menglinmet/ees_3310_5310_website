@@ -1,0 +1,29 @@
+---
+lab_date: '2021-01-25'
+report_due_date: '2021-02-01'
+lab_number: 1
+pubdate: '2020-12-31'
+date: '2021-01-25'
+slug: lab_01_assignment
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+---
+
+# Overview:
+
+## Reading
+
+**Before you come to lab**, please read the following documents:
+
+* [Introduction to EES 3310/5310 Labs](/lab_docs/lab_01_overview){target="_blank"}
+* [Introduction to Reproducible Research](/lab_docs/lab_01_reproducible_research){target="_blank"}
+* [Introduction to Git and GitHub Classroom](/lab_docs/lab_01_git_intro){target="_blank"}
+* [Introduction to R and RMarkdown](/lab_docs/lab_01_rmarkdown_intro){target="_blank"}
+* [No more excuses for non-reproducible methods (optional)](/lab_docs/lab_01_no_more_excuses){target="_blank"}
+
+## Assignment
+
+## Assignment
+
+The GitHub Classroom has not been posted yet.
