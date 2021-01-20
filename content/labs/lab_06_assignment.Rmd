@@ -1,10 +1,11 @@
 ---
+title: Group Projects
 lab_date: '2021-03-01'
 report_due_date: '2021-03-22'
 lab_number: 6
 pubdate: '2020-12-31'
 date: '2021-03-01'
-slug: lab_06_assignment
+slug: lab_06
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
@@ -18,8 +19,6 @@ output:
 
 * [Independent Research Project](/lab_docs/lab_06_instructions){target="_blank"}
 * [Citations and Bibliographies](/lab_docs/lab_06_citations_bibliographies){target="_blank"}
-
-## Assignment
 
 ## Assignment
 

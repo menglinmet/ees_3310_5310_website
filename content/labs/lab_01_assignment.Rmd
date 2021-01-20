@@ -1,10 +1,11 @@
 ---
+title: Introduction to Reproducible Research
 lab_date: '2021-01-25'
 report_due_date: '2021-02-01'
 lab_number: 1
 pubdate: '2020-12-31'
 date: '2021-01-25'
-slug: lab_01_assignment
+slug: lab_01
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
@@ -21,8 +22,6 @@ output:
 * [Introduction to Git and GitHub Classroom](/lab_docs/lab_01_git_intro){target="_blank"}
 * [Introduction to R and RMarkdown](/lab_docs/lab_01_rmarkdown_intro){target="_blank"}
 * [No more excuses for non-reproducible methods (optional)](/lab_docs/lab_01_no_more_excuses){target="_blank"}
-
-## Assignment
 
 ## Assignment
 

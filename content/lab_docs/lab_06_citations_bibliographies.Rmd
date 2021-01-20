@@ -247,11 +247,11 @@ and confusing, so I would recommend one of three options:
     2. When you find the reference you want in Google Scholar, and click on the 
        "Cite" button, as shown below:
 
-        ![Google Scholar search page. Click on the "Cite" button, as shown here.](images/scholar_1.png)\
+        ![Google Scholar search page. Click on the "Cite" button, as shown here.](_images/lab_06/scholar_1.png)\
 
     3. Click on "BibTeX" at the bottom of the citation page, as shown below:
 
-        ![Google Scholar citation page: Click on "BibTeX"](images/scholar_2.png)\
+        ![Google Scholar citation page: Click on "BibTeX"](_images/lab_06/scholar_2.png)\
 
     4. You will see something like this:
 

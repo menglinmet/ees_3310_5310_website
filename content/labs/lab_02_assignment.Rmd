@@ -1,10 +1,11 @@
 ---
+title: Working with climate data
 lab_date: '2021-02-01'
 report_due_date: '2021-02-08'
 lab_number: 2
 pubdate: '2020-12-31'
 date: '2021-02-01'
-slug: lab_02_assignment
+slug: lab_02
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
@@ -17,8 +18,6 @@ output:
 **Before you come to lab**, please read the following document:
 
 * [Data Wrangling with R](/lab_docs/lab_02_overview){target="_blank"}
-
-## Assignment
 
 ## Assignment
 

@@ -371,7 +371,7 @@ You can include image files in your RMarkdown document:
 
 ### Formatted Output:
 
-![This is a tornado](images/tornado.jpg)
+![This is a tornado](_images/lab_01/tornado.jpg)
 
 ## Hyperlinks
 

@@ -1,9 +1,10 @@
 ---
+title: 'Energetic: A Clean Energy Game'
 lab_date: '2021-04-12'
 lab_number: 12
 pubdate: '2020-12-31'
 date: '2021-04-12'
-slug: lab_12_assignment
+slug: lab_12
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
@@ -13,8 +14,6 @@ output:
 
 ## Reading
 No reading has been posted yet for this lab.
-
-## Assignment
 
 ## Assignment
 
