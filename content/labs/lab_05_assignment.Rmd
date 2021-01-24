@@ -1,7 +1,6 @@
 ---
-title: The Geochemical Carbon Cycle
+title: Clouds and Climate
 lab_date: '2021-02-22'
-report_due_date: '2021-03-01'
 lab_number: 5
 pubdate: '2020-12-31'
 date: '2021-02-22'
@@ -17,7 +16,7 @@ output:
 
 **Before you come to lab**, please read the following document:
 
-* [The Geochemical Carbon Cycle](/lab_docs/lab_05_instructions){target="_blank"}
+* [Instructions for Lab #5: Clouds](/lab_docs/lab_05_instructions){target="_blank"}
 
 ## Assignment
 

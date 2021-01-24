@@ -17,7 +17,7 @@ output:
 
 **Before you come to lab**, please read the following document:
 
-* [Data Wrangling with R](/lab_docs/lab_02_overview){target="_blank"}
+* [Instructions for Lab #2: Data Wrangling with R](/lab_docs/lab_02_overview){target="_blank"}
 
 ## Assignment
 

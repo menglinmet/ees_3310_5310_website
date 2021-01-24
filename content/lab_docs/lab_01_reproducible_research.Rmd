@@ -1,5 +1,6 @@
 ---
 title: Introduction to Reproducible Research
+author: Jonathan Gilligan
 lab_number: 1
 lab_date: '2021-01-25'
 pubdate: '2020-12-31'
@@ -12,6 +13,19 @@ output.blogdown::html_page:
   toc: yes
 ---
 # Why Do We Need Reproducible Research?
+
+In the October 2020, the UK Public Health Service discovered that it had failed to 
+include almost 16,000 confirmed cases of coronavirus in its daily reports for the
+week of Sept. 25--Oct. 2 [@clough_covid_2020]. This caused the service to fail to warn people in close 
+contact with the people who had tested positive, and it prevented the health 
+service from seeing that there had been a surge of new cases in the northwest of
+the country, including the cities of Liverpool and Manchester.
+
+The cause of this fiasco was the public health service's decision to use Excel 
+spreadsheets to count cases. When lab test results were transferred to Excel,
+the total number of cases exceeded the maximum number of rows that Excel
+could handle, and Excel ignored all the extra rows (with almost 16,000 
+confirmed positive test results).
 
 In the spring of 2012, Bruno Iksil, a securities trader at 
 the investment bank JPMorgan, Chase, & Company who was also known by the
@@ -397,20 +411,31 @@ If you want to install it on your personal computer, all the software we use is 
 
 ## Optional Tools
 
-If you want to produce PDF files from RMarkdown, you will need to install the LaTeX software.
+If you want to produce PDF files from RMarkdown, you will need to install the `tinytex` package in R.
 
-If you have a Windows computer, I recommend MikTeX, which you can get from <https://miktex.org/download>
+This will take some time and will have to download a lot of files from the internet, so wait until you are
+somewhere where you have some time to spare, where you have a good fast internet connection,
+and preferably where you are not paying for the amount of data you use (e.g., a university WiFi 
+connection, a library, etc.).
 
-If you have a Mac, I recommend the MacTeX distribution, which you can get from <http://www.tug.org/mactex/>
+With a fast internet connection, it should take 5--10 minutes to install and set up.
 
-On Linux, you should be able to install LaTeX using the package manager for your Linux distribution (e.g., `sudo apt-get install texlive-full` on Debian, Ubuntu or Mint; and `sudo yum install texlive` or `sudo dnf install texlive` on Fedora, CentOS, or other RedHat-based distributions)
+* From RStudio, go to the "Packages" tab and click on "Install." 
+  * Then type "tinytex" and click on "Install". 
+* After the package has installed, go to the RStudio console window and type `library(tinytex)` 
+* Next, after the library has loaded, type `install_tinytex()`. This is the part that may take 
+  some time to complete.
 
 # Walking the Walk
 
-Over the last five years I have become increasingly convinced that reproducible
+Over the last six years I have become increasingly convinced that reproducible
 research methods are both more efficient and also lead to higher quality research.
 In my own research, I use the methods and many of the tools that we will use
 in this laboratory.
+
+I now write most of my professional papers using RMarkdown and similar tools,
+and post the complete code for reproducing the data analysis, figures, tables, 
+and text of the paper on GitHub so anyone can inspect all of my work.
 
 # Further Reading
 

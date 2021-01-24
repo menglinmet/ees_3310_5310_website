@@ -1,5 +1,6 @@
 ---
-title: Independent Research Project
+title: 'Instructions for Lab #6: The Carbon Cycle'
+author: Jonathan Gilligan
 lab_number: 6
 lab_date: '2021-03-01'
 pubdate: '2020-12-31'
@@ -10,158 +11,232 @@ output.blogdown::html_page:
   md_extensions: +tex_math_single_backslash+compact_definition_lists
   toc: yes
 ---
-
 ```{r setup, include=FALSE}
+knitr::knit_hooks$set(inline = function(x) { knitr:::format_sci(x, 'md')})
 knitr::opts_chunk$set(echo = TRUE)
 
-library(tidyverse)
-library(lubridate)
-library(stringr)
+# This section loads necessary R libraries and sources scripts that define 
+# useful functions format_md.
+# 
+data_dir = "_data"
+script_dir = "_scripts"
 
-topic_approval_date = ymd("2017-10-05")
-due_date = ymd_hms("2017-10-17 23:59:00", tz="America/Chicago")
-presentation_due_date = ymd_hms("2017-10-15 14:10:00", tz="America/Chicago")
+if (!dir.exists(data_dir)) dir.create(data_dir)
 
-date_fmt = function(d) {
-  strftime(d, format = "%b. %e") %>% str_trim() %>% str_replace_all(" +", " ")
-}
+library(pacman)
+p_load(zoo, xml2, tidyverse, stringr)
 
-time_fmt = function(d) {
-  strftime(d, format = "%l:%M %p") %>% str_trim() %>% str_replace_all(" +", " ")
-}
+theme_set(theme_bw(base_size = 15))
+
+source(file.path(script_dir, "utils.R"), chdir = T)
+source(file.path(script_dir, "format_md.R"), chdir = T)
+source(file.path(script_dir, "geocarb.R"), chdir = T)
+```
+# Carbon Cycle
+
+For the following exercises, you will use the GEOCARB model, 
+which simulates the earth's carbon cycle.
+
+The GEOCARB model has two time periods: 
+
+* First, it runs for 5 million years with the "Spinup" settings in order to 
+bring the carbon cycle and climate into a steady state.
+
+* Then, at time zero, it abruptly changes the parameters to the "Simulation"
+settings and also dumps a "spike" of CO~2~ into the atmosphere and runs for 
+another 2 million years with the new parameters to see how the climate and
+carbon cycle adjust to the new parameters and the CO~2~ spike.
+
+
+The quantities that are graphed include:
+
+pCO2
+  ~ is the concentration of CO~2~ in the atmosphere, in parts per million.
+
+WeatC
+  ~ is the rate of CO~2~ being weathered from carbonate rocks and moved to the 
+  oceans.
+
+BurC
+  ~ is the rate of carbonate being converted into limestone and buried on the 
+  ocean floor.
+
+WeatS
+  ~ is the rate of SiO~2~ being weathered from silicate rocks and moved to the 
+  oceans.
+
+Degas
+  ~ is the rate at which CO~2~ is released to the atmosphere by volcanic activity
+
+tCO2
+  ~ is the total amount of CO~2~ dissolved in the ocean, adding all of its forms:
+  $$ \ce{\text{tco2} = [CO2] + [H2CO3] + [HCO3-] + [CO3^{2-}]}. $$
+
+alk
+  ~ is the ocean alkalinity: the total amount of acid ($\ce{H+}$) necessary to
+  neutralize the carbonate and bicarbonate in the ocean. The detailed definition
+  is complicated, but to a good approximation, 
+  $\ce{\text{alk} = [HCO3-] + 2 [CO3^{2-}]}$. This is not crucial for this lab.
+
+CO3
+  ~ is the concentration of dissolved carbonate ($\ce{CO3^{2-}}$) in the ocean,
+  in moles per cubic meter.
+
+d13Cocn
+  ~ is the change in the fraction of the carbon-13 ($\ce{^{13}C}$) isotope, 
+  relative to the more common carbon-12  ($\ce{^{12}C}$) isotope, in the 
+  various forms of carbon dissolved in the ocean water.
+
+d13Catm
+  ~ is the change in the fraction of $\ce{^{13}C}$, 
+  relative to $\ce{^{12}C}$ in atmospheric CO~2~.
+
+Tatm
+  ~ is the average air temperature.
+
+Tocn 
+  ~ is the average temperature of ocean water.
+
+
+### **Note:**
+
+In this lab, you will mostly look at pCO2, but in exercise 8.2, you will also 
+look at the weathering.
+
+## Running the GEOCARB model from R
+
+I have provided functions for running the GEOCARB model from R:
+
+To run the model:
+```
+run_geocarb(filename, co2_spike, degas_spinup, degas_sim,
+plants_spinup, plants_sim, land_area_spinup, land_area_sim,
+delta_t2x, million_years_ago, mean_latitude_continents)
 ```
 
-# Introduction
+You need to specify `filename` (the file to save
+the results in) and `co2_spike` (the spike in CO~2~ at time zero).
 
-You have done several structured labs that provided opportunities to learn 
-about R, RMarkdown, and several different aspects of climate science (data 
-analysis and several computer models).  
-For the next few weeks, you will have a chance to utilize the skills you have 
-learned thus far in lab to explore a research question pertaining to your 
-specific interests. 
-This series of labs consists of a written lab report in RMarkdown and a 
-presentation to the class. For this project, you will choose a question or idea 
-pertaining to one of the previous labs and explore the topic a deeper. This may 
-consit of exploring the "why" portion of previous questions that only asked you 
-to describe patterns in the data or it may be evaluating relationships between 
-other variables not assesed in prior labs. To answer your question, you may use 
-the any of the data from lab 2, the MODTRAN model, the RRTM model, the GEOCARB 
-model, or a combination thereof. Please get your topic approved by either 
-Dr. Gilligan or Ms. Best by `r date_fmt(topic_approval_date)`. The final 
-project is **due `r date_fmt(due_date)` at `r time_fmt(due_date)`**.
+The other parameters will take default values if you don't specify them,
+but you can override those defaults by giving the parameters a value.
 
-## Solo or Team Projects
+`degas_spinup` and `degas_sim` are the rates of CO~2~ degassing from volcanoes 
+for the spinup and simulation phases, in trillions of molecules per year.
 
-You may choose to do this project individually or with a partner as a team 
-effort. If you work with a partner, you may work together to design the 
-question, obtain and analyze data, make a team presentation, and write a report
-together. We expect teams to include a note in the report that indicates which
-member contributed what to the report (this does not need to be super detailed
-and can say, "Alice and Bob designed the experiment together. Bob wrote the
-code to run the models. Alice wrote the code for the data analysis. 
-Alice and Bob contributed equally to writing the discussion and conclusions.")
-This is similar to the requirement at many research journals that 
-co-authored papers include a statement of what each author contributed.
+`plants_spinup` and `plants_sim` are `TRUE/FALSE` values for whether to include 
+the role of plants in weathering (their roots speed up weathering by making soil 
+more permeable and by releasing CO~2~ into the soil), and `land_area` is the 
+total area of dry land, relative to today. 
+The default values are: `degas` = 7.5, `plants` = `TRUE`, and `land_area` = 1.
 
-## Choosing a Topic
+The geological configuration allows you to look into the distant past, where
+the continents were in different locations and the sun was not as bright as
+today.  
+`delta_t2x` is the climate sensitivity (the amount of warming, in degrees 
+Celsius, that results from doubling CO~2~).
+`million_years_ago` is how many million years ago you want year zero to be and 
+`mean_latitude_continents` is the mean latitude, in degrees, of the continents 
+(today, with most of the continents in the Northern hemisphere, the mean 
+latitude is 30 degrees).
 
-For undergraduates, we recommend that you choose a topic from one of the 
-exercises that you did in labs #2--5 and think of a new question along the same 
-lines as the questions that exercise asked.
-For graduate students, we expect you to try something more ambitious than just 
-simple extensions of the questions from the lab exercises, but it is still fine 
-to take one of the lab exercises as a starting point.
+After you run `run_geocarb`, you would read the data in with
+`read_geocarb(filename)`. This function will return a data frame with the columns
+`year`, `co2.total`, `co2.atmos`, `alkalinity.ocean`, 
+`delta.13C.ocean`, `delta.13C.atmos`, `carbonate.ocean`, 
+`carbonate.weathering`, `silicate.weathering`, `total.weathering`,
+`carbon.burial`, `degassing.rate`, `temp.atmos`, and `temp.ocean`.
 
-If you want to do something really different than what we have done previously 
-in lab, that is fine. But check with one of us to make sure your plan is 
-appropriate and feasible (we don't want you to bite off more than you can chew).
+## Chapter 8 Exercises
 
-**Be CrEaTiVe!** Now is the time to really explore parts of the class that you 
-have found interesting and present your findings in a unique, exciting way. 
+### Exercise 8.1: Weathering as a function of CO~2~
 
-# Writen Report (Due `r date_fmt(due_date)`)
+In the steady state, the rate of weathering must balance the rate of CO~2~
+degassing from the Earth, from volcanoes and deep-sea vents. 
 
-Your report should be comprehensive, yet not overly verbose. One recommendation 
-for achieving this is to create an outline to organize your thoughts before 
-initializing writing and data analysis. The report needs to include the 
-following components:
+Run a simulation with `co2_spike` set to zero, and set the model to increase
+the degassing rate at time zero (i.e., set `degas_sim` to a higher value than
+`degas_spinup`).
 
-* Introduction
+a)  Does an increase in CO~2~ degassing drive atmospheric CO~2~ up or down?
+    How long does it take for CO~2~ to stabilize after the degassing increases 
+    at time zero?
 
-    * _Provide background information that frames the problem you are 
-      addressing. At the end of the introduction, the reader should understand 
-      exactly **what the problem is** that you are addressing and why that 
-      problem is **interesting** and **relevant** to the climate system._
+b)  How can you see that the model balances weathering against CO~2~ degassing
+    (**Hint:** what variables would you graph with `ggplot`?)
+
+c)  Repeat this run with a range of degassing values for the simulation phase
+    and make a table or a graph of the equilibrium CO~2~ concentration versus 
+    the degassing rate.
+
+    Does the weathering rate always balance the degassing rate when the CO~2~
+    concentration stabilizes?
+
+d)  Plot the weathering as a function of atmospheric CO~2~ concentration, using
+    the data from the model runs you did in part (c).
+
+
+### Exercise 8.2: Effect of solar intensity on steady-state CO~2~ concentration
+
+The rate of weathering is a function of CO~2~ concentration and sunlight, 
+and increases when either of those variables increases.
+The sun used to be less intense than it is today. 
+
+Run GEOCARB with the spike set to zero, with the default values of
+7.5 for both `degas_spinup` and `degas_sim`, and with the clock turned back 
+500 million years to when the sun was cooler than today. 
+
+What do you get for the steady state CO~2~? How does this compare to what
+you get when you run GEOCARB for today's solar intensity? Explain why.
+
+### Exercise 8.3: The role of plants  (**Graduate students only**)
+
+The roots of plants accelerate weathering by two processes: First, as they 
+grow, they open up the soil, making it more permeable to air and water.
+Second, the roots pump CO~2~ down into the soil.
+
+
+Run a simulation with no CO~2~ spike at the transition and with no plants in 
+the spinup, but with plants present in the simulation.
+
+a) What happens to the rate of weathering when plants are introduced in year zero? 
+Does it go up or down right after the transition? WHat happens later on?
+
+b) What happens to atmospheric CO~2~, and why?
+
+c) When the CO~2~ concentration changes, where does the carbon go?
+
+
+## Exercise from Chapter 10
+
+### Exercise 10.1: Long-term fate of fossil fuel CO~2~
+
+Use the GEOCARB model in its default configuration.
+
+a) Run the model with no CO~2~ spike at the transition. What happens to 
+   the weathering rates (Silicate, Carbonate, and Total) at the transition
+   from spinup to simulation (i.e., year zero)?
+
+b) Now set the CO~2~ spike at the transition to 1000 GTon. 
+
+    * What happens to the weathering at the transition? How does weathering
+      change over time after the transition?
     
-* Methods
+    * How long does it take for CO~2~ to roughly stabilize (stop changing)?
 
-    * _Describe the methods for answering your question. The methods section 
-      should be written such that someone completely unfamiliar with your 
-      project could follow your steps and recreate your results._
-
-    * This section should contain the R code you use to do the analysis:
-
-        + Getting data into R: download from the internet, read it in from 
-          files on your computer, run models, etc.
-
-        + Process data to clean it up: use functions like `mutate`, `gather`, 
-          `summarize`, etc. to convert the data into a useful form.
-
-        + Analyze data: anything you do to analyze the data, such as generating 
-          descriptive statistics like the mean or standard deviation, fitting 
-          linear models to get slopes (rates of change), etc.
-
-* Results
-
-    * _Describe the results of your analyses. Include apropriate charts, 
-      tables, graphs, and other quantitative representations of data._ 
-
-    * This section should have R code for making graphs, tables, etc.
-
-* Conclusions/Discussion
-
-    * _Discuss the implications for the results you found using data from your 
-      results section._
+c) In the experiment from (b), how do the rates of total weathering and 
+   carbonate burial change over time? 
+   
+    * Plot what happens from shortly before the transition until 10,000
+      years afterward (**Hint:** you may want to add the following to your
+      `ggplot` command: `xlim(NA,1E4)` 
+      to limit the range of the _x_-axis,
+      or 
+      `scale_x_continuous(limits = c(NA,1E4), labels = comma))` 
+      if you also want to format the numbers on the  _x_-axis with commas to 
+      indicate thousands and millions.)
+      
+      How do the two rates change? What do you think is happening to cause
+      this?
     
-         * Why are these results significant or interesting? 
- 
-         * What data supports these conclusions? 
- 
-         * What are the broader implications of these results? 
- 
-         * From the results that you have found, what are the next steps to 
-           take in this line of research? What other questions have arisen as a 
-           result of your analyses?
-
-* Works Cited
-
-    * _Include a works cited section to credit the research and thoughts that 
-      are not your own. Be sure to use citations throughout your report where 
-      necessary._
-
-    * We will post a separate document that explains how to do citations and 
-      bibliographies in RMarkdown.
-
-Final reports are to be pushed to your Lab 6 Github repository 
-_no later than `r time_fmt(due_date)` on `r date_fmt(due_date)`_. 
-**You must push the .Rmd file *and* the knitted PDF** to Github. 
-A portion of your final report grade will reflect effective use of 
-R/RMarkdown/Github, the clarity and succinctness of your writing, 
-visual representations of data, appropriate discussion of results, 
-and insights into future analyses. 
-
-# Presentation (`r date_fmt(presentation_due_date)`)
-
-Presentations will be limited to five minutes per student. Allot approximately 
-3.5 to 4 minutes for the presentation of your project and 
-approximately 1 minute for questions. 
-Team projects will get five minutes for each team member, and we expect you to 
-coordinate so that each member speaks for roughly equal time.
-
-* You can use Powerpoint to make your presentation, or if you are adventurous, 
-  you can use RMarkdown to make a presentation. I will post a separate document 
-  about how to use RMarkdown to make presentation slides.
-
-* A Powerpoint or PDF of your final presentation needs to be pushed to Github 
-  _no later than `r time_fmt(presentation_due_date)` on 
-  `r date_fmt(presentation_due_date)`_.
+    * Now plot the carbon burial and total weathering for the range
+      1 million years to 2 million years. How do the two rates compare?

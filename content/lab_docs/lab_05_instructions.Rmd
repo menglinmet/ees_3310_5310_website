@@ -1,5 +1,6 @@
 ---
-title: The Geochemical Carbon Cycle
+title: 'Instructions for Lab #5: Clouds'
+author: Jonathan Gilligan
 lab_number: 5
 lab_date: '2021-02-22'
 pubdate: '2020-12-31'
@@ -12,7 +13,7 @@ output.blogdown::html_page:
 ---
 ```{r setup, include=FALSE}
 knitr::knit_hooks$set(inline = function(x) { knitr:::format_sci(x, 'md')})
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, include = TRUE, cache = FALSE)
 
 # This section loads necessary R libraries and sources scripts that define 
 # useful functions format_md.
@@ -20,222 +21,159 @@ knitr::opts_chunk$set(echo = TRUE)
 data_dir = "_data"
 script_dir = "_scripts"
 
-if (!dir.exists(data_dir)) dir.create(data_dir)
-
 library(pacman)
-p_load(zoo, xml2, tidyverse, stringr)
+p_load(tidyverse, jsonlite, httr, magrittr, scales, xml2)
 
-theme_set(theme_bw(base_size = 15))
+theme_set(theme_bw(base_size = 10))
 
 source(file.path(script_dir, "utils.R"), chdir = T)
 source(file.path(script_dir, "format_md.R"), chdir = T)
-source(file.path(script_dir, "geocarb.R"), chdir = T)
+source(file.path(script_dir, "modtran.R"), chdir = T)
+source(file.path(script_dir, "rrtm.R"), chdir = T)
 ```
-# Carbon Cycle
+# Exercises with clouds.
 
-For the following exercises, you will use the GEOCARB model, 
-which simulates the earth's carbon cycle.
+# Exercises
 
-The GEOCARB model has two time periods: 
+These are the exercises you will work for the lab this week.
 
-* First, it runs for 5 million years with the "Spinup" settings in order to 
-bring the carbon cycle and climate into a steady state.
+### General Instructions
 
-* Then, at time zero, it abruptly changes the parameters to the "Simulation"
-settings and also dumps a "spike" of CO~2~ into the atmosphere and runs for 
-another 2 million years with the new parameters to see how the climate and
-carbon cycle adjust to the new parameters and the CO~2~ spike.
+For this week's lab, when you write up the answers, I would
+like you to think about integrating your R code chunks with your text.
 
+For instance, you can describe what you're going to do to answer the question, 
+and then for each step, after you describe what you're going to do in that
+step, you can include an R code chunk to do what you just described, and then
+the subsequent text can either discuss the results of what you just did
+or describe what the next step of the analysis will do.
 
-The quantities that are graphed include:
+This way, your answer can have several small chunks of R code that build on
+each other and follow the flow of your text.
 
-pCO2
-  ~ is the concentration of CO~2~ in the atmosphere, in parts per million.
+## Chapter 7 Exercises
 
-WeatC
-  ~ is the rate of CO~2~ being weathered from carbonate rocks and moved to the 
-  oceans.
+### Exercise 7.2: Clouds and Infrared.
 
-BurC
-  ~ is the rate of carbonate being converted into limestone and buried on the 
-  ocean floor.
+**Note:** this exercise only considers the effect of clouds on longwave
+radiation and ignores the effect of clouds on albedo, which is also important.
 
-WeatS
-  ~ is the rate of SiO~2~ being weathered from silicate rocks and moved to the 
-  oceans.
-
-Degas
-  ~ is the rate at which CO~2~ is released to the atmosphere by volcanic activity
-
-tCO2
-  ~ is the total amount of CO~2~ dissolved in the ocean, adding all of its forms:
-  $$ \ce{\text{tco2} = [CO2] + [H2CO3] + [HCO3-] + [CO3^{2-}]}. $$
-
-alk
-  ~ is the ocean alkalinity: the total amount of acid ($\ce{H+}$) necessary to
-  neutralize the carbonate and bicarbonate in the ocean. The detailed definition
-  is complicated, but to a good approximation, 
-  $\ce{\text{alk} = [HCO3-] + 2 [CO3^{2-}]}$. This is not crucial for this lab.
-
-CO3
-  ~ is the concentration of dissolved carbonate ($\ce{CO3^{2-}}$) in the ocean,
-  in moles per cubic meter.
-
-d13Cocn
-  ~ is the change in the fraction of the carbon-13 ($\ce{^{13}C}$) isotope, 
-  relative to the more common carbon-12  ($\ce{^{12}C}$) isotope, in the 
-  various forms of carbon dissolved in the ocean water.
-
-d13Catm
-  ~ is the change in the fraction of $\ce{^{13}C}$, 
-  relative to $\ce{^{12}C}$ in atmospheric CO~2~.
-
-Tatm
-  ~ is the average air temperature.
-
-Tocn 
-  ~ is the average temperature of ocean water.
-
-
-### **Note:**
-
-In this lab, you will mostly look at pCO2, but in exercise 8.2, you will also 
-look at the weathering.
-
-## Running the GEOCARB model from R
-
-I have provided functions for running the GEOCARB model from R:
-
-To run the model:
-```
-run_geocarb(filename, co2_spike, degas_spinup, degas_sim,
-plants_spinup, plants_sim, land_area_spinup, land_area_sim,
-delta_t2x, million_years_ago, mean_latitude_continents)
-```
-
-You need to specify `filename` (the file to save
-the results in) and `co2_spike` (the spike in CO~2~ at time zero).
-
-The other parameters will take default values if you don't specify them,
-but you can override those defaults by giving the parameters a value.
-
-`degas_spinup` and `degas_sim` are the rates of CO~2~ degassing from volcanoes 
-for the spinup and simulation phases, in trillions of molecules per year.
-
-`plants_spinup` and `plants_sim` are `TRUE/FALSE` values for whether to include 
-the role of plants in weathering (their roots speed up weathering by making soil 
-more permeable and by releasing CO~2~ into the soil), and `land_area` is the 
-total area of dry land, relative to today. 
-The default values are: `degas` = 7.5, `plants` = `TRUE`, and `land_area` = 1.
-
-The geological configuration allows you to look into the distant past, where
-the continents were in different locations and the sun was not as bright as
-today.  
-`delta_t2x` is the climate sensitivity (the amount of warming, in degrees 
-Celsius, that results from doubling CO~2~).
-`million_years_ago` is how many million years ago you want year zero to be and 
-`mean_latitude_continents` is the mean latitude, in degrees, of the continents 
-(today, with most of the continents in the Northern hemisphere, the mean 
-latitude is 30 degrees).
-
-After you run `run_geocarb`, you would read the data in with
-`read_geocarb(filename)`. This function will return a data frame with the columns
-`year`, `co2.total`, `co2.atmos`, `alkalinity.ocean`, 
-`delta.13C.ocean`, `delta.13C.atmos`, `carbonate.ocean`, 
-`carbonate.weathering`, `silicate.weathering`, `total.weathering`,
-`carbon.burial`, `degassing.rate`, `temp.atmos`, and `temp.ocean`.
-
-## Chapter 8 Exercises
-
-### Exercise 8.1: Weathering as a function of CO~2~
-
-In the steady state, the rate of weathering must balance the rate of CO~2~
-degassing from the Earth, from volcanoes and deep-sea vents. 
-
-Run a simulation with `co2_spike` set to zero, and set the model to increase
-the degassing rate at time zero (i.e., set `degas_sim` to a higher value than
-`degas_spinup`).
-
-a)  Does an increase in CO~2~ degassing drive atmospheric CO~2~ up or down?
-    How long does it take for CO~2~ to stabilize after the degassing increases 
-    at time zero?
-
-b)  How can you see that the model balances weathering against CO~2~ degassing
-    (**Hint:** what variables would you graph with `ggplot`?)
-
-c)  Repeat this run with a range of degassing values for the simulation phase
-    and make a table or a graph of the equilibrium CO~2~ concentration versus 
-    the degassing rate.
-
-    Does the weathering rate always balance the degassing rate when the CO~2~
-    concentration stabilizes?
-
-d)  Plot the weathering as a function of atmospheric CO~2~ concentration, using
-    the data from the model runs you did in part (c).
-
-
-### Exercise 8.2: Effect of solar intensity on steady-state CO~2~ concentration
-
-The rate of weathering is a function of CO~2~ concentration and sunlight, 
-and increases when either of those variables increases.
-The sun used to be less intense than it is today. 
-
-Run GEOCARB with the spike set to zero, with the default values of
-7.5 for both `degas_spinup` and `degas_sim`, and with the clock turned back 
-500 million years to when the sun was cooler than today. 
-
-What do you get for the steady state CO~2~? How does this compare to what
-you get when you run GEOCARB for today's solar intensity? Explain why.
-
-### Exercise 8.3: The role of plants  (**Graduate students only**)
-
-The roots of plants accelerate weathering by two processes: First, as they 
-grow, they open up the soil, making it more permeable to air and water.
-Second, the roots pump CO~2~ down into the soil.
-
-
-Run a simulation with no CO~2~ spike at the transition and with no plants in 
-the spinup, but with plants present in the simulation.
-
-a) What happens to the rate of weathering when plants are introduced in year zero? 
-Does it go up or down right after the transition? WHat happens later on?
-
-b) What happens to atmospheric CO~2~, and why?
-
-c) When the CO~2~ concentration changes, where does the carbon go?
-
-
-## Exercise from Chapter 10
-
-### Exercise 10.1: Long-term fate of fossil fuel CO~2~
-
-Use the GEOCARB model in its default configuration.
-
-a) Run the model with no CO~2~ spike at the transition. What happens to 
-   the weathering rates (Silicate, Carbonate, and Total) at the transition
-   from spinup to simulation (i.e., year zero)?
-
-b) Now set the CO~2~ spike at the transition to 1000 GTon. 
-
-    * What happens to the weathering at the transition? How does weathering
-      change over time after the transition?
-    
-    * How long does it take for CO~2~ to roughly stabilize (stop changing)?
-
-c) In the experiment from (b), how do the rates of total weathering and 
-   carbonate burial change over time? 
+a) Run the MODTRAN model with present-day CO~2~ (400 ppm) and a tropical atmosphere. 
+   Plot the outgoing infrared spectrum. 
    
-    * Plot what happens from shortly before the transition until 10,000
-      years afterward (**Hint:** you may want to add the following to your
-      `ggplot` command: `xlim(NA,1E4)` 
-      to limit the range of the _x_-axis,
-      or 
-      `scale_x_continuous(limits = c(NA,1E4), labels = comma))` 
-      if you also want to format the numbers on the  _x_-axis with commas to 
-      indicate thousands and millions.)
-      
-      How do the two rates change? What do you think is happening to cause
-      this?
+    Run MODTRAN four times: first with no clouds, and then with three different
+    kinds of clouds: standard cirrus, altostratus, and stratus. These correspond
+    to high, medium, and low-altitude clouds.
+
+    Describe the important differences between the spectra for the four cases.
+    Describe the differences in the intensity of outgoing infrared radiation
+    $I_{\text{out}}$ for the four cases.
+
+    How do the four spectra compare for the 700 cm^-1^ band (where CO~2~ absorbs
+    strongly) and the 900 cm^-1^ band (in the atmospheric window)?
+
+    Which kind of cloud has the greatest impact on outgoing infrared light?
+    Why?
+
+b) Now set `atmosphere` to `"midlatitude winter"`, set `clouds` to `"none"`,
+   and set the sensor altitude to 0 km (`altitude_km = 0`) and make the sensor 
+   look up (`looking = "up"`). 
+   This means your sensor is on the ground looking up at the longwave radiation 
+   coming down from the atmosphere to the ground instead of looking down from 
+   the top of the atmosphere at the longwave radiation going out to space.
+   
+    Run MODTRAN first with `h2o_scale = 1` (the default), and then with
+    `h2o_scale = 0` (no water vapor).
     
-    * Now plot the carbon burial and total weathering for the range
-      1 million years to 2 million years. How do the two rates compare?
+    Plot the two spectra and compare them. Discuss why you see what you see:
+    
+    * For the atmosphere with no water vapor, compare the parts of the 
+      spectrum corresponding to the strong CO~2~ absorption 
+      (roughly 600--750 cm^-1^) and the infrared window 
+      (roughly 800--1200 cm^-1^). 
+      
+        * Which corresponds to higher emission temperatures and which to lower temperatures? 
+        * Why do you think this is?
+    
+    * For the atmosphere with normal water vapor (`h2o_scale = 1`), how does 
+      water vapor change the spectrum you see from the ground?
+      
+        * Does it make the longwave radiation brighter (warmer) or dimmer
+          (cooler)?
+        * Why do you think this is?
+    
+c) Keeping the same settings for `atmosphere = "midlatitude winter"`,
+   `altitude_km = 0`, and `looking="up"`, set `h2o_scale=1`
+   and run MODTRAN first with no clouds, then with three kinds of clouds:
+   standard cirrus, altostratus, and stratus (`clouds="none"`, 
+   `clouds="standard cirrus"`, `clouds="altostratus"`, and `clouds="stratus"`).
+   
+    When we're looking up at the clouds, the base (bottom) of the clouds form
+    a layer that is opaque to longwave radiation, with an emissivity of 1
+    (i.e., a perfect black body).
+    
+    Cirrus clouds are very high (around 10 km above sea level), 
+    altostratus clouds are at a medium height (with a base around 2.4 km), 
+    and stratus clouds are very low (with a base around 0.33 km).
+
+    For each run examine  
+    $I_{\text{down}}$. (Remember that the variable `i_out` in the MODTRAN
+    output measures the intensity of longwave radiation reaching the sensor.
+    In this exercise, the sensor is on the ground looking up, so `i_out` 
+    measures the downward radiation reaching the ground.)
+
+    Describe how $I_{\text{down}}$ compares for the four conditions.
+    
+        * Do the clouds have a heating or cooling effect?
+        * Which clouds have the greatest effect?
+        * What does this suggest about how clouds affect the ground temperature?
+        
+    As you do this exercise, think about a winter night with clear skies 
+    versus a winter night with cloudy skies.
+    
+d) Plot the longwave radiation spectra for the four MODTRAN runs from part (c).
+   Which parts of the spectrum do the different clouds affect the most?
+   (Compare the infrared window to the parts of the spectra where CO~2~ 
+   absorbs.)
+   
+    * Look at two parts of the spectrum: the infrared window 
+      (roughly 800--1200 cm^-1^) and the region where CO~2~ absorbs strongly 
+      (roughly 600--750 cm^-1^).
+   
+      Why do you suppose the high, medium, and low clouds affect the two
+      different spectral regions the way they do?
+      
+    * In which part of the spectrum do the clouds affect the downward longwave
+      radiation the most?
+
+### Exercise 7.3: Clouds and Visible Light.
+
+For this exercise, you will use the RRTM model to examine climate sensitivity
+and the water vapor feedback in a radiative-convective atmosphere.
+
+a) First, run the RRTM model with its default parameters (400 ppm CO~2~) and 
+   note the surface temperature (`T_surface`).
+   
+    Then run it again with doubled CO~2~ concentration (`co2 = 800`).
+    Adjust the surface temperature to bring the heat imbalance `Q` to zero
+    (it may be easier to do this with the interactive model at 
+    <http://climatemodels.uchicago.edu/rrtm/> and then paste the new surface
+    temperature into your R code).
+    
+    The change in surface temperature between the 400 ppm CO~2~ and 
+    800 ppm CO~2~ ($\Delta T_{2 \times \text{CO}_2}$) runs is the 
+    **climate sensitivity**. What is it?
+
+b) Now run the RRTM model again, for 400 and 800 ppm CO~2~, but this time 
+   setting `relative_humidity = 0` (this turns off the water vapor feedback).
+   At each concentration of CO~2~, adjust `T_surface` to bring the heat into
+   balance (so the output has `Q` equal to zero). Now what is the climate 
+   sensitivity $\Delta T_{2 \times \text{CO}_2}$?
+   
+c) Compare the climate sensitivity ($\Delta T_{2 \times \text{CO}_2}$) in 
+   part (a) (with water-vapor feedback) and part (b) (without water-vapor 
+   feedback).
+   The amplification factor for the water-vapor feedback is the ratio of the 
+   climate sensitivity with water-vapor feedback to the sensitivity without the 
+   feedback. 
+   What is it?

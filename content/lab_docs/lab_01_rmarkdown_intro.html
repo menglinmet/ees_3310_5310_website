@@ -1,5 +1,6 @@
 ---
 title: Introduction to R and RMarkdown
+author: Jonathan Gilligan
 lab_number: 1
 lab_date: '2021-01-25'
 pubdate: '2020-12-31'
@@ -44,6 +45,20 @@ just to the right of the word “Knit,” and select the output format you want.
 You can see my code at <a href="https://github.com/gilligan-ees-3310-2018" class="uri">https://github.com/gilligan-ees-3310-2018</a>.
 The code for all of the Lab #1 documentation is at
 <a href="https://github.com/gilligan-ees-3310-2018/lab_01_documentation" class="uri">https://github.com/gilligan-ees-3310-2018/lab_01_documentation</a></p>
+<p><strong>Breaking News:</strong> Markdown lets you use special characters in your text to
+specify the formatting (for example <code>**this is boldface text** and _this is italic_</code>
+will become <strong>this is boldface text</strong> and <em>this is italic</em>), but the latest version
+of RStudio, which was released in January 2021, has a visual markdown editor
+that lets you edit Markdown the same way you’d edit text in a word processor and
+lets you see what the text will look like.</p>
+<p>You can switch back and forth between the visual editor and the norrmal editor
+by clicking on the button on the top right of the editor pane that looks like the
+letter A.</p>
+<div class="figure">
+<img src="_images/lab_01/visual-editor.png" alt="" />
+<p class="caption">Visual editor button in RStudio</p>
+</div>
+<p>Below I explain the structure of an RMarkdown document.</p>
 </div>
 <div id="document-header" class="section level1">
 <h1>Document header</h1>
@@ -410,7 +425,7 @@ source(&quot;_scripts/layer_diagram.R&quot;)</code></pre>
 numbers nicely for markdown documents, allowing you to control how many
 significant digits it shows, and optionally using scientific notation or
 inserting commas to separate thousands, millions, etc.</p>
-<p><code>format_md(sigma, digits = 1)</code> will produce 0.00000006</p>
+<p><code>format_md(sigma, digits = 1)</code> will produce 0.000000057</p>
 <p><code>format_md(pi * 1E6, digits = 3, format="scientific")</code> will produce
 3.142×10<sup>6</sup></p>
 <p><code>format_md(pi * 1E6, digits = 3, comma = TRUE)</code> will produce

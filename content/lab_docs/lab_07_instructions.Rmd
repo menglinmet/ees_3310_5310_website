@@ -1,0 +1,37 @@
+---
+title: 'Instructions for Lab #7: The Pleistocene Ice Ages'
+author: Jonathan Gilligan
+lab_number: 7
+lab_date: '2021-03-08'
+pubdate: '2020-12-31'
+date: '2021-03-08'
+pdf_url: /files/lab_docs/lab_07/lab_07_instructions.pdf
+slug: lab_07_instructions
+output.blogdown::html_page:
+  md_extensions: +tex_math_single_backslash+compact_definition_lists
+  toc: yes
+---
+```{r setup, include=FALSE}
+knitr::knit_hooks$set(inline = function(x) { knitr:::format_sci(x, 'md')})
+knitr::opts_chunk$set(echo = TRUE)
+
+# This section loads necessary R libraries and sources scripts that define 
+# useful functions format_md.
+# 
+data_dir = "_data"
+script_dir = "_scripts"
+
+if (!dir.exists(data_dir)) dir.create(data_dir)
+
+library(pacman)
+p_load(zoo, xml2, tidyverse, stringr)
+
+theme_set(theme_bw(base_size = 15))
+
+source(file.path(script_dir, "utils.R"), chdir = T)
+source(file.path(script_dir, "format_md.R"), chdir = T)
+source(file.path(script_dir, "geocarb.R"), chdir = T)
+```
+# The Pleistocene Ice Ages
+
+TBA

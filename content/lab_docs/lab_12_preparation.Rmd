@@ -1,11 +1,12 @@
 ---
 title: Preparation for Lab on Regulating Greenhouse Gas Emissions
-lab_number: 13
-lab_date: '2021-04-19'
+author: Jonathan Gilligan
+lab_number: 12
+lab_date: '2021-04-12'
 pubdate: '2020-12-31'
-date: '2021-04-19'
+date: '2021-04-12'
 pdf_url: /files/lab_docs/regulation_lab/preparation_for_regulation_lab.pdf
-slug: lab_13_preparation
+slug: lab_12_preparation
 output.blogdown::html_page:
   md_extensions: +tex_math_single_backslash+compact_definition_lists
   toc: yes

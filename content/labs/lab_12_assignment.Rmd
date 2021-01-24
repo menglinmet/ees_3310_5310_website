@@ -1,5 +1,5 @@
 ---
-title: 'Energetic: A Clean Energy Game'
+title: Role-Playing Emissions Regulations
 lab_date: '2021-04-12'
 lab_number: 12
 pubdate: '2020-12-31'
@@ -13,7 +13,10 @@ output:
 # Overview:
 
 ## Reading
-No reading has been posted yet for this lab.
+
+**Before you come to lab**, please read the following document:
+
+* [Preparation for Lab on Regulating Greenhouse Gas Emissions](/lab_docs/lab_12_preparation){target="_blank"}
 
 ## Assignment
 

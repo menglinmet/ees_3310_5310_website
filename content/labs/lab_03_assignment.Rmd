@@ -17,7 +17,7 @@ output:
 
 **Before you come to lab**, please read the following document:
 
-* [Instructions for Lab #3](/lab_docs/lab_03_instructions){target="_blank"}
+* [Instructions for Lab #3: Infrared Light](/lab_docs/lab_03_instructions){target="_blank"}
 
 ## Assignment
 

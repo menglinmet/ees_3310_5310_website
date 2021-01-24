@@ -1,12 +1,12 @@
 ---
 title: New Tools for Data Analysis
 author: Jonathan Gilligan
-lab_number: 9
-lab_date: '2021-03-22'
+lab_number: 10
+lab_date: '2021-03-29'
 pubdate: '2020-12-31'
-date: '2021-03-22'
+date: '2021-03-29'
 pdf_url: /files/lab_docs/decarb_lab_bottom_up/new_tools.pdf
-slug: lab_09_new_tools
+slug: lab_10_new_tools
 output.blogdown::html_page:
   md_extensions: +tex_math_single_backslash+compact_definition_lists
   toc: yes
@@ -156,7 +156,7 @@ relationship.
 Let’s look at hurricanes from 2005:</p>
 <pre class="r"><code>storms %&gt;% filter(status == &quot;hurricane&quot;, year == 2005) %&gt;%
   ggplot(aes(x = pressure, y = wind)) + geom_point(na.rm = T)</code></pre>
-<p><img src="/lab_docs/lab_09_new_tools_files/figure-html/plot_pressure_wind-1.png" width="672" /></p>
+<p><img src="/lab_docs/lab_10_new_tools_files/figure-html/plot_pressure_wind-1.png" width="672" /></p>
 <p>The data clearly doesn’t lie on a straight line, but there is a clear
 relationship that lower pressures tend to go along with higher wind
 speeds and higher pressures with lower wind speeds.</p>
@@ -397,12 +397,12 @@ The default is to set <code>font_size = 20</code> if you don’t specify a value
 <li><p><strong>Example:</strong></p>
 <pre class="r"><code>kd &lt;- get_kaya_data(&quot;World&quot;)
 plot_kaya(kd, &quot;F&quot;)</code></pre>
-<p><img src="/lab_docs/lab_09_new_tools_files/figure-html/example_kaya_plot-1.png" width="672" /></p>
+<p><img src="/lab_docs/lab_10_new_tools_files/figure-html/example_kaya_plot-1.png" width="672" /></p>
 <pre class="r"><code>plot_kaya(kd, &quot;F&quot;, log_scale = TRUE, font_size = 12, trend_line = TRUE)</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/lab_docs/lab_09_new_tools_files/figure-html/example_kaya_plot_2-1.png" width="672" /></p>
+<p><img src="/lab_docs/lab_10_new_tools_files/figure-html/example_kaya_plot_2-1.png" width="672" /></p>
 <pre class="r"><code>plot_kaya(kd, &quot;F&quot;, points = FALSE, start_year = NULL, font_size = 12)</code></pre>
-<p><img src="/lab_docs/lab_09_new_tools_files/figure-html/example_kaya_plot_3-1.png" width="672" /></p></li>
+<p><img src="/lab_docs/lab_10_new_tools_files/figure-html/example_kaya_plot_3-1.png" width="672" /></p></li>
 </ul></li>
 <li><code>plot_fuel_mix(fuel_mix, collapse_renewables)</code>: Make a “donut” chart showing
 the amount of energy the country got from different energy sources.
@@ -422,9 +422,9 @@ other renewables (<code>FALSE</code>).</p>
 <li><p><strong>Example:</strong></p>
 <pre class="r"><code>fm &lt;- get_fuel_mix(&quot;World&quot;)
 plot_fuel_mix(fm)</code></pre>
-<p><img src="/lab_docs/lab_09_new_tools_files/figure-html/example_fuel_plot-1.png" width="672" /></p>
+<p><img src="/lab_docs/lab_10_new_tools_files/figure-html/example_fuel_plot-1.png" width="672" /></p>
 <pre class="r"><code>plot_fuel_mix(fm, collapse_renewables = FALSE)</code></pre>
-<p><img src="/lab_docs/lab_09_new_tools_files/figure-html/example_fuel_plot_2-1.png" width="672" /></p></li>
+<p><img src="/lab_docs/lab_10_new_tools_files/figure-html/example_fuel_plot_2-1.png" width="672" /></p></li>
 </ul></li>
 <li><code>kaya_region_list()</code>: Get a list of regions and countries for which you can
 get Kaya data.</li>

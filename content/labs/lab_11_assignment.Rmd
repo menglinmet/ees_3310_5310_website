@@ -1,7 +1,6 @@
 ---
 title: 'Group Project: Decarbonization Policy for a Country'
 lab_date: '2021-04-05'
-report_due_date: '2021-04-30'
 lab_number: 11
 pubdate: '2020-12-31'
 date: '2021-04-05'
@@ -14,10 +13,7 @@ output:
 # Overview:
 
 ## Reading
-
-**Before you come to lab**, please read the following document:
-
-* [Project: Decarbonization Policy for One Country](/lab_docs/lab_11_assignment){target="_blank"}
+No reading has been posted yet for this lab.
 
 ## Assignment
 

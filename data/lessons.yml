@@ -1,7 +1,7 @@
 lessons:
 - date: '2021-01-25'
   title: Introduction
-  lab: lab_01_assignment
+  lab: lab_01
 - date: '2021-01-27'
   title: What is Climate Change?
   reading: /reading/reading_02
@@ -12,7 +12,7 @@ lessons:
   title: Greenhouse Effect
   reading: /reading/reading_04
   assignment: homework_01
-  lab: lab_02_assignment
+  lab: lab_02
 - date: '2021-02-03'
   title: Greenhouse Gases
   reading: /reading/reading_05
@@ -22,7 +22,7 @@ lessons:
 - date: '2021-02-08'
   title: Review of Greenhouse Effect
   reading: /reading/reading_07
-  lab: lab_03_assignment
+  lab: lab_03
 - date: '2021-02-10'
   title: Feedbacks
   reading: /reading/reading_08
@@ -32,7 +32,7 @@ lessons:
 - date: '2021-02-15'
   title: 'The Carbon Cycle: Ocean and Biosphere'
   reading: /reading/reading_10
-  lab: lab_04_assignment
+  lab: lab_04
 - date: '2021-02-17'
   title: 'The Carbon Cycle: Mineral Weathering'
   reading: /reading/reading_11
@@ -42,7 +42,7 @@ lessons:
 - date: '2021-02-22'
   title: Climates of the Past
   reading: /reading/reading_13
-  lab: lab_05_assignment
+  lab: lab_05
 - date: '2021-02-24'
   title: The Pleistocene Ice Ages
   reading: /reading/reading_14
@@ -52,16 +52,15 @@ lessons:
 - date: '2021-03-01'
   title: Climate Models
   reading: /reading/reading_16
-  lab: lab_06_assignment
+  lab: lab_06
 - date: '2021-03-03'
   title: Future Climate Change
   reading: /reading/reading_17
 - date: '2021-03-05'
-  title: Catching up and Review
-  reading: /reading/reading_18
+  title: Identifying Fallacies about Climate Change
 - date: '2021-03-08'
-  reading: /reading/reading_19
-  lab: lab_08_assignment
+  title: Climate Fallacies Game
+  lab: lab_07
 - date: '2021-03-10'
   title: Uncertainty about Future Climates
   reading: /reading/reading_20
@@ -71,7 +70,7 @@ lessons:
 - date: '2021-03-15'
   title: How Will Climate Change Affect Our Lives? (Part 2)
   reading: /reading/reading_22
-  lab: lab_07_assignment
+  lab: lab_08
 - date: '2021-03-17'
   title: Policy Myths
   reading: /reading/reading_23
@@ -81,7 +80,7 @@ lessons:
 - date: '2021-03-22'
   title: 'Reducing Carbon Emissions: Bottom-Up Approaches'
   reading: /reading/reading_25
-  lab: lab_09_assignment
+  lab: lab_09
 - date: '2021-03-24'
   title: 'Reducing Carbon Emissions: Top-Down Approaches'
   reading: /reading/reading_26
@@ -91,7 +90,7 @@ lessons:
 - date: '2021-03-29'
   title: Goals of Climate Policy
   reading: /reading/reading_28
-  lab: lab_10_assignment
+  lab: lab_10
 - date: '2021-03-31'
   title: Costs and Benefits
   reading: /reading/reading_29
@@ -101,7 +100,7 @@ lessons:
 - date: '2021-04-05'
   title: Carbon Pricing Instruments
   reading: /reading/reading_31
-  lab: lab_11_assignment
+  lab: lab_11
 - date: '2021-04-07'
   title: Discounting and the Value of Time
   reading: /reading/reading_32
@@ -111,7 +110,7 @@ lessons:
 - date: '2021-04-12'
   title: The Case for Renewable Energy
   reading: /reading/reading_34
-  lab: lab_12_assignment
+  lab: lab_12
 - date: '2021-04-14'
   title: The Case for Nuclear Energy
   reading: /reading/reading_35
@@ -121,7 +120,7 @@ lessons:
 - date: '2021-04-19'
   title: 'Geoengineering: Carbon Dioxide Management'
   reading: /reading/reading_37
-  lab: lab_13_assignment
+  lab: lab_13
 - date: '2021-04-21'
   title: Pragmatism and Climate Policy
   reading: /reading/reading_38
@@ -131,7 +130,7 @@ lessons:
 - date: '2021-04-26'
   title: 'Beyond Gridlock: Second-Best Policies'
   reading: /reading/reading_40
-  lab: lab_14_assignment
+  lab: lab_14
 - date: '2021-04-28'
   title: Obstacles and Perspectives
   reading: /reading/reading_41

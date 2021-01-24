@@ -1,5 +1,5 @@
 ---
-title: Role-Playing Emissions Regulations
+title: Continuing Work on the Decarbonization Policy Analysis
 lab_date: '2021-04-19'
 lab_number: 13
 pubdate: '2020-12-31'
@@ -13,10 +13,7 @@ output:
 # Overview:
 
 ## Reading
-
-**Before you come to lab**, please read the following document:
-
-* [Preparation for Lab on Regulating Greenhouse Gas Emissions](/lab_docs/lab_13_preparation){target="_blank"}
+No reading has been posted yet for this lab.
 
 ## Assignment
 
