@@ -14,7 +14,7 @@ title: Tools
        * [Getting a GitHUB {{< GITHUB_LOGO >}} account](#github-account "Getting an account on GitHub")
     * [Installing {{< RSTUDIO_LOGO >}}](#installing-rstudio "Installing RStudio")
 * [Optional tools](#optional-tools "Optional tools you may want to install")
-    * [Installing {{< LATEX_LOGO >}}](#installing-latex "Installing LaTeX for making PDFs from RMarkdown")
+    * [Installing the tinytex package](#installing-latex "Installing the tinytex package for making PDFs from RMarkdown")
     * [Installing {{< GIT_AHEAD >}}](#installing-gitahead "Installing the GitAhead graphical interface for git")
 * [Resources for learning more](#resources "Free online reading and videos about using R, RStudio, Git, etc.")
     * [{{< R_LOGO >}} and {{< RSTUDIO_LOGO >}}](#r-resources "Learning more about R and RStudio")
@@ -32,9 +32,9 @@ title: Tools
 
 * Download R from [https://cran.rstudio.com/](https://cran.rstudio.com/)
     * **Windows:** 
-        * Download and install the ["base distribution" of R 3.6.2](https://cran.rstudio.com/bin/windows/base/).
+        * Download and install the ["base distribution" of R 4.0.3](https://cran.rstudio.com/bin/windows/base/).
     * **MacOS:**
-        * Download and install [R version 3.6.2](https://cran.rstudio.com/bin/macosx/)
+        * Download and install [R version 4.0.3](https://cran.rstudio.com/bin/macosx/)
     * **Linux:**
         * You should be able to install R from your Linux distribution's package manager:
             * `sudo apt-get install r-base r-base-dev` for Debian or Ubuntu
@@ -114,14 +114,16 @@ Then it will remember who you are every time you use it.
   
     There are other versions of {{< RSTUDIO >}} (an expensive professional edition and a server edition). You
     want the **free desktop edition**.
+    Be sure you get versoin 1.4 (the latest version, as of January 2021).
+    Version 1.4 has important new features that previous versions did not have.
 * Run the installer. 
 * After the installer finishes running, run {{< RSTUDIO >}}.
     * When {{< RSTUDIO >}} starts up, the lower left part of the screen should have
       a window that displays the R version, saying something like this:
       
       ```
-      R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night"
-      Copyright (C) 2019 The R Foundation for Statistical Computing
+      R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
+      Copyright (C) 2020 The R Foundation for Statistical Computing
       Platform: x86_64-w64-mingw32/x64 (64-bit)
       
       R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -153,36 +155,37 @@ Then it will remember who you are every time you use it.
 
 ## Optional Tools: {#optional-tools}
   
-### Installing {{< LATEX_LOGO >}} {#installing-latex}
+### Installing the tinytex package {#installing-latex}
 
-**It is optional to install {{< LATEX_LOGO >}}.** You will be able to do all the work for the 
-labs without it, but if you do install it, it will give you the option to 
-produce nicely formatted PDF (Acrobat) output from your RMarkdown files
-(for lab reports, presentations, etc.).
+**It is optional to install the `tinytex` package.** 
+You will be able to do all the work for the labs without it, but if you do 
+install it, it will give you the option to produce nicely formatted PDF 
+output from your RMarkdown files (for lab reports, presentations, etc.).
 
-* Windows and MacOS: Install MikTeX from [https://miktex.org](https://miktex.org "Download MikTeX for Windows or MacOS"). You probably
-  want to select the "private TeX installation" option ("only for me").
-  The Windows installer will also ask you what paper size you prefer, and
-  you probably want to choose "letter" instead of the default "A4" (for 
-  European users).
-* Linux: Install `texlive` from your distribution's package manager:
-    * `sudo apt-get install texlive` for Debian and Ubuntu, 
-    * `sudo yum install texlive` or `sudo dfm install texlive` for 
-  Fedora, Red Hat, etc.
-* An alternative that works on all three operating systems is to install the 
-  `tinytex` package for R. From the {{< RSTUDIO >}} console, you would type the following:
+The R `tinytex` package installs a sophisticated typesetting system 
+called {{< LATEX >}} on your computer. RMarkdown uses this system to 
+generate PDF output.
+
+The `tinytex` package needs to download a lot of files from the internet, 
+and it can take 10 minutes or more to do so, even on a fast connection.
+So it's a good idea to wait until you can let your computer run for a while,
+and until you're connected to a good fast internet connection, preferably
+one that doesn't charge you for data.
+
+To install `tinytex`, go to the {{< RSTUDIO >}} console, and
+you type the following:
   
-    ```
-    install.packages('tinytex')
-    tinytex::install_tinytex()
-    ```
-    
-    If you want to uninstall `tinytex` later, you can just type this
-    command at the {{< RSTUDIO >}} console:
-    
-    ```
-    tinytex::uninstall_tinytex()`
-    ```
+```
+install.packages('tinytex')
+tinytex::install_tinytex()
+```
+
+If you want to uninstall `tinytex` later, you can just type this
+command at the {{< RSTUDIO >}} console:
+
+```
+tinytex::uninstall_tinytex()`
+```
 
 ### Installing {{< GIT_AHEAD >}} {#installing-gitahead}
 

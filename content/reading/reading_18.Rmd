@@ -1,0 +1,19 @@
+---
+title: Identifying Fallacies about Climate Change
+class_date: '2021-03-05'
+class_number: 18
+weight: 18
+slug: reading_18
+pubdate: '2020-12-31'
+date: '2021-03-05'
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+---
+## Reading:
+
+No new reading for today.
+
+### Notes:
+
+We will read about logical fallacies that are frequently exploited by people who want to cast doubt on climate science and how to tell the difference between legitimate questioning or debating the science and arguing in bad faith.

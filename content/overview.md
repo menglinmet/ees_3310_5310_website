@@ -114,30 +114,6 @@ for themselves.
 **What counts is whether you can present your own position clearly and support
 it with solid evidence and reasoned argument.**
 
-# Important Dates:
-
-Many of you have athletic and other commitments during the term and may travel for
-personal reasons. As you plan for your semester, particularly if you are purchasing
-nonrefundable airplane tickets, consult the syllabus.
-
-If you have away games that require you to miss a scheduled test or group laboratory activity, let me know well in advance.
-
-* The mid-term test is on **{{< MIDTERM_DATE >}}**.
-* The take-home final exam is on **{{< FINAL_EXAM_DATE >}}**.
-* On **{{< ENERGY_GAME_DATE >}}**, we will be playing a game in lab to simulate 
-  the challenge of converting New York City to using clean energy and on 
-  **{{< ROLE_PLAY_DATE >}}**, we will be doing a participatory role-playing
-  exercise in lab, where you will play out different kinds of policies
-  for reducing greenhouse gas emissions. It is especially important for you to 
-  be present for these labs.
-* On **{{< PROJECT_PRESENT_DATE >}}** and **{{< DECARB_PRESENT_DATE >}}**,
-  you will be giving presentations in the lab about your team projects on 
-  climate science and the transition to clean energy, respectively.
-* The final exam will be in a take-home essay format and it is due at
-  **{{< FINAL_EXAM_DATE_TIME >}}**. 
-  You submit the final exam electronically, so you do not need to be on campus
-  for this.
-
 # **Structure of the Course:**
 
 I divide the semester into two parts:
@@ -157,19 +133,34 @@ I divide the semester into two parts:
 
 ## Laboratory
 
-The laboratory section of this course is very important. In the first half of
-the semester, you will use interactive computer models of the climate system to
-explore the implications of principles that we cover in class and in the
-reading, practice downloading and analyzing real climate data, and learning
-about best practices for reproducible research in order to make your work
-reliable, reproducible, and trustworthy. In the second half, you will use
-computational tools to explore the challenges of replacing fossil fuels with
-clean energy (renewable or nuclear), conduct quantitative economic analyses of
-different kinds of climate policies, and engage in role-playing exercises to
-simulate the way different climate policies work in practice.
+The laboratory section of this course is very important.
+In the first half of the semester, you will use interactive computer models of
+the climate system to explore the implications of principles that we cover in
+class and in the reading, practice downloading and analyzing real climate data,
+and learning about best practices for reproducible research in order to make
+your work reliable, reproducible, and trustworthy.
 
-To make the laboratory sessions effective, it is essential that you show up on
-time and prepared for the labs.
+In the second half, you will use computational tools to explore the challenges
+of replacing fossil fuels with clean energy (renewable or nuclear), conduct
+quantitative economic analyses of different kinds of climate policies, and
+engage in role-playing exercises to simulate the way different climate policies
+work in practice.
+
+I recommend that you attend the scheduled laboratory meetings on Zoom if you
+can, but to accommodate students who will be taking the course asynchronously,
+we will be recording the laboratory sessions so you can watch presentations
+on your own schedule.
+
+{{< TA_TITLE >}} and {{< PROF_TITLE >}} will both have office hours
+when you can drop in and discuss the laboratories, and if you are not able to
+attend the scheduled lab times, I highly  recommend that you take advantage of
+our office hours.
+
+Whether you are taking the lab synchronously or asynchronously, I highly
+recommend that you read all of the reading material for the lab before you
+show up to the Zoom session or start watching the recording. You will get much
+more out of the labs if you are prepared.
+
 
 # Reading Material
 
@@ -280,21 +271,40 @@ The **instructions**
 explain the lab and tell you how to prepare for it. The **assignment** tells
 you what to do and provides an RMarkdown template for your write-up.
 
-### Tests and Examinations
 
-There will be a fifty-minute closed-book midterm exam on {{< MIDTERM_DATE >}},
-which will focus on your understanding of the science of climate and climate
-change, and an open-book take-home essay final exam at the end of the semester
-that will be due on {{< FINAL_EXAM_DATE >}}
+
 
 ## **Basis for Grading**
 
 |                       |       |      |
 |:---------------------:|------:|-----:|
-| Class participation   |  5%   |      |
-| Midterm Exam          | 25%   |      |
-| Laboratory            | 45%   |      |
-| Final Exam            | 25%   |      |
+| Class participation   | 15%   |      |
+| Laboratory            | 55%   |      |
+| Final Exam            | 30%   |      |
+
+
+### **Participation**
+To make sure that people who are taking the course asynchronously have lots of
+opportunity to participate in discussions, I will be putting discussion
+questions on the Brightspace discussion board each week and you will get
+participation credit for posting on the discussion boards and responding to
+other students' posts.
+
+I am also setting up discussion boards for questions about the readings and
+lectures and labs. I encourage you to ask on those boards about anything that
+you didn't understand or thought was unclear, or would like to see me cover
+in greater detail in future classes.'
+
+### **Tests and Examinations**
+
+The final exam will be an open-book take-home essay exam, 
+for which you may use your books and notes.
+You will submit your take-home final electronically on {{< BRIGHTSPACE >}}.
+The final exam is due by the end of the scheduled alternate final exam,
+at {{< FINAL_EXAM_DATE_TIME >}}.
+
+
+The final exam will be cumulative over all the material covered during the term.
 
 
 # Honor Code:

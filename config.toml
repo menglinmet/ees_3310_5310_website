@@ -172,11 +172,11 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "_scripts$", "_
 
   [params.lectures]
     times = "MWF 9:10--10:00"
-    classroom = "Online Zoom meetings"
+    classroom = "Online Zoom meetings (details on Brightspace)"
 
   [params.lab]
     times = "Mon. 2:10--5:00"
-    classroom = "Online Zoom meetings"
+    classroom = "Online Zoom meetings (details on Brightspace)"
 
   [params.prof]
     name = "Jonathan Gilligan"
@@ -185,8 +185,8 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "_scripts$", "_
     email = "jonathan.gilligan@vanderbilt.edu"
     phone = "322-2420"
     url = "https://www.jonathangilligan.org"
-    office = "via Zoom"
-    officeHours = "Tues. 2:00--3:00, Wed. 10:10--11:00, or by appointment"
+    office = "via Zoom (details on Brightspace)"
+    officeHours = "Tues. 10:00--11:00 AM, Wed. 8:00--9:00 PM, or by appointment"
 
   [params.ta]
     hasTA = true
@@ -194,8 +194,8 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "_scripts$", "_
     lastname = "de Wet"
     title = "Mr."
     email = "cameron.de.wet@vanderbilt.edu"
-    office = "via Zoom"
-    officeHours = "Fri. 1:00--3:00, or by appointment"
+    office = "via Zoom (details on Brightspace)"
+    officeHours = "Thurs. 9:00--10:00 AMF, Fri. 1:00--2:00 PM, or by appointment"
 
   [params.assignments]
     labs = true

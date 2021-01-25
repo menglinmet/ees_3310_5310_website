@@ -1,0 +1,19 @@
+---
+title: Climate Fallacies Game
+class_date: '2021-03-08'
+class_number: 19
+weight: 19
+slug: reading_19
+pubdate: '2020-12-31'
+date: '2021-03-08'
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+---
+## Reading:
+
+No new reading for today.
+
+### Notes:
+
+No reading for today. We will play a game in which we try to spot the fallacies in common talking points by people who try to discredit climate science.

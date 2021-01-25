@@ -31,17 +31,22 @@ for which it is assigned.**
 
 #### Preparation
 
-Except for the first day of class, 
+Except for the first week of the semester, 
 **You should the read lab description and do any preparatory activities before
 coming to lab**
+(If you are doing the lab asynchronously, read the materials and do the 
+preparations before starting work on the lab).
 
 #### Reports
 
 For **lab reports**, you must write RMarkdown code that successfully compiles
 to a Word document or PDF file. To turn in your report, you must:
 
-* Clone the assignment from {{< GITHUB >}} classroom
-* Use the RMarkdown template to complete the exercises
+* Accept the assignment in {{< GITHUB >}} classroom
+* Use RStudio to create a new Project from Version Control and give it the 
+  URL for your GitHub respository for the lab assignment.
+* Use the RMarkdown lab report template in the assignment to complete the 
+  exercises
 * Successfully knit the RMarkdown into a Word or PDF document
 * Use git to commit your work (including the RMarkdown **and** the Word or 
   PDF output)
@@ -50,7 +55,7 @@ to a Word document or PDF file. To turn in your report, you must:
 
 ##### General instructions for lab reports
 
-For labs, you will work with a partner. In your report it is fine for the
+For labs, you may work with a partner. In your report it is fine for the
 two of you to share computer code, calculations, and output from climate
 models, but each of you should write up the material in your own words.
 
