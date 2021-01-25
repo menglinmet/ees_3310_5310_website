@@ -72,7 +72,7 @@ You can switch back and forth between the visual editor and the norrmal editor
 by clicking on the button on the top right of the editor pane that looks like the
 letter A.
 
-![Visual editor button in RStudio](/lab_docs/_images/lab_01/visual-editor.png)
+![Visual editor button in RStudio](_images/lab_01/visual-editor.png)
 
 Below I explain the structure of an RMarkdown document.
 
@@ -387,7 +387,7 @@ You can include image files in your RMarkdown document:
 
 ### Formatted Output:
 
-![This is a tornado](/lab_docs/_images/lab_01/tornado.jpg)
+![This is a tornado](_images/lab_01/tornado.jpg)
 
 ## Hyperlinks
 
