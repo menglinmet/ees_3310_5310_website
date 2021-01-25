@@ -15,7 +15,7 @@ output:
 ### Required Reading (everyone):
 
 * Understanding the Forecast, Ch. 1.
-* Climate Casino, Ch. 2--3.
+* Climate Casino, Ch. 1--2.
 
 ### Reading Notes:
 

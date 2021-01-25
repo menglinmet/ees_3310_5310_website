@@ -1,7 +1,7 @@
 ---
 title: "Reading Assignments Sheet"
 author: "EES 3310/5310 Global Climate Change"
-date: "Spring Semester, 2020. Revised 8 Jan."
+date: "Spring Semester, 2021."
 output:
   pdf_document: 
     includes:
@@ -14,16 +14,6 @@ output:
 ```{r setup, include=FALSE, message = FALSE, warning=FALSE, cache=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE, cache=FALSE)
 ```
-
-# Correction: 
-
-There was a typo in the original version of this assignment sheet.
-The reading from _Climate Casio_ for Wednesday Jan. 8 should have been 
-chapters 1--2, not chapters 2--3. We will read chapter 3 later in the semester
-when we discuss climate modeling, so you will not have wasted your effort,
-but I wanted to issue this clarification about the error in the original 
-assignment, and to clear up confusion since the reading notes discussed chapters
-1--2.
 
 # Disclaimer
 
