@@ -1,6 +1,7 @@
 lessons:
 - date: '2021-01-25'
   title: Introduction
+  lecture: /slides/class_01
   lab: lab_01
 - date: '2021-01-27'
   title: What is Climate Change?
