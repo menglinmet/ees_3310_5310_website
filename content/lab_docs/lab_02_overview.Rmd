@@ -45,20 +45,31 @@ are available free on the web.
 
 ## R for Data Science 
 
-The first is the book, _R for Data Science_, by Hadley Wickham who wrote most
-of the packages in the `tidyverse` collection. You can buy a print version of
-the book from all the usual online sources, but Wickham has also posted the 
-full text on the web at <http://r4ds.had.co.nz/> to make it available for free.
+The first resource is the book, [_R for Data Science_](https://r4ds.had.co.nz), 
+by Hadley Wickham who wrote most of the `tidyverse` collection. 
+You can buy a print 
+version of the book from all the usual online sources, but Wickham has also 
+posted the full text on the web at <http://r4ds.had.co.nz/> to make it 
+available for free.
 (Also, he wrote the whole book in RMarkdown, and if you're curious you can get
-the RMarkdown from <https://github.com/hadley/r4ds>).
+the RMarkdown for the book from <https://github.com/hadley/r4ds>).
 
 The key parts of the book, from the perspective of the labs for this course,
-are Chapter 4: "Workflow Basics," which presents a brief overview of R and
-how to program with it; Chapter 5: "Data Transformation," which explains the
+are 
+[Chapter 4: "Workflow Basics,"](https://r4ds.had.co.nz/workflow-basics.html)
+which presents a brief overview of R and
+how to program with it; 
+[Chapter 5: "Data Transformation,"](https://r4ds.had.co.nz/transform.html)
+which explains the
 functions I discuss in the first part of this handout about tibbles and the 
 manipulating them with functions like `select`, `filter`, `mutate`, and
-`summarize`; and Chapter 3: "Data Visualization," which describes using 
+`summarize`; and 
+[Chapter 3: "Data Visualization,"](https://r4ds.had.co.nz/data-visualisation.html) 
+which describes using 
 the `ggplot2` package to make graphs and charts of your data.
+[Chapter 12, "Tidy Data"](https://r4ds.had.co.nz/tidy-data.html)
+describes using the `pivot` functions to organize
+your data in ways that make it easier to analyze.
 
 If you are interested in learning more about R, Section II of the book
 discusses the different data types that R uses in detail (tibbles,
@@ -81,13 +92,17 @@ a specific task? For that, the online documentation for the `tidyverse` is
 very useful and you can find it at <http://www.tidyverse.org/packages/>.
 
 This page has links to the documentation for all the major tidyverse packages:
-`ggplot2` for making graphics, `dplyr` and `tidyr` for working with `data.frames`
-and `tibbles`, `reader` for reading in data from text files on the disk and
-`readxl` for reading data from Excel spreadsheets, and many more packages that
-we will not be using in these labs.
+[`ggplot2`](https://ggplot2.tidyverse.org/) for making graphics, 
+[`dplyr`](https://dplyr.tidyverse.org/)  and 
+[`tidyr`](https://tidyr.tidyverse.org/) for working with `data.frames` and 
+[`tibbles`](https://tibble.tidyverse.org/), 
+[`reader`](https://readr.tidyverse.org/) for reading in data from text files and
+[`readxl`](https://readxl.tidyverse.org/) for reading data from Excel 
+spreadsheets, and many more packages that we will not be using in these labs.
 
 The documents give lots of examples showing what the functions do and explanations
-of how to do many common tasks. Especially for `ggplot2`, it can be very useful
+of how to do many common tasks. Especially for 
+[`ggplot2`](https://ggplot2.tidyverse.org/), it can be very useful
 to look at the graphs in the examples to find something that looks like what 
 you're trying to do and then seeing the code that made that happen.
 
