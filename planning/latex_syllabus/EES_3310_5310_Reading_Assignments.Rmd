@@ -51,9 +51,9 @@ The most up-to-date versions of the reading assignments will be posted on the
   challenging and ask you to apply the concepts from the chapter.
 
 ```{r initialize, include=FALSE}
-source("../init.R", chdir = TRUE)
+library(semestr)
 
-semester <- load_semester_db("../EES_3310_5310.sqlite3")
+semester <- load_semester_db("../EES-3310-5310.sqlite3")
 
 # output_to <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 # output_formats <- rmarkdown::all_output_formats(knitr::current_input())
@@ -64,10 +64,12 @@ semester <- load_semester_db("../EES_3310_5310.sqlite3")
 #   .globals$text_mode <- "md"
 # }
 
+.globals <- new.env(parent = globalenv())
+
 if (knitr::is_latex_output()) {
-  .globals$text_mode <- "latex"
+  assign("text_mode", "latex", envir = .globals)
 } else {
-  .globals$text_mode <- "md"
+  assign("text_mode", "md", envir = .globals)
 }
 
 

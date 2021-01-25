@@ -195,7 +195,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "_scripts$", "_
     title = "Mr."
     email = "cameron.de.wet@vanderbilt.edu"
     office = "via Zoom (details on Brightspace)"
-    officeHours = "Thurs. 9:00--10:00 AMF, Fri. 1:00--2:00 PM, or by appointment"
+    officeHours = "Fri. 1:00--3:00 PM, or by appointment"
 
   [params.assignments]
     labs = true
