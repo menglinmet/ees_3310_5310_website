@@ -345,25 +345,16 @@ that we will use extensively for the labs. From the “packages” window in RSt
 and install the following packages: “tidyverse,” “knitr,” “rmarkdown,” “xts,” “lme4,”
 “ggalt,” “GGAlly,” “ggExtra,” “ggspectra,” “ggspectra,”
 “ggstance,” “gtable,” “hrbrthemes,” and “pacman”</p></li>
-<li><p>Git for revision control. You have three options:</p>
+<li><p>Git for revision control.</p>
+<p>You can download Git from <a href="https://git-scm.com/" class="uri">https://git-scm.com/</a>.
+After you install Git, it is important to run two commands:</p>
 <ul>
-<li><p>You can download Git from <a href="https://git-scm.com/" class="uri">https://git-scm.com/</a></p></li>
-<li><p>There is a very popular free git client called “Source Tree” that has some very nice
-graphical utilities that let you use git from Windows Explorer or Mac Finder.
-You can get Source Tree from <a href="https://www.sourcetreeapp.com/" class="uri">https://www.sourcetreeapp.com/</a> for Mac or Windows.
-You will need to sign up for a free account at Atlassian to install it.</p></li>
-<li><p>A third option is Git Kraken, which you can get from <a href="https://www.gitkraken.com/" class="uri">https://www.gitkraken.com/</a>
-Git Kraken is very popular, and is free for educational, personal, and other non-commercial use.
-Git Kraken is available for Windows, Mac, and Linux.</p></li>
-</ul>
-<p>After you install Git, it is important to run two commands:</p>
-<ul>
-<li><p>Open a git command line:</p>
+<li>Open a git command line:
 <ul>
 <li>On Windows, open the program menu, go to “Git” and click on “Git Bash”</li>
 <li>On a Mac, open a terminal window</li>
 </ul></li>
-<li><p>Run the two following commands:</p>
+<li>Run the two following commands:
 <ul>
 <li><code>git config --global user.name "Your Name"</code> (using your own name instead of “Your Name”)</li>
 <li><code>git config --global user.email "your.email.address@vanderbilt.edu"</code> (using your own email address)</li>
@@ -376,6 +367,21 @@ which of you edited what.</p></li>
 </ul>
 <div id="optional-tools" class="section level2">
 <h2>Optional Tools</h2>
+<div id="graphical-interface-to-git" class="section level3">
+<h3>Graphical interface to Git</h3>
+<p>You will be able to do everything you need for the lab using regular git
+RStudio, but there is a free graphical interface for Git, called
+<a href="https://gitahead.github.io/gitahead.com/">GitAhead</a>,
+that you may find useful. GitAhead works with Git and allows you to do almost
+everything you might want to do using a simple point-and-click interface.</p>
+<p>GitAhead can also make it easier to understand what Git is
+doing and when you need to commit files and push your commits to
+GitHub.</p>
+<p>GitAhead is available for Windows, MacOS, and Linux, and you can
+get it from <a href="https://gitahead.github.io/gitahead.com/" class="uri">https://gitahead.github.io/gitahead.com/</a>.</p>
+</div>
+<div id="making-pdf-files-from-rmarkdown" class="section level3">
+<h3>Making PDF files from RMarkdown</h3>
 <p>If you want to produce PDF files from RMarkdown, you will need to install the <code>tinytex</code> package in R.</p>
 <p>This will take some time and will have to download a lot of files from the internet, so wait until you are
 somewhere where you have some time to spare, where you have a good fast internet connection,
@@ -391,6 +397,7 @@ connection, a library, etc.).</p>
 <li>Next, after the library has loaded, type <code>install_tinytex()</code>. This is the part that may take
 some time to complete.</li>
 </ul>
+</div>
 </div>
 </div>
 <div id="walking-the-walk" class="section level1">

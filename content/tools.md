@@ -198,7 +198,10 @@ using a simple point-and-click interface.
 
 {{< GIT_AHEAD >}} can also make it easier to understand what {{< GIT >}} is 
 doing and when you need to commit files and push your commits to 
-{{< GITHUB >}} {{< GITHUB_LOGO >}}
+{{< GITHUB >}} {{< GITHUB_LOGO >}}.
+
+{{< GIT_AHEAD >}} is available for Windows, MacOS, and Linux, and you can 
+get it from <https://gitahead.github.io/gitahead.com/>.
 
 
 ## Resources for Learning More {#resources}

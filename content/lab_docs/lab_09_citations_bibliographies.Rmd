@@ -67,12 +67,12 @@ title: "My Lab Report"
 subtitle: "EES 3310: Global Climate Change"
 author: "Jonathan Gilligan"
 date: "Sept. 27, 2018"
-bibliography: "my_bibliography.bib"
+bibliography: "my-bibliography.bib"
 ---
 ```
 
 RMarkdown can figure out the kind of bibliography file it is from the file 
-extension (`.bib`, etc.). I have provided an example BibTeX file, `lab_05.bib` 
+extension (`.bib`, etc.). I have provided an example BibTeX file, `lab-05.bib` 
 that has examples of entries.
 
 For the examples here, I will work with a format called BibTeX because most
@@ -236,22 +236,22 @@ At the bottom of this `.Rmd` file, I have inserted the line
 ## Adding entries to the bibliography file
 
 If you want to add new references to the bibliography file, you can 
-open `lab_05.bib` in RStudio and edit it by hand, but that may be difficult
+open `lab-08.bib` in RStudio and edit it by hand, but that may be difficult
 and confusing, so I would recommend one of three options:
 
 * From Google Scholar, you can export a BibTeX entry: 
 
-    1. Open `lab_05.bib` in RStudio and then open a web browser, go to 
+    1. Open `lab-08.bib` in RStudio and then open a web browser, go to 
        <https://scholar.google.com> and search for your reference.
 
     2. When you find the reference you want in Google Scholar, and click on the 
        "Cite" button, as shown below:
 
-        ![Google Scholar search page. Click on the "Cite" button, as shown here.](_images/lab_06/scholar_1.png)\
+        ![Google Scholar search page. Click on the "Cite" button, as shown here.](_images/lab_08/scholar_1.png)\
 
     3. Click on "BibTeX" at the bottom of the citation page, as shown below:
 
-        ![Google Scholar citation page: Click on "BibTeX"](_images/lab_06/scholar_2.png)\
+        ![Google Scholar citation page: Click on "BibTeX"](_images/lab_08/scholar_2.png)\
 
     4. You will see something like this:
 
@@ -269,7 +269,7 @@ and confusing, so I would recommend one of three options:
         }
         ```
         
-         Copy the entry and paste it into `lab_05.bib` in RStudio.
+         Copy the entry and paste it into `lab-08.bib` in RStudio.
          
          In this entry, `rogelj2012global` is the key you would use
          for citing and the other fields are pretty much self-explanatory.
@@ -281,10 +281,10 @@ and confusing, so I would recommend one of three options:
      the context menu choose "Export Items..."; then select "BibTeX" format, 
      click "OK" and save the exported items to a file.)
     
-     Next, open the file you just exported and `lab_05.bib` in RStudio and
-     copy and past the references from the exported file into `lab_05.bib`.
+     Next, open the file you just exported and `lab-05.bib` in RStudio and
+     copy and past the references from the exported file into `lab-05.bib`.
      
-* If you have JabRef[^6] installed on your computer, you open `lab_05.bib`,
+* If you have JabRef[^6] installed on your computer, you open `lab-08.bib`,
   manually create a new bibliographic entry and fill in the relevant data.
   
 [^5]: Zotero is free software that runs on Windows, MacOS, and Linux, and you

@@ -379,37 +379,42 @@ If you want to install it on your personal computer, all the software we use is 
     "ggalt", "GGAlly", "ggExtra", "ggspectra", "ggspectra", 
     "ggstance", "gtable", "hrbrthemes", and "pacman"
 
-* Git for revision control. You have three options:
+* Git for revision control.
 
-    * You can download Git from <https://git-scm.com/>
-    
-    * There is a very popular free git client called "Source Tree" that has some very nice 
-      graphical utilities that let you use git from Windows Explorer or Mac Finder.
-      You can get Source Tree from https://www.sourcetreeapp.com/ for Mac or Windows.
-      You will need to sign up for a free account at Atlassian to install it.
+  You can download Git from <https://git-scm.com/>. 
+  After you install Git, it is important to run two commands:
+  
+  * Open a git command line:
+    * On Windows, open the program menu, go to "Git" and click on "Git Bash"
+    * On a Mac, open a terminal window
+  * Run the two following commands:
+    * `git config --global user.name "Your Name"` (using your own name instead of "Your Name")
+    * `git config --global user.email "your.email.address@vanderbilt.edu"` (using your own email address)
       
-    * A third option is Git Kraken, which you can get from <https://www.gitkraken.com/>
-      Git Kraken is very popular, and is free for educational, personal, and other non-commercial use.
-      Git Kraken is available for Windows, Mac, and Linux.
-    
-    After you install Git, it is important to run two commands:
-    
-    * Open a git command line:
-
-        * On Windows, open the program menu, go to "Git" and click on "Git Bash"
-        * On a Mac, open a terminal window
-        
-    * Run the two following commands:
-    
-        * `git config --global user.name "Your Name"` (using your own name instead of "Your Name")
-        * `git config --global user.email "your.email.address@vanderbilt.edu"` (using your own email address)
-        
-    Git uses information to keep track of who makes changes to a file. If you are editing a file on your 
-    computer and a friend is editing it on her computer, git uses this user information to keep track of 
-    who made each change. Then when you and your friend merge your changes, git will be able to tell you
-    which of you edited what.
+  Git uses information to keep track of who makes changes to a file. If you are editing a file on your 
+  computer and a friend is editing it on her computer, git uses this user information to keep track of 
+  who made each change. Then when you and your friend merge your changes, git will be able to tell you
+  which of you edited what.
 
 ## Optional Tools
+
+### Graphical interface to Git
+
+You will be able to do everything you need for the lab using regular git
+RStudio, but there is a free graphical interface for Git, called 
+[GitAhead](https://gitahead.github.io/gitahead.com/),
+that you may find useful. GitAhead works with Git and allows you to do almost 
+everything you might want to do using a simple point-and-click interface.
+
+GitAhead can also make it easier to understand what Git is 
+doing and when you need to commit files and push your commits to 
+GitHub.
+
+GitAhead is available for Windows, MacOS, and Linux, and you can 
+get it from <https://gitahead.github.io/gitahead.com/>.
+
+
+### Making PDF files from RMarkdown
 
 If you want to produce PDF files from RMarkdown, you will need to install the `tinytex` package in R.
 
