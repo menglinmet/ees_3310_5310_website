@@ -14,6 +14,7 @@ output.blogdown::html_page:
 ```{r setup, include=FALSE}
 knitr::knit_hooks$set(inline = function(x) { knitr:::format_sci(x, 'md')})
 knitr::opts_chunk$set(echo = TRUE)
+options(dplyr.summarise.inform = FALSE)
 
 # This section loads necessary R libraries and sources scripts that define 
 # useful functions format_md.
@@ -502,27 +503,44 @@ head(x)
 
 ### Summarizing rows
 
-Summaries are useful for finding averages and extreme values. Let's find the maximum and minimum temperatures 
-and the most extreme rainfall in the whole data set:
+Summaries are useful for finding averages and extreme values. 
+Let's find the maximum and minimum temperatures and the most extreme rainfall 
+in the whole data set:
 
 ```{r summarize_simple, include=TRUE}
-x = summarize(nashville_weather, prcp.max = max(prcp), tmin.min = min(tmin), tmax.max = max(tmax))
+x = summarize(nashville_weather, prcp_max = max(prcp, na.rm = TRUE), 
+              tmin_min = min(tmin, na.rm = TRUE), 
+              tmax_max = max(tmax, na.rm = TRUE))
 x
 ```
+`nashville_weather` has `r nrow(nashville_weather)` rows, 
+but summarize reduces it to a single summary row.
 
-`nashville_weather` has `r nrow(nashville_weather)` rows, but summarize reduces it to a single summary row.
+**NOTE:** Here, the parameter `na.rm = TRUE` in `max` and `min` is a way to 
+tell R to ignore missing values when it calculates the maximum and minimum 
+values. Sometimes a data set will have missing values (for instance, suppose 
+the weather station was not working that day), and it indicates these with a 
+special value that appears as `NA`, meaning "not available". Normally, if you 
+ask for the maximum, minimum, or mean value of a data series with missing 
+values, R will return `NA` because if some values are missing, it doesn't know 
+what the actual maximum or minimum is---the missing values could have been the 
+largest or smallest. If you want R to ignore missing values and return the 
+maximum, minimum, or mean value of the data that you do have, then you add the 
+`na.rm = TRUE` parameter when you call `max()`, `min()`, `mean()`, or 
+other summary functions.
 
 You can use summary to generate multiple summary quantities from a column:
 
 ```{r summarize_simple_2, include=TRUE}
-x = summarize(nashville_weather, prcp.max = max(prcp), prcp.min = min(prcp))
+x = summarize(nashville_weather, prcp_max = max(prcp), prcp_min = min(prcp))
 x
 ```
 
 We can also generate grouped summaries:
 
 ```{r summarize_grouped_1, include=TRUE}
-x = ungroup(summarize(group_by(nashville_weather, year(date)), prcp.max = max(prcp), prcp.tot = sum(prcp)))
+x = ungroup(summarize(group_by(nashville_weather, year(date)), 
+                      prcp_max = max(prcp), prcp_tot = sum(prcp)))
 head(x)
 ```
 This provides the maximum one-day precipitation and the total annual precipitation for each year
@@ -537,7 +555,7 @@ taking the result of the one on the left and inserting it into the one on the ri
 We can use the pipe operator to rewrite the expression above as
 
 ```{r summarize_grouped_pipes, include=TRUE}
-x = nashville_weather %>% group_by(year(date)) %>% summarize(prcp.max = max(prcp), prcp.tot = sum(prcp)) %>%
+x = nashville_weather %>% group_by(year(date)) %>% summarize(prcp_max = max(prcp), prcp_tot = sum(prcp)) %>%
   ungroup()
 head(x)
 ```
@@ -563,9 +581,9 @@ We can operate on this combined tibble:
 
 ```{r process_combined_data_frame}
 weather_summary = weather %>% 
-  mutate(year = year(date), t.range = tmax - tmin) %>%
+  mutate(year = year(date), t_range = tmax - tmin) %>%
   group_by(year, location) %>%   
-  summarize(prcp.max = max(prcp), prcp.tot = sum(prcp), t.range.max = max(t.range)) %>%
+  summarize(prcp_max = max(prcp), prcp_tot = sum(prcp), t_range.max = max(t_range)) %>%
   ungroup() %>%
   arrange(year, location)
 tail(weather_summary)
@@ -688,8 +706,8 @@ Let's set it up to make it easy to compare the annual precipitation of
 Nashville and Chicago:
 
 ```{r wide_weather_summary, include=TRUE}
-x = weather_summary %>% select(year, location, prcp.tot) %>%
-  pivot_wider(names_from = "location", values_from = "prcp.tot")
+x = weather_summary %>% select(year, location, prcp_tot) %>%
+  pivot_wider(names_from = "location", values_from = "prcp_tot")
 tail(x)
 ```
 

@@ -472,27 +472,44 @@ head(x)</code></pre>
 </div>
 <div id="summarizing-rows" class="section level3">
 <h3>Summarizing rows</h3>
-<p>Summaries are useful for finding averages and extreme values. Let’s find the maximum and minimum temperatures
-and the most extreme rainfall in the whole data set:</p>
-<pre class="r"><code>x = summarize(nashville_weather, prcp.max = max(prcp), tmin.min = min(tmin), tmax.max = max(tmax))
+<p>Summaries are useful for finding averages and extreme values.
+Let’s find the maximum and minimum temperatures and the most extreme rainfall
+in the whole data set:</p>
+<pre class="r"><code>x = summarize(nashville_weather, prcp_max = max(prcp, na.rm = TRUE), 
+              tmin_min = min(tmin, na.rm = TRUE), 
+              tmax_max = max(tmax, na.rm = TRUE))
 x</code></pre>
 <pre><code>## # A tibble: 1 x 3
-##   prcp.max tmin.min tmax.max
+##   prcp_max tmin_min tmax_max
 ##      &lt;int&gt;    &lt;int&gt;    &lt;int&gt;
 ## 1     1842     -400      428</code></pre>
-<p><code>nashville_weather</code> has 25932 rows, but summarize reduces it to a single summary row.</p>
+<p><code>nashville_weather</code> has 25932 rows,
+but summarize reduces it to a single summary row.</p>
+<p><strong>NOTE:</strong> Here, the parameter <code>na.rm = TRUE</code> in <code>max</code> and <code>min</code> is a way to
+tell R to ignore missing values when it calculates the maximum and minimum
+values. Sometimes a data set will have missing values (for instance, suppose
+the weather station was not working that day), and it indicates these with a
+special value that appears as <code>NA</code>, meaning “not available”. Normally, if you
+ask for the maximum, minimum, or mean value of a data series with missing
+values, R will return <code>NA</code> because if some values are missing, it doesn’t know
+what the actual maximum or minimum is—the missing values could have been the
+largest or smallest. If you want R to ignore missing values and return the
+maximum, minimum, or mean value of the data that you do have, then you add the
+<code>na.rm = TRUE</code> parameter when you call <code>max()</code>, <code>min()</code>, <code>mean()</code>, or
+other summary functions.</p>
 <p>You can use summary to generate multiple summary quantities from a column:</p>
-<pre class="r"><code>x = summarize(nashville_weather, prcp.max = max(prcp), prcp.min = min(prcp))
+<pre class="r"><code>x = summarize(nashville_weather, prcp_max = max(prcp), prcp_min = min(prcp))
 x</code></pre>
 <pre><code>## # A tibble: 1 x 2
-##   prcp.max prcp.min
+##   prcp_max prcp_min
 ##      &lt;int&gt;    &lt;int&gt;
 ## 1     1842        0</code></pre>
 <p>We can also generate grouped summaries:</p>
-<pre class="r"><code>x = ungroup(summarize(group_by(nashville_weather, year(date)), prcp.max = max(prcp), prcp.tot = sum(prcp)))
+<pre class="r"><code>x = ungroup(summarize(group_by(nashville_weather, year(date)), 
+                      prcp_max = max(prcp), prcp_tot = sum(prcp)))
 head(x)</code></pre>
 <pre><code>## # A tibble: 6 x 3
-##   `year(date)` prcp.max prcp.tot
+##   `year(date)` prcp_max prcp_tot
 ##          &lt;dbl&gt;    &lt;int&gt;    &lt;int&gt;
 ## 1         1950      846    16330
 ## 2         1951      973    14838
@@ -507,11 +524,11 @@ head(x)</code></pre>
 using what it calls the “pipe” operator, <code>%&gt;%</code>. The pipe operator chains operations together,
 taking the result of the one on the left and inserting it into the one on the right.</p>
 <p>We can use the pipe operator to rewrite the expression above as</p>
-<pre class="r"><code>x = nashville_weather %&gt;% group_by(year(date)) %&gt;% summarize(prcp.max = max(prcp), prcp.tot = sum(prcp)) %&gt;%
+<pre class="r"><code>x = nashville_weather %&gt;% group_by(year(date)) %&gt;% summarize(prcp_max = max(prcp), prcp_tot = sum(prcp)) %&gt;%
   ungroup()
 head(x)</code></pre>
 <pre><code>## # A tibble: 6 x 3
-##   `year(date)` prcp.max prcp.tot
+##   `year(date)` prcp_max prcp_tot
 ##          &lt;dbl&gt;    &lt;int&gt;    &lt;int&gt;
 ## 1         1950      846    16330
 ## 2         1951      973    14838
@@ -534,15 +551,14 @@ top and all the rows from <code>chicago_weather</code> on the bottom. Because th
 have the same columns, the columns are matched up.</p>
 <p>We can operate on this combined tibble:</p>
 <pre class="r"><code>weather_summary = weather %&gt;% 
-  mutate(year = year(date), t.range = tmax - tmin) %&gt;%
+  mutate(year = year(date), t_range = tmax - tmin) %&gt;%
   group_by(year, location) %&gt;%   
-  summarize(prcp.max = max(prcp), prcp.tot = sum(prcp), t.range.max = max(t.range)) %&gt;%
+  summarize(prcp_max = max(prcp), prcp_tot = sum(prcp), t_range.max = max(t_range)) %&gt;%
   ungroup() %&gt;%
-  arrange(year, location)</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You can override using the `.groups` argument.</code></pre>
-<pre class="r"><code>tail(weather_summary)</code></pre>
+  arrange(year, location)
+tail(weather_summary)</code></pre>
 <pre><code>## # A tibble: 6 x 5
-##    year location      prcp.max prcp.tot t.range.max
+##    year location      prcp_max prcp_tot t_range.max
 ##   &lt;dbl&gt; &lt;chr&gt;            &lt;int&gt;    &lt;int&gt;       &lt;int&gt;
 ## 1  2018 Chicago IL         686    11203         211
 ## 2  2018 Nashville, TN      683    14976         277
@@ -660,7 +676,7 @@ the “key” column.</p>
 <p>Let’s go back to the <code>weather_summary</code> tibble we made above:</p>
 <pre class="r"><code>head(weather_summary)</code></pre>
 <pre><code>## # A tibble: 6 x 5
-##    year location      prcp.max prcp.tot t.range.max
+##    year location      prcp_max prcp_tot t_range.max
 ##   &lt;dbl&gt; &lt;chr&gt;            &lt;int&gt;    &lt;int&gt;       &lt;int&gt;
 ## 1  1950 Chicago IL         630    10105         244
 ## 2  1950 Nashville, TN      846    16330         244
@@ -670,8 +686,8 @@ the “key” column.</p>
 ## 6  1952 Nashville, TN     1176    10113         239</code></pre>
 <p>Let’s set it up to make it easy to compare the annual precipitation of
 Nashville and Chicago:</p>
-<pre class="r"><code>x = weather_summary %&gt;% select(year, location, prcp.tot) %&gt;%
-  pivot_wider(names_from = &quot;location&quot;, values_from = &quot;prcp.tot&quot;)
+<pre class="r"><code>x = weather_summary %&gt;% select(year, location, prcp_tot) %&gt;%
+  pivot_wider(names_from = &quot;location&quot;, values_from = &quot;prcp_tot&quot;)
 tail(x)</code></pre>
 <pre><code>## # A tibble: 6 x 3
 ##    year `Chicago IL` `Nashville, TN`
@@ -738,9 +754,8 @@ for what we’re going to do.</p>
   group_by(location, year) %&gt;% 
   summarize(tmin = min(tmin, na.rm = T),      # the na.rm = T means to ignore 
             tmax = max(tmax, na.rm = T)) %&gt;%  # missing values if we don&#39;t put 
-  ungroup()                                   # that in, then  if any year has</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;location&#39;. You can override using the `.groups` argument.</code></pre>
-<pre class="r"><code>                                              # a missing value for even one 
+  ungroup()                                   # that in, then  if any year has
+                                              # a missing value for even one 
                                               # day, the tmax or tmin for that 
                                               # year will be recorded as  
                                               # NA (missing)
