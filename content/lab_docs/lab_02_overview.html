@@ -211,17 +211,17 @@ by running the code below:</p>
 chicago_weather = readRDS(&#39;_data/chicago_weather.Rds&#39;)</code></pre>
 <p>Here is an example of the first few rows of a tibble with weather data for
 Nashville from
-1948–2017:</p>
+1950–2020:</p>
 <pre class="r"><code>head(nashville_weather)</code></pre>
 <pre><code>## # A tibble: 6 x 6
 ##   id          date        prcp  tmin  tmax location     
-##   &lt;chr&gt;       &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        
-## 1 USW00013897 1948-01-01  67.8  -1.1  18.3 Nashville, TN
-## 2 USW00013897 1948-01-02   0    -1.7   1.7 Nashville, TN
-## 3 USW00013897 1948-01-03   0    -3.3   9.4 Nashville, TN
-## 4 USW00013897 1948-01-04   0     1.7   8.9 Nashville, TN
-## 5 USW00013897 1948-01-05   0    -2.2   8.9 Nashville, TN
-## 6 USW00013897 1948-01-06   0    -1.1  10.6 Nashville, TN</code></pre>
+##   &lt;chr&gt;       &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
+## 1 USW00013897 1950-01-01   104    89   117 Nashville, TN
+## 2 USW00013897 1950-01-02   287   117   144 Nashville, TN
+## 3 USW00013897 1950-01-03     0   144   189 Nashville, TN
+## 4 USW00013897 1950-01-04   191     6   211 Nashville, TN
+## 5 USW00013897 1950-01-05   572     0    44 Nashville, TN
+## 6 USW00013897 1950-01-06   160   -17   167 Nashville, TN</code></pre>
 <p>There are 6 columns: the weather station ID for the Nashville Airport,
 the date of the measurement, the daily precipitation (in millimeters),
 the daily minimum and maximum temperatures (Celsius), and the name of the
@@ -236,7 +236,7 @@ columns using the dollar sign, just as with regular named lists:</p>
 <pre class="r"><code>precipitation = nashville_weather$prcp</code></pre>
 <p>And we can see what the result is:</p>
 <pre class="r"><code>head(precipitation)</code></pre>
-<pre><code>## [1] 67.8  0.0  0.0  0.0  0.0  0.0</code></pre>
+<pre><code>## [1] 104 287   0 191 572 160</code></pre>
 <p>RStudio has a nice feature that lets you examine a tibble or <code>data.frame</code>
 as though it were a spreadsheet. To examine one of R’s built-in data sets,
 which has data on hurricanes in the Atlantic from 1975–2015:
@@ -328,13 +328,13 @@ and they will allow us to do some powerful analysis.</p>
 <pre class="r"><code>head(nashville_weather)</code></pre>
 <pre><code>## # A tibble: 6 x 6
 ##   id          date        prcp  tmin  tmax location     
-##   &lt;chr&gt;       &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        
-## 1 USW00013897 1948-01-01  67.8  -1.1  18.3 Nashville, TN
-## 2 USW00013897 1948-01-02   0    -1.7   1.7 Nashville, TN
-## 3 USW00013897 1948-01-03   0    -3.3   9.4 Nashville, TN
-## 4 USW00013897 1948-01-04   0     1.7   8.9 Nashville, TN
-## 5 USW00013897 1948-01-05   0    -2.2   8.9 Nashville, TN
-## 6 USW00013897 1948-01-06   0    -1.1  10.6 Nashville, TN</code></pre>
+##   &lt;chr&gt;       &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
+## 1 USW00013897 1950-01-01   104    89   117 Nashville, TN
+## 2 USW00013897 1950-01-02   287   117   144 Nashville, TN
+## 3 USW00013897 1950-01-03     0   144   189 Nashville, TN
+## 4 USW00013897 1950-01-04   191     6   211 Nashville, TN
+## 5 USW00013897 1950-01-05   572     0    44 Nashville, TN
+## 6 USW00013897 1950-01-06   160   -17   167 Nashville, TN</code></pre>
 <p>Let’s get rid of the <code>id</code> column, since we don’t really care about the ID number,
 that meteorological agencies use to identify the weather station.
 and let’s get rid of the <code>location</code> column because we know that the data set
@@ -347,39 +347,39 @@ in front of each:</p>
 head(x)</code></pre>
 <pre><code>## # A tibble: 6 x 4
 ##   date        prcp  tmin  tmax
-##   &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 1948-01-01  67.8  -1.1  18.3
-## 2 1948-01-02   0    -1.7   1.7
-## 3 1948-01-03   0    -3.3   9.4
-## 4 1948-01-04   0     1.7   8.9
-## 5 1948-01-05   0    -2.2   8.9
-## 6 1948-01-06   0    -1.1  10.6</code></pre>
+##   &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1 1950-01-01   104    89   117
+## 2 1950-01-02   287   117   144
+## 3 1950-01-03     0   144   189
+## 4 1950-01-04   191     6   211
+## 5 1950-01-05   572     0    44
+## 6 1950-01-06   160   -17   167</code></pre>
 <p>Alternately, instead of telling select which columns to get rid of, we can tell
 it which columns to keep:</p>
 <pre class="r"><code>x = select(nashville_weather, date, prcp, tmin, tmax)
 head(x)</code></pre>
 <pre><code>## # A tibble: 6 x 4
 ##   date        prcp  tmin  tmax
-##   &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 1948-01-01  67.8  -1.1  18.3
-## 2 1948-01-02   0    -1.7   1.7
-## 3 1948-01-03   0    -3.3   9.4
-## 4 1948-01-04   0     1.7   8.9
-## 5 1948-01-05   0    -2.2   8.9
-## 6 1948-01-06   0    -1.1  10.6</code></pre>
+##   &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1 1950-01-01   104    89   117
+## 2 1950-01-02   287   117   144
+## 3 1950-01-03     0   144   189
+## 4 1950-01-04   191     6   211
+## 5 1950-01-05   572     0    44
+## 6 1950-01-06   160   -17   167</code></pre>
 <p>We can specify a range of consecutive columns by giving the first and last with a
 colon between them:</p>
 <pre class="r"><code>x = select(nashville_weather, date:tmax)
 head(x)</code></pre>
 <pre><code>## # A tibble: 6 x 4
 ##   date        prcp  tmin  tmax
-##   &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 1948-01-01  67.8  -1.1  18.3
-## 2 1948-01-02   0    -1.7   1.7
-## 3 1948-01-03   0    -3.3   9.4
-## 4 1948-01-04   0     1.7   8.9
-## 5 1948-01-05   0    -2.2   8.9
-## 6 1948-01-06   0    -1.1  10.6</code></pre>
+##   &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1 1950-01-01   104    89   117
+## 2 1950-01-02   287   117   144
+## 3 1950-01-03     0   144   189
+## 4 1950-01-04   191     6   211
+## 5 1950-01-05   572     0    44
+## 6 1950-01-06   160   -17   167</code></pre>
 <p>This is a general R thing: we can specify a range of numbers in a similar way:</p>
 <pre class="r"><code>1:10</code></pre>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
@@ -388,13 +388,13 @@ head(x)</code></pre>
 head(x)</code></pre>
 <pre><code>## # A tibble: 6 x 6
 ##   weather_station date        prcp  tmin  tmax city         
-##   &lt;chr&gt;           &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        
-## 1 USW00013897     1948-01-01  67.8  -1.1  18.3 Nashville, TN
-## 2 USW00013897     1948-01-02   0    -1.7   1.7 Nashville, TN
-## 3 USW00013897     1948-01-03   0    -3.3   9.4 Nashville, TN
-## 4 USW00013897     1948-01-04   0     1.7   8.9 Nashville, TN
-## 5 USW00013897     1948-01-05   0    -2.2   8.9 Nashville, TN
-## 6 USW00013897     1948-01-06   0    -1.1  10.6 Nashville, TN</code></pre>
+##   &lt;chr&gt;           &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
+## 1 USW00013897     1950-01-01   104    89   117 Nashville, TN
+## 2 USW00013897     1950-01-02   287   117   144 Nashville, TN
+## 3 USW00013897     1950-01-03     0   144   189 Nashville, TN
+## 4 USW00013897     1950-01-04   191     6   211 Nashville, TN
+## 5 USW00013897     1950-01-05   572     0    44 Nashville, TN
+## 6 USW00013897     1950-01-06   160   -17   167 Nashville, TN</code></pre>
 </div>
 <div id="selecting-rows" class="section level3">
 <h3>Selecting Rows</h3>
@@ -403,13 +403,13 @@ head(x)</code></pre>
 head(x)</code></pre>
 <pre><code>## # A tibble: 6 x 6
 ##   id          date        prcp  tmin  tmax location     
-##   &lt;chr&gt;       &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        
-## 1 USW00013897 2016-01-18   0   -11    -3.8 Nashville, TN
-## 2 USW00013897 2016-01-19   0    -9.9  -2.1 Nashville, TN
-## 3 USW00013897 2016-01-23   0    -8.2  -1   Nashville, TN
-## 4 USW00013897 2016-02-09   1.3  -6    -2.7 Nashville, TN
-## 5 USW00013897 2016-02-10   0.5  -7.1  -0.5 Nashville, TN
-## 6 USW00013897 2016-12-15   0    -6    -1   Nashville, TN</code></pre>
+##   &lt;chr&gt;       &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
+## 1 USW00013897 2016-01-18     0  -110   -38 Nashville, TN
+## 2 USW00013897 2016-01-19     0   -99   -21 Nashville, TN
+## 3 USW00013897 2016-01-23     0   -82   -10 Nashville, TN
+## 4 USW00013897 2016-02-09    13   -60   -27 Nashville, TN
+## 5 USW00013897 2016-02-10     5   -71    -5 Nashville, TN
+## 6 USW00013897 2016-12-15     0   -60   -10 Nashville, TN</code></pre>
 <p>In the code above, I used the <code>year</code> function from the <code>lubridate</code> package to extract just the year from a date.</p>
 <p>One thing that is important to know about making comparisons in <code>filter</code> expressions: to specify that two things are
 equal, you write <code>==</code> with two equal signs. A single equal sign is for assigning a value to a variable and two
@@ -418,8 +418,8 @@ equal signs are for comparisons. You can also use “&lt;=” for less than or e
 x</code></pre>
 <pre><code>## # A tibble: 1 x 6
 ##   id          date        prcp  tmin  tmax location     
-##   &lt;chr&gt;       &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        
-## 1 USW00013897 2016-06-10     0  15.6  33.3 Nashville, TN</code></pre>
+##   &lt;chr&gt;       &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
+## 1 USW00013897 2016-06-10     0   156   333 Nashville, TN</code></pre>
 <p>In the code above, I used the <code>ymd</code> function from <code>lubridate</code> to translate a character
 value “2016-06-10” to the date value for June 10, 2016.</p>
 <p>You can combine conditions in <code>filter</code> by using <code>&amp;</code> to indicate
@@ -429,17 +429,17 @@ value “2016-06-10” to the date value for June 10, 2016.</p>
 head(x,10)</code></pre>
 <pre><code>## # A tibble: 10 x 6
 ##    id          date        prcp  tmin  tmax location     
-##    &lt;chr&gt;       &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        
-##  1 USW00013897 2012-06-29   0    21.1  42.8 Nashville, TN
-##  2 USW00013897 1952-07-27   0    20    41.7 Nashville, TN
-##  3 USW00013897 1952-07-28   0    22.8  41.7 Nashville, TN
-##  4 USW00013897 2012-06-30   0    26.7  41.7 Nashville, TN
-##  5 USW00013897 1952-06-30  15.2  23.3  41.1 Nashville, TN
-##  6 USW00013897 2007-08-16   0    24.4  41.1 Nashville, TN
-##  7 USW00013897 2012-06-28   0    17.8  40.6 Nashville, TN
-##  8 USW00013897 1988-07-08   0    20    40.6 Nashville, TN
-##  9 USW00013897 1954-09-05   0    20.6  40.6 Nashville, TN
-## 10 USW00013897 2012-07-06   0    22.2  40.6 Nashville, TN</code></pre>
+##    &lt;chr&gt;       &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
+##  1 USW00013897 2012-06-29     0   211   428 Nashville, TN
+##  2 USW00013897 1952-07-27     0   200   417 Nashville, TN
+##  3 USW00013897 1952-07-28     0   228   417 Nashville, TN
+##  4 USW00013897 2012-06-30     0   267   417 Nashville, TN
+##  5 USW00013897 1952-06-30   152   233   411 Nashville, TN
+##  6 USW00013897 2007-08-16     0   244   411 Nashville, TN
+##  7 USW00013897 2012-06-28     0   178   406 Nashville, TN
+##  8 USW00013897 1988-07-08     0   200   406 Nashville, TN
+##  9 USW00013897 1954-09-05     0   206   406 Nashville, TN
+## 10 USW00013897 2012-07-06     0   222   406 Nashville, TN</code></pre>
 <p>This sorts the rows in descending order of <code>tmax</code> (i.e., so the largest values are at the top),
 and where multiple rows have the same value of <code>tmax</code>, then it sorts them in ascending order
 of <code>tmin</code>. Observe the three rows with <code>tmax</code> = 41.7, the two rows where <code>tmax</code> = 41.1,
@@ -461,14 +461,14 @@ Fahrenheit using the equation</p>
            tmax = tmax * 9./5. + 32, trange = tmax - tmin)
 head(x)</code></pre>
 <pre><code>## # A tibble: 6 x 7
-##   id          date        prcp  tmin  tmax location      trange
-##   &lt;chr&gt;       &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;
-## 1 USW00013897 1948-01-01  2.67  30.0  64.9 Nashville, TN  34.9 
-## 2 USW00013897 1948-01-02  0     28.9  35.1 Nashville, TN   6.12
-## 3 USW00013897 1948-01-03  0     26.1  48.9 Nashville, TN  22.9 
-## 4 USW00013897 1948-01-04  0     35.1  48.0 Nashville, TN  13.0 
-## 5 USW00013897 1948-01-05  0     28.0  48.0 Nashville, TN  20.0 
-## 6 USW00013897 1948-01-06  0     30.0  51.1 Nashville, TN  21.1</code></pre>
+##   id          date        prcp   tmin  tmax location      trange
+##   &lt;chr&gt;       &lt;date&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;
+## 1 USW00013897 1950-01-01  4.09 192.    243. Nashville, TN   50.4
+## 2 USW00013897 1950-01-02 11.3  243.    291. Nashville, TN   48.6
+## 3 USW00013897 1950-01-03  0    291.    372. Nashville, TN   81  
+## 4 USW00013897 1950-01-04  7.52  42.8   412. Nashville, TN  369  
+## 5 USW00013897 1950-01-05 22.5   32     111. Nashville, TN   79.2
+## 6 USW00013897 1950-01-06  6.30   1.40  333. Nashville, TN  331.</code></pre>
 </div>
 <div id="summarizing-rows" class="section level3">
 <h3>Summarizing rows</h3>
@@ -478,28 +478,28 @@ and the most extreme rainfall in the whole data set:</p>
 x</code></pre>
 <pre><code>## # A tibble: 1 x 3
 ##   prcp.max tmin.min tmax.max
-##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1       NA       NA       NA</code></pre>
-<p><code>nashville_weather</code> has 25446 rows, but summarize reduces it to a single summary row.</p>
+##      &lt;int&gt;    &lt;int&gt;    &lt;int&gt;
+## 1     1842     -400      428</code></pre>
+<p><code>nashville_weather</code> has 25932 rows, but summarize reduces it to a single summary row.</p>
 <p>You can use summary to generate multiple summary quantities from a column:</p>
 <pre class="r"><code>x = summarize(nashville_weather, prcp.max = max(prcp), prcp.min = min(prcp))
 x</code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##   prcp.max prcp.min
-##      &lt;dbl&gt;    &lt;dbl&gt;
-## 1       NA       NA</code></pre>
+##      &lt;int&gt;    &lt;int&gt;
+## 1     1842        0</code></pre>
 <p>We can also generate grouped summaries:</p>
 <pre class="r"><code>x = ungroup(summarize(group_by(nashville_weather, year(date)), prcp.max = max(prcp), prcp.tot = sum(prcp)))
 head(x)</code></pre>
 <pre><code>## # A tibble: 6 x 3
 ##   `year(date)` prcp.max prcp.tot
-##          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1         1948     67.8    1179.
-## 2         1949     78.2    1324.
-## 3         1950     84.6    1633 
-## 4         1951     97.3    1484.
-## 5         1952    118.     1011.
-## 6         1953     47.8    1050.</code></pre>
+##          &lt;dbl&gt;    &lt;int&gt;    &lt;int&gt;
+## 1         1950      846    16330
+## 2         1951      973    14838
+## 3         1952     1176    10113
+## 4         1953      478    10502
+## 5         1954      732    10862
+## 6         1955      831    11539</code></pre>
 <p>This provides the maximum one-day precipitation and the total annual precipitation for each year</p>
 <p>Note how difficult it is to read that grouped summary expression: the <code>group_by</code> function is inside
 <code>summarize</code>, which is inside <code>ungroup</code>.</p>
@@ -512,13 +512,13 @@ taking the result of the one on the left and inserting it into the one on the ri
 head(x)</code></pre>
 <pre><code>## # A tibble: 6 x 3
 ##   `year(date)` prcp.max prcp.tot
-##          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1         1948     67.8    1179.
-## 2         1949     78.2    1324.
-## 3         1950     84.6    1633 
-## 4         1951     97.3    1484.
-## 5         1952    118.     1011.
-## 6         1953     47.8    1050.</code></pre>
+##          &lt;dbl&gt;    &lt;int&gt;    &lt;int&gt;
+## 1         1950      846    16330
+## 2         1951      973    14838
+## 3         1952     1176    10113
+## 4         1953      478    10502
+## 5         1954      732    10862
+## 6         1955      831    11539</code></pre>
 <p>Now the expression is easier to read: First we group <code>nashville_weather</code> by year, then we summarize it by calculating the
 maximum daily precipitation and the yearly total for each year, and finally, after we summarize we ungroup.</p>
 <p>You can combine any set of the <code>tidyverse</code> functions using the pipe operator, so you could <code>select</code> columns,
@@ -543,13 +543,13 @@ have the same columns, the columns are matched up.</p>
 <pre class="r"><code>tail(weather_summary)</code></pre>
 <pre><code>## # A tibble: 6 x 5
 ##    year location      prcp.max prcp.tot t.range.max
-##   &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
-## 1  2015 Chicago, IL       98.3    1169.        18.3
-## 2  2015 Nashville, TN     59.9    1291.        23.9
-## 3  2016 Chicago, IL       50.8    1067.        23.9
-## 4  2016 Nashville, TN     52.8    1086.        22.2
-## 5  2017 Chicago, IL       NA        NA         NA  
-## 6  2017 Nashville, TN     NA        NA         NA</code></pre>
+##   &lt;dbl&gt; &lt;chr&gt;            &lt;int&gt;    &lt;int&gt;       &lt;int&gt;
+## 1  2018 Chicago IL         686    11203         211
+## 2  2018 Nashville, TN      683    14976         277
+## 3  2019 Chicago IL         876    13698         211
+## 4  2019 Nashville, TN     1016    16329         222
+## 5  2020 Chicago IL          NA       NA          NA
+## 6  2020 Nashville, TN      831    13323         222</code></pre>
 </div>
 </div>
 <div id="tidy-data-and-pivoting-tibbles" class="section level2">
@@ -571,12 +571,12 @@ head(giss_zonal)</code></pre>
 <pre><code>## # A tibble: 6 x 9
 ##    year x64n_90n x44n_64n x24n_44n equ_24n x24s_equ x44s_24s x64s_44s x90s_64s
 ##   &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1  1880    -1.05   -0.51     -0.26   -0.21    -0.14    -0.05     0.05    0.65 
-## 2  1881    -0.93   -0.5      -0.15    0.03     0.06    -0.07    -0.07    0.570
-## 3  1882    -1.51   -0.290    -0.09   -0.09    -0.07     0.02     0.04    0.6  
-## 4  1883    -0.4    -0.62     -0.22   -0.24    -0.19    -0.02     0.07    0.48 
-## 5  1884    -1.36   -0.62     -0.41   -0.23    -0.2     -0.19    -0.02    0.63 
-## 6  1885    -1.19   -0.68     -0.42   -0.09    -0.23    -0.31    -0.15    0.8</code></pre>
+## 1  1880    -0.81    -0.42    -0.26   -0.16    -0.1     -0.02     0.05    0.65 
+## 2  1881    -0.91    -0.39    -0.18    0.09     0.11    -0.04    -0.07    0.580
+## 3  1882    -1.4     -0.22    -0.13   -0.05    -0.04     0.03     0.04    0.61 
+## 4  1883    -0.19    -0.51    -0.23   -0.18    -0.15    -0.03     0.07    0.48 
+## 5  1884    -1.31    -0.6     -0.46   -0.13    -0.16    -0.18    -0.02    0.63 
+## 6  1885    -1.52    -0.64    -0.45   -0.07    -0.2     -0.33    -0.15    0.8</code></pre>
 <p>The tibble presents the average temperatures for different bands of latitude:
 64%deg;N–90°N, 44°N==64°N, 24°N–44°N, Equator–24°N,
 and the same for the Southern Hemisphere.</p>
@@ -607,12 +607,12 @@ tidy_zonal = giss_zonal %&gt;%
 <pre><code>## # A tibble: 6 x 3
 ##    year latitude anomaly
 ##   &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt;
-## 1  1880 x64n_90n   -1.05
-## 2  1880 x44n_64n   -0.51
+## 1  1880 x64n_90n   -0.81
+## 2  1880 x44n_64n   -0.42
 ## 3  1880 x24n_44n   -0.26
-## 4  1880 equ_24n    -0.21
-## 5  1880 x24s_equ   -0.14
-## 6  1880 x44s_24s   -0.05</code></pre>
+## 4  1880 equ_24n    -0.16
+## 5  1880 x24s_equ   -0.1 
+## 6  1880 x44s_24s   -0.02</code></pre>
 <p>Now we can clean up the <code>latitude</code> column a bit to make it more friendly for
 human readers:</p>
 <pre class="r"><code>tidy_zonal = tidy_zonal %&gt;%
@@ -624,12 +624,12 @@ head(tidy_zonal)</code></pre>
 <pre><code>## # A tibble: 6 x 3
 ##    year latitude anomaly
 ##   &lt;int&gt; &lt;ord&gt;      &lt;dbl&gt;
-## 1  1880 64N-90N    -1.05
-## 2  1880 44N-64N    -0.51
+## 1  1880 64N-90N    -0.81
+## 2  1880 44N-64N    -0.42
 ## 3  1880 24N-44N    -0.26
-## 4  1880 EQU-24N    -0.21
-## 5  1880 24S-EQU    -0.14
-## 6  1880 44S-24S    -0.05</code></pre>
+## 4  1880 EQU-24N    -0.16
+## 5  1880 24S-EQU    -0.1 
+## 6  1880 44S-24S    -0.02</code></pre>
 <p>In this, the <code>mutate</code> command converts the latitude band into an ordered factor
 where the order is the order of the original columns.
 This gets R to sort them in the order of latitude bands, instead of
@@ -660,28 +660,28 @@ the “key” column.</p>
 <p>Let’s go back to the <code>weather_summary</code> tibble we made above:</p>
 <pre class="r"><code>head(weather_summary)</code></pre>
 <pre><code>## # A tibble: 6 x 5
-##    year location    prcp.max prcp.tot t.range.max
-##   &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
-## 1  1928 Chicago, IL       NA       NA          NA
-## 2  1929 Chicago, IL       NA       NA          NA
-## 3  1930 Chicago, IL       NA       NA          NA
-## 4  1931 Chicago, IL       NA       NA          NA
-## 5  1932 Chicago, IL       NA       NA          NA
-## 6  1933 Chicago, IL       NA       NA          NA</code></pre>
+##    year location      prcp.max prcp.tot t.range.max
+##   &lt;dbl&gt; &lt;chr&gt;            &lt;int&gt;    &lt;int&gt;       &lt;int&gt;
+## 1  1950 Chicago IL         630    10105         244
+## 2  1950 Nashville, TN      846    16330         244
+## 3  1951 Chicago IL         721    10970         233
+## 4  1951 Nashville, TN      973    14838         233
+## 5  1952 Chicago IL         406     7188         217
+## 6  1952 Nashville, TN     1176    10113         239</code></pre>
 <p>Let’s set it up to make it easy to compare the annual precipitation of
 Nashville and Chicago:</p>
 <pre class="r"><code>x = weather_summary %&gt;% select(year, location, prcp.tot) %&gt;%
   pivot_wider(names_from = &quot;location&quot;, values_from = &quot;prcp.tot&quot;)
 tail(x)</code></pre>
 <pre><code>## # A tibble: 6 x 3
-##    year `Chicago, IL` `Nashville, TN`
-##   &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;
-## 1  2012          801.           1165.
-## 2  2013         1076.           1394.
-## 3  2014         1322.           1286.
-## 4  2015         1169.           1291.
-## 5  2016         1067.           1086.
-## 6  2017           NA              NA</code></pre>
+##    year `Chicago IL` `Nashville, TN`
+##   &lt;dbl&gt;        &lt;int&gt;           &lt;int&gt;
+## 1  2015        11688           12907
+## 2  2016        10667           10861
+## 3  2017        11599           13446
+## 4  2018        11203           14976
+## 5  2019        13698           16329
+## 6  2020           NA           13323</code></pre>
 </div>
 </div>
 <div id="graphing-data" class="section level1">
