@@ -910,6 +910,18 @@ body {
 .reveal .darkbluetext a:visited {
   color: darkblue; }
 
+.reveal .darkgreentext section,
+.reveal .darkgreentext div,
+.reveal .darkgreentext span,
+.reveal .darkgreentext p,
+.reveal .darkgreentext li,
+.reveal .darkgreentext ul,
+.reveal .darkgreentext ol,
+.reveal span.darkgreentext,
+.reveal .darkgreentext a:link,
+.reveal .darkgreentext a:visited {
+  color: darkgreen; }
+
 .reveal .t95 h1,
 .reveal .ninetyfive h1 {
   font-size: 2.1em; }
