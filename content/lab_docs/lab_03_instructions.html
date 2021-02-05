@@ -26,16 +26,21 @@ exercise.</p>
 to turn those insights into reproducible research.</p>
 <div id="using-modtran-with-rmarkdown." class="section level2">
 <h2>Using MODTRAN with RMarkdown.</h2>
-<p>This RMarkdown document includes the line <code>source("scripts/modtran.R")</code>,
+<p>This RMarkdown document includes the line <code>source("_scripts/modtran.R")</code>,
 which loads a script with the following functions:</p>
 <ul>
 <li><p><code>run_modtran()</code> allows you to automatically download a file
 with the data from a MODTRAN run. You call it with the following arguments:</p>
 <ul>
-<li><p><code>filename</code> is the name of the file to save the data to. I recommend
-giving it a meaningful name: for instance, a run with 550 ppm CO2 and 3.4
-ppm methane might be called “<code>modtran_440_34.txt</code>”. Make up your own file
-names, but think about how you will tell which is which.</p></li>
+<li><p><code>filename</code> is an optional name for a file to save the data to.
+If you don’t specify the <code>filename</code>, then <code>run_modtran</code> will not save the
+model output to the disk.
+I recommend giving it a meaningful name: for instance, a run with
+550 ppm CO2 and 3.4 ppm methane might be called “<code>modtran_440_34.txt</code>”.
+Make up your own file names, but think about how you will tell which is
+which.
+I also recommend that you save the files in the <code>_data</code> subdirectory to keep
+your project nicely organized.</p></li>
 <li><p><code>co2_ppm</code> is the amount of CO<sub>2</sub> in parts per million. The default is 400.</p></li>
 <li><p><code>ch4_ppm</code> is the amount of methane in parts per million. The default is 1.7.</p></li>
 <li><p><code>trop_o3_ppb</code> is the amount of ozone in the troposphere, in parts per billion.
@@ -59,15 +64,33 @@ amount of CO<sub>2</sub> or other greenhouse gases.</p></li>
 <li><p><code>h2o_fixed</code> is what quantity to hold fixed for water vapor.
 Possible values are “vapor pressure” (the default), and “relative humidity”</p></li>
 <li><p><code>atmosphere</code> is the locality in the MODTRAN model.
-Possible values are: “tropical” (the default),
-“midlatitude summer”, “midlatitude winter”,
-“subarctic summer”, “subarctic winter”, and
-“standard” for the 1976 U.S. standard atmosphere.</p></li>
+Possible values are:</p>
+<ul>
+<li><code>"tropical"</code> (the default),</li>
+<li><code>"midlatitude summer"</code>,</li>
+<li><code>"midlatitude winter"</code>,</li>
+<li><code>"subarctic summer"</code>,</li>
+<li><code>"subarctic winter"</code>,</li>
+<li>and <code>"standard"</code> for the 1976 U.S. standard atmosphere.</li>
+</ul></li>
 <li><p><code>clouds</code> is the specification of clouds and rain.
-Possible values are “none” (the default),
-“cumulus”, “altostratus”, “stratus”, “stratocumulus”, “nimbostratus”,
-“drizzle”, “light rain”, “medium rain”, “heavy rain”, “extreme rain”,
-“standard cirrus”, “subvisual cirrus”, and “NOAA cirrus”.</p>
+Possible values are</p>
+<ul>
+<li><code>"none"</code> (the default),</li>
+<li><code>"cumulus"</code>,</li>
+<li><code>"altostratus"</code>,</li>
+<li><code>"stratus"</code>,</li>
+<li><code>"stratocumulus"</code>,</li>
+<li><code>"nimbostratus"</code>,</li>
+<li><code>"drizzle"</code>,</li>
+<li><code>"light rain"</code>,</li>
+<li><code>"medium rain"</code>,</li>
+<li><code>"heavy rain"</code>,</li>
+<li><code>"extreme rain"</code>,</li>
+<li><code>"standard cirrus"</code>,</li>
+<li><code>"subvisual cirrus"</code>,</li>
+<li>and <code>"NOAA cirrus"</code>.</li>
+</ul>
 <p><strong>Stratus clouds</strong> are flat, opaque, and low-altitude.
 <strong>Altostratus clouds</strong> are flat and medium altitude.
 <strong>Cirrus clouds</strong> are thin and high-altitude. They are hard to model,
@@ -90,14 +113,62 @@ IR radiation going out to space.</p></li>
 “down” (the default) or “up”.</p></li>
 </ul>
 <p>Any arguments you don’t specify explicitly take on their default value.
-Thus, <code>run_modtran(file.path(data_dir, "modtran_experiment_1.txt"), co2_ppm = 800, delta_t = 1.0, h2o_fixed = "relative humidity")</code>
+Thus,
+<code>run_modtran(file.path(data_dir, "modtran_experiment_1.txt"), co2_ppm = 800, delta_t = 1.0, h2o_fixed = "relative humidity")</code>
 would run with all the default values, except for 800 ppm CO<sub>2</sub>,
-a temperature offset of 1°C, and holding relative humidity fixed.</p></li>
-<li><p><code>plot_modtran</code> reads a MODTRAN output file and generates a plot.
+a temperature offset of 1°C, and holding relative humidity fixed.</p>
+<p>The function <strong>returns a list with 7 elements</strong>:</p>
+<ul>
+<li><code>spectrum</code> is a data tibble with the spectral information (wavelength <code>lambda</code>,
+wavenumber <code>k</code>, outgoing IR intensity <code>tk</code>, and a number of other variables.)</li>
+<li><code>profile</code> is the profile of the atmosphere: a tibble with seven columns:
+<ul>
+<li><code>Z</code> is the altitude in km,</li>
+<li><code>P</code> is the atmospheric pressure, in millibars, and</li>
+<li><code>T</code> is the temperature in Kelvin.</li>
+<li><code>H2O</code> is the concentration of water vapor, in parts per million at each
+altitude.</li>
+<li><code>O3</code> is the concentration of ozone, in parts per million at each
+altitude.</li>
+<li><code>CO2</code> is the concentration of carbon dioxide, in parts per million at each
+altitude.</li>
+<li><code>CH4</code> is the concentration of methane, in parts per million at each
+altitude.</li>
+</ul></li>
+<li><code>co2</code> is the atmospheric CO<sub>2</sub> concentration</li>
+<li><code>ch4</code> is the atmospheric methane concentration</li>
+<li><code>i_out</code> is the intensity of the outgoing IR radiation flux.</li>
+<li><code>t_ground</code> is the ground temperature (in Kelvin) used in the model run.
+(Remember that this is something you set when you run the model.
+MODTRAN cannot calculate the way ground temperature changes when
+you change greenhouse gases, clouds, or other characteristics of the
+atmosphere.)</li>
+<li><code>t_tropo</code> is the temperature at the tropopause (in Kelvin).</li>
+<li><code>h_tropo</code> is the height of the tropopause (in km).</li>
+<li><code>alt</code> is the altitude of the virtual sensor.</li>
+<li><code>sensor_direction</code> is the direction of the virtual sensor (“up” or “down”).</li>
+</ul>
+<p>You can assign the output of <code>run_modtran()</code> to a variable like this:
+<code>mod_data = run_modtran("my_modtran_file.txt", co2_ppm = 400)</code> and then
+you can pass the value of <code>mod_data</code> to the <code>plot_modtran()</code> function, as
+described below.</p></li>
+<li><p><code>read_modtran(filename)</code> allows you to read in a MODTRAN output file
+(saved to the disk by <code>run_modtran()</code>. It returns a list with the
+same elements as <code>run_modtran()</code>.</p></li>
+<li><p><code>plot_modtran</code> generates a plot of the radiative spectrum.
 There are many arguments, and I won’t explain them all here, but
 the important ones are:</p>
 <ul>
-<li><p><code>filename</code> is the MODTRAN output file with the data to use for the plot.</p></li>
+<li><p><code>modtran_data</code> is the data that would be returned by the <code>run_modtran()</code>
+function. If you want to plot</p></li>
+<li><p><code>filename</code> is the MODTRAN output file with the data to use for the plot.</p>
+<p>You can also provide data directly to <code>plot_modtran</code> instead of reading
+in a file:
+Instead of writing
+<code>plot_modtran("my_modtran_file.txt", ...)</code>,
+you could write,
+<code>plot_modtran(modtran_data = mod_data, ...)</code>,
+where <code>mod_data</code> is the output of <code>run_modtran()</code> or <code>read_modtran()</code>.</p></li>
 <li><p><code>descr</code> is an optional string to use for the title of the plot.
 If you don’t specify anything, the function will make a title
 that indicates the CO2 concentration and the altitude of the virtual
@@ -114,28 +185,6 @@ the plotting function adds an annotation to indicate it.</p></li>
 <li><p><code>text_size</code> allows you to adjust the size of the text used for axis labels
 and the plot title.</p></li>
 </ul></li>
-<li><p><code>read_modtran(filename)</code> allows you to read in a MODTRAN output file and
-examine the data. This function returns a list with 7 elements:</p>
-<ul>
-<li><p><code>spectrum</code> is a data tibble with the spectral information (wavelength <code>lambda</code>,
-wavenumber <code>k</code>, outgoing IR intensity <code>tk</code>, and a number of other variables.)</p></li>
-<li><p><code>profile</code> is the profile of the atmosphere: a tibble with three columns:
-<code>Z</code> is the altitude in km,
-<code>P</code> is the atmospheric pressure, in millibars, and
-<code>T</code> is the temperature in Kelvin.</p></li>
-<li><p><code>co2</code> is the atmospheric CO<sub>2</sub> concentration</p></li>
-<li><p><code>ch4</code> is the atmospheric methane concentration</p></li>
-<li><p><code>i_out</code> is the intensity of the outgoing IR radiation flux.</p></li>
-<li><p><code>t_ground</code> is the ground temperature (in Kelvin) used in the model run.
-(Remember that this is something you set when you run the model.
-MODTRAN cannot calculate the way ground temperature changes when
-you change greenhouse gases, clouds, or other characteristics of the
-atmosphere.)</p></li>
-<li><p><code>t_tropo</code> is the temperature at the tropopause (in Kelvin).</p></li>
-<li><p><code>h_tropo</code> is the height of the tropopause (in km).</p></li>
-<li><p><code>alt</code> is the altitude of the virtual sensor.</p></li>
-<li><p><code>sensor_direction</code> is the direction of the virtual sensor (“up” or “down”).</p></li>
-</ul></li>
 </ul>
 <div id="converting-temperature-units" class="section level3">
 <h3>Converting temperature units</h3>
@@ -149,67 +198,70 @@ from one unit of measurement to another are:</p>
 <li><p><code>ctok(T)</code> converts <code>T</code> from Celsius to Kelvin.</p></li>
 <li><p><code>ctof(T)</code> converts <code>T</code> from Celsius to Fahrenheit.</p></li>
 <li><p><code>ftoc(T)</code> converts <code>T</code> from Fahrenheit to Celsius.</p></li>
+</ul></li>
 </ul>
 <p>But be aware that if you want to convert the <em>difference between two
 temperatures</em>, you need to convert the temperatures and then take the
-difference:</p></li>
-</ul>
-<pre class="r"><code>    t1_k = 254 # Kelvin temperature
-    t2_k = 288 # Kelvin temperature
-    delta_t_k = t2_k - t1_k # Difference in temeprature, in Kelvin
+difference:</p>
+<pre class="r"><code>t1_k = 254 # Kelvin temperature
+t2_k = 288 # Kelvin temperature
+delta_t_k = t2_k - t1_k # Difference in temeprature, in Kelvin
 
-    delta_t_k</code></pre>
+delta_t_k</code></pre>
 <pre><code>## [1] 34</code></pre>
-<pre class="r"><code>    t1_f = ktof(t1_k) # Fahrenheit temperatures
-    t2_f = ktof(t2_k)
-    
-    t1_f</code></pre>
+<pre class="r"><code>t1_f = ktof(t1_k) # Fahrenheit temperatures
+t2_f = ktof(t2_k)
+
+t1_f</code></pre>
 <pre><code>## [1] -2.47</code></pre>
-<pre class="r"><code>    t2_f</code></pre>
+<pre class="r"><code>t2_f</code></pre>
 <pre><code>## [1] 58.73</code></pre>
-<pre class="r"><code>    delta_t_f = t2_f - t1_f # Difference in temperature, in Fahrenheit
-    
-    delta_t_f</code></pre>
+<pre class="r"><code>delta_t_f = t2_f - t1_f # Difference in temperature, in Fahrenheit
+
+delta_t_f</code></pre>
 <pre><code>## [1] 61.2</code></pre>
-<pre class="r"><code>    # This will give the wrong answer for the 
-    # temperature difference in Fahrenheit!
-    ktof(delta_t_k)</code></pre>
+<pre class="r"><code># This will give the wrong answer for the 
+# temperature difference in Fahrenheit!
+ktof(delta_t_k)</code></pre>
 <pre><code>## [1] -398.47</code></pre>
-<p>You see that <span class="math inline">\(58.73 - -2.47 \neq -398.47\)</span>.</p>
+<p>You see that 58.73 minus -2.47 is not -398.47.</p>
 <ul>
 <li><p>Some variables that I have defined for you are:</p>
 <ul>
 <li><p><code>sigma_sb</code> is the Stefan-Boltzmann constant.</p></li>
 <li><p><code>solar_constant</code> is the Solar Constant (the intensity of sunlight at the
-top of the atmosphere).</p></li>
+top of the atmosphere, 1350.).</p></li>
 </ul></li>
 </ul>
 </div>
 </div>
 <div id="examples" class="section level2">
 <h2>Examples:</h2>
+<pre class="r"><code>modtran_baseline = run_modtran(filename = 
+                                 file.path(data_dir, &quot;modtran_baseline.txt&quot;))</code></pre>
+<p>You could also write this as</p>
 <pre class="r"><code>run_modtran(filename = file.path(data_dir, &quot;modtran_baseline.txt&quot;))
-
-modtran_baseline = read_modtran(file.path(data_dir, &quot;modtran_baseline.txt&quot;))
-
-# Here is how you extract the various values from modtran_baseline:
-baseline_i_out &lt;- modtran_baseline$i_out
+modtran_baseline = read_modtran(file.path(data_dir, &quot;modtran_baseline.txt&quot;))</code></pre>
+<p>Now you can extract the various values from modtran_baseline:</p>
+<pre class="r"><code>baseline_i_out &lt;- modtran_baseline$i_out
 baseline_t_trop &lt;- modtran_baseline$t_trop</code></pre>
 <p>The baseline MODTRAN run has
 <span class="math inline">\(I_{\text{out}} = 299.\)</span>
 and
 <span class="math inline">\(T_{\text{tropopause}} = 190.\)</span>.</p>
-<pre class="r"><code>plot_modtran(file.path(data_dir, &quot;modtran_baseline.txt&quot;))</code></pre>
+<pre class="r"><code>plot_modtran(modtran_baseline)</code></pre>
 <p><img src="/lab_docs/lab_03_instructions_files/figure-html/plot_modtran_baseline-1.png" width="672" /></p>
-<pre class="r"><code>run_modtran(filename = file.path(data_dir, &quot;modtran_double_co2.txt&quot;), 
+<p>Or you could write</p>
+<pre class="r"><code>plot_modtran(filename = file.path(data_dir, &quot;modtran_baseline.txt&quot;))</code></pre>
+<p><img src="/lab_docs/lab_03_instructions_files/figure-html/plot_modtran_baseline_2-1.png" width="672" /></p>
+<pre class="r"><code>double_co2 = run_modtran(filename = file.path(data_dir, &quot;modtran_double_co2.txt&quot;), 
             co2_ppm = 800)
-plot_modtran(file.path(data_dir, &quot;modtran_double_co2.txt&quot;), 
-             i_out_ref = baseline_i_out, delta_t = 0)</code></pre>
+plot_modtran(double_co2, i_out_ref = baseline_i_out, delta_t = 0)</code></pre>
 <p><img src="/lab_docs/lab_03_instructions_files/figure-html/double_co2-1.png" width="672" /></p>
-<pre class="r"><code>run_modtran(filename = file.path(data_dir, &quot;modtran_double_co2_warming.txt&quot;), 
-            co2_ppm = 800, delta_t = 0.76)
-plot_modtran(file.path(data_dir, &quot;modtran_double_co2_warming.txt&quot;), 
-             i_out_ref = baseline_i_out, delta_t = 0.76)</code></pre>
+<pre class="r"><code>mod_file = file.path(data_dir, &quot;modtran_double_co2_warming.txt&quot;)
+double_co2_warming = run_modtran(filename = mod_file, 
+                                 co2_ppm = 800, delta_t = 0.76)
+plot_modtran(double_co2_warming, i_out_ref = baseline_i_out, delta_t = 0.76)</code></pre>
 <p><img src="/lab_docs/lab_03_instructions_files/figure-html/double_co2_warming-1.png" width="672" /></p>
 </div>
 </div>
@@ -228,88 +280,224 @@ for (i in 1:4) {
   plot(p)
 }</code></pre>
 <p><img src="/lab_docs/lab_03_instructions_files/figure-html/loop-1.png" width="288" /><img src="/lab_docs/lab_03_instructions_files/figure-html/loop-2.png" width="288" /><img src="/lab_docs/lab_03_instructions_files/figure-html/loop-3.png" width="288" /><img src="/lab_docs/lab_03_instructions_files/figure-html/loop-4.png" width="288" /></p>
+<p>This gives us a nice way to run MODTRAN over and over, with many different
+values for the CO<sub>2</sub> concentration and recording the value of I<sub>out</sub> for each
+concentration.</p>
+<p>In the loop below, we set all the greenhouse gases to zero and then vary CO<sub>2</sub>.
+We use a trick in R by making an empty tibble before we start the loop and then
+for each iteration of the loop, we use <code>bind_rows</code> to append a row with the
+data from that loop iteration.</p>
+<pre class="r"><code>co2_values = c(0, 200, 400, 600, 800, 1000, 1200)
+tbl = tibble()
+for (co2 in co2_values) {
+  filename = str_c(&quot;modtran_co2_&quot;, co2, &quot;.txt&quot;)
+  mod_data = run_modtran(filename, co2_ppm = co2, ch4_ppm = 0, trop_o3_ppb = 0,
+                         strat_o3_scale = 0, h2o_scale = 0, freon_scale = 0,
+                         atmosphere = &quot;standard&quot;, altitude_km = 70)
+  tbl = bind_rows(tbl, tibble(co2_ppm = co2, i_out = mod_data$i_out))
+}
+
+# The digits argument below sets the number of decimal places
+# for each column in the table.
+kable(tbl, digits = c(co2_ppm = 0, i_out = 1))</code></pre>
+<p>This code runs <code>run_modtran</code> for each value of CO<sub>2</sub> in <code>co2_values</code>
+and saves the result to a file <code>modtran_0.txt</code>, <code>modtran_200.txt</code>, and so
+forth. I make the filenames from the values of <code>co2</code> using the <code>str_c</code> function,
+which I explain below.</p>
 </div>
-<div id="combining-character-variables" class="section level2">
-<h2>Combining character variables</h2>
+<div id="manipulating-text-in-r" class="section level2">
+<h2>Manipulating text in R</h2>
 <p>R has many functions for manipulating text. When R stores text, it stores it
 in character variables (these are also sometimes called “strings” because
 text is like a string of characters).
 For instance, we might want to make a label or a filename by combining several
 variables.
-Three functions that we can use are <code>str_c</code>, from the <code>stringr</code> package and
-<code>paste</code> and <code>paste0</code>,
-from basic R. All of these work pretty much the same way:</p>
-<pre class="r"><code>print(paste(&quot;mail&quot;, &quot;box&quot;))</code></pre>
-<pre><code>## [1] &quot;mail box&quot;</code></pre>
-<pre class="r"><code>print(paste(&quot;mail&quot;, &quot;box&quot;, sep = &quot;&quot;))</code></pre>
-<pre><code>## [1] &quot;mailbox&quot;</code></pre>
-<pre class="r"><code>print(paste0(&quot;infra&quot;, &quot;red&quot;))</code></pre>
-<pre><code>## [1] &quot;infrared&quot;</code></pre>
+We can use the function <code>str_c</code>, from the <code>tidyverse</code>:</p>
 <pre class="r"><code>print(str_c(&quot;infra&quot;, &quot;red&quot;))</code></pre>
 <pre><code>## [1] &quot;infrared&quot;</code></pre>
 <pre class="r"><code>print(str_c(&quot;infra&quot;, &quot;red&quot;, sep = &quot;-&quot;))</code></pre>
 <pre><code>## [1] &quot;infra-red&quot;</code></pre>
+<pre class="r"><code>print(str_c(10, &quot;km&quot;, sep = &quot; &quot;))</code></pre>
+<pre><code>## [1] &quot;10 km&quot;</code></pre>
 <pre class="r"><code>print(str_c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, sep = &quot;, &quot;))</code></pre>
 <pre><code>## [1] &quot;one, two, three, four&quot;</code></pre>
-<pre class="r"><code>print(str_c(10, &quot; km&quot;))</code></pre>
-<pre><code>## [1] &quot;10 km&quot;</code></pre>
 <pre class="r"><code>x = 50
 
-print(str_c(x, &quot; Watts&quot;))</code></pre>
+print(str_c(x, &quot;Watts&quot;))</code></pre>
+<pre><code>## [1] &quot;50Watts&quot;</code></pre>
+<pre class="r"><code>print(str_c(x, &quot; Watts&quot;))</code></pre>
 <pre><code>## [1] &quot;50 Watts&quot;</code></pre>
 <pre class="r"><code>print(str_c(x, &quot;Watts&quot;, sep = &quot; &quot;))</code></pre>
 <pre><code>## [1] &quot;50 Watts&quot;</code></pre>
-<p>Notice how <code>paste</code> puts spaces between the strings when it combines them unless
-you specify that <code>sep</code> (the separator) should be something different.
-<code>paste0</code> works just like <code>paste</code>, except that it doesn’t have a separator, so
-the variables are combined without an extra space.
-<code>str_c</code> is like <code>paste0</code>, except that you can specify a separator if you do
-want something in between the different variables.</p>
+<p>Notice how <code>str_c</code> pastes the text together without any spaces between the
+parts unless you tell it to use a separator (<code>sep</code>) between them.</p>
 </div>
 <div id="calculating-with-leads-and-lags" class="section level2">
 <h2>Calculating with leads and lags</h2>
 <p>Sometimes, when we are using <code>mutate</code> with a data tibble, we might want to
 look at differences between a row and the row before or after it in the
 tibble. We can do this with the <code>lead</code> and <code>lag</code> functions:</p>
-<p>In the examnple below, the column <code>u</code> gets the value of the current row of
+<p>In the example below, the column <code>u</code> gets the value of the current row of
 <code>y</code> minus the previous row of <code>y</code>, and the column <code>v</code> gets the value of the
 next row of <code>y</code> minus the current row of <code>y</code>. Note that where there isn’t a
 previous row, <code>lag</code> returns <code>NA</code> (missing value), and similarly for <code>lead</code>
 when there isn’t a next row.</p>
 <pre class="r"><code>tbl = tibble(x = 0:5, y = x^2)
 
-tbl = tbl %&gt;% mutate(u = y - lag(y), v = lead(y) - y)
-tbl</code></pre>
-<pre><code>## # A tibble: 6 x 4
-##       x     y     u     v
-##   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1     0     0    NA     1
-## 2     1     1     1     3
-## 3     2     4     3     5
-## 4     3     9     5     7
-## 5     4    16     7     9
-## 6     5    25     9    NA</code></pre>
+tbl = tbl %&gt;% mutate(&quot;lag y&quot; = lag(y), &quot;lead y&quot; = lead(y), u = y - lag(y), 
+                     v = lead(y) - y)
+kable(tbl)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+<th align="right">y</th>
+<th align="right">lag y</th>
+<th align="right">lead y</th>
+<th align="right">u</th>
+<th align="right">v</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">9</td>
+<td align="right">3</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">9</td>
+<td align="right">4</td>
+<td align="right">16</td>
+<td align="right">5</td>
+<td align="right">7</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="right">16</td>
+<td align="right">9</td>
+<td align="right">25</td>
+<td align="right">7</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="right">25</td>
+<td align="right">16</td>
+<td align="right">NA</td>
+<td align="right">9</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
 <p>If you want to lead or lag by more than one row, you can just say, <code>lag(y, 5)</code>
 to get the value of <code>y</code> 5 rows before the current one.</p>
 <pre class="r"><code>tbl = tibble(x = 1:10)
-
 tbl = tbl %&gt;% mutate(before = lag(x), after = lead(x), 
                      before.2 = lag(x, 2), after.3 = lead(x, 3))
-
-tbl</code></pre>
-<pre><code>## # A tibble: 10 x 5
-##        x before after before.2 after.3
-##    &lt;int&gt;  &lt;int&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt;
-##  1     1     NA     2       NA       4
-##  2     2      1     3       NA       5
-##  3     3      2     4        1       6
-##  4     4      3     5        2       7
-##  5     5      4     6        3       8
-##  6     6      5     7        4       9
-##  7     7      6     8        5      10
-##  8     8      7     9        6      NA
-##  9     9      8    10        7      NA
-## 10    10      9    NA        8      NA</code></pre>
+kable(tbl)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+<th align="right">before</th>
+<th align="right">after</th>
+<th align="right">before.2</th>
+<th align="right">after.3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">NA</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">7</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">7</td>
+<td align="right">4</td>
+<td align="right">9</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">8</td>
+<td align="right">5</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">7</td>
+<td align="right">9</td>
+<td align="right">6</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">8</td>
+<td align="right">10</td>
+<td align="right">7</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">9</td>
+<td align="right">NA</td>
+<td align="right">8</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="modifying-x-and-y-axes-in-ggplot" class="section level2">
 <h2>Modifying <em>x</em> and <em>y</em> axes in <code>ggplot</code></h2>
@@ -337,201 +525,173 @@ ggplot(tbl, aes(x = x, y = y)) + geom_line() +
 </div>
 <div id="exercises-for-lab-3" class="section level1">
 <h1>Exercises for Lab #3</h1>
-<div id="chapter-4-exercises" class="section level2">
-<h2>Chapter 4 Exercises</h2>
-<div id="exercise-4.1-methane" class="section level3">
-<h3>Exercise 4.1: Methane</h3>
+<p>You should accept the GitHub Classroom assignment for Lab #3, create a new
+RStudio project for the lab, choosing Version Control and the link to the
+GitHub repository for your Lab 3 project, and then open the file
+<code>lab-03-exercises.Rmd</code> in RStudio to do these exercises.</p>
+</div>
+<div id="chapter-4-exercises" class="section level1">
+<h1>Chapter 4 Exercises</h1>
+<div id="exercise-4.1-methane" class="section level2">
+<h2>Exercise 4.1: Methane</h2>
 <p>Methane has a current concentration of 1.7 ppm in the atmosphere and
 is doubling at a faster rate than CO<sub>2</sub>.</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Would an additional 10 ppm of methane in the atmosphere have a larger or smaller
-impact on the outgoing IR flux than an additional 10 ppm of CO<sub>2</sub> at current
-concentrations?</p></li>
-<li><p>Where in the spectrum does methane absorb? What concentration does it take to
-begin to saturate the absorption in this band? Explain what you are looking
-at to judge when the gas is saturated.</p>
+<li><p><strong>Would an additional 10 ppm of methane in the atmosphere have a larger or
+smaller impact on the outgoing IR flux than an additional 10 ppm of CO<sub>2</sub>
+at current concentrations?</strong></p>
 <p><strong>Suggestion:</strong></p>
 <ul>
-<li><p>Run MODTRAN with no greenhouse gases, except 0.4 ppm of methane.</p></li>
-<li><p>Run MODTRAN several times, successively doubling the amount of methane:
-0.4 ppm, 0.8 ppm, 1.6 ppm, … 102.4 ppm.</p>
-<p>Hint: You can use the following R commands to do this:</p>
-<pre><code>methane_data = tibble() # create a blank data tibble
-
-for (x in 0:11) {
-  # Repeat everything between the braces &quot;{}&quot; for x taking on
-  # each value in 0, 1, 2, ..., 11.
-
-  p_methane = 0.4 * (2^x) # methane concentration is 0.4 times 2 to the 
-                          # power of x.
-
-  # Create a character variable that will be a file name of the form
-  # file.path(data_dir, &quot;methane_xx_x.txt&quot;), where xx_x is the methane 
-  # concentration, with an underscore for the decimal point.
-  file_name = formatC(p_methane, digits = 1, decimal.mark = &quot;_&quot;, 
-                      format = &quot;f&quot;) %&gt;%
-              str_c(&#39;methane_&#39;, ., &quot;.txt&quot;) %&gt;%
-              file.path(data_dir, .)
-
-  # Now run MODTRAN
-  run_modtran(file_name, co2_ppm = 0, ch4_ppm = p_methane, 
-              trop_o3_ppb = 0, strat_o3_scale = 0, h2o_scale = 0, 
-              freon_scale = 0, 
-              delta_t = 0, h2o_fixed = &quot;vapor pressure&quot;,
-              atmosphere = &quot;tropical&quot;, clouds = &quot;none&quot;, 
-              altitude_km = 70, looking = &quot;down&quot;)
-
-  # Read the MODTRAN results into R
-  results = read_modtran(file_name)
-
-  # Create a data tibble with columns for the methane concentration
-  # and I out, and append it to the end of the tibble methane_data
-  df = tibble(methane = results$ch4, i_out = results$i_out)
-  methane_data = bind_rows(methane_data, df)
-}</code></pre>
-<p>This will run MODTRAN for the different values of methane concentration and
-save them in the "_data" folder as “methane_0_4.txt”, “methane_0_8.txt”,
-“methane_1_6.txt”, and so forth, up to “methane_819_2.txt”, and also
-create a data tibble <code>methane_data</code> with a list of methane concentrations
-and the corresponding <span class="math inline">\(I_{\text{out}}\)</span>.</p></li>
-<li><p>Use <code>mutate</code> to add a new column <code>change</code>, which contains the change in
-<span class="math inline">\(I_{\text{out}}\)</span> between the previous row and this one. You can use the
-<code>lag</code> command to calculate this, as described above in the “new R
-functions” section.</p>
-<pre><code>     methane_data = methane_data %&gt;% mutate(change = i_out - lag(i_out))
-     ```
-
-Now plot `i_out` versus the methane concentration several ways:
-
-* First, just plot `i_out` versus `methane`:</code></pre>
-<p>ggplot(methane_data, aes(x = methane, y = i_out)) +
-geom_point(size = 2) +
-geom_line(size = 1) +
-labs() # add parameters to labs to label your axes.
-```</p>
-<ul>
-<li><p>Next, plot the same data, but with a logarithmic <em>x</em>-axis (use
-<code>scale_x_log10</code>, as described above in the “New R Functions” section)</p></li>
-<li><p>Next, plot <code>methane_concentration</code>, but assign the column <code>change</code>
-to the <em>y</em> axis, instead of the column <code>i_out</code>.</p></li>
-<li><p>Think back to the slides I showed in class #6 about identifying band
-saturation. Do you see a place where the successive changes in <code>i_out</code>
-flatten out? Estimate the concentration of methane where absorption
-saturates.</p></li>
-</ul></li>
-</ul></li>
-<li><p>Would a doubling of methane have as great an impact on the heat balance as a
-doubling of CO<sub>2</sub>?</p>
+<li>Run MODTRAN in the default configuration (400 ppm CO<sub>2</sub> and 1.7 ppm
+methane)</li>
+<li>Run MODTRAN with an extra 10 ppm of CO<sub>2</sub> and the normal amount of methane.</li>
+<li>Run MODTRAN with the normal amount of CO<sub>2</sub> and an extra 10 ppm of methane.</li>
+</ul>
+<p>What would you look at from the three runs to figure out whether 10 ppm of
+methane or 10 ppm of CO<sub>2</sub> had the greater effect?</p></li>
+<li><p><strong>Where in the spectrum does methane absorb? What concentration does it take
+to begin to saturate the absorption in this band? Explain what you are looking
+at to judge when the gas is saturated.</strong></p>
+<p><strong>Hints</strong>:<br />
+I recommend setting all the greenhouse gases to zero, and run MODTRAN.
+Then run MODTRAN for several values of methane, starting at 1 ppm and
+doubling the concentration until you get to around 128 ppm.
+You can do this using a <code>for</code> loop, following the examples from the
+lab instructions.</p>
+<p>To set all the greenhouse gases to zero, you would call
+<code>run_modtran(co2_ppm = 0, ch4_ppm = 0, trop_o3_ppb = 0, strat_o3_scale = 0, h2o_scale = 0, freon_scale = 0)</code></p>
+<p>The spectrum of methane is complicated so it doesn’t saturate all at once.
+Use <code>plot_modtran</code> to plot the spectrum for each concentration and describe
+what you see and where you think methane begins to saturate and why.</p>
+<p>By default, <code>plot_modtran</code> gives a plot a title that indicates the CO<sub>2</sub>
+concentration. Here, CO<sub>2</sub> doesn’t change and we’re interested in the CH<sub>4</sub>
+concentration, so you can use the <code>descr</code> argument to <code>plot_modtran</code> to
+give the plots different titles. See the example below.</p>
+<p>Remember that if you want to make several plots using a <code>for</code> loop, you need to
+assign the result from <code>plot_modtran</code> or <code>ggplot</code> to a variable and then
+use the <code>plot</code> or <code>print</code> function.</p>
+<pre class="r"><code>for (ch4 in ch4_list) {
+  mod_data = run_modtran(co2_ppm = 0, ch4_ppm = ch4, trop_o3_ppb = 0,
+  strat_o3_scale = 0, h2o_scale = 0, freon_scale = 0)
+  p = plot_modtran(mod_data)
+  plot(p) # you could also say print(p) here.
+}</code></pre></li>
+<li><p><strong>Would a doubling of methane have as great an impact on the heat balance as a
+doubling of CO<sub>2</sub>?</strong></p>
 <p><strong>Suggestion:</strong></p>
 <ul>
 <li>Run MODTRAN in its default configuration (400 ppm CO<sub>2</sub> and 1.7 ppm methane)</li>
-<li>Run it again with 10 ppm of extra methane</li>
-<li>Run it again with the default methane (1.7 ppm) but 10 ppm extra CO<sub>2</sub>.</li>
+<li>Run it again with double the methane concentration.</li>
+<li>Run it again with the default methane (1.7 ppm) but double the CO<sub>2</sub>
+concentration.</li>
 <li>Compare <span class="math inline">\(I_{\text{out}}\)</span> for the three runs.</li>
 </ul></li>
-<li><p>What is the “equivalent CO<sub>2</sub>” of doubling atmospheric methane? That is to say,
-how many ppm of CO<sub>2</sub> would lead to the same change in outgoing IR radiation
-energy flux as doubling methane? What is the ratio of ppm CO<sub>2</sub> change to
-ppm methane change?</p>
-<p><strong>Suggestion:</strong> This is easier to do interactively with the web-based
-interface to MODTRAN than by running it in R.</p>
-<ul>
-<li>Run MODTRAN in its default configuration (400 ppm CO<sub>2</sub> and 1.7 ppm methane)</li>
-<li>Run MODTRAN again with the methane doubled. Note <span class="math inline">\(I_{\text{out}}\)</span>.</li>
-<li>Return methane to the default value (1.7 ppm), and adjust CO<sub>2</sub> until
-<span class="math inline">\(I_{\text{out}}\)</span> is the same as it was for the doubled methane.
-Note what concentration of CO<sub>2</sub> does this.</li>
-<li>Now you can use R to run MODTRAN with doubled methane and with the equivalent
-concentration of CO<sub>2</sub>, and save these runs to the disk.</li>
-</ul></li>
+<li><p><strong>What is the “equivalent CO<sub>2</sub>” of doubling atmospheric methane? That is to
+say, how many ppm of CO<sub>2</sub> would lead to the same change in outgoing IR
+radiation energy flux as doubling methane? What is the ratio of ppm CO<sub>2</sub>
+change to ppm methane change?</strong></p></li>
 </ol>
 </div>
-<div id="exercise-4.2-co2-graduate-students-only" class="section level3">
-<h3>Exercise 4.2: CO<sub>2</sub> (Graduate students only)</h3>
+<div id="exercise-4.2-co2-graduate-students-only" class="section level2">
+<h2>Exercise 4.2: CO<sub>2</sub> (Graduate students only)</h2>
 <ol style="list-style-type: lower-alpha">
-<li><p>Is the direct effect of increasing CO<sub>2</sub> on the energy output at the top of
-the atmosphere larger in high latitudes or in the tropics?
-Compare the change in <span class="math inline">\(I_{\text{out}}\)</span> from doubling CO<sub>2</sub> with
-the atmosphere set to <code>tropical</code>, <code>midlatitude summer</code>, and
-<code>subartcic summer</code>.</p>
-<p>For each atmosphere, first record <span class="math inline">\(I_{\text{out}}\)</span> with CO<sub>2</sub> at 400 ppm
-and then record the change when you increase CO<sub>2</sub> to 800 ppm.</p></li>
-<li><p>Set pCO<sub>2</sub> to an absurdly high value of 10,000 ppm. You will see a spike
+<li><p><strong>Is the direct effect of increasing CO<sub>2</sub> on the energy output at the top of
+the atmosphere larger in high latitudes or in the tropics?</strong></p>
+<p><strong>Hint:</strong>
+Run MODTRAN with the atmosphere set to <code>tropical</code>, <code>midlatitude summer</code>,
+and <code>subarctic summer</code>, and for each atmosphere, at 400 ppm and 800 ppm CO<sub>2</sub>.
+For each atmosphere, calculate the difference between I<sub>out</sub> at 400 and 800
+ppm CO<sub>2</sub> and determine how the effect of doubling CO<sub>2</sub> varies as you go
+from tropical latitudes to subarctic ones.</p></li>
+<li><p><strong>Set pCO<sub>2</sub> to an absurdly high value of 10,000 ppm. You will see a spike
 in the CO<sub>2</sub> absorption band. What temperature is this light coming from?
-Where in the atmosphere do you think this comes from?</p>
-<p>Now turn on clouds and run the model again. Explain what you see.
-Why are night-time temperatures warmer when there are clouds?</p></li>
+Where in the atmosphere do you think this comes from?</strong></p>
+<p><strong>Now turn on clouds and run the model again. Explain what you see.
+Why are night-time temperatures warmer when there are clouds?</strong></p>
+<p><strong>Hint:</strong> MODTRAN simulates the upward directed, outgoing longwave radiation
+as seen by a sensor looking down from some height.
+For the first part of this exercise, start with the sensor at its
+default altitude of 70 km (you set this with the <code>altitude_km</code> argument to
+<code>run_modtran</code>), and successively lower it by 10 km at a time until
+you get to 10 km.
+What happens to the spike as you lower the sensor? What does this say about
+what part of the atmosphere is responsible for the spike in the middle of the
+CO<sub>2</sub> absorption at very high values of CO<sub>2</sub>?</p>
+<p>For the second part of this exercise, try using “altostratus” clouds.</p></li>
 </ol>
 </div>
-<div id="exercise-4.3-water-vapor" class="section level3">
-<h3>Exercise 4.3: Water vapor</h3>
+<div id="exercise-4.3-water-vapor" class="section level2">
+<h2>Exercise 4.3: Water vapor</h2>
 <p>Our theory of climate presumes that an increase in the temperature at ground
 level will lead to an increase in the outgoing IR energy flux at the top of the
 atmosphere.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>How much extra outgoing IR would you get by raising the temperature of the
 ground by 5°C? What effect does the ground temperature have on the
-shape of the outgoing IR spectrum and why?</p>
-<ul>
-<li><p>Note the <span class="math inline">\(I_{\text{out}}\)</span> for the default conditions. Then
-set <code>delta_t</code> to 5 and run MODTRAN again, and note the new value
-of <span class="math inline">\(I_{\text{out}}\)</span>.</p></li>
-<li><p>Plot the spectrum for both runs and compare.</p></li>
-</ul></li>
-<li><p>More water can evaporate into warm air than into cool air. Change the
+shape of the outgoing IR spectrum and why?**</p>
+<p><strong>HINT</strong>: You can raise the temperature of the ground with the <code>delta_t</code>
+artument to MODTRAN.</p></li>
+<li><p><strong>More water can evaporate into warm air than into cool air. Change the
 model settings to hold the water vapor at constant relative humidity
 rather than constant vapor pressure (the default), calculate the change
 in outgoing IR energy flux for a 5°C temperature increase.
 Is it higher or lower? Does water vapor make the Earth more sensitive to
-CO<sub>2</sub> increases or less sensitive?</p></li>
-<li><p>Now see this effect in another way.</p>
+CO<sub>2</sub> increases or less sensitive?</strong></p>
+<p><strong>Note:</strong> By default, the MODTRAM model holds water vapor pressure constant,
+but you can set it to hold relative humidity constant instead with the
+option <code>h2o_fixed = "relative humidity"</code>, like this:
+<code>run_modtran(file_name, delta_t = 5, h2o_fixed = "relative humidity")</code>.</p></li>
+<li><p><strong>Now see this effect in another way.</strong></p>
 <ul>
-<li><p>Starting from the default base case, record the total outgoing
-IR flux.</p></li>
-<li><p>Now double pCO2. The temperature in the model stays the
+<li><p><strong>Starting from the default base case, record the total outgoing
+IR flux.</strong></p></li>
+<li><p><strong>Now double CO<sub>2</sub>. The temperature in the model stays the
 same (that’s how the model is written), but the outgoing IR flux
-goes down.</p></li>
-<li><p>Using constant water vapor pressure, adjust the temperature offset
+goes down.</strong></p></li>
+<li><p><strong>Using constant water vapor pressure, adjust the temperature offset
 until you get the original IR flux back again. Record the change in
-temperature</p></li>
-<li><p>Now repeat the exercise, but holding the relative humidity fixed
-instead of the water vapor pressure.</p></li>
-<li><p>The ratio of the warming when you hold relative humidity fixed
+temperature.</strong></p></li>
+<li><p><strong>Now repeat the exercise, but holding the relative humidity fixed
+instead of the water vapor pressure.</strong></p></li>
+<li><p><strong>The ratio of the warming when you hold relative humidity fixed
 to the warming when you hold water vapor pressure fixed is the
-feedback factor for water vapor. What is it?</p></li>
+feedback factor for water vapor. What is it?</strong></p></li>
 </ul></li>
 </ol>
 </div>
 </div>
-<div id="chapter-5-exercise" class="section level2">
-<h2>Chapter 5 Exercise</h2>
-<div id="exercise-5.2-skin-height" class="section level3">
-<h3>Exercise 5.2: Skin Height</h3>
+<div id="chapter-5-exercise" class="section level1">
+<h1>Chapter 5 Exercise</h1>
+<div id="exercise-5.2-skin-height" class="section level2">
+<h2>Exercise 5.2: Skin Height</h2>
 <ol style="list-style-type: lower-alpha">
-<li><p>Run the MODTRAN model in using the “Tropical” atmosphere, without clouds, and with
-present-day pCO<sub>2</sub> (400 ppm). Use the ground temperature reported by the model to calculate
-<span class="math inline">\(\varepsilon \sigma T_{\text{ground}}^4\)</span>, the heat flux emitted by the ground.
+<li><p><strong>Run the MODTRAN model using the “tropical” atmosphere, without clouds,
+and with the present-day CO<sub>2</sub> concentration (400 ppm).
+Use the ground temperature reported
+by the model to calculate
+<span class="math inline">\(\varepsilon \sigma T_{\text{ground}}^4\)</span>,
+the heat flux emitted by the ground.
 Assume <span class="math inline">\(\varepsilon = 1\)</span>, and I have already provided the value of the
 Stefan-Boltzmann constant <span class="math inline">\(\sigma\)</span>, as the R variable <code>sigma_sb</code>,
-which equals 0.00000005670.
+which equals 5.670×10<sup>-8</sup>.
 (I defined it in the script “utils.R”, which I loaded in the “setup” chunk
-in the RMarkdown document).</p>
-<p>Next, look at the outgoing heat flux at the top of the atmosphere (70 km)
-reported by the MODTRAN model. Is it greater or less than the heat flux
-that you calculated was emitted by the ground?</p></li>
-<li><p>Use the outgoing heat flux at the top of the atmosphere to calcuate the
-skin temperature (use the equation
+in the RMarkdown document).</strong></p>
+<p><strong>Next, look at the outgoing heat flux at the top of the atmosphere (70 km)
+(I<sub>out</sub>) reported by the MODTRAN model. Is it greater or less than the heat
+flux that you calculated was emitted by the ground?</strong></p></li>
+<li><p><strong>Use the outgoing heat flux at the top of the atmosphere (I<sub>out</sub>) to
+calculate the skin temperature (use the equation
 <span class="math inline">\(I_{\text{out}} = \varepsilon \sigma T_{\text{skin}}^4)\)</span>).
 What is the skin temperature, and how does it compare to the ground
 temperature and the temperature at the tropopause, as reported by the
-MODTRAN model?</p>
-<p>Assuming an environmental lapse rate of 6K/km, and using the
+MODTRAN model (<code>t_tropo</code>)?</strong></p>
+<p><strong>Assuming an environmental lapse rate of 6K/km, and using the
 skin temperature that you calculated above, and the ground temperature
-from the model, what altitude would you expect the skin height to be?</p></li>
-<li><p>Double the CO<sub>2</sub> concentration and run MODTRAN again. Do not adjust the
+from the model, what altitude would you expect the skin height to be?</strong></p></li>
+<li><p><strong>Double the CO<sub>2</sub> concentration and run MODTRAN again. Do not adjust the
 ground temperature. Repeat the calculations from (b) of the skin
-temperature and the estimated skin height.</p>
-<p>What is the new skin temperature? What is the new skin height?</p></li>
+temperature and the estimated skin height.</strong></p>
+<p><strong>What is the new skin temperature? What is the new skin height?</strong></p></li>
 <li><p>Put the CO<sub>2</sub> back to today’s value, but add cirrus clouds, using the
 “standard cirrus” value for the clouds. Repeat the calculations from (b) of
 the skin temperature and the skin height.</p>
@@ -539,6 +699,5 @@ the skin temperature and the skin height.</p>
 Did the clouds or the doubled CO<sub>2</sub> have a greater effect on the
 skin height?</p></li>
 </ol>
-</div>
 </div>
 </div>
