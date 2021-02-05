@@ -3,6 +3,7 @@ title: Infrared light in the atmosphere
 lab_date: '2021-02-08'
 report_due_date: '2021-02-15'
 lab_number: 3
+github_classroom_assignment_url: https://classroom.github.com/a/p_q5Tals
 pubdate: '2020-12-31'
 date: '2021-02-08'
 slug: lab_03
@@ -20,5 +21,4 @@ output:
 * [Instructions for Lab #3: Infrared Light](/lab_docs/lab_03_instructions){target="_blank"}
 
 ## Assignment
-
-The GitHub Classroom has not been posted yet.
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/p_q5Tals>.

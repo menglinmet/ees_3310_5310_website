@@ -15,6 +15,16 @@ output.blogdown::html_page:
 knitr::knit_hooks$set(inline = function(x) { knitr:::format_sci(x, 'md')})
 knitr::opts_chunk$set(echo = TRUE, cache=TRUE)
 
+if (knitr::is_latex_output()) {
+  message("Setting PDF plot hook.")
+  new_plot_hook <- function(x, options)
+    paste("\n", knitr::hook_plot_tex(x, options), "\n")
+  
+  knitr::knit_hooks$set(plot = new_plot_hook)
+} else {
+  message("Not using PDF output.")
+}
+
 options(dplyr.summarise.inform = FALSE)
 
 # This section loads necessary R libraries and sources scripts that define 
@@ -651,10 +661,10 @@ c) **Double the CO~2~ concentration and run MODTRAN again. Do not adjust the
 
    **What is the new skin temperature? What is the new skin height?**
 
-d) Put the CO~2~ back to today's value, but add cirrus clouds, using the
+d) **Put the CO~2~ back to today's value, but add cirrus clouds, using the
    "standard cirrus" value for the clouds. Repeat the calculations from (b) of
-   the skin temperature and the skin height.
+   the skin temperature and the skin height.**
    
-   What is the new skin temperature? What is the new skin height?
+   **What is the new skin temperature? What is the new skin height?
    Did the clouds or the doubled CO~2~ have a greater effect on the
-   skin height?
+   skin height?**
