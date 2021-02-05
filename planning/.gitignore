@@ -6,3 +6,5 @@ calendar.csv
 test_db.sqlite3
 foo.md
 db_checkpoints/
+old_databases/
+old_scripts/
