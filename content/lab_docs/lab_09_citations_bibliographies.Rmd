@@ -8,9 +8,10 @@ date: '2021-03-22'
 bibliography: lab-08.bib
 pdf_url: /files/lab_docs/lab_08/citations_bibliographies.pdf
 slug: lab_09_citations_bibliographies
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}

@@ -7,9 +7,10 @@ pubdate: '2020-12-31'
 date: '2021-01-25'
 pdf_url: /files/lab_docs/lab_01/lab_01_overview.pdf
 slug: lab_01_overview
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 # Overview of EES 3310/5310 Labs
 

@@ -7,9 +7,10 @@ pubdate: '2020-12-31'
 date: '2021-03-29'
 pdf_url: /files/lab_docs/decarb_lab_bottom_up/new_tools.pdf
 slug: lab_10_new_tools
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

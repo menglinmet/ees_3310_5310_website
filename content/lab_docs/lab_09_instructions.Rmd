@@ -7,9 +7,10 @@ pubdate: '2020-12-31'
 date: '2021-03-22'
 pdf_url: /files/lab_docs/lab_08/lab_08_instructions.pdf
 slug: lab_09_instructions
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}

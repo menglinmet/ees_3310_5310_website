@@ -7,13 +7,33 @@ pubdate: '2020-12-31'
 date: '2021-03-01'
 pdf_url: /files/lab_docs/lab_06/lab_06_instructions.pdf
 slug: lab_06_instructions
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
+<div id="TOC">
+<ul>
+<li><a href="#carbon-cycle">Carbon Cycle</a>
+<ul>
+<li><a href="#note"><strong>Note:</strong></a></li>
+<li><a href="#running-the-geocarb-model-from-r">Running the GEOCARB model from R</a></li>
+<li><a href="#chapter-8-exercises">Chapter 8 Exercises</a>
+<ul>
+<li><a href="#exercise-8.1-weathering-as-a-function-of-co2">Exercise 8.1: Weathering as a function of CO<sub>2</sub></a></li>
+<li><a href="#exercise-8.2-effect-of-solar-intensity-on-steady-state-co2-concentration">Exercise 8.2: Effect of solar intensity on steady-state CO<sub>2</sub> concentration</a></li>
+<li><a href="#exercise-8.3-the-role-of-plants-graduate-students-only">Exercise 8.3: The role of plants (<strong>Graduate students only</strong>)</a></li>
+</ul></li>
+<li><a href="#exercise-from-chapter-10">Exercise from Chapter 10</a>
+<ul>
+<li><a href="#exercise-10.1-long-term-fate-of-fossil-fuel-co2">Exercise 10.1: Long-term fate of fossil fuel CO<sub>2</sub></a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
 
 <div id="carbon-cycle" class="section level1">
 <h1>Carbon Cycle</h1>
@@ -35,42 +55,58 @@ carbon cycle adjust to the new parameters and the CO<sub>2</sub> spike.</p></li>
 </dd>
 <dt>WeatC</dt>
 <dd>is the rate of CO<sub>2</sub> being weathered from carbonate rocks and moved to the
-oceans.
 </dd>
+</dl>
+<p>oceans.</p>
+<dl>
 <dt>BurC</dt>
 <dd>is the rate of carbonate being converted into limestone and buried on the
-ocean floor.
 </dd>
+</dl>
+<p>ocean floor.</p>
+<dl>
 <dt>WeatS</dt>
 <dd>is the rate of SiO<sub>2</sub> being weathered from silicate rocks and moved to the
-oceans.
 </dd>
+</dl>
+<p>oceans.</p>
+<dl>
 <dt>Degas</dt>
 <dd>is the rate at which CO<sub>2</sub> is released to the atmosphere by volcanic activity
 </dd>
 <dt>tCO2</dt>
 <dd>is the total amount of CO<sub>2</sub> dissolved in the ocean, adding all of its forms:
-<span class="math display">\[ \ce{\text{tco2} = [CO2] + [H2CO3] + [HCO3-] + [CO3^{2-}]}. \]</span>
 </dd>
+</dl>
+<p><span class="math display">\[ \ce{\text{tco2} = [CO2] + [H2CO3] + [HCO3-] + [CO3^{2-}]}. \]</span></p>
+<dl>
 <dt>alk</dt>
 <dd>is the ocean alkalinity: the total amount of acid (<span class="math inline">\(\ce{H+}\)</span>) necessary to
-neutralize the carbonate and bicarbonate in the ocean. The detailed definition
-is complicated, but to a good approximation,
-<span class="math inline">\(\ce{\text{alk} = [HCO3-] + 2 [CO3^{2-}]}\)</span>. This is not crucial for this lab.
 </dd>
+</dl>
+<p>neutralize the carbonate and bicarbonate in the ocean. The detailed definition
+is complicated, but to a good approximation,
+<span class="math inline">\(\ce{\text{alk} = [HCO3-] + 2 [CO3^{2-}]}\)</span>. This is not crucial for this lab.</p>
+<dl>
 <dt>CO3</dt>
 <dd>is the concentration of dissolved carbonate (<span class="math inline">\(\ce{CO3^{2-}}\)</span>) in the ocean,
-in moles per cubic meter.
 </dd>
+</dl>
+<p>in moles per cubic meter.</p>
+<dl>
 <dt>d13Cocn</dt>
 <dd>is the change in the fraction of the carbon-13 (<span class="math inline">\(\ce{^{13}C}\)</span>) isotope,
-relative to the more common carbon-12 (<span class="math inline">\(\ce{^{12}C}\)</span>) isotope, in the
-various forms of carbon dissolved in the ocean water.
 </dd>
+</dl>
+<p>relative to the more common carbon-12 (<span class="math inline">\(\ce{^{12}C}\)</span>) isotope, in the
+various forms of carbon dissolved in the ocean water.</p>
+<dl>
 <dt>d13Catm</dt>
 <dd>is the change in the fraction of <span class="math inline">\(\ce{^{13}C}\)</span>,
-relative to <span class="math inline">\(\ce{^{12}C}\)</span> in atmospheric CO<sub>2</sub>.
 </dd>
+</dl>
+<p>relative to <span class="math inline">\(\ce{^{12}C}\)</span> in atmospheric CO<sub>2</sub>.</p>
+<dl>
 <dt>Tatm</dt>
 <dd>is the average air temperature.
 </dd>

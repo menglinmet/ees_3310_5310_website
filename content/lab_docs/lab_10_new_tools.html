@@ -7,13 +7,26 @@ pubdate: '2020-12-31'
 date: '2021-03-29'
 pdf_url: /files/lab_docs/decarb_lab_bottom_up/new_tools.pdf
 slug: lab_10_new_tools
-output.blogdown::html_page:
-  md_extensions: +tex_math_single_backslash+compact_definition_lists
-  toc: yes
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
 ---
 
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
+<div id="TOC">
+<ul>
+<li><a href="#some-new-tools-for-working-with-data">Some New Tools for Working with Data</a>
+<ul>
+<li><a href="#getting-fancy-with-the-pipe-operator">Getting fancy with the pipe operator (<code>%&gt;%</code>)</a></li>
+<li><a href="#extracting-columns-from-a-data-frame-in-a-pipeline">Extracting columns from a data frame in a pipeline</a></li>
+<li><a href="#tidying-up-results-of-statistical-modeling">Tidying up results of statistical modeling</a></li>
+</ul></li>
+<li><a href="#writing-functions">Writing functions</a></li>
+<li><a href="#kayadata-an-r-package-for-analyzing-kaya-identity-data"><code>kayadata</code>: an R package for analyzing Kaya-identity data</a></li>
+</ul>
+</div>
 
 <div id="some-new-tools-for-working-with-data" class="section level1">
 <h1>Some New Tools for Working with Data</h1>

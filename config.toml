@@ -11,14 +11,6 @@ relativeurls = true
 publishDir = "public"
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "_scripts$", "_data$", "\\.gitkeep"]
 
-[blackfriday]
-  smartypants = true
-  latexDashes = true
-  smartDashes = true
-  hrefTargetBlank = true
-  angledQuotes = false
-  fractions = false
-
 [markup]
   defaultMarkdownHandler = "goldmark"
   [markup.blackFriday]
