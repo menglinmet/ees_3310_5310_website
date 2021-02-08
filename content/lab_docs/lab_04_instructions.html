@@ -17,7 +17,7 @@ output:
 
 <div id="TOC">
 <ul>
-<li><a href="#exercises-with-lapse-rate-clouds-and-water-vapor-feedback.">Exercises with lapse rate, clouds, and water-vapor feedback.</a>
+<li><a href="#exercises-with-lapse-rate-and-clouds.">Exercises with lapse rate and clouds.</a>
 <ul>
 <li><a href="#r-interface-to-rrtm">R Interface to RRTM</a></li>
 <li><a href="#example-of-running-rrtm">Example of running RRTM</a>
@@ -29,21 +29,25 @@ output:
 <li><a href="#new-r-and-rmarkdown-tricks">New R and RMarkdown tricks</a></li>
 <li><a href="#exercises">Exercises</a>
 <ul>
-<li><a href="#general-instructions">General Instructions</a></li>
-<li><a href="#chapter-5-exercise">Chapter 5 Exercise</a>
+<li><a href="#general-instructions">General Instructions</a>
 <ul>
-<li><a href="#exercise-5.1-lapse-rate">Exercise 5.1: Lapse Rate</a></li>
+<li><a href="#exercise-1-lapse-rate">Exercise 1: Lapse Rate</a></li>
+</ul></li>
+<li><a href="#exercises-on-albedo-and-clouds">Exercises on Albedo and Clouds</a>
+<ul>
+<li><a href="#exercise-2-the-urban-heat-island">Exercise 2: The urban heat island</a></li>
+<li><a href="#exercise-3-clouds">Exercise 3: Clouds</a></li>
 </ul></li>
 </ul></li>
 </ul>
 </div>
 
-<div id="exercises-with-lapse-rate-clouds-and-water-vapor-feedback." class="section level1">
-<h1>Exercises with lapse rate, clouds, and water-vapor feedback.</h1>
-<p>In this lab, we will continue using MODTRAN and will introduce a new
-climate model, RRTM. RRTM, which stands for “Rapid Radiative Transfer Model,”
-is a radiative-convective model that uses code
-from the radiative-transfer portion of a state-of-the-art globam climate model
+<div id="exercises-with-lapse-rate-and-clouds." class="section level1">
+<h1>Exercises with lapse rate and clouds.</h1>
+<p>In this lab, you will learn about a new climate model, RRTM.
+RRTM stands for “Rapid Radiative Transfer Model.”
+This model is a radiative-convective model that uses code
+from the radiative-transfer portion of a state-of-the-art global climate model
 called the “Community Climate System Model,” developed at the National Center
 for Atmospheric Research in Boulder CO.</p>
 <p>The entire CCSM model runs on giant supercomputers, but this radiative transfer
@@ -51,8 +55,9 @@ module can run efficiently on an ordinary computer. In order to speed up the
 calculations, RRTM does not calculate the entire longwave spectrum the way
 MODTRAN does, but uses a simplified approximation that is much faster when
 the big climate models need to run this radiative transfer calculation
-roughly 52 quadrillion (<span class="math inline">\(5.2 \times 10^{15}\)</span>) times in a simulation of 100 years
-of the earth’s climate.</p>
+roughly 52 quadrillion
+(5.2×10<sup>15</sup>) times in a
+simulation of 100 years of the earth’s climate.</p>
 <p>An advantage that RRTM has over MODTRAN, is that MODTRAN assumes that the
 atmosphere is static (none of the air moves), whereas RRTM allows for
 convective heat flow. This makes RRTM more realistic, even though it sacrifices
@@ -60,7 +65,7 @@ detail in its treatment of longwave radiation.</p>
 <p>We will use RRTM to explore the role of convection in the earth system
 and to examine the water-vapor feedback in the presence of convection.</p>
 <p>You can run the RRTM model interactively on the web at
-<a href="http://climatemodels.uchicago.edu/rrtm/index.html" class="uri">http://climatemodels.uchicago.edu/rrtm/index.html</a>
+<a href="http://climatemodels.uchicago.edu/rrtm/" class="uri">http://climatemodels.uchicago.edu/rrtm/</a>
 and I have also written a script that allows you to run it from R.</p>
 <p>To run the model interactively, you can adjust various parameters, such as the
 brightness of the sun, the albedo (it gives you a choice of many natural and
@@ -71,7 +76,8 @@ low (stratus) clouds.</p>
 <p>You can also introduce aerosols typical of different parts of the earth, such as
 cities (with soot, sulfates, and other pollution), deserts (with blowing dust),
 oceans (with sea spray and salt), and a Pinatubo-like volcanic eruption.</p>
-<p>Like MODTRAN, the model does not automatically adjust the surface temperature.
+<p>Like MODTRAN, the RRTM model does not automatically adjust the surface
+temperature.
 Instead, it calculates the upward and downward flux of longwave and shortwave
 radiation at 51 different levels of the atmosphere and reports whether the heat
 flow is balanced (heat in = heat out) at the top of the atmosphere.</p>
@@ -89,7 +95,7 @@ to load it.</p>
 with the data from a MODTRAN run. You call it with the following arguments:</p>
 <ul>
 <li><p><code>filename</code> is the name of the file to save the data to. The function
-returns the output data, so it’s optional to specify a filename.</p></li>
+returns the output data, so it’s optional to specify a file name.</p></li>
 <li><p><code>co2_ppm</code> is the amount of CO<sub>2</sub> in parts per million. The default is 400.</p></li>
 <li><p><code>ch4_ppm</code> is the amount of methane in parts per million. The default is 1.7.</p></li>
 <li><p><code>relative_humidity</code> is the relative humidity, in percent. The default is
@@ -100,7 +106,7 @@ You adjust this to restore radiative equilibrium after you change the
 parameters (amount of CO<sub>2</sub>, lapse rate, etc.).</p></li>
 <li><p><code>I_solar</code> is the brightness of the sun, in Watts per square meter.
 The default value is 1360.</p></li>
-<li><p><code>surface_type</code> is the type of surface (this is used to calcualte the
+<li><p><code>surface_type</code> is the type of surface (this is used to calculate the
 albedo). The default is `earth average. The options are:</p>
 <ul>
 <li>“<code>earth average</code>”: The average albedo of the earth (0.30)</li>
@@ -113,25 +119,26 @@ albedo). The default is `earth average. The options are:</p>
 <li>“<code>snow</code>”: Typical snow (0.85)</li>
 <li>“<code>ice</code>”: Large ice masses covering ocean or land (0.60)</li>
 <li>“<code>soil</code>”: Bare soil (0.17)</li>
-<li>"<code>custom": Custom albedo (if you choose this, you need to also supply    a value for</code>albedo`)</li>
+<li>“<code>custom</code>”: Custom albedo (if you choose this, you need to also supply
+a value for <code>albedo</code>)</li>
 </ul></li>
 <li><p><code>tropopause_km</code> is the altitude of the tropopause, in kilometers above
-sea level. The default value is 15. On the earth, the tropopause varies
-from around 9 km at the poles to around 17 km near the equator.</p></li>
-<li><p><code>lapse_rate</code> is the lapse rate, in Kelvin per kilometer. The default is</p>
-<ol start="6" style="list-style-type: decimal">
-<li>The dry adiabatic lapse rate is 10, so it’s physically impossible to
-have a lapse rate greater than 10 and results with <code>lapse_rate</code>
-greater than 10 won’t make sense.</li>
-</ol></li>
-<li><p><code>low_cloud_frac</code> is the fraction (from 0–1) of the sky covered by
-low (stratus) clouds. The default is 0.</p></li>
-<li><p><code>high_cloud_frac</code> is the fraction (from 0–1) of the sky covered by
-high (cirrus) clouds. The default is 0.</p></li>
+sea level. The default value is 15, which is typical of middle latitudes.
+The tropopause varies from place to place around the Earth, from around
+9 km at the poles to around 17 km near the equator.</p></li>
+<li><p><code>lapse_rate</code> is the lapse rate, in Kelvin per kilometer. The default is
+6, which is roughly the global average environmental lapse rate.
+The dry adiabatic lapse rate is 10, so it’s physically impossible to
+have an persistent environmental lapse rate greater than 10 and results
+with <code>lapse_rate</code> greater than 10 won’t make sense.</p></li>
+<li><p><code>low_cloud_frac</code> is the fraction (from 0.0–1.0) of the sky covered by
+low (stratus) clouds. The default is 0.0.</p></li>
+<li><p><code>high_cloud_frac</code> is the fraction (from 0.0–1.0) of the sky covered by
+high (cirrus) clouds. The default is 0.0.</p></li>
 <li><p><code>cloud_drop_radius</code> is the size of the water droplets in the clouds,
 in microns. The default is 10. (For reference, 10 microns is about the
 size of a red blood cell).
-You can reduce this to simulate the indirect aerosol effect.</p></li>
+You can make the droplets smaller to simulate the indirect aerosol effect.</p></li>
 <li><p><code>aerosols</code> allows you to set up the atmosphere with the kinds and
 quantities of aerosols typical of a number of different environments.
 Options are:</p>
@@ -199,7 +206,7 @@ list of data just like the one returned by <code>run_rrtm</code>.</p></li>
 <li><p><code>plot_heat_flows()</code>: plots the upward and downward fluxes of radiation from
 an RRTM file or data structure. You can call it either with
 <code>plot_rrtm(file = "filename")</code> or <code>plot_rrtm(data = rrtm_data)</code>, where
-“<code>filename</code>” and “<code>rrtm_data</code>” stand for your own filename or rrtm data
+“<code>filename</code>” and “<code>rrtm_data</code>” stand for your own file name or RRTM data
 structure returned by <code>run_rrtm</code> or <code>read_rrtm</code>.</p>
 <p>You can also specify which wavelengths to plot. By default, it plots
 shortwave (SW), longwave (LW), and total (SW + LW), but you can specify
@@ -229,14 +236,14 @@ default_rrtm$Q</code></pre>
 <p>What you see in this plot are thick lines representing downward heat flow
 and thin lines representing upward flow. The different colors represent
 shortwave, longwave, and total (shortwave + longwave).</p>
-<p>A few things to notice: At the top of the atmospere, at
+<p>A few things to notice: At the top of the atmosphere, at
 20. km,
 there is very little longwave going down, but a lot of shortwave going down
-(around 300. W/m<sup>2</sup>).
+(around 340. W/m<sup>2</sup>).
 Conversely, there is a modest amount of shortwave going up
 (around 100. W/m<sup>2</sup>),
 but a lot of longwave going up (around
-200. W/m<sup>2</sup>).</p>
+240. W/m<sup>2</sup>).</p>
 <p>The upward shortwave radiation is sunlight reflected from the atmosphere and
 the earth’s surface.</p>
 <p>The upward longwave radiation is emitted from the surface and the atmosphere.
@@ -256,25 +263,25 @@ when warm air rises and cool air sinks.</p>
 <p>We can also use the RRTM model to study what happens when we double CO<sub>2</sub>:</p>
 <pre class="r"><code>rrtm_double_co2 = run_rrtm(co2_ppm = 800)</code></pre>
 <p>When we double CO<sub>2</sub> without changing the surface temperature
-(T~surface = 284. K),
-this creates a heat imbalance of 4.20
+(T<sub>surface</sub> = 284.4 K),
+this creates a heat imbalance of 4.2
 W/m<sup>2</sup>. We can use the online interactive version of RRTM to adjust surface
 temperature until the heat flows balance. The surface temperature where this
-happens is 287. K and we can paste it into our
+happens is 286.9 K and we can paste it into our
 R code:</p>
 <pre class="r"><code>new_ts = 286.9 # Kelvin
 rrtm_double_co2_balanced = run_rrtm(co2_ppm = 800, T_surface = new_ts)</code></pre>
 <p>When we set T<sub>surface</sub> to
-287. K, the heat
+286.9 K, the heat
 imbalance becomes 0
 Watts/m<sup>2</sup>. The climate sensitivity is the change in equilibrium
 T<sub>surface</sub> when you double CO<sub>2</sub>:
-<span class="math inline">\(\Delta T_{2\times \text{CO}_2} = 287. \mathrm{K} - 284. \mathrm{K} = 2.48\)</span> K.
-You may remember that when we calculated the climate sensitivity with MODTRAN
-(using constant relative humidity to enable water-vapor feedback) we got
-<span class="math inline">\(\Delta T_{2\times\text{CO}_2} = 1.21\)</span> K for the tropical atmosphere (it’s
-smaller for the other atmospheres), so this shows that including convection in
-our calculations roughly doubles the climate sensivity.</p>
+<span class="math inline">\(\Delta T_{2\times \text{CO}_2} = 286.9~\mathrm{K} - 284.4~\mathrm{K} = 2.5~\mathrm{K}\)</span>.
+You may remember that in last week’s lab, we calculated the climate sensitivity
+with MODTRAN (using constant relative humidity to enable water-vapor feedback)
+and got <span class="math inline">\(\Delta T_{2\times\text{CO}_2} = 1.2\)</span> K for the tropical atmosphere
+(it’s smaller for the other atmospheres), so this shows that including
+convection in our calculations roughly doubles the climate sensitivity.</p>
 </div>
 </div>
 </div>
@@ -288,11 +295,19 @@ and I want to write something different if <code>foo(x)</code> &gt; x than if
 <pre class="r"><code>foo = function(x) {
   x^2
 }</code></pre>
-<p>Now I can write <code>ifelse(foo(x) &lt; x, "less than", "greater than")</code>:
-When x = 0.5, <code>foo(x)</code> is
+<p>Now I can write <code>ifelse(foo(x) &lt; x, "less than", "greater than")</code>.
+The following RMarkdown text:</p>
+<pre><code>When x = 0.5, `foo(x)` is
+`r x = 0.5; ifelse(foo(x) &lt; x, &quot;less than&quot;, &quot;greater than&quot;)` x,
+but when x = 2.0, `foo(x)` is
+`r x = 2.0; ifelse(foo(x) &lt; x, &quot;less than&quot;, &quot;greater than&quot;)` x.</code></pre>
+<p>becomes</p>
+<blockquote>
+<p>When x = 0.5, <code>foo(x)</code> is
 less than x,
 but when x = 2.0, <code>foo(x)</code> is
 greater than x.</p>
+</blockquote>
 <p>You may have spotted a problem with the code above: What if <code>foo(x)</code> = x?
 Then I need another <code>ifelse</code>:
 <code>ifelse(foo(x) &lt; x, "less than", ifelse(foo(x) &gt; x, "greater than", "equal to"))</code>.
@@ -302,29 +317,35 @@ This is cumbersome to type into your text, so you might want to write a function
   # x is a number or a numeric variable
   result = f(x)
   ifelse(result &lt; x, &quot;less than&quot;,
-         ifelse(result &gt; x, &quot;greater than&quot;, 
+         ifelse(result &gt; x, &quot;greater than&quot;,
                 &quot;equal to&quot;))
 }</code></pre>
 <p>Now I can just write <code>compare_f(foo, x)</code>:
-When x = 0.5, <code>foo(x)</code> is less than x, but
-when x = 2.0, <code>foo(x)</code> is greater than x and
+The following RMarkdown text:</p>
+<pre class="r"><code>When x = 0.5, `foo(x)` is `r compare_f(foo, 0.5)` x, but
+when x = 2.0, `foo(x)` is `r compare_f(foo, 2.0)` x, and
+when x = 1.0, `foo(x)` is `r compare_f(foo, 1.0)` x.</code></pre>
+<p>becomes</p>
+<blockquote>
+<p>When x = 0.5, <code>foo(x)</code> is less than x, but
+when x = 2.0, <code>foo(x)</code> is greater than x, and
 when x = 1.0, <code>foo(x)</code> is equal to x.</p>
-<p>This may seem kind of strange, but it can be helpful if you have a report
-that you prepare regularly with different data and want to be able to
-update by running RMarkdown with different data sets, and have the text
-adjust automatically to what the new numbers are.</p>
-<p>This approach is used when businesses need to generate monthly reports
-(e.g., sales, finances, etc.) and want to automate the process with an
-RMarkdown report template that can be used over and over with each new
-month’s data.</p>
+</blockquote>
+<p>This may seem kind of strange, but a lot of people and organizations use
+RMarkdown to prepare reports regularly using different data.
+For instance, many businesses use RMarkdown to generate monthly reports
+on sales, finances, etc., and using code like the <code>compare</code> function I
+showed here can help to automate the reports, so that when they run the
+report each month using different data, the text will adjust automatically to
+reflect the new numbers.</p>
 <p>It is also applicable to climate science, where many laboratories like to
 update their reports every month or every year with the latest climate data.</p>
 </div>
 <div id="exercises" class="section level1">
 <h1>Exercises</h1>
 <p>These are the exercises you will work for the lab this week.</p>
-<div id="general-instructions" class="section level3">
-<h3>General Instructions</h3>
+<div id="general-instructions" class="section level2">
+<h2>General Instructions</h2>
 <p>In the past three weeks, we focused on mastering many of the basics of using
 R and RMarkdown. For this week’s lab, when you write up the answers, I would
 like you to think about integrating your R code chunks with your text.</p>
@@ -335,13 +356,10 @@ the subsequent text can either discuss the results of what you just did
 or describe what the next step of the analysis will do.</p>
 <p>This way, your answer can have several small chunks of R code that build on
 each other and follow the flow of your text.</p>
-</div>
-<div id="chapter-5-exercise" class="section level2">
-<h2>Chapter 5 Exercise</h2>
-<p>For this model, you will use the RRTM model, which includes both radiation and
+<p>For this lab, you will use the RRTM model, which includes both radiation and
 convection.</p>
-<div id="exercise-5.1-lapse-rate" class="section level3">
-<h3>Exercise 5.1: Lapse Rate</h3>
+<div id="exercise-1-lapse-rate" class="section level3">
+<h3>Exercise 1: Lapse Rate</h3>
 <p>Run the RRTM model in its default configuration and then vary the lapse rate
 from 0 to 10 K/km. For each value of the lapse rate, adjust the surface
 temperature until the earth loses as much heat as it gains (i.e., the value of
@@ -355,6 +373,88 @@ equilibrium surface temperature, and make a plot with lapse rate on the
 horizontal axis and surface temperature on the vertical axis.</p></li>
 <li><p>Describe how the equilibrium surface temperature varies as the lapse rate
 varies.</p></li>
+</ol>
+</div>
+</div>
+<div id="exercises-on-albedo-and-clouds" class="section level2">
+<h2>Exercises on Albedo and Clouds</h2>
+<p>For the following exercises, start off with the RRTM model in its default
+configuration.
+Record the ground temperature.
+For each part of this exercise you will do the following:</p>
+<ol style="list-style-type: decimal">
+<li><p>You will adjust the albedo or the clouds.</p></li>
+<li><p>You will compare the visible and longwave radiation going down through the
+atmosphere to the surface and also the visible and longwave radiation
+going up from the surface, through the atmosphere, to space.</p>
+<p>The results of an RRTM model run have a tibble called <code>fluxes</code> with columns
+for <code>altitude</code>, <code>sw_down</code>, <code>sw_up</code>, <code>lw_down</code>, <code>lw_up</code>, <code>total_down</code>, and
+<code>total_up</code>, where <code>sw</code> means shortwave, <code>lw</code> means longwave, and <code>total</code>
+is the sum of shortwave plus longwave.</p>
+<p>The first row of this tibble is at ground-level and the last row
+is at the top of the atmosphere.</p>
+<pre class="r"><code>default_data = run_rrtm()
+fluxes = default_data$fluxes
+surface_fluxes = head(fluxes, 1) # get the first row
+space_fluxes = tail(fluxes, 1)   # get the last row</code></pre></li>
+<li><p>You will adjust the ground temperature until the heat coming in balances
+the heat going out (the model will say,
+“If the Earth has these properties … then it loses as much energy as it
+gains.”</p></li>
+</ol>
+<div id="exercise-2-the-urban-heat-island" class="section level3">
+<h3>Exercise 2: The urban heat island</h3>
+<p>First, run the RRTM model in its default configuration and note the surface
+temperature and the albedo.</p>
+<pre class="r"><code>default = run_rrtm()
+albedo_default = default$albedo
+T_surface_default = default$T_surface</code></pre>
+<ol style="list-style-type: lower-alpha">
+<li><p>Change the surface albedo from “Earth’s average” to “Asphalt”.</p>
+<ul>
+<li>What is the albedo?</li>
+<li>Report the changes in shortwave and longwave light absorbed by
+the surface and going out to space.</li>
+<li>How much does the total balance of heat change (i.e., how many W/m<sup>2</sup> does
+the Earth lose or gain)?</li>
+<li>Adjust the ground temperature until the Earth loses as much energy as it
+gains.</li>
+<li>What is the new surface temperature?
+How does it compare to the surface temperature in the default
+configuration?</li>
+</ul></li>
+<li><p>Change the surface albedo to “Concrete”. Answer the same questions as in part
+(a).</p></li>
+<li><p>In cities, streets and parking lots are usually paved with asphalt.
+Roofs of houses and other buildings are often covered with asphalt shingles
+or black rubber-like compounds.</p>
+<p>How would the choice of using asphalt for roads, parking lots, and roofs in
+a large city affect the local climate in the city?
+Would using low-albedo materials, such as concrete for streets and parking
+lots and light-colored polymers for the roofs of buildings have a benefit
+for the people living in the city?</p></li>
+</ol>
+</div>
+<div id="exercise-3-clouds" class="section level3">
+<h3>Exercise 3: Clouds</h3>
+<p>First, run the RRTM model in its default configuration and note the surface
+temperature and the albedo.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Change the low cloud fraction to 0.70 (70%)</p>
+<ul>
+<li>Report the changes in shortwave and longwave light absorbed by the
+surface and going out to space.</li>
+<li>How much does the total balance of heat change
+(i.e., how many W/m<sup>2</sup> does the Earth lose or gain)?</li>
+<li>Adjust the temperature to bring the heat flows back into balance.</li>
+<li>How much did the temperature change?</li>
+</ul></li>
+<li><p>Repeat part (a), but with the low cloud fraction set to 0 and the high-cloud
+fraction set to 0.20 (20%).</p></li>
+<li><p>Use the <code>plot_heat_flows()</code> function to plot the heat flows for the
+low clouds and the high clouds. Describe the changes you see in the upward
+and downward heat flows (shortwave, longwave, and total) for the two cases.
+Which kind of cloud had the biggest effect on the outgoing radiation?</p></li>
 </ol>
 </div>
 </div>

@@ -1,5 +1,5 @@
 ---
-title: Review
+title: The Pleistocene Ice Ages
 class_date: '2021-02-26'
 class_number: 15
 weight: 15
@@ -12,8 +12,19 @@ output:
 ---
 ## Reading:
 
-No new reading for today.
+### Required Reading (everyone):
 
-### Notes:
+* Understanding the Forecast, Ch. 7, p. 84.
+* Understanding the Forecast, Ch. 8, pp. 93--97.
+* Understanding the Forecast, Ch. 11, pp. 147--149.
+* Handout: [Jonathan Gilligan, "Handout on Isotopes,"](/files/reading_handouts/Isotope_Handout.pdf){target="_blank"}.
 
-Take time to review the reading from the last week (Chapters 10 and 11 and the handout on isotopes). Come to class with questions about the carbon cycle and past climates.
+### Reading Notes:
+
+Focus on the Pleistocene Ice Ages, which extended from roughly 2.75 million years ago (different scientists attribute different dates to the exact beginning of the Pleistocene) to about 10,000 years ago when our current warm period, the Holocene, began when the glaciers retreated for the last time.
+
+We have two principal questions about the Pleistocene: How do we know what climate was like then? And how do we know what caused the cycle of ice ages?
+
+* Pay particular attention to the way oxygen isotopes in samples of ice can be used to tell the temperature hundreds of thousands of years ago and the way oxygen isotopes in sediments at the bottom of the ocean can tell us about the amount of ice in the glaciers around the world, but both are useful.
+* Recall the discussion of carbon dioxide feedbacks on p. 84. This is crucial.
+* What kinds of instabilities did we see in the climates of the Pleistocene? Are those instabilities relevant to questions of how the climate will change as we increase the atmospheric greenhouse gas levels over the coming century?

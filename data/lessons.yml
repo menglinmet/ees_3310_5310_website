@@ -27,6 +27,7 @@ lessons:
 - date: '2021-02-08'
   title: Review of Greenhouse Effect
   reading: /reading/reading_07
+  lecture: /slides/class_07
   lab: lab_03
 - date: '2021-02-10'
   title: Feedbacks
@@ -49,10 +50,10 @@ lessons:
   reading: /reading/reading_13
   lab: lab_05
 - date: '2021-02-24'
-  title: The Pleistocene Ice Ages
+  title: Review
   reading: /reading/reading_14
 - date: '2021-02-26'
-  title: Review
+  title: The Pleistocene Ice Ages
   reading: /reading/reading_15
 - date: '2021-03-01'
   title: Climate Models
