@@ -26,3 +26,8 @@ output:
 
 ## Assignment
 Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/HAQ5sVjp>.
+
+## Solutions
+
+**Solutions for Lab Exercises**:
+* [](/lab_solutions/lab_01_answers){target="_blank"}
