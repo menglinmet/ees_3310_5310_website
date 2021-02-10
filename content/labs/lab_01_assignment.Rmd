@@ -30,4 +30,4 @@ Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/HAQ
 ## Solutions
 
 **Solutions for Lab Exercises**:
-* [](/lab_solutions/lab_01_answers){target="_blank"}
+* [Lab #1 Answers](/lab_solutions/lab_01_answers){target="_blank"}
