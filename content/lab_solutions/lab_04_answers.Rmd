@@ -108,6 +108,32 @@ ggplot(lapse_vs_t, aes(x = lapse, y = t_surf)) +
    labs(x = "Lapse rate (K/km)", y = "Ground temperature (K)")
 ```
 
+#### **Explanation:**
+
+Students don't need to have this detail in their reports, but the reason this 
+is happening is that the closer the basic environmental lapse rate gets to the
+dry adiabatic lapse rate, the less stable the atmosphere is and the easier it
+is for solar heating of the surface to set off convection that redistributes
+heat (basically bringing heat from the surface to the upper troposphere).
+
+When the environmental lapse rate (ELR) is less than the moist adiabatic lapse 
+rate, the surface temperature is close to 
+$T_{\text{surface}} = T_{\text{skin}} + h_{\text{skin}} \text{ELR}$,
+but when the ELR becomes greater than the moist adiabatic lapse rate, there
+is so much convection that it disrupts the simple picture I presented in class.
+
+The picture I presented in class works well for an atmosphere like ours, which 
+is marginally stable (i.e., the environmental lapse rate is roughly equal to the
+average moist adiabatic lapse rate).
+When the atmosphere is undergoing a large amount of constant convection, then 
+heat flow behaves differently.
+
+All of that convection transports lots of heat from the surface to the upper
+troposphere and brings lots of cold air down from the upper troposphere to the
+surface, which makes it hard for the surface to get warmer. This is why the
+ground temperature flattens out and stops changing very much after the lapse
+rate reaches about 6 K/km.
+
 # Exercises on Albedo and Clouds
 
 For the following exercises, start off with the RRTM model in its default 
