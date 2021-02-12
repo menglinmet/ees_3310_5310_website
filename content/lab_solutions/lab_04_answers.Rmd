@@ -180,7 +180,7 @@ c) In cities, streets and parking lots are usually paved with asphalt.
 
 ### Exercise 2 Report:
 
-#### **Preliminaries***
+#### **Preliminaries**
 
 Because I will be doing a lot of comparisons here, I want to automate some of
 the text using a `compare` function:
@@ -590,10 +590,7 @@ from `r format_md(T_surface_default, digits = 3)` K to
 In the figure below, we can see how the upward and downward heat flows change
 with altitude for the case of low clouds.
 
-(ref:low_cloud_caption) Upward and downward fluxes of longwave and shortwave 
-radiation with 70% of the sky covered by low clouds.
-
-```{r ex-3-a-figure, fig.cap='(ref:low_cloud_caption)'}
+```{r ex-3-a-figure, fig.cap='Upward and downward fluxes of longwave and shortwave radiation with low clouds.'}
 plot_heat_flows(low_clouds)
 ```
 
@@ -603,10 +600,7 @@ and downward shortwave is smaller. Above the clouds, there is a small increase
 in upward longwave and shortwave, but the changes are much smaller than for the
 downward radiation.
 
-(ref:high_cloud_caption) Upward and downward fluxes of longwave and shortwave 
-radiation with 20% of the sky covered by high clouds.
-
-```{r ex-3-b-figure, fig.cap='(ref:high_cloud_caption)'}
+```{r ex-3-b-figure, fig.cap='Upward and downward fluxes of longwave and shortwave radiation with high clouds.'}
 plot_heat_flows(high_clouds)
 ```
 
