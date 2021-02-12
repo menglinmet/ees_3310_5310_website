@@ -222,6 +222,13 @@ the text using a <code>compare</code> function:</p>
           ifelse(x &lt; y, &quot;less than&quot;, &quot;the same as&quot;))
 }
 
+# This function compares two values and prints the absolute value of 
+# the difference followed by optional units (e.g., W/m^2^), and then the
+# comparison string, so something like &quot;3.2 W/m^2^ less than&quot;.
+#
+# If the two values are the same, we don&#39;t want to print 
+# &quot;0 W/m^2^ the same as&quot;, so we suppress printing the number and the units 
+# in that case.
 compare_val = function(x, y, digits, units = NULL) {
    delta = format_md(abs(x - y), digits = digits)
    comp_str = compare(x, y)
@@ -266,6 +273,8 @@ albedo_asphalt = asphalt$albedo
 I_in_asphalt = asphalt$i_in
 I_out_asphalt = asphalt$i_out
 
+# This is the net heat flow into the earth.
+# It should be zero when heat in = heat out
 Q_asphalt = asphalt$Q
 
 flux_surf_asphalt = asphalt$fluxes %&gt;% filter(altitude == 0)
@@ -314,6 +323,8 @@ in the default case.</p>
 and manually adjusted the surface temperature until the heat budget was
 balanced.</p>
 <pre class="r"><code>T_surface_asphalt = 325.6
+
+# Check that the heat really does balance
 asphalt_warming = run_rrtm(surface_type = &quot;Asphalt&quot;, 
                            T_surface = T_surface_asphalt)
 Q_asphalt_warmed = asphalt_warming$Q
@@ -378,7 +389,11 @@ in the default case, and
 which was
 61. W/m<sup>2</sup> greater than
 in the default case.</p>
+<p>Then I manually adjusted the surface temperature in the interactive RRTM model
+until the heat out balanced the heat in.</p>
 <pre class="r"><code>T_surface_concrete = 247.0
+
+# Check that the heat really does balance
 concrete_warming = run_rrtm(surface_type = &quot;Concrete&quot;, 
                            T_surface = T_surface_concrete)
 Q_concrete_warmed = concrete_warming$Q
@@ -485,6 +500,8 @@ in the default case.</p>
 and manually adjusted the surface temperature until the heat budget was
 balanced.</p>
 <pre class="r"><code>T_surface_low = 280.45
+
+# Check that the new temperature really does balance the heat flow.
 low_warming = run_rrtm(low_cloud_frac = 0.70, T_surface = T_surface_low)
 Q_low_warmed = low_warming$Q
 Delta_T_low = T_surface_low - T_surface_default</code></pre>
@@ -554,6 +571,8 @@ in the default case.</p>
 and manually adjusted the surface temperature until the heat budget was
 balanced.</p>
 <pre class="r"><code>T_surface_high = 298.05
+
+# Check that the new temperature really does balance the heat flow.
 high_warming = run_rrtm(high_cloud_frac = 0.20, T_surface = T_surface_high)
 Q_high_warmed = high_warming$Q
 Delta_T_high = T_surface_high - T_surface_default</code></pre>
