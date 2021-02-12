@@ -10,8 +10,9 @@ output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
 ---
-
 # Overview:
+
+This lab will use the GEOCARB model to explore the geochemical carbon cycle. We will trace what happens following a large release of carbon dioxide into the atmosphere.
 
 ## Reading
 

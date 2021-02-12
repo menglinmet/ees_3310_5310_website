@@ -9,8 +9,9 @@ output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
 ---
-
 # Overview:
+
+In this lab, you and a partner will begin to develop your own question to explore using computer models and/or archives of climate data
 
 ## Reading
 

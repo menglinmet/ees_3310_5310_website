@@ -9,8 +9,15 @@ output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
 ---
-
 # Overview:
+
+You and a partner will pick a country and begin working on a policy analysis for reducing its greenhouse gas emissions.
+
+## Important Update
+
+The original assignment said to analyze **both** the 2030 goal for the Paris nationally determined contribution **and** the 2050 goal that you choose. 
+
+I have decided that is too much work, so you should **only** do the analysis of how the country would achieve the **2050** goal that you choose (you **do not** have to analyze the difficulty of meeting the 2030 goal).
 
 ## Reading
 No reading has been posted yet for this lab.

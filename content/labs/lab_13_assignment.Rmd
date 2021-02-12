@@ -9,8 +9,9 @@ output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
 ---
-
 # Overview:
+
+Lab attendence is optional today. Mr. de Wet and I will be there to answer questions and discuss your projects with you.
 
 ## Reading
 No reading has been posted yet for this lab.
