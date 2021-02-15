@@ -40,6 +40,7 @@ lessons:
 - date: '2021-02-15'
   title: 'The Carbon Cycle: Ocean and Biosphere'
   reading: /reading/reading_10
+  lecture: /slides/class_10
   lab: lab_04
 - date: '2021-02-17'
   title: 'The Carbon Cycle: Mineral Weathering'
