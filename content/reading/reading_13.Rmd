@@ -15,6 +15,7 @@ output:
 ### Required Reading (everyone):
 
 * Understanding the Forecast, Ch. 11, pp. 135--145.
+* Handout: [Jonathan Gilligan, "Handout on Isotopes,"](/files/reading_handouts/Isotope_Handout.pdf){target="_blank"}.
 
 ### Reading Notes:
 
