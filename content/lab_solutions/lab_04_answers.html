@@ -274,17 +274,17 @@ I_surf_short_default = flux_surf_default$sw_down
 I_space_long_default = flux_space_default$lw_up
 I_space_short_default = flux_space_default$sw_up</code></pre>
 <p>The albedo was
-0.3,
-I<sub>in</sub> = 245. W/m<sup>2</sup>, and
-I<sub>out</sub> = 245. W/m<sup>2</sup>, so the heat
+0.30,
+I<sub>in</sub> = 244.8 W/m<sup>2</sup>, and
+I<sub>out</sub> = 244.8 W/m<sup>2</sup>, so the heat
 budget is balanced.</p>
 <p>Breaking down the heat flow into shortwave and longwave components, the
 heat absorbed by the ground consisted of
-281. W/m<sup>2</sup> of longwave radiation and
-266. W/m<sup>2</sup> of shortwwave radiation.
+280.9 W/m<sup>2</sup> of longwave radiation and
+266.3 W/m<sup>2</sup> of shortwwave radiation.
 The heat radiated out to space consisted of
-245. W/m<sup>2</sup> of longwave radiation and
-95.2 W/m<sup>2</sup> of shortwwave radiation.</p>
+244.8 W/m<sup>2</sup> of longwave radiation and
+95.20 W/m<sup>2</sup> of shortwwave radiation.</p>
 </div>
 <div id="a-asphalt-surface" class="section level4">
 <h4>2(a) <strong>Asphalt Surface</strong></h4>
@@ -319,28 +319,28 @@ Delta_I_space_short_asphalt = I_space_short_asphalt - I_space_short_default</cod
 which is a good deal less than the default
 albedo.
 This caused I<sub>in</sub> to increase from
-245. W/m<sup>2</sup> to
-297. W/m<sup>2</sup>.
+244.8 W/m<sup>2</sup> to
+296.8 W/m<sup>2</sup>.
 I<sub>out</sub> did not change and remained at
-245. W/m<sup>2</sup>.</p>
+244.8 W/m<sup>2</sup>.</p>
 <p>Breaking down the heat flow into shortwave and longwave components, the
 heat absorbed by the ground consisted of
-281. W/m<sup>2</sup> of longwave radiation,
+280.9 W/m<sup>2</sup> of longwave radiation,
 which was
 the same as
 in the default case, and
-262. W/m<sup>2</sup> of shortwwave radiation,
+262.4 W/m<sup>2</sup> of shortwwave radiation,
 which was
-4. W/m<sup>2</sup> less than
+3.9 W/m<sup>2</sup> less than
 in the default case.</p>
 <p>The heat radiated out to space consisted of
-245. W/m<sup>2</sup> of longwave radiation,
+244.8 W/m<sup>2</sup> of longwave radiation,
 which was
 the same as
 in the default case, and
-43. W/m<sup>2</sup> of shortwwave radiation,
+43.2 W/m<sup>2</sup> of shortwwave radiation,
 which was
-52. W/m<sup>2</sup> less than
+52.0 W/m<sup>2</sup> less than
 in the default case.</p>
 <p>Then I opened the interactive RRTM model, set the surface type to “Asphalt,”
 and manually adjusted the surface temperature until the heat budget was
@@ -353,13 +353,13 @@ asphalt_warming = run_rrtm(surface_type = &quot;Asphalt&quot;,
 Q_asphalt_warmed = asphalt_warming$Q
 Delta_T_asphalt = T_surface_asphalt - T_surface_default</code></pre>
 <p>The change in I<sub>in</sub> caused a heat-budget imbalance of
-52. W/m<sup>2</sup> going
+52.0 W/m<sup>2</sup> going
 into the Earth.
 To put the heat budget back into balance,
 I had to raise the surface temperature
-from 284. K to
-326. K, a change of
-41. K.</p>
+from 284.4 K to
+325.6 K, a change of
+41.2 K.</p>
 </div>
 <div id="b-concrete-surface" class="section level4">
 <h4>2(b) <strong>Concrete Surface</strong></h4>
@@ -388,29 +388,29 @@ Delta_I_surf_short_concrete = I_surf_short_concrete - I_surf_short_default
 Delta_I_space_long_concrete = I_space_long_concrete - I_space_long_default
 Delta_I_space_short_concrete = I_space_short_concrete - I_space_short_default</code></pre>
 <p>Where asphalt had a much higher albedo albedo for concrete is
-0.6 and this
+0.55 and this
 caused I<sub>in</sub> to decrease to
-184. W/m<sup>2</sup>.
+183.8 W/m<sup>2</sup>.
 I<sub>out</sub> did not change and remained at
-245. W/m<sup>2</sup>.</p>
+244.8 W/m<sup>2</sup>.</p>
 <p>Breaking down the heat flow into shortwave and longwave components, the
 heat absorbed by the ground consisted of
-281. W/m<sup>2</sup> of longwave radiation,
+280.9 W/m<sup>2</sup> of longwave radiation,
 which was
 the same as
 in the default case, and
-271. W/m<sup>2</sup> of shortwwave radiation,
+271.2 W/m<sup>2</sup> of shortwwave radiation,
 which was
-5. W/m<sup>2</sup> greater than
+4.9 W/m<sup>2</sup> greater than
 in the default case.</p>
 <p>The heat radiated out to space consisted of
-245. W/m<sup>2</sup> of longwave radiation,
+244.8 W/m<sup>2</sup> of longwave radiation,
 which was
 the same as
 in the default case, and
-156. W/m<sup>2</sup> of shortwwave radiation,
+156.2 W/m<sup>2</sup> of shortwwave radiation,
 which was
-61. W/m<sup>2</sup> greater than
+61.0 W/m<sup>2</sup> greater than
 in the default case.</p>
 <p>Then I manually adjusted the surface temperature in the interactive RRTM model
 until the heat out balanced the heat in.</p>
@@ -422,22 +422,22 @@ concrete_warming = run_rrtm(surface_type = &quot;Concrete&quot;,
 Q_concrete_warmed = concrete_warming$Q
 Delta_T_concrete = T_surface_concrete - T_surface_default</code></pre>
 <p>The change in I<sub>in</sub> caused a heat-budget imbalance of
--61. W/m<sup>2</sup> going
+-61.0 W/m<sup>2</sup> going
 out of the Earth.
 To put the heat budget back into balance,
 I had to lower the surface temperature to
-247. K, a change of
--37. K.</p>
+247.0 K, a change of
+-37.4 K.</p>
 </div>
 <div id="c-discussion" class="section level4">
 <h4>2(c) <strong>Discussion</strong></h4>
 <p>Covering the earth in asphalt caused the planet to warm up by
-41. K,
+41.2 K,
 so we could expect that covering
 a large part of a city in asphalt or similarly dark-colored material would
 cause the city’s temperature to rise.
 Conversely, covering the planet in concrete caused it to cool off by
-37. K, so replacing asphalt with
+37.4 K, so replacing asphalt with
 concrete in a city would cool the city off a good deal.
 This would provide cooler temperature for the people living in the city and
 would reduce the impact of global climate change.</p>
@@ -493,31 +493,31 @@ Delta_I_space_short_low = I_space_short_low - I_space_short_default
 
 Q_low = low_clouds$Q</code></pre>
 <p>Adding low clouds caused I<sub>in</sub> to decrease from
-245. W/m<sup>2</sup> to
-245. W/m<sup>2</sup>, a change of
-0 W/m<sup>2</sup>.
+244.8 W/m<sup>2</sup> to
+233.1 W/m<sup>2</sup>, a change of
+-11.7 W/m<sup>2</sup>.
 I<sub>out</sub> increased from
-245. W/m<sup>2</sup> to
-245. W/m<sup>2</sup>, a change of
-0 W/m<sup>2</sup>.</p>
+244.8 W/m<sup>2</sup> to
+240.2 W/m<sup>2</sup>, a change of
+-4.6 W/m<sup>2</sup>.</p>
 <p>Breaking down the heat flow into shortwave and longwave components, the
 heat absorbed by the ground consisted of
-281. W/m<sup>2</sup> of longwave radiation,
+320.8 W/m<sup>2</sup> of longwave radiation,
 which was
-the same as
+39.90 W/m<sup>2</sup> greater than
 in the default case, and
-266. W/m<sup>2</sup> of shortwwave radiation,
+244.7 W/m<sup>2</sup> of shortwwave radiation,
 which was
-the same as
+21.60 W/m<sup>2</sup> less than
 in the default case.</p>
 <p>The heat radiated out to space consisted of
-245. W/m<sup>2</sup> of longwave radiation,
+240.2 W/m<sup>2</sup> of longwave radiation,
 which was
-the same as
+4.600 W/m<sup>2</sup> less than
 in the default case, and
-95.2 W/m<sup>2</sup> of shortwwave radiation,
+106.9 W/m<sup>2</sup> of shortwwave radiation,
 which was
-the same as
+11.70 W/m<sup>2</sup> greater than
 in the default case.</p>
 <p>Nwxt, I opened the interactive RRTM model, set the surface type to “low,”
 and manually adjusted the surface temperature until the heat budget was
@@ -529,13 +529,13 @@ low_warming = run_rrtm(low_cloud_frac = 0.70, T_surface = T_surface_low)
 Q_low_warmed = low_warming$Q
 Delta_T_low = T_surface_low - T_surface_default</code></pre>
 <p>The change in I<sub>in</sub> caused a heat-budget imbalance of
-0 W/m<sup>2</sup> going
+-7.1 W/m<sup>2</sup> going
 out of the Earth.
 To put the heat budget back into balance,
 I had to lower the surface temperature
-from 284. K to
-280. K, a change of
--4. K.</p>
+from 284.4 K to
+280.4 K, a change of
+-4.0 K.</p>
 </div>
 <div id="b-high-clouds" class="section level4">
 <h4>3(b) <strong>High Clouds</strong></h4>
@@ -564,31 +564,31 @@ Delta_I_space_short_high = I_space_short_high - I_space_short_default
 
 Q_high = high_clouds$Q</code></pre>
 <p>Adding high clouds caused I<sub>in</sub> to decrease from
-245. W/m<sup>2</sup> to
-245. W/m<sup>2</sup>, a change of
-0 W/m<sup>2</sup>.
+244.8 W/m<sup>2</sup> to
+234.7 W/m<sup>2</sup>, a change of
+-10.1 W/m<sup>2</sup>.
 I<sub>out</sub> increased from
-245. W/m<sup>2</sup> to
-245. W/m<sup>2</sup>, a change of
-0 W/m<sup>2</sup>.</p>
+244.8 W/m<sup>2</sup> to
+212.0 W/m<sup>2</sup>, a change of
+-32.8 W/m<sup>2</sup>.</p>
 <p>Breaking down the heat flow into shortwave and longwave components, the
 heat absorbed by the ground consisted of
-281. W/m<sup>2</sup> of longwave radiation,
+283.9 W/m<sup>2</sup> of longwave radiation,
 which was
-the same as
+3.000 W/m<sup>2</sup> greater than
 in the default case, and
-266. W/m<sup>2</sup> of shortwwave radiation,
+255.4 W/m<sup>2</sup> of shortwwave radiation,
 which was
-the same as
+10.90 W/m<sup>2</sup> less than
 in the default case.</p>
 <p>The heat radiated out to space consisted of
-245. W/m<sup>2</sup> of longwave radiation,
+212.0 W/m<sup>2</sup> of longwave radiation,
 which was
-the same as
+32.80 W/m<sup>2</sup> less than
 in the default case, and
-95.2 W/m<sup>2</sup> of shortwwave radiation,
+105.3 W/m<sup>2</sup> of shortwwave radiation,
 which was
-the same as
+10.10 W/m<sup>2</sup> greater than
 in the default case.</p>
 <p>Next, I opened the interactive RRTM model, set the surface type to “high,”
 and manually adjusted the surface temperature until the heat budget was
@@ -600,13 +600,13 @@ high_warming = run_rrtm(high_cloud_frac = 0.20, T_surface = T_surface_high)
 Q_high_warmed = high_warming$Q
 Delta_T_high = T_surface_high - T_surface_default</code></pre>
 <p>The change in I<sub>in</sub> caused a heat-budget imbalance of
-0 W/m<sup>2</sup> going
-out of the Earth.
+22.7 W/m<sup>2</sup> going
+into the Earth.
 To put the heat budget back into balance,
 I had to raise the surface temperature
-from 284. K to
-298. K, a change of
-14. K.</p>
+from 284.4 K to
+298.0 K, a change of
+13.6 K.</p>
 </div>
 <div id="c-heat-flow" class="section level4">
 <h4>3(c) <strong>Heat Flow</strong></h4>
