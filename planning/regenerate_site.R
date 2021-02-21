@@ -17,3 +17,19 @@ regenerate_site <- function(root = NULL, force = FALSE) {
                   includes = list(in_header = "ees3310.sty"))
   update_pdfs(force_dest = TRUE, force = force, output_options = out_opts)
 }
+
+init_git_tokens <- function(keyring = "git_access") {
+  if (keyring::keyring_is_locked(keyring)) {
+  keyring::keyring_unlock(keyring)
+  }
+  Sys.setenv(GITHUB_PAT = keyring::key_get("GITHUB_PAT", keyring = keyring))
+  Sys.setenv(GITLAB_PAT = keyring::key_get("GITLAB_PAT", username = "jonathan",
+                                           keyring = keyring))
+}
+
+publish <- function() {
+  push(".", name = "origin", refspec = "refs/heads/main",
+       credentials = cred_token("GITLAB_PAT"))
+  push(".", name = "publish", refspec = "refs/heads/main",
+       credentials = cred_token())
+}
