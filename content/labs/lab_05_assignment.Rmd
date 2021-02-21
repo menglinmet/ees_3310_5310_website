@@ -1,8 +1,9 @@
 ---
-title: Climate Feedbacks
+title: Clouds and Climate Feedbacks
 lab_date: '2021-02-22'
 report_due_date: '2021-03-01'
 lab_number: 5
+github_classroom_assignment_url: https://classroom.github.com/a/DHSukcMP
 pubdate: '2020-12-31'
 date: '2021-02-22'
 slug: lab_05
@@ -12,14 +13,13 @@ output:
 ---
 # Overview:
 
-This lab will explore feedbacks in the climate system.
+This lab will explore clouds and feedbacks in the climate system.
 
 ## Reading
 
 **Before you come to lab**, please read the following document:
 
-* [Instructions for Lab #5: Feedbacks](/lab_docs/lab_05_instructions){target="_blank"}
+* [Instructions for Lab #5: Clouds and Feedbacks](/lab_docs/lab_05_instructions){target="_blank"}
 
 ## Assignment
-
-The GitHub Classroom has not been posted yet.
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/DHSukcMP>.

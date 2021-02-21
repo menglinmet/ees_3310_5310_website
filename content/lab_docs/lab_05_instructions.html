@@ -1,5 +1,5 @@
 ---
-title: 'Instructions for Lab #5: Feedbacks'
+title: 'Instructions for Lab #5: Clouds and Feedbacks'
 author: Jonathan Gilligan
 lab_number: 5
 lab_date: '2021-02-22'
@@ -17,27 +17,24 @@ output:
 
 <div id="TOC">
 <ul>
-<li><a href="#exercises-with-clouds.">Exercises with clouds.</a></li>
+<li><a href="#exercises-with-clouds-and-feedbacks">Exercises with clouds and feedbacks</a></li>
 <li><a href="#exercises">Exercises</a>
 <ul>
 <li><a href="#general-instructions">General Instructions</a></li>
-<li><a href="#chapter-7-exercises">Chapter 7 Exercises</a>
-<ul>
-<li><a href="#exercise-7.2-clouds-and-infrared.">Exercise 7.2: Clouds and Infrared.</a></li>
-<li><a href="#exercise-7.3-clouds-and-visible-light.">Exercise 7.3: Clouds and Visible Light.</a></li>
-</ul></li>
+<li><a href="#exercise-1-clouds-and-infrared.">Exercise 1: Clouds and Infrared.</a></li>
+<li><a href="#exercise-2-water-vapor-feedback">Exercise 2: Water Vapor Feedback</a></li>
 </ul></li>
 </ul>
 </div>
 
-<div id="exercises-with-clouds." class="section level1">
-<h1>Exercises with clouds.</h1>
+<div id="exercises-with-clouds-and-feedbacks" class="section level1">
+<h1>Exercises with clouds and feedbacks</h1>
 </div>
 <div id="exercises" class="section level1">
 <h1>Exercises</h1>
 <p>These are the exercises you will work for the lab this week.</p>
-<div id="general-instructions" class="section level3">
-<h3>General Instructions</h3>
+<div id="general-instructions" class="section level2">
+<h2>General Instructions</h2>
 <p>For this week’s lab, when you write up the answers, I would
 like you to think about integrating your R code chunks with your text.</p>
 <p>For instance, you can describe what you’re going to do to answer the question,
@@ -48,90 +45,98 @@ or describe what the next step of the analysis will do.</p>
 <p>This way, your answer can have several small chunks of R code that build on
 each other and follow the flow of your text.</p>
 </div>
-<div id="chapter-7-exercises" class="section level2">
-<h2>Chapter 7 Exercises</h2>
-<div id="exercise-7.2-clouds-and-infrared." class="section level3">
-<h3>Exercise 7.2: Clouds and Infrared.</h3>
+<div id="exercise-1-clouds-and-infrared." class="section level2">
+<h2>Exercise 1: Clouds and Infrared.</h2>
 <p><strong>Note:</strong> this exercise only considers the effect of clouds on longwave
 radiation and ignores the effect of clouds on albedo, which is also important.</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Run the MODTRAN model with present-day CO<sub>2</sub> (400 ppm) and a tropical atmosphere.
+<li><p>Run the MODTRAN model with the default conditions:
+present-day CO<sub>2</sub> (400 ppm), a tropical atmosphere, and the sensor looking
+down from an altitude of 70 km.
 Plot the outgoing infrared spectrum.</p>
 <p>Run MODTRAN four times: first with no clouds, and then with three different
-kinds of clouds: standard cirrus, altostratus, and stratus. These correspond
-to high, medium, and low-altitude clouds.</p>
+kinds of clouds: standard cirrus, altostratus, and stratus
+(<code>clouds = "standard cirrus"</code>, <code>clouds = "altostratus"</code>, and
+<code>clouds = "stratus"</code>). These correspond to clouds at high, medium, and low
+altitude, respectively.</p>
 <p>Describe the important differences between the spectra for the four cases.
 Describe the differences in the intensity of outgoing infrared radiation
 <span class="math inline">\(I_{\text{out}}\)</span> for the four cases.</p>
-<p>How do the four spectra compare for the 700 cm<sup>-1</sup> band (where CO<sub>2</sub> absorbs
-strongly) and the 900 cm<sup>-1</sup> band (in the atmospheric window)?</p>
+<p>How do the four spectra compare for the band of wavenumbers from about
+600–750 cm<sup>-1</sup> (where CO<sub>2</sub> absorbs strongly) and the band from about
+800–1200 cm<sup>-1</sup> (the atmospheric window)?</p>
 <p>Which kind of cloud has the greatest impact on outgoing infrared light?
 Why?</p></li>
-<li><p>Now set <code>atmosphere</code> to <code>"midlatitude winter"</code>, set <code>clouds</code> to <code>"none"</code>,
-and set the sensor altitude to 0 km (<code>altitude_km = 0</code>) and make the sensor
-look up (<code>looking = "up"</code>).
+<li><p>Keeping the default settings (sensor altitude = 70 km looking down),
+Set <code>atmosphere = "midlatitude winter"</code> and <code>h2o_scale=1</code> and
+run MODTRAN with no clouds.</p>
+<p>Next, run MODTRAN with the same settings, but with <code>altitude_km = 0</code> and
+<code>looking="up"</code>.
 This means your sensor is on the ground looking up at the longwave radiation
 coming down from the atmosphere to the ground instead of looking down from
 the top of the atmosphere at the longwave radiation going out to space.</p>
+<p>Plot the two spectra (looking down from 70 km and looking up from the ground)
+and describe what you see.
+Pay special attention to the parts of the spectrum corresponding to the
+strong CO<sub>2</sub> absorption (roughly 600–750 cm<sup>-1</sup>) and the infrared window
+(roughly 800–1200 cm<sup>-1</sup>).</p>
+<p>Which parts of the spectrum correspond to warmer temperatures
+temperatures when you look down, and which parts correspond to colder
+temperatures?
+What about when you are looking up from the ground?
+Do you notice a pattern?</p></li>
+<li><p>Now, run MODTRAN with the sensor looking up from the ground
+(<code>altitude = 0</code> and <code>looking = "up"</code>), but with stratus clouds
+(<code>clouds = "stratus"</code>).</p>
+<p>When we’re looking up at the clouds, the base (bottom) of the clouds form
+a layer that is opaque to longwave radiation, with an emissivity of 1
+(i.e., a perfect black body).</p>
+<p>Make a note of
+<em>I</em><sub>down</sub> for the clear sky and with clouds.
+(Remember that the variable <code>i_out</code> in the MODTRAN output measures the
+intensity of longwave radiation reaching the sensor.
+In this exercise, the sensor is on the ground looking up, so <code>i_out</code>
+measures the downward radiation reaching the ground.)</p>
+<p>Plot the spectra for both cases and also compare <em>I</em><sub>down</sub>.</p>
+<ul>
+<li>What part of the spectrum is most affected by clouds?
+(Answer both in terms of what ranges of wavelengths or wavenumbers are
+affected, and also what name we give to this part of the spectrum).</li>
+<li>On a winter night in Nashville, would it be colder if the sky is clear or
+if it’s cloudy?</li>
+</ul></li>
+<li><p>Now set <code>clouds</code> to <code>"none"</code>,
+and keep the sensor altitude at 0 km (<code>altitude_km = 0</code>)
+looking up (<code>looking = "up"</code>).</p>
 <p>Run MODTRAN first with <code>h2o_scale = 1</code> (the default), and then with
 <code>h2o_scale = 0</code> (no water vapor).</p>
-<p>Plot the two spectra and compare them. Discuss why you see what you see:</p>
+<p>Plot the two spectra (with water vapor and without water vapor) and compare
+them.
+Discuss why you see what you see:</p>
 <ul>
 <li><p>For the atmosphere with no water vapor, compare the parts of the
 spectrum corresponding to the strong CO<sub>2</sub> absorption
 (roughly 600–750 cm<sup>-1</sup>) and the infrared window
 (roughly 800–1200 cm<sup>-1</sup>).</p>
 <ul>
-<li>Which corresponds to higher emission temperatures and which to lower temperatures?</li>
+<li>Which parts of the spectrum correspond to higher emission temperatures
+and which to lower temperatures?</li>
 <li>Why do you think this is?</li>
 </ul></li>
 <li><p>For the atmosphere with normal water vapor (<code>h2o_scale = 1</code>), how does
 water vapor change the spectrum you see from the ground?</p>
 <ul>
 <li>Does it make the longwave radiation brighter (warmer) or dimmer
-(cooler)?</li>
+(cooler)?
+<ul>
 <li>Why do you think this is?</li>
 </ul></li>
 </ul></li>
-<li><p>Keeping the same settings for <code>atmosphere = "midlatitude winter"</code>,
-<code>altitude_km = 0</code>, and <code>looking="up"</code>, set <code>h2o_scale=1</code>
-and run MODTRAN first with no clouds, then with three kinds of clouds:
-standard cirrus, altostratus, and stratus (<code>clouds="none"</code>,
-<code>clouds="standard cirrus"</code>, <code>clouds="altostratus"</code>, and <code>clouds="stratus"</code>).</p>
-<p>When we’re looking up at the clouds, the base (bottom) of the clouds form
-a layer that is opaque to longwave radiation, with an emissivity of 1
-(i.e., a perfect black body).</p>
-<p>Cirrus clouds are very high (around 10 km above sea level),
-altostratus clouds are at a medium height (with a base around 2.4 km),
-and stratus clouds are very low (with a base around 0.33 km).</p>
-<p>For each run examine<br />
-<span class="math inline">\(I_{\text{down}}\)</span>. (Remember that the variable <code>i_out</code> in the MODTRAN
-output measures the intensity of longwave radiation reaching the sensor.
-In this exercise, the sensor is on the ground looking up, so <code>i_out</code>
-measures the downward radiation reaching the ground.)</p>
-<p>Describe how <span class="math inline">\(I_{\text{down}}\)</span> compares for the four conditions.</p>
-<pre><code> * Do the clouds have a heating or cooling effect?
- * Which clouds have the greatest effect?
- * What does this suggest about how clouds affect the ground temperature?</code></pre>
-<p>As you do this exercise, think about a winter night with clear skies
-versus a winter night with cloudy skies.</p></li>
-<li><p>Plot the longwave radiation spectra for the four MODTRAN runs from part (c).
-Which parts of the spectrum do the different clouds affect the most?
-(Compare the infrared window to the parts of the spectra where CO<sub>2</sub>
-absorbs.)</p>
-<ul>
-<li><p>Look at two parts of the spectrum: the infrared window
-(roughly 800–1200 cm<sup>-1</sup>) and the region where CO<sub>2</sub> absorbs strongly
-(roughly 600–750 cm<sup>-1</sup>).</p>
-<p>Why do you suppose the high, medium, and low clouds affect the two
-different spectral regions the way they do?</p></li>
-<li><p>In which part of the spectrum do the clouds affect the downward longwave
-radiation the most?</p></li>
 </ul></li>
 </ol>
 </div>
-<div id="exercise-7.3-clouds-and-visible-light." class="section level3">
-<h3>Exercise 7.3: Clouds and Visible Light.</h3>
+<div id="exercise-2-water-vapor-feedback" class="section level2">
+<h2>Exercise 2: Water Vapor Feedback</h2>
 <p>For this exercise, you will use the RRTM model to examine climate sensitivity
 and the water vapor feedback in a radiative-convective atmosphere.</p>
 <ol style="list-style-type: lower-alpha">
@@ -145,19 +150,23 @@ temperature into your R code).</p>
 <p>The change in surface temperature between the 400 ppm CO<sub>2</sub> and
 800 ppm CO<sub>2</sub> (<span class="math inline">\(\Delta T_{2 \times \text{CO}_2}\)</span>) runs is the
 <strong>climate sensitivity</strong>. What is it?</p></li>
-<li><p>Now run the RRTM model again, for 400 and 800 ppm CO<sub>2</sub>, but this time
+<li><p>Now run the RRTM model again, with 400 ppm CO<sub>2</sub>, but this time
 setting <code>relative_humidity = 0</code> (this turns off the water vapor feedback).
-At each concentration of CO<sub>2</sub>, adjust <code>T_surface</code> to bring the heat into
-balance (so the output has <code>Q</code> equal to zero). Now what is the climate
-sensitivity <span class="math inline">\(\Delta T_{2 \times \text{CO}_2}\)</span>?</p></li>
+Adjust <code>T_surface</code> to bring the heat into balance (so the output has <code>Q</code>
+equal to zero). Note the value of <code>T_surface</code>.</p>
+<p>Now double the CO<sub>2</sub> concentration (to 800 ppm) and adjust <code>T_surface</code> to
+bring the heat into balance.
+What is the climate sensitivity <span class="math inline">\(\Delta T_{2 \times \text{CO}_2}\)</span>
+when there is no water-vapor feedback?</p></li>
 <li><p>Compare the climate sensitivity (<span class="math inline">\(\Delta T_{2 \times \text{CO}_2}\)</span>) in
 part (a) (with water-vapor feedback) and part (b) (without water-vapor
 feedback).
 The amplification factor for the water-vapor feedback is the ratio of the
 climate sensitivity with water-vapor feedback to the sensitivity without the
 feedback.
-What is it?</p></li>
+What is the amplification factor?</p></li>
 </ol>
-</div>
+<p>In your write-up, discuss how including the water vapor feedback changes the
+way that CO<sub>2</sub> affects the climate.</p>
 </div>
 </div>

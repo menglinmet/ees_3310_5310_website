@@ -1,5 +1,5 @@
 ---
-title: 'Instructions for Lab #5: Feedbacks'
+title: 'Instructions for Lab #5: Clouds and Feedbacks'
 author: Jonathan Gilligan
 lab_number: 5
 lab_date: '2021-02-22'
@@ -14,16 +14,35 @@ output:
 ---
 ```{r setup, include=FALSE}
 knitr::knit_hooks$set(inline = function(x) { knitr:::format_sci(x, 'md')})
-knitr::opts_chunk$set(echo = TRUE, include = TRUE, cache = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 
-# This section loads necessary R libraries and sources scripts that define 
+if (knitr::is_latex_output()) {
+  message("Setting PDF plot hook.")
+  new_plot_hook <- function(x, options)
+    paste("\n", knitr::hook_plot_tex(x, options), "\n")
+
+  knitr::knit_hooks$set(plot = new_plot_hook)
+} else {
+  message("Not using PDF output.")
+}
+
+
+options(dplyr.summarise.inform = FALSE)
+
+# This section loads necessary R libraries and sources scripts that define
 # useful functions format_md.
-# 
+#
 data_dir = "_data"
 script_dir = "_scripts"
 
-library(pacman)
-p_load(tidyverse, jsonlite, httr, magrittr, scales, xml2)
+# library(pacman)
+# p_load(tidyverse, jsonlite, httr, magrittr, scales)
+library(tidyverse)
+library(magrittr)
+library(scales)
+library(jsonlite)
+library(xml2)
+library(httr)
 
 theme_set(theme_bw(base_size = 10))
 
@@ -32,13 +51,13 @@ source(file.path(script_dir, "format_md.R"), chdir = T)
 source(file.path(script_dir, "modtran.R"), chdir = T)
 source(file.path(script_dir, "rrtm.R"), chdir = T)
 ```
-# Exercises with clouds.
+# Exercises with clouds and feedbacks
 
 # Exercises
 
 These are the exercises you will work for the lab this week.
 
-### General Instructions
+## General Instructions
 
 For this week's lab, when you write up the answers, I would
 like you to think about integrating your R code chunks with your text.
@@ -52,102 +71,106 @@ or describe what the next step of the analysis will do.
 This way, your answer can have several small chunks of R code that build on
 each other and follow the flow of your text.
 
-## Chapter 7 Exercises
-
-### Exercise 7.2: Clouds and Infrared.
+## Exercise 1: Clouds and Infrared.
 
 **Note:** this exercise only considers the effect of clouds on longwave
 radiation and ignores the effect of clouds on albedo, which is also important.
 
-a) Run the MODTRAN model with present-day CO~2~ (400 ppm) and a tropical atmosphere. 
+a) Run the MODTRAN model with the default conditions: 
+   present-day CO~2~ (400 ppm), a tropical atmosphere, and the sensor looking 
+   down from an altitude of 70 km.
    Plot the outgoing infrared spectrum. 
    
-    Run MODTRAN four times: first with no clouds, and then with three different
-    kinds of clouds: standard cirrus, altostratus, and stratus. These correspond
-    to high, medium, and low-altitude clouds.
+   Run MODTRAN four times: first with no clouds, and then with three different
+   kinds of clouds: standard cirrus, altostratus, and stratus
+   (`clouds = "standard cirrus"`, `clouds = "altostratus"`, and 
+   `clouds = "stratus"`). These correspond to clouds at high, medium, and low
+   altitude, respectively.
 
-    Describe the important differences between the spectra for the four cases.
-    Describe the differences in the intensity of outgoing infrared radiation
-    $I_{\text{out}}$ for the four cases.
+   Describe the important differences between the spectra for the four cases.
+   Describe the differences in the intensity of outgoing infrared radiation
+   $I_{\text{out}}$ for the four cases.
 
-    How do the four spectra compare for the 700 cm^-1^ band (where CO~2~ absorbs
-    strongly) and the 900 cm^-1^ band (in the atmospheric window)?
+   How do the four spectra compare for the band of wavenumbers from about 
+   600--750 cm^-1^ (where CO~2~ absorbs strongly) and the band from about 
+   800--1200 cm^-1^ (the atmospheric window)?
 
-    Which kind of cloud has the greatest impact on outgoing infrared light?
-    Why?
+   Which kind of cloud has the greatest impact on outgoing infrared light?
+   Why?
 
-b) Now set `atmosphere` to `"midlatitude winter"`, set `clouds` to `"none"`,
-   and set the sensor altitude to 0 km (`altitude_km = 0`) and make the sensor 
-   look up (`looking = "up"`). 
+b) Keeping the default settings (sensor altitude = 70 km looking down), 
+   Set `atmosphere = "midlatitude winter"` and `h2o_scale=1` and 
+   run MODTRAN with no clouds.
+
+   Next, run MODTRAN with the same settings, but with `altitude_km = 0` and 
+   `looking="up"`.
    This means your sensor is on the ground looking up at the longwave radiation 
    coming down from the atmosphere to the ground instead of looking down from 
    the top of the atmosphere at the longwave radiation going out to space.
    
-    Run MODTRAN first with `h2o_scale = 1` (the default), and then with
-    `h2o_scale = 0` (no water vapor).
-    
-    Plot the two spectra and compare them. Discuss why you see what you see:
-    
-    * For the atmosphere with no water vapor, compare the parts of the 
-      spectrum corresponding to the strong CO~2~ absorption 
-      (roughly 600--750 cm^-1^) and the infrared window 
-      (roughly 800--1200 cm^-1^). 
-      
-        * Which corresponds to higher emission temperatures and which to lower temperatures? 
-        * Why do you think this is?
-    
-    * For the atmosphere with normal water vapor (`h2o_scale = 1`), how does 
-      water vapor change the spectrum you see from the ground?
-      
-        * Does it make the longwave radiation brighter (warmer) or dimmer
-          (cooler)?
-        * Why do you think this is?
-    
-c) Keeping the same settings for `atmosphere = "midlatitude winter"`,
-   `altitude_km = 0`, and `looking="up"`, set `h2o_scale=1`
-   and run MODTRAN first with no clouds, then with three kinds of clouds:
-   standard cirrus, altostratus, and stratus (`clouds="none"`, 
-   `clouds="standard cirrus"`, `clouds="altostratus"`, and `clouds="stratus"`).
-   
-    When we're looking up at the clouds, the base (bottom) of the clouds form
-    a layer that is opaque to longwave radiation, with an emissivity of 1
-    (i.e., a perfect black body).
-    
-    Cirrus clouds are very high (around 10 km above sea level), 
-    altostratus clouds are at a medium height (with a base around 2.4 km), 
-    and stratus clouds are very low (with a base around 0.33 km).
+   Plot the two spectra (looking down from 70 km and looking up from the ground)
+   and describe what you see. 
+   Pay special attention to the parts of the spectrum corresponding to the 
+   strong CO~2~ absorption (roughly 600--750 cm^-1^) and the infrared window 
+   (roughly 800--1200 cm^-1^). 
 
-    For each run examine  
-    $I_{\text{down}}$. (Remember that the variable `i_out` in the MODTRAN
-    output measures the intensity of longwave radiation reaching the sensor.
-    In this exercise, the sensor is on the ground looking up, so `i_out` 
-    measures the downward radiation reaching the ground.)
-
-    Describe how $I_{\text{down}}$ compares for the four conditions.
-    
-        * Do the clouds have a heating or cooling effect?
-        * Which clouds have the greatest effect?
-        * What does this suggest about how clouds affect the ground temperature?
-        
-    As you do this exercise, think about a winter night with clear skies 
-    versus a winter night with cloudy skies.
-    
-d) Plot the longwave radiation spectra for the four MODTRAN runs from part (c).
-   Which parts of the spectrum do the different clouds affect the most?
-   (Compare the infrared window to the parts of the spectra where CO~2~ 
-   absorbs.)
+   Which parts of the spectrum correspond to warmer temperatures
+   temperatures when you look down, and which parts correspond to colder 
+   temperatures?
+   What about when you are looking up from the ground?
+   Do you notice a pattern?
    
-    * Look at two parts of the spectrum: the infrared window 
-      (roughly 800--1200 cm^-1^) and the region where CO~2~ absorbs strongly 
-      (roughly 600--750 cm^-1^).
-   
-      Why do you suppose the high, medium, and low clouds affect the two
-      different spectral regions the way they do?
-      
-    * In which part of the spectrum do the clouds affect the downward longwave
-      radiation the most?
+c) Now, run MODTRAN with the sensor looking up from the ground
+   (`altitude = 0` and `looking = "up"`), but with stratus clouds 
+   (`clouds = "stratus"`).
 
-### Exercise 7.3: Clouds and Visible Light.
+   When we're looking up at the clouds, the base (bottom) of the clouds form
+   a layer that is opaque to longwave radiation, with an emissivity of 1
+   (i.e., a perfect black body).
+
+   Make a note of 
+   _I_~down~ for the clear sky and with clouds. 
+   (Remember that the variable `i_out` in the MODTRAN output measures the 
+   intensity of longwave radiation reaching the sensor.
+   In this exercise, the sensor is on the ground looking up, so `i_out` 
+   measures the downward radiation reaching the ground.)
+
+   Plot the spectra for both cases and also compare _I_~down~.
+
+   * What part of the spectrum is most affected by clouds? 
+     (Answer both in terms of what ranges of wavelengths or wavenumbers are
+     affected, and also what name we give to this part of the spectrum).
+   * On a winter night in Nashville, would it be colder if the sky is clear or
+     if it's cloudy?
+
+d) Now set `clouds` to `"none"`,
+   and keep the sensor altitude at 0 km (`altitude_km = 0`) 
+   looking up (`looking = "up"`). 
+   
+   Run MODTRAN first with `h2o_scale = 1` (the default), and then with
+   `h2o_scale = 0` (no water vapor).
+    
+   Plot the two spectra (with water vapor and without water vapor) and compare 
+   them. 
+   Discuss why you see what you see:
+    
+   * For the atmosphere with no water vapor, compare the parts of the 
+     spectrum corresponding to the strong CO~2~ absorption 
+     (roughly 600--750 cm^-1^) and the infrared window 
+     (roughly 800--1200 cm^-1^). 
+
+     * Which parts of the spectrum correspond to higher emission temperatures 
+       and which to lower temperatures? 
+     * Why do you think this is?
+    
+   * For the atmosphere with normal water vapor (`h2o_scale = 1`), how does 
+     water vapor change the spectrum you see from the ground?
+
+     * Does it make the longwave radiation brighter (warmer) or dimmer
+       (cooler)?
+       * Why do you think this is?
+
+## Exercise 2: Water Vapor Feedback
 
 For this exercise, you will use the RRTM model to examine climate sensitivity
 and the water vapor feedback in a radiative-convective atmosphere.
@@ -155,21 +178,25 @@ and the water vapor feedback in a radiative-convective atmosphere.
 a) First, run the RRTM model with its default parameters (400 ppm CO~2~) and 
    note the surface temperature (`T_surface`).
    
-    Then run it again with doubled CO~2~ concentration (`co2 = 800`).
-    Adjust the surface temperature to bring the heat imbalance `Q` to zero
-    (it may be easier to do this with the interactive model at 
-    <http://climatemodels.uchicago.edu/rrtm/> and then paste the new surface
-    temperature into your R code).
+   Then run it again with doubled CO~2~ concentration (`co2 = 800`).
+   Adjust the surface temperature to bring the heat imbalance `Q` to zero
+   (it may be easier to do this with the interactive model at 
+   <http://climatemodels.uchicago.edu/rrtm/> and then paste the new surface
+   temperature into your R code).
     
-    The change in surface temperature between the 400 ppm CO~2~ and 
-    800 ppm CO~2~ ($\Delta T_{2 \times \text{CO}_2}$) runs is the 
-    **climate sensitivity**. What is it?
+   The change in surface temperature between the 400 ppm CO~2~ and 
+   800 ppm CO~2~ ($\Delta T_{2 \times \text{CO}_2}$) runs is the 
+   **climate sensitivity**. What is it?
 
-b) Now run the RRTM model again, for 400 and 800 ppm CO~2~, but this time 
+b) Now run the RRTM model again, with 400 ppm CO~2~, but this time 
    setting `relative_humidity = 0` (this turns off the water vapor feedback).
-   At each concentration of CO~2~, adjust `T_surface` to bring the heat into
-   balance (so the output has `Q` equal to zero). Now what is the climate 
-   sensitivity $\Delta T_{2 \times \text{CO}_2}$?
+   Adjust  `T_surface` to bring the heat into balance (so the output has `Q` 
+   equal to zero). Note the value of `T_surface`.
+   
+   Now double the CO~2~ concentration (to 800 ppm) and adjust `T_surface` to
+   bring the heat into balance. 
+   What is the climate sensitivity $\Delta T_{2 \times \text{CO}_2}$
+   when there is no water-vapor feedback?
    
 c) Compare the climate sensitivity ($\Delta T_{2 \times \text{CO}_2}$) in 
    part (a) (with water-vapor feedback) and part (b) (without water-vapor 
@@ -177,4 +204,7 @@ c) Compare the climate sensitivity ($\Delta T_{2 \times \text{CO}_2}$) in
    The amplification factor for the water-vapor feedback is the ratio of the 
    climate sensitivity with water-vapor feedback to the sensitivity without the 
    feedback. 
-   What is it?
+   What is the amplification factor?
+
+In your write-up, discuss how including the water vapor feedback changes the 
+way that CO~2~ affects the climate.
