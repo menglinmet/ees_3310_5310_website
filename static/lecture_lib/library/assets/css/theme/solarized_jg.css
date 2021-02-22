@@ -615,6 +615,38 @@ body {
 .reveal div.bare.pbot-3 {
   padding-bottom: 3rem; }
 
+.reveal div.pleft-half,
+.reveal div.bare.pleft-half {
+  padding-left: 0.5rem; }
+
+.reveal div.pleft-1,
+.reveal div.bare.pleft-1 {
+  padding-left: 1rem; }
+
+.reveal div.pleft-2,
+.reveal div.bare.pleft-2 {
+  padding-left: 2rem; }
+
+.reveal div.pleft-3,
+.reveal div.bare.pleft-3 {
+  padding-left: 3rem; }
+
+.reveal div.pright-half,
+.reveal div.bare.pright-half {
+  padding-right: 0.5rem; }
+
+.reveal div.pright-1,
+.reveal div.bare.pright-1 {
+  padding-right: 1rem; }
+
+.reveal div.pright-2,
+.reveal div.bare.pright-2 {
+  padding-right: 2rem; }
+
+.reveal div.pright-3,
+.reveal div.bare.pright-3 {
+  padding-right: 3rem; }
+
 .reveal h1.mtop-half-em,
 .reveal h2.mtop-half-em,
 .reveal h3.mtop-half-em,
