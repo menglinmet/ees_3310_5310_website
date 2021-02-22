@@ -2,6 +2,7 @@ library(rprojroot)
 library(tidyverse)
 library(blogdownDigest)
 library(semestr)
+library(git2r)
 
 regenerate_site <- function(root = NULL, force = FALSE) {
   if (is.null(root)) {
@@ -28,8 +29,8 @@ init_git_tokens <- function(keyring = "git_access") {
 }
 
 publish <- function() {
-  push(".", name = "origin", refspec = "refs/heads/main",
-       credentials = cred_token("GITLAB_PAT"))
-  push(".", name = "publish", refspec = "refs/heads/main",
-       credentials = cred_token())
+  git2r::push(".", name = "origin", refspec = "refs/heads/main",
+       credentials = git2r::cred_token("GITLAB_PAT"))
+  git2r::push(".", name = "publish", refspec = "refs/heads/main",
+       credentials = git2r::cred_token())
 }
