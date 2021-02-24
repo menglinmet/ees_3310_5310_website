@@ -22,6 +22,9 @@ regenerate_site <- function(root = NULL, force = FALSE) {
 init_git_tokens <- function(keyring = "git_access") {
   if (keyring::keyring_is_locked(keyring)) {
   keyring::keyring_unlock(keyring)
+    if (keyring::keyring_is_locked(keyring)) {
+      stop("Could not unlock keyring.")
+    }
   }
   Sys.setenv(GITHUB_PAT = keyring::key_get("GITHUB_PAT", keyring = keyring))
   Sys.setenv(GITLAB_PAT = keyring::key_get("GITLAB_PAT", username = "jonathan",
