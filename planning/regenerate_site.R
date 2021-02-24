@@ -32,8 +32,8 @@ init_git_tokens <- function(keyring = "git_access") {
 }
 
 publish <- function() {
-  git2r::push(".", name = "origin", refspec = "refs/heads/main",
-       credentials = git2r::cred_token("GITLAB_PAT"))
   git2r::push(".", name = "publish", refspec = "refs/heads/main",
        credentials = git2r::cred_token())
+  git2r::push(".", name = "origin", refspec = "refs/heads/main",
+              credentials = git2r::cred_token("GITLAB_PAT"))
 }
