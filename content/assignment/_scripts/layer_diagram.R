@@ -2,7 +2,6 @@
 # Draw figure for atmospheric layer model
 #
 library(tidyverse)
-library(stringr)
 
 
 make_layer_diagram = function(n_layers, boundary = TRUE) {

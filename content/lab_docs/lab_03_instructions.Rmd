@@ -34,8 +34,9 @@ options(dplyr.summarise.inform = FALSE)
 data_dir = "_data"
 script_dir = "_scripts"
 
-library(pacman)
-p_load(knitr, xml2, tidyverse)
+library(knitr)
+library(xml2)
+library(tidyverse)
 
 theme_set(theme_bw(base_size = 15))
 

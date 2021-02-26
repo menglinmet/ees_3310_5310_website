@@ -23,8 +23,8 @@ options(dplyr.summarise.inform = FALSE)
 data_dir = "_data"
 script_dir = "_scripts"
 
-library(pacman)
-p_load(tidyverse, lubridate)
+library(tidyverse)
+library(lubridate)
 
 theme_set(theme_bw(base_size = 15))
 

@@ -24,8 +24,9 @@ script_dir = "_scripts"
 
 if (!dir.exists(data_dir)) dir.create(data_dir)
 
-library(pacman)
-p_load(zoo, xml2, tidyverse, stringr)
+library(tidyverse)
+library(xml2)
+library(tsibble)
 
 theme_set(theme_bw(base_size = 15))
 

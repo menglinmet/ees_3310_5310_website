@@ -18,7 +18,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
 library(lubridate)
-library(stringr)
 
 topic_approval_date = ymd("2021-03-11")
 due_date = ymd_hms("2021-04-01 23:59:00", tz="America/Chicago")

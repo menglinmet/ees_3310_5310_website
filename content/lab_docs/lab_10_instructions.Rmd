@@ -50,9 +50,12 @@ getOutputFormat <- function() {
 data_dir = "_data"
 script_dir = "_scripts"
 
-library(pacman)
-p_load(magrittr, tidyverse, lubridate, knitr, broom)
-p_load_gh("jonathan-g/kayadata")
+library(magrittr)
+library(tidyverse)
+library(lubridate)
+library(knitr)
+library(broom)
+library(kayadata)
 
 theme_set(theme_bw(base_size = 15))
 

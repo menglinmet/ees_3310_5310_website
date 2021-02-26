@@ -35,8 +35,12 @@ options(dplyr.summarise.inform = FALSE)
 data_dir = "_data"
 script_dir = "_scripts"
 
-library(pacman)
-p_load(tidyverse, jsonlite, httr, magrittr, scales, xml2)
+library(tidyverse)
+library(jsonlite)
+library(httr)
+library(magrittr)
+library(scales)
+library(xml2)
 
 theme_set(theme_bw(base_size = 10))
 

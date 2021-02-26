@@ -18,7 +18,6 @@ knitr::knit_hooks$set(inline = function(x) { knitr:::format_sci(x, 'md')})
 knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
-library(stringr)
 
 rinline = function(code) {
   sprintf('``` `r %s` ```', code)
