@@ -206,7 +206,8 @@ tibbles, and the different ways we can use <code>ggplot</code> to plot several v
 on the same plot.</p>
 <p>Suppose you have a tibble with columns <code>time</code>, <code>foo</code> and <code>bar</code>,
 as shown below:</p>
-<pre class="r"><code>df = tibble(time = seq(100), foo = -1 + 0.1 * time - 0.001 * time^2, bar = sin(time / 10))
+<pre class="r"><code>df = tibble(time = seq(100), foo = -1 + 0.1 * time - 0.001 * time^2, 
+            bar = sin(time / 10))
 kable(head(df), digits = 2)</code></pre>
 <table>
 <thead>
@@ -391,8 +392,8 @@ data frame.</p></li>
 when the CO<sub>2</sub> in the atmosphere stabilizes.
 Use <code>ggplot</code> to make a graph illustrating this balance.
 What is causing the silicate weathering rate to change?</p>
-<p><strong>Hint:</strong> This is a good place to use the <code>pivot_longer</code> function as I
-described above.</p></li>
+<p><strong>Hint:</strong> This is a good place to use the <code>pivot_longer</code> function to make a
+plot with two different variables, as I described above.</p></li>
 <li><p>Repeat this run with a range of degassing values for the simulation phase
 and make a table or a graph of the equilibrium CO<sub>2</sub> concentration versus
 the degassing rate.</p>
