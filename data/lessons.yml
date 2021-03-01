@@ -66,6 +66,7 @@ lessons:
 - date: '2021-03-01'
   title: Climate Models
   reading: /reading/reading_16
+  lecture: /slides/class_16
   lab: lab_06
 - date: '2021-03-03'
   title: Future Climate Change
