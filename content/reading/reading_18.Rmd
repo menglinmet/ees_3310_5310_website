@@ -12,8 +12,16 @@ output:
 ---
 ## Reading:
 
-No new reading for today.
+### Required Reading (everyone):
 
-### Notes:
+* YouTube Video: [John Cook, "Critical Thinking about Climate: 23 Ways to Mislead," YouTube (2020)](https://youtu.be/gecDy9wDuCs){target="_blank"}.
 
-We will read about logical fallacies that are frequently exploited by people who want to cast doubt on climate science and how to tell the difference between legitimate questioning or debating the science and arguing in bad faith.
+### Reading Notes:
+
+We will learn about rhetorical tricks that are frequently exploited by people who want to cast doubt on climate science and how to tell the difference between legitimate questioning or debating the science and arguing in bad faith.
+
+Watch this video by John Cook, an expert on climate communication, about the rhetorical tricks employed to mislead people about climate change.
+
+### YouTube Video
+
+* `r htmltools::HTML('{{< youtube id="gecDy9wDuCs" title="23 Ways to Mislead" >}}')`
