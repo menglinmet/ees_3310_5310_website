@@ -1,7 +1,6 @@
 ---
-title: Pleistocene Ice Ages
+title: Preparing for Independent Projects
 lab_date: '2021-03-08'
-report_due_date: '2021-03-15'
 lab_number: 7
 pubdate: '2020-12-31'
 date: '2021-03-08'
@@ -12,13 +11,15 @@ output:
 ---
 # Overview:
 
-This lab will examine data on carbon dioxide and temperature during the pleistocene ice ages.
+Everyone is feeling a lot of stress and fatigue at this point in the semester, so I have decided to give everyone a week off from new lab assignments.
+
+Starting next week, you will start an independent lab project where you will spend a couple of weeks developing an independent project to look at a new question about climate science. This question can involve looking more deeply into something that you studied in a previous lab, or it can be something new.
 
 ## Reading
 
 **Before you come to lab**, please read the following document:
 
-* [Instructions for Lab #7: The Pleistocene Ice Ages](/lab_docs/lab_07_instructions){target="_blank"}
+* [Preparing for Independent Project](/lab_docs/lab_07_instructions){target="_blank"}
 
 ## Assignment
 

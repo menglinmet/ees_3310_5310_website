@@ -1,13 +1,13 @@
 ---
 title: Citations and Bibliographies
 author: Jonathan Gilligan
-lab_number: 9
-lab_date: '2021-03-22'
+lab_number: 8
+lab_date: '2021-03-15'
 pubdate: '2020-12-31'
-date: '2021-03-22'
+date: '2021-03-15'
 bibliography: lab-08.bib
 pdf_url: /files/lab_docs/lab_08/citations_bibliographies.pdf
-slug: lab_09_citations_bibliographies
+slug: lab_08_citations_bibliographies
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
@@ -256,24 +256,68 @@ and confusing, so I would recommend one of three options:
 
     4. You will see something like this:
 
-        ```
-         @article{rogelj2012global,
-          title={Global warming under old and new scenarios using IPCC climate 
-                 sensitivity range estimates},
-          author={Rogelj, Joeri and Meinshausen, Malte and Knutti, Reto},
-          journal={Nature climate change},
-          volume={2},
-          number={4},
-          pages={248},
-          year={2012},
-          publisher={Nature Publishing Group}
-        }
-        ```
-        
-         Copy the entry and paste it into `lab-08.bib` in RStudio.
-         
-         In this entry, `rogelj2012global` is the key you would use
-         for citing and the other fields are pretty much self-explanatory.
+       ```
+       @article{rogelj2012global,
+       title={Global warming under old and new scenarios using IPCC climate 
+              sensitivity range estimates},
+       author={Rogelj, Joeri and Meinshausen, Malte and Knutti, Reto},
+       journal={Nature climate change},
+       volume={2},
+       number={4},
+       pages={248},
+       year={2012},
+       publisher={Nature Publishing Group}
+       }
+       ```
+
+       Copy the entry and paste it into `lab-08.bib` in RStudio.
+
+       In this entry, `rogelj2012global` is the key you would use
+       for citing and the other fields are pretty much self-explanatory.
+
+       You can export in other formats that are used by other bibliographic
+       software, but these are more cryptic and confusing to use. 
+       
+       For instance, if you clicked on "EndNote", you would see something like 
+       this:
+       ```
+       %0 Journal Article
+       %T Global warming under old and new scenarios using IPCC climate 
+          sensitivity range estimates
+       %A Rogelj, Joeri
+       %A Meinshausen, Malte
+       %A Knutti, Reto
+       %J Nature climate change
+       %V 2
+       %N 4
+       %P 248-253
+       %@ 1758-6798
+       %D 2012
+       %I Nature Publishing Group
+       ```
+       
+       and if you clicked on "RefMan", you would see something like this:
+       ```
+       TY  - JOUR
+       T1  - Global warming under old and new scenarios using IPCC climate 
+             sensitivity range estimates
+       A1  - Rogelj, Joeri
+       A1  - Meinshausen, Malte
+       A1  - Knutti, Reto
+       JO  - Nature climate change
+       VL  - 2
+       IS  - 4
+       SP  - 248
+       EP  - 253
+       SN  - 1758-6798
+       Y1  - 2012
+       PB  - Nature Publishing Group
+       ER  - 
+       ```
+       
+       I find the BibTeX (`.bib`) format easier to work with because the
+       data has names that make sense to people, like "journal" instead of
+       "`JO`" or "`%J`".
 
 * If you have a bibliographic program like Zotero, Mendeley, or EndNote, 
   export the references you want as BibTeX files.
@@ -287,7 +331,7 @@ and confusing, so I would recommend one of three options:
      
 * If you have JabRef[^6] installed on your computer, you open `lab-08.bib`,
   manually create a new bibliographic entry and fill in the relevant data.
-  
+
 [^5]: Zotero is free software that runs on Windows, MacOS, and Linux, and you
 can download it from <https://zotero.org>
 

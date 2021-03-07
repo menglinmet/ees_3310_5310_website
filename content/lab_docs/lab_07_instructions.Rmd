@@ -1,5 +1,5 @@
 ---
-title: 'Instructions for Lab #7: The Pleistocene Ice Ages'
+title: Preparing for Independent Project
 author: Jonathan Gilligan
 lab_number: 7
 lab_date: '2021-03-08'
@@ -12,28 +12,153 @@ output:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
     toc: yes
 ---
+
 ```{r setup, include=FALSE}
-knitr::knit_hooks$set(inline = function(x) { knitr:::format_sci(x, 'md')})
 knitr::opts_chunk$set(echo = TRUE)
 
-# This section loads necessary R libraries and sources scripts that define 
-# useful functions format_md.
-# 
-data_dir = "_data"
-script_dir = "_scripts"
-
-if (!dir.exists(data_dir)) dir.create(data_dir)
-
 library(tidyverse)
-library(xml2)
-library(tsibble)
+library(lubridate)
 
-theme_set(theme_bw(base_size = 15))
+topic_approval_date = ymd("2021-03-11")
+due_date = ymd_hms("2021-04-01 23:59:00", tz="America/Chicago")
 
-source(file.path(script_dir, "utils.R"), chdir = T)
-source(file.path(script_dir, "format_md.R"), chdir = T)
-source(file.path(script_dir, "geocarb.R"), chdir = T)
+date_fmt = function(d) {
+  strftime(d, format = "%b. %e") %>% str_trim() %>% str_replace_all(" +", " ")
+}
+
+time_fmt = function(d) {
+  strftime(d, format = "%l:%M %p") %>% str_trim() %>% str_replace_all(" +", " ")
+}
 ```
-# The Pleistocene Ice Ages
 
-TBA
+# Introduction
+
+You have done several structured labs that provided opportunities to learn 
+about R, RMarkdown, and several different aspects of climate science (data 
+analysis and several computer models).  
+For the next few weeks, you will have a chance to utilize the skills you have 
+learned thus far in lab to take one of the previous labs you have worked on 
+and dig more deeply into the details, and develop it into a formal report about 
+a particular aspect of climate change. 
+This series of labs consists of creating a detailed written lab report in 
+RMarkdown. 
+
+For this project, you will choose a lab you worked on before and explore
+it more deeply, doing some library research on the topic and connecting 
+that with your computational analysis. Your analysis should begin with the 
+work you did for the original lab, but dig into the details of how you draw
+conclusions from the data you analyzed.
+
+## Solo or Team Projects
+
+You may choose to do this project individually or with a partner as a team 
+effort. If you work with a partner, you may work together to design the 
+question, obtain and analyze data, and write a report together. 
+We expect teams to include a note in the report that indicates which
+member contributed what to the report (this does not need to be super detailed
+and can say, "Alice and Bob designed the experiment together. Bob wrote the
+code to run the models. Alice wrote the code for the data analysis. 
+Alice and Bob contributed equally to writing the discussion and conclusions.")
+This is similar to the requirement at many research journals that 
+co-authored papers include a statement of what each author contributed.
+
+## Choosing a Topic
+
+For undergraduates, we recommend that you choose a topic from one of the 
+exercises that you did in labs #2--5 and think of a way to go a little more 
+deeply into the topic of the questions that exercise asked. What I am looking
+for is not for you to investigate a brand new question or research topic, 
+but for you to focus on the details of the exertise you did and think about 
+how to present it to the reader, explaining in clear prose how you used data
+to answer a question about the climate.
+
+For graduate students, we expect you to try something more ambitious than just 
+simple extensions of the questions from the lab exercises, but it is still fine 
+to take one of the lab exercises as a starting point.
+
+If you want to do something really different than what we have done previously 
+in lab, that is fine. But check with one of us to make sure your plan is 
+appropriate and feasible (we don't want you to bite off more than you can chew).
+Just writing up the details on one of the lab exercises should be plenty of 
+work.
+
+**Be creative!** Now is the time to really explore parts of the class that you 
+have found interesting and present your findings in a unique, exciting way. 
+
+# Writen Report (Due `r date_fmt(due_date)`)
+
+Your report should be comprehensive, yet not overly verbose. One recommendation 
+for achieving this is to create an outline to organize your thoughts before 
+initializing writing and data analysis. The report needs to include the 
+following components:
+
+* Introduction
+
+  * _Provide background information that frames the problem you are 
+    addressing (e.g., an exercise from one of the previous labe). 
+    At the end of the introduction, the reader should understand 
+    exactly **what the problem is** that you are addressing and why that 
+    problem is **interesting** and **relevant** to the climate system._
+    
+* Methods
+
+  * _Describe the methods for answering your question. The methods section 
+    should be written such that someone who doesn't know about your 
+    project could follow your steps and recreate your results._
+
+  * This section should contain the R code you use to do the analysis:
+  
+    * Identifying the sources of data: what data did you use (observations,
+      model output, etc.), and why is that data useful for addressing your
+      research problem.
+
+    + How did you get your data into R? Did you download from the internet, 
+      read it in from files on your computer, run models, etc.
+
+    + How did you process your data to clean it up? Describe what your
+      R code did to manipulate the data to make it easier to analyze. 
+      Think of how you used functions like `mutate`, `gather`, 
+      `summarize`, etc. to convert the data into a useful form.
+
+    + How did you analyze data? What did you do to analyze the data, such 
+      as generating descriptive statistics like the mean or standard 
+      deviation, fitting linear models to get slopes (rates of change), etc.
+        
+  * The R code does not speak for itself, so describe what you did in words.
+    Don't tell the reader every little detail, but present a clear overview 
+    of the big picture of how you obtained, cleaned, and analyzed your data.
+    If there were particular challenges or difficulties, briefly describe 
+    them.
+
+* Results
+
+  * _Describe the results of your analyses. Include apropriate charts, 
+    tables, graphs, and other quantitative representations of data._ 
+
+  * This section should have R code for making graphs, tables, etc.
+
+* Conclusions/Discussion
+
+  * _Discuss how you drew conclusions from your analysis._
+  
+    * What conclusions can you draw from your results about the research 
+      question or questions?
+
+    * How does the data (and your analysis of it) support those conclusions?
+
+* Works Cited
+
+  * _Include a works cited section to credit the research and thoughts that 
+    are not your own. Be sure to use citations throughout your report where 
+    necessary._
+
+  * I will post a separate document that explains how to do citations and 
+    bibliographies in RMarkdown.
+
+Final reports are to be pushed to your Lab 8 Github repository 
+_no later than `r time_fmt(due_date)` on `r date_fmt(due_date)`_. 
+**You must push the .Rmd file *and* the knitted PDF** to Github. 
+A portion of your final report grade will reflect effective use of 
+R/RMarkdown/Github, the clarity and succinctness of your writing, 
+visual representations of data, appropriate discussion of results, 
+and insights into future analyses.

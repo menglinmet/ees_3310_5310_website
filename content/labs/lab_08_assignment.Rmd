@@ -1,5 +1,5 @@
 ---
-title: RMarkdown for Reports
+title: Using RMarkdown for Formal Reports
 lab_date: '2021-03-15'
 lab_number: 8
 pubdate: '2020-12-31'
@@ -11,10 +11,14 @@ output:
 ---
 # Overview:
 
-In this lab, we will discuss using RMarkdown for writing papers and formal lab reports. You will also have time to continue working on your projects and get help from Mr. de Wet and Prof. Gilligan
+In this lab, you and a partner will begin to develop your own projects. During the lab session, we will discuss more details about using RMarkdown to write formal lab reports.
 
 ## Reading
-No reading has been posted yet for this lab.
+
+**Before you come to lab**, please read the following documents:
+
+* [Instructrions for Writing Up Lab Results](/lab_docs/lab_08_instructions){target="_blank"}
+* [Citations and Bibliographies](/lab_docs/lab_08_citations_bibliographies){target="_blank"}
 
 ## Assignment
 

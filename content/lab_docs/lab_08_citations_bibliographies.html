@@ -1,13 +1,13 @@
 ---
 title: Citations and Bibliographies
 author: Jonathan Gilligan
-lab_number: 9
-lab_date: '2021-03-22'
+lab_number: 8
+lab_date: '2021-03-15'
 pubdate: '2020-12-31'
-date: '2021-03-22'
+date: '2021-03-15'
 bibliography: lab-08.bib
 pdf_url: /files/lab_docs/lab_08/citations_bibliographies.pdf
-slug: lab_09_citations_bibliographies
+slug: lab_08_citations_bibliographies
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
@@ -243,20 +243,56 @@ and confusing, so I would recommend one of three options:</p>
 <p><img src="_images/lab_08/scholar_2.png" alt="Google Scholar citation page: Click on “BibTeX”" /><br />
 </p></li>
 <li><p>You will see something like this:</p>
-<pre><code> @article{rogelj2012global,
-  title={Global warming under old and new scenarios using IPCC climate 
-         sensitivity range estimates},
-  author={Rogelj, Joeri and Meinshausen, Malte and Knutti, Reto},
-  journal={Nature climate change},
-  volume={2},
-  number={4},
-  pages={248},
-  year={2012},
-  publisher={Nature Publishing Group}
+<pre><code>@article{rogelj2012global,
+title={Global warming under old and new scenarios using IPCC climate 
+       sensitivity range estimates},
+author={Rogelj, Joeri and Meinshausen, Malte and Knutti, Reto},
+journal={Nature climate change},
+volume={2},
+number={4},
+pages={248},
+year={2012},
+publisher={Nature Publishing Group}
 }</code></pre>
 <p>Copy the entry and paste it into <code>lab-08.bib</code> in RStudio.</p>
 <p>In this entry, <code>rogelj2012global</code> is the key you would use
-for citing and the other fields are pretty much self-explanatory.</p></li>
+for citing and the other fields are pretty much self-explanatory.</p>
+<p>You can export in other formats that are used by other bibliographic
+software, but these are more cryptic and confusing to use.</p>
+<p>For instance, if you clicked on “EndNote,” you would see something like
+this:</p>
+<pre><code>%0 Journal Article
+%T Global warming under old and new scenarios using IPCC climate 
+   sensitivity range estimates
+%A Rogelj, Joeri
+%A Meinshausen, Malte
+%A Knutti, Reto
+%J Nature climate change
+%V 2
+%N 4
+%P 248-253
+%@ 1758-6798
+%D 2012
+%I Nature Publishing Group</code></pre>
+<p>and if you clicked on “RefMan,” you would see something like this:</p>
+<pre><code>TY  - JOUR
+T1  - Global warming under old and new scenarios using IPCC climate 
+      sensitivity range estimates
+A1  - Rogelj, Joeri
+A1  - Meinshausen, Malte
+A1  - Knutti, Reto
+JO  - Nature climate change
+VL  - 2
+IS  - 4
+SP  - 248
+EP  - 253
+SN  - 1758-6798
+Y1  - 2012
+PB  - Nature Publishing Group
+ER  - </code></pre>
+<p>I find the BibTeX (<code>.bib</code>) format easier to work with because the
+data has names that make sense to people, like “journal” instead of
+“<code>JO</code>” or “<code>%J</code>.”</p></li>
 </ol></li>
 <li><p>If you have a bibliographic program like Zotero, Mendeley, or EndNote,
 export the references you want as BibTeX files.</p>
