@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(lubridate)
 
-topic_approval_date = ymd("2021-03-11")
+topic_approval_date = ymd("2021-03-12")
 due_date = ymd_hms("2021-04-01 23:59:00", tz="America/Chicago")
 
 date_fmt = function(d) {
@@ -64,8 +64,15 @@ co-authored papers include a statement of what each author contributed.
 
 ## Choosing a Topic
 
+**By the end of the day on `r date_fmt(topic_approval_date)` you need to
+submit a proposed topic for your project on Brightspace.** 
+This proposal only needs to be a couple of paragraphs and it should describe
+what you want to investigate and what kinds of data you will need to study 
+it (e.g., model output or data that you will download from an online climate
+data archive).
+
 For undergraduates, we recommend that you choose a topic from one of the 
-exercises that you did in labs #2--5 and think of a way to go a little more 
+exercises that you did in labs #2--6 and think of a way to go a little more 
 deeply into the topic of the questions that exercise asked. What I am looking
 for is not for you to investigate a brand new question or research topic, 
 but for you to focus on the details of the exertise you did and think about 

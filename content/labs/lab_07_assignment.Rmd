@@ -13,7 +13,11 @@ output:
 
 Everyone is feeling a lot of stress and fatigue at this point in the semester, so I have decided to give everyone a week off from new lab assignments.
 
-Starting next week, you will start an independent lab project where you will spend a couple of weeks developing an independent project to look at a new question about climate science. This question can involve looking more deeply into something that you studied in a previous lab, or it can be something new.
+Starting next week, you will start an independent lab project where you will spend a couple of weeks developing an independent project to look at a new question about climate science. This question can involve looking more deeply into something that you studied in a previous lab, or it can be something new. 
+
+For this week, your assignment is to propose an independent project. **Your proposal will be due Friday March 12 by the end of the day, on Brightspace.** The proposal only needs to be a couple of paragraphs describing what you want to study and what kinds of data (model output, or archived climate data that you will download from the internet).
+
+Lab on Monday March 8 will be used to discuss possible project topics and Mr. de Wet and I will be available to give you feedback and help you think about where you will get data to carry out the project.
 
 ## Reading
 
