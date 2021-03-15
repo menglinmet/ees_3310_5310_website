@@ -31,9 +31,10 @@ new_update_site <- function(root = NULL, force = FALSE) {
 
 init_git_tokens <- function(keyring = "git_access") {
   if (keyring::keyring_is_locked(keyring)) {
-  keyring::keyring_unlock(keyring)
+    keyring::keyring_unlock(keyring)
     if (keyring::keyring_is_locked(keyring)) {
-      stop("Could not unlock keyring.")
+      warning("Could not unlock keyring.")
+      return()
     }
   }
   Sys.setenv(GITHUB_PAT = keyring::key_get("GITHUB_PAT", keyring = keyring))
@@ -43,7 +44,7 @@ init_git_tokens <- function(keyring = "git_access") {
 
 publish <- function() {
   git2r::push(".", name = "publish", refspec = "refs/heads/main",
-       credentials = git2r::cred_token())
+              credentials = git2r::cred_token())
   git2r::push(".", name = "origin", refspec = "refs/heads/main",
               credentials = git2r::cred_token("GITLAB_PAT"))
 }
