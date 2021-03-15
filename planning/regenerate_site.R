@@ -31,7 +31,7 @@ new_update_site <- function(root = NULL, force = FALSE) {
 
 init_git_tokens <- function(keyring = "git_access") {
   if (keyring::keyring_is_locked(keyring)) {
-    keyring::keyring_unlock(keyring)
+    try(keyring::keyring_unlock(keyring), silent = TRUE)
     if (keyring::keyring_is_locked(keyring)) {
       warning("Could not unlock keyring.")
       return()
