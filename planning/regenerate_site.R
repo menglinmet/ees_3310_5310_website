@@ -34,7 +34,7 @@ init_git_tokens <- function(keyring = "git_access") {
     try(keyring::keyring_unlock(keyring), silent = TRUE)
     if (keyring::keyring_is_locked(keyring)) {
       warning("Could not unlock keyring.")
-      return()
+      return(invisible())
     }
   }
   Sys.setenv(GITHUB_PAT = keyring::key_get("GITHUB_PAT", keyring = keyring))
