@@ -105,6 +105,7 @@ lessons:
 - date: '2021-03-22'
   title: 'Reducing Carbon Emissions: Bottom-Up Approaches'
   reading: /reading/reading_25
+  lecture: /slides/class_25
   lab: lab_09
 - date: '2021-03-24'
   title: 'Reducing Carbon Emissions: Top-Down Approaches'
