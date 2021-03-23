@@ -14,17 +14,19 @@ output:
 ---
 ```{r setup, include=FALSE}
 knitr::knit_hooks$set(inline = function(x) { knitr:::format_sci(x, 'md')})
-knitr::opts_chunk$set(echo = TRUE, cache=TRUE)
+knitr::opts_chunk$set(echo = TRUE, include = TRUE, cache = FALSE)
 
 if (knitr::is_latex_output()) {
   message("Setting PDF plot hook.")
   new_plot_hook <- function(x, options)
     paste("\n", knitr::hook_plot_tex(x, options), "\n")
-  
+
   knitr::knit_hooks$set(plot = new_plot_hook)
+  knitr::opts_chunk$set(fig.width = 6, fig.height = 4)
 } else {
   message("Not using PDF output.")
 }
+
 
 options(dplyr.summarise.inform = FALSE)
 
@@ -126,7 +128,7 @@ which loads a script with the following functions:
     * `"nimbostratus"`,
     * `"drizzle"`, 
     * `"light rain"`, 
-    * `"medium rain"`, 
+    * `"moderatre rain"`, 
     * `"heavy rain"`, 
     * `"extreme rain"`,
     * `"standard cirrus"`, 

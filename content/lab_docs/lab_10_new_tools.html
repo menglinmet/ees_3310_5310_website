@@ -5,7 +5,7 @@ lab_number: 10
 lab_date: '2021-03-29'
 pubdate: '2020-12-31'
 date: '2021-03-29'
-pdf_url: /files/lab_docs/decarb_lab_bottom_up/new_tools.pdf
+pdf_url: /files/lab_docs/lab_10/new_tools.pdf
 slug: lab_10_new_tools
 output:
   blogdown::html_page:
@@ -48,7 +48,7 @@ were two earlier Katrinas in 1981 and 1999; storm names are re-used
 periodically unless they are retired because a storm with that name becomes
 historically important).</p>
 <pre class="r"><code>data(storms)
-katrina &lt;- filter(storms, name == &quot;Katrina&quot;, year == 2005)</code></pre>
+katrina = filter(storms, name == &quot;Katrina&quot;, year == 2005)</code></pre>
 <p>and we can also do the same thing using the pipe operator like this:</p>
 <pre class="r"><code>storms %&gt;% filter(name == &quot;Katrina&quot;, year == 2005)</code></pre>
 <p>What the pipe operator <code>%&gt;%</code> does behind the scenes is take that output of
@@ -138,12 +138,9 @@ I could try</p>
 names = storms %&gt;% filter(category == 5)$name</code></pre>
 <p>but it turns out that this doesn’t work because of the way the pipe operators
 work.
-To do this, I need to load the <code>magrittr</code> library and use the <code>%$%</code> operator
-instead of <code>$</code>:</p>
+To do this, I can use the <code>pull</code> function from the <code>tidyverse</code>:</p>
 <pre class="r"><code># This will work
-names = storms %&gt;% filter(category == 5) %$% name</code></pre>
-<p>The <code>%$%</code> operator works like the pipe operator, but instead of calling a function,
-it extracts the specified column (in this case, <code>name</code>).</p>
+names = storms %&gt;% filter(category == 5) %&gt;% pull(name)</code></pre>
 <p>This will be useful for what comes next.</p>
 </div>
 <div id="tidying-up-results-of-statistical-modeling" class="section level2">
@@ -199,17 +196,17 @@ will not use them so you can ignore them.</p>
 <p>If I just want the slope, I can get that as follows:</p>
 <pre class="r"><code>lin_fit = storms %&gt;% filter(status == &quot;hurricane&quot;, year == 2005) %&gt;%
            lm(wind ~ pressure, data = .)
-slope = tidy(lin_fit) %&gt;% filter(term == &quot;pressure&quot;) %$% estimate
+slope = tidy(lin_fit) %&gt;% filter(term == &quot;pressure&quot;) %&gt;% pull(estimate)
 slope</code></pre>
 <pre><code>## [1] -0.8896546</code></pre>
-<p>Here, <code>filter</code> selects the row where term equals “pressure” and <code>%$% estimate</code>
+<p>Here, <code>filter</code> selects the row where term equals “pressure” and <code>pull(estimate)</code>
 then selects the <code>estimate</code> column.</p>
 <p>We can write this more compactly as follows:</p>
 <pre class="r"><code>slope = storms %&gt;% 
            filter(status == &quot;hurricane&quot;, year == 2005) %&gt;%
            lm(wind ~ pressure, data = .) %&gt;% 
            tidy() %&gt;% 
-           filter(term == &quot;pressure&quot;) %$% estimate
+           filter(term == &quot;pressure&quot;) %&gt;% pull(estimate)
 slope</code></pre>
 <pre><code>## [1] -0.8896546</code></pre>
 </div>
@@ -269,8 +266,9 @@ p_load_current_gh(&quot;jonathan-g/kayadata&quot;)</code></pre>
 <li><p><strong>Argument:</strong> <code>region_name</code> is the name of the country or region you want
 data for (e.g., “United States”, “World”, “China”, etc.).</p>
 <p>You can inspect a list of countries and regions by running
-<code>kaya_region_list()</code>.</p></li>
-<li><p><strong>Results:</strong> The function returns a data frame with the following columns:</p>
+<code>kaya_region_list()</code>.</p>
+<ul>
+<li><strong>Results:</strong> The function returns a data frame with the following columns:
 <ul>
 <li><code>region</code>: The country or region.</li>
 <li><code>year</code>: The year.</li>
@@ -286,6 +284,7 @@ dollars of GDP).</li>
 metric tons of CO<sub>2</sub> per quad).</li>
 <li><code>ef</code>: The emissions intensity of the economy (in millions of metric
 tons of CO<sub>2</sub> per trillion dollars of GDP).</li>
+</ul></li>
 </ul></li>
 </ul></li>
 <li><code>get_top_down_values(region_name)</code>: Get projections of the future
@@ -342,16 +341,16 @@ Kaya identity variables at a future year from the present through 2050.
 <li><code>region_name</code> is the name of the country or region you want
 data for.</li>
 <li><code>year</code>: The year you want projected data for (through 2050).</li>
-</ul></li>
 <li><strong>Results:</strong> A data frame with one row and columns for <code>region</code>,
 <code>year</code>, and the Kaya variables: <em>P</em>, <em>G</em>, <em>E</em>, <em>F</em>, <em>g</em>, <em>e</em>, <em>f</em>, and
 <em>ef</em>.</li>
 </ul></li>
+</ul></li>
 <li><code>get_fuel_mix(region_name)</code>: Get the mixture of primary energy sources used
 by a country or region.
-* <strong>Argument:</strong> <code>region_name</code> is the name of the country or region you
-want data for (e.g., “United States”, “World”, “China”, etc.).
 <ul>
+<li><strong>Argument:</strong> <code>region_name</code> is the name of the country or region you
+want data for (e.g., “United States”, “World”, “China”, etc.).</li>
 <li><strong>Results:</strong> The function returns a data frame with the following columns:
 <ul>
 <li><code>region</code>: The country or region</li>
@@ -408,7 +407,7 @@ The default is to set <code>font_size = 20</code> if you don’t specify a value
 </ul></li>
 <li><p><strong>Result:</strong> This function returns a plot object.</p></li>
 <li><p><strong>Example:</strong></p>
-<pre class="r"><code>kd &lt;- get_kaya_data(&quot;World&quot;)
+<pre class="r"><code>kd = get_kaya_data(&quot;World&quot;)
 plot_kaya(kd, &quot;F&quot;)</code></pre>
 <p><img src="/lab_docs/lab_10_new_tools_files/figure-html/example_kaya_plot-1.png" width="672" /></p>
 <pre class="r"><code>plot_kaya(kd, &quot;F&quot;, log_scale = TRUE, font_size = 12, trend_line = TRUE)</code></pre>
@@ -420,7 +419,7 @@ plot_kaya(kd, &quot;F&quot;)</code></pre>
 <li><code>plot_fuel_mix(fuel_mix, collapse_renewables)</code>: Make a “donut” chart showing
 the amount of energy the country got from different energy sources.
 <ul>
-<li><p><strong>Arguments:</strong></p>
+<li><strong>Arguments:</strong>
 <ul>
 <li><p><code>fuel_mix</code>: A data frame with the fuel mix for the country, like the
 ones returned by <code>get_fuel_mix()</code></p></li>
@@ -429,15 +428,19 @@ specify whether to combine “Hydro” with other renewables to make one
 “Renewables” category (<code>TRUE</code>), or plot “Hydro” separately from the
 other renewables (<code>FALSE</code>).</p>
 <p>If you don’t specify <code>collapse_renewables</code>, the default is to set
-<code>collapse_renewables = TRUE</code>.</p></li>
-</ul></li>
+<code>collapse_renewables = TRUE</code>.
+Setting <code>collapse_renewables = FALSE</code> will only work if you also
+specified <code>collapse_renewables = FALSE</code> when you retrieved the fuel
+mix using <code>get_fuel_mix()</code>.</p></li>
 <li><p><strong>Results:</strong> A plot object with a donut chart.</p></li>
 <li><p><strong>Example:</strong></p>
-<pre class="r"><code>fm &lt;- get_fuel_mix(&quot;World&quot;)
+<pre class="r"><code>fm = get_fuel_mix(&quot;World&quot;)
 plot_fuel_mix(fm)</code></pre>
 <p><img src="/lab_docs/lab_10_new_tools_files/figure-html/example_fuel_plot-1.png" width="672" /></p>
-<pre class="r"><code>plot_fuel_mix(fm, collapse_renewables = FALSE)</code></pre>
+<pre class="r"><code>fm = get_fuel_mix(&quot;World&quot;, collapse_renewables = FALSE)
+plot_fuel_mix(fm, collapse_renewables = FALSE)</code></pre>
 <p><img src="/lab_docs/lab_10_new_tools_files/figure-html/example_fuel_plot_2-1.png" width="672" /></p></li>
+</ul></li>
 </ul></li>
 <li><code>kaya_region_list()</code>: Get a list of regions and countries for which you can
 get Kaya data.</li>
@@ -462,7 +465,7 @@ year.</p>
 <p>The average power output from a power plant is the nameplate capacity
 times the capacity factor:
 <span class="math display">\[ \text{average power} = \text{nameplate capacity} \times 
-     \text{capacity factor} \]</span></p></li>
+   \text{capacity factor} \]</span></p></li>
 </ul></li>
 </ul>
 </div>

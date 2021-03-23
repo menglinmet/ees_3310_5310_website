@@ -2,7 +2,7 @@ library(rprojroot)
 library(tidyverse)
 library(blogdownDigest)
 library(semestr)
-library(git2r)
+# library(git2r)
 
 regenerate_site <- function(root = NULL, force = FALSE) {
   if (is.null(root)) {
