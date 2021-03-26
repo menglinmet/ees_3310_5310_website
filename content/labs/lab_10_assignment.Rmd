@@ -3,6 +3,7 @@ title: 'Decarbonizing the World''s Energy Supply: Bottom-Up Approaches'
 lab_date: '2021-03-29'
 report_due_date: '2021-04-14'
 lab_number: 10
+github_classroom_assignment_url: https://classroom.github.com/a/haP_LMMu
 pubdate: '2020-12-31'
 date: '2021-03-29'
 slug: lab_10
@@ -24,5 +25,4 @@ I have posted a revised version of the lab instructions here. These don't change
 * [Instructions for Bottom-Up Decarbonization Policy Analysis](/lab_docs/lab_10_instructions){target="_blank"}
 
 ## Assignment
-
-The GitHub Classroom has not been posted yet.
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/haP_LMMu>.
