@@ -64,7 +64,7 @@ if (!dir.exists(data_dir)) dir.create(data_dir)
 
 source(file.path(script_dir, "utils.R"), chdir = T)
 
-due_date_1 <- lubridate::date("2021-04-12")
+due_date_1 <- lubridate::date("2021-04-14")
 
 long_due_date_1 <- stamp("Monday, March 1")(due_date_1)
 short_due_date_1 <- stamp("Mar. 1")(due_date_1)
@@ -383,17 +383,7 @@ To analyze the policy:
 
 ### Detailed steps:
 
-Each step has two alternative methods: using the interactive web application or 
-using the `kayadata` library in RStudio:
-
-1. Open the web app at <https://ees3310.jgilligan.org/decarbonization>, 
-   select the OECD as the country or region.  
-   Leave the 
-   "Calculate trends starting in" at its default value (1980), 
-   and write down the most current (`r current_year`) values for 
-   _P_, _g_, _e_, _f_, _ef_, and _F_. 
-   
-   Alternately, use the `kayadata` package in RStudio to load the data for
+1. Use the `kayadata` package in RStudio to load the data for
    the OECD. Below is an example of looking up the data
    for the United States:
    ```{r get_oecd_data, echo=TRUE, eval=TRUE, include=TRUE, warning=FALSE, message=FALSE}
@@ -403,24 +393,21 @@ using the `kayadata` library in RStudio:
    ```
    You can get a list of all the countries and regions that are available 
    from `kaya_region_list()`.
-   
-   **Start with the whole world first and do the whole analysis for the 
-   world before doing it for the individual countries.**
 
-2. Next, go to the "Trends" tab and look at the graphs of 
+2. Next, open up the interactive application at 
+   [ees3310.jgilligan.org/decarbonization](https://ees3310.jgilligan.org/decarbonization),
+   seelect OECD as the region. 
+   Leave the "Calculate trends starting in" at its default value (1980).
+   Go to the "Trends" tab and look at the graphs of 
    ln(_P_), ln(_g_), ln(_e_), ln(_f_), and ln(_ef_).
    
-   * Write down the rate of change for each variable.
    * For each graph compare the real data (in red) to the trend line 
      (the straight blue line).
    * Does the trend line look a like a good description of the data?
    * Is there a better starting year for calculating trends? 
      If so, adjust ``Calculate trends starting in'' to this year
-   * Do you anticipate a problem if we make policy by assuming that 
-     the Kaya identity variables will follow the trend line for the next 
-     several decades?
-
-     You should also plot these in your report using RMarkdown. 
+     and make note of the year.
+   * You should also plot these in your report using RMarkdown. 
      Following from the example above, you can use the `plot_kaya` function:
      ```{r plot_us_data, echo=TRUE, eval=TRUE, include=TRUE, warning=FALSE, message=FALSE}
      plot_kaya(us_data, "e", log_scale = TRUE, font_size = 12)
@@ -429,8 +416,11 @@ using the `kayadata` library in RStudio:
      Be sure to set `log_scale = TRUE` in the `plot_kaya` function because 
      a constant percentage rate of
      change corresponds to a linear trend in the logarithm of the variable.
+3. In your report, discuss whether you anticipate a problem if we make policy 
+   by assuming that the Kaya identity variables will follow the trend line for 
+   the next  several decades?
 
-3. Next, calculate the rates of change of 
+4. Next, calculate the rates of change of 
    _P_, _g_, _e_, and _f_ (the Population, per-capita GDP, energy intensity of 
    the economy, and carbon-intensity of the energy supply) from your starting 
    year through `r current_year`, using the `lm` function in R.
@@ -466,7 +456,7 @@ using the `kayadata` library in RStudio:
 
    These numbers are the slopes of the trend lines that you looked at in part 2.
 
-4. Using the rates of change that you determined in part 3, 
+5. Using the rates of change that you determined in part 4,
    use the formulas from the "Growth Rates and Trends" section to compute the 
    values for 
    _P_, _g_, _e_, and _f_ 
@@ -485,30 +475,9 @@ using the `kayadata` library in RStudio:
    Check your work against the bottom-up numbers in the ``Bottom-Up Analysis'' 
    table on the bottom of the left-hand pane of the web application.
 
-5. Calculate the emissions target: Set the reference year for 
+6. Calculate the emissions target: Set the reference year for 
    emissions reduction to `r ref_year`, and set the target emissions
    reduction to `r label_percent(accuracy = 1)(target_reduction)`.
-
-   <!--   
-   The IPCC developed many representative concentration pathways (RCPs) 
-   using a top-down approach, for hitting various targets of radiative forcing 
-   from greenhouse gases. The only RCP that has at least a two-thirds 
-   probability of keeping warming below 2 degrees Celsius is RCP~2.6. 
-   This concentration pathway calls for emissions reductions (relative to 2005) 
-   for different parts of the world listed in the table below:
-
-   ```{r rcp_26_table}
-   rcp_26 %>% 
-     mutate(reduction = map_chr(reduction, ~sprintf("%.0f%%", 100 * .x))) %>%
-     select(Region = region, "Emissions reduction" = reduction) %>%
-     kable(caption = "Percent reduction in CO~2~ emissions in 2050, relative to 2005.",
-           align = "lr")
-   ```
-
-   Note that Southeast Asia has a negative reduction. 
-   This means that countries in this region are allowed a 17% _increase_
-   in CO~2~ emissions (_F_).
-   -->
 
    Set the target year in the web app to `r target_year`;
    set the reference year to `r ref_year`;
@@ -532,7 +501,7 @@ using the `kayadata` library in RStudio:
 
    Check this result against the interactive web application.
 
-6. Look up what the CO~2~ emission is in `r current_year` and calculate the 
+7. Look up what the CO~2~ emission is in `r current_year` and calculate the 
    rate of change in _F_ that would be necessary to achieve your policy target. 
    For the `r target_year`\ calculation:
    
@@ -558,7 +527,7 @@ using the `kayadata` library in RStudio:
     `r label_percent(accuracy=0.01)(r_F_middle_east)` per year between 
     `r current_year` and `r target_year`
 
-7. Now calculate the decarbonization rate implied by the policy goal. This is 
+8. Now calculate the decarbonization rate implied by the policy goal. This is 
    the rate of reduction of _ef_, the carbon intensity of the economy. 
    $F = Pgef$, so $r_F = r_P + r_g + r_e + r_f$. Subtract the projected _r~P~_ 
    and _r~g~_ 
@@ -570,6 +539,6 @@ using the `kayadata` library in RStudio:
    vice-versa). 
    Multiply by 100 to get the percent implied rate of decarbonization.
 
-8. How does the implied rate of decarbonization for the OECD compare to the 
+9. How does the implied rate of decarbonization for the OECD compare to the 
    historical rate of decarbonization (i.e., the trend in _ef_ reported in the 
    "Bottom up Analysis" table)?

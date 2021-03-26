@@ -259,38 +259,29 @@ to the <em>historical trend</em> of <em>ef</em> that you can determine from the
 </div>
 <div id="detailed-steps" class="section level3">
 <h3>Detailed steps:</h3>
-<p>Each step has two alternative methods: using the interactive web application or
-using the <code>kayadata</code> library in RStudio:</p>
 <ol style="list-style-type: decimal">
-<li><p>Open the web app at <a href="https://ees3310.jgilligan.org/decarbonization" class="uri">https://ees3310.jgilligan.org/decarbonization</a>,
-select the OECD as the country or region.<br />
-Leave the
-“Calculate trends starting in” at its default value (1980),
-and write down the most current (2019) values for
-<em>P</em>, <em>g</em>, <em>e</em>, <em>f</em>, <em>ef</em>, and <em>F</em>.</p>
-<p>Alternately, use the <code>kayadata</code> package in RStudio to load the data for
+<li><p>Use the <code>kayadata</code> package in RStudio to load the data for
 the OECD. Below is an example of looking up the data
 for the United States:</p>
 <pre class="r"><code>library(kayadata)
 us_data = get_kaya_data(&quot;United States&quot;)
 us_latest = us_data %&gt;% slice_max(year)</code></pre>
 <p>You can get a list of all the countries and regions that are available
-from <code>kaya_region_list()</code>.</p>
-<p><strong>Start with the whole world first and do the whole analysis for the
-world before doing it for the individual countries.</strong></p></li>
-<li><p>Next, go to the “Trends” tab and look at the graphs of
+from <code>kaya_region_list()</code>.</p></li>
+<li><p>Next, open up the interactive application at
+<a href="https://ees3310.jgilligan.org/decarbonization">ees3310.jgilligan.org/decarbonization</a>,
+seelect OECD as the region.
+Leave the “Calculate trends starting in” at its default value (1980).
+Go to the “Trends” tab and look at the graphs of
 ln(<em>P</em>), ln(<em>g</em>), ln(<em>e</em>), ln(<em>f</em>), and ln(<em>ef</em>).</p>
 <ul>
-<li><p>Write down the rate of change for each variable.</p></li>
 <li><p>For each graph compare the real data (in red) to the trend line
 (the straight blue line).</p></li>
 <li><p>Does the trend line look a like a good description of the data?</p></li>
 <li><p>Is there a better starting year for calculating trends?
-If so, adjust ``Calculate trends starting in’’ to this year</p></li>
-<li><p>Do you anticipate a problem if we make policy by assuming that
-the Kaya identity variables will follow the trend line for the next
-several decades?</p>
-<p>You should also plot these in your report using RMarkdown.
+If so, adjust ``Calculate trends starting in’’ to this year
+and make note of the year.</p></li>
+<li><p>You should also plot these in your report using RMarkdown.
 Following from the example above, you can use the <code>plot_kaya</code> function:</p>
 <pre class="r"><code>plot_kaya(us_data, &quot;e&quot;, log_scale = TRUE, font_size = 12)</code></pre>
 <p><img src="/lab_docs/lab_10_instructions_files/figure-html/plot_us_data-1.png" width="672" />
@@ -299,6 +290,9 @@ Be sure to set <code>log_scale = TRUE</code> in the <code>plot_kaya</code> funct
 a constant percentage rate of
 change corresponds to a linear trend in the logarithm of the variable.</p></li>
 </ul></li>
+<li><p>In your report, discuss whether you anticipate a problem if we make policy
+by assuming that the Kaya identity variables will follow the trend line for
+the next several decades?</p></li>
 <li><p>Next, calculate the rates of change of
 <em>P</em>, <em>g</em>, <em>e</em>, and <em>f</em> (the Population, per-capita GDP, energy intensity of
 the economy, and carbon-intensity of the energy supply) from your starting
@@ -326,7 +320,7 @@ looking at the rates of change reported on the “Trends” tab.
 Be sure to set the start year on the web app to the same values that you
 used for calculating the slopes in RMarkdown.</p>
 <p>These numbers are the slopes of the trend lines that you looked at in part 2.</p></li>
-<li><p>Using the rates of change that you determined in part 3,
+<li><p>Using the rates of change that you determined in part 4,
 use the formulas from the “Growth Rates and Trends” section to compute the
 values for
 <em>P</em>, <em>g</em>, <em>e</em>, and <em>f</em>
@@ -344,37 +338,6 @@ table on the bottom of the left-hand pane of the web application.</p></li>
 <li><p>Calculate the emissions target: Set the reference year for
 emissions reduction to 2005, and set the target emissions
 reduction to 80%.</p>
-<!--   
-The IPCC developed many representative concentration pathways (RCPs) 
-using a top-down approach, for hitting various targets of radiative forcing 
-from greenhouse gases. The only RCP that has at least a two-thirds 
-probability of keeping warming below 2 degrees Celsius is RCP~2.6. 
-This concentration pathway calls for emissions reductions (relative to 2005) 
-for different parts of the world listed in the table below:
-
-
-Table: (\#tab:rcp_26_table)Percent reduction in CO~2~ emissions in 2050, relative to 2005.
-
-|Region                | Emissions reduction|
-|:---------------------|-------------------:|
-|Australia/New Zealand |                 82%|
-|Canada                |                 72%|
-|China                 |                 78%|
-|India                 |                 73%|
-|Japan                 |                 66%|
-|South Korea           |                 67%|
-|United States         |                 73%|
-|Africa                |                 28%|
-|Latin America         |                 40%|
-|Middle East           |                 32%|
-|Southeast Asia        |                -17%|
-|Western Europe        |                 74%|
-|World                 |                 36%|
-
-Note that Southeast Asia has a negative reduction. 
-This means that countries in this region are allowed a 17% _increase_
-in CO~2~ emissions (_F_).
--->
 <p>Set the target year in the web app to 2050;
 set the reference year to 2005;
 set the emissions reduction to
