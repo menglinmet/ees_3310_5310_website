@@ -23,3 +23,9 @@ This lab will use the GEOCARB model to explore the geochemical carbon cycle. We 
 
 ## Assignment
 Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/sveGSj_k>.
+
+## Solutions
+
+**Solutions for Lab Exercises**:
+
+* [Lab #6 Answers](/lab_solutions/lab_06_answers){target="_blank"}

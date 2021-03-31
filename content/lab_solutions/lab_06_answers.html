@@ -1,0 +1,526 @@
+---
+title: 'Lab #6 Answers'
+lab_number: 6
+lab_date: '2021-03-01'
+sol_date: '2021-03-29'
+pubdate: '2021-03-29'
+date: '2021-03-08'
+pdf_url: /files/lab_solutions/lab_06/lab_06_answers.pdf
+slug: lab_06_answers
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#exercise-1-weathering-as-a-function-of-co2">Exercise 1: Weathering as a Function of CO<sub>2</sub></a></li>
+<li><a href="#stabilization-of-co2">Stabilization of CO<sub>2</sub></a></li>
+<li><a href="#dynamics-of-weathering">Dynamics of Weathering</a>
+<ul>
+<li><a href="#the-silicate-weathering-thermostat">The Silicate Weathering Thermostat</a></li>
+<li><a href="#the-effect-of-changing-degassing-rates">The effect of changing degassing rates</a></li>
+</ul></li>
+<li><a href="#exercise-2-the-long-term-fate-of-fossil-fuel-co2">Exercise 2: The Long-Term Fate of Fossil Fuel CO<sub>2</sub></a>
+<ul>
+<li><a href="#weathering-and-carbonate-burial">Weathering and carbonate burial</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul></li>
+<li><a href="#exercise-3-graduate-students-only-how-the-land-plants-changed-the-carbon-cycle">Exercise 3 (Graduate Students Only): How the Land Plants Changed the Carbon Cycle</a></li>
+</ul>
+</div>
+
+<div id="exercise-1-weathering-as-a-function-of-co2" class="section level2">
+<h2>Exercise 1: Weathering as a Function of CO<sub>2</sub></h2>
+<p>In this exercise, I studied how weathering changes when the amount of CO<sub>2</sub> in
+the atmosphere changes, and how this helps the silicate weathering cycle work
+as a thermostat that controls the earth’s temperature.</p>
+<p>To study changes in weathering, I simulated what would happen if the amount of
+volcanic activity around the world suddenly increased, which would mean an
+increase in the amount of volcanic degassing that releases CO<sub>2</sub> into the
+atmosphere.</p>
+<p>The GEOCARB model makes it very easy to simulate a sudden change in degassing:
+In class we looked at GEOCARB with an emphasis on what happens after a “spike”
+of CO<sub>2</sub> is suddenly released all at once at year zero.
+For this experiment I was more interested in what happens when there is a
+sustained increase in CO<sub>2</sub> released to the atmosphere, so I ran GEOCARB with
+the CO<sub>2</sub> spike set to zero and volcanic degassing that increased from 7.5
+during the spinup phase to 10.0 during the simulation phase.</p>
+<pre class="r"><code>geocarb_data = run_geocarb(co2_spike = 0, degas_spinup = 7.5, degas_sim = 10.0)</code></pre>
+<p>With a spike of CO<sub>2</sub>, there was a sudden release at year zero and atmospheric
+CO<sub>2</sub> shot up and then gradually came back down to its former value.<br />
+That happened because there was no sustained source of extra CO<sub>2</sub>.
+But here, when the degassing rate goes up, there is a constant source of extra
+CO<sub>2</sub> so we see something different:</p>
+<pre class="r"><code>ggplot(geocarb_data, aes(x = year, y = co2_atmos)) + geom_line(size = 1) +
+  scale_x_continuous(labels = label_comma()) +
+  labs(x = &quot;Year&quot;, y = &quot;Atmospheric CO2 (ppm)&quot;)</code></pre>
+<div class="figure"><span id="fig:geocarb-degas-plot"></span>
+<img src="/lab_solutions/lab_06_answers_files/figure-html/geocarb-degas-plot-1.png" alt="The rise and eventual stabilization of carbon dioxide in the atmophere after a sudden and sustained increase in the rate of volcanic degassing." width="672" />
+<p class="caption">
+Figure 1: The rise and eventual stabilization of carbon dioxide in the atmophere after a sudden and sustained increase in the rate of volcanic degassing.
+</p>
+</div>
+<p>As CO<sub>2</sub> rises, I expected temperature to rise as well, and that is indeed what
+I saw.</p>
+<pre class="r"><code>ggplot(geocarb_data, aes(x = year, y = temp_atmos)) + geom_line(size = 1) +
+  scale_x_continuous(labels = label_comma()) +
+  labs(x = &quot;Year&quot;, y = &quot;Atmospheric Temperature (K)&quot;)</code></pre>
+<div class="figure"><span id="fig:geocarb-degas-t-plot"></span>
+<img src="/lab_solutions/lab_06_answers_files/figure-html/geocarb-degas-t-plot-1.png" alt="Change in the atmospheric temperature after a sudden and sustained increase in the rate of volcanic degassing of CO2." width="672" />
+<p class="caption">
+Figure 2: Change in the atmospheric temperature after a sudden and sustained increase in the rate of volcanic degassing of CO2.
+</p>
+</div>
+<p>What we see is that when the degassing rate changed, both the
+the CO<sub>2</sub> concentration and the temperature rise quickly, but as they got
+closer to their new equilibrium values, the rate of change slowed down, so that
+after about 1 million years, the CO<sub>2</sub> concentration and temperature were both
+slowly approaching their ultimate stable values.</p>
+</div>
+<div id="stabilization-of-co2" class="section level2">
+<h2>Stabilization of CO<sub>2</sub></h2>
+<p>My first research question was to find out how long it takes CO<sub>2</sub> to stabilize
+after the degassing rate changes, and what the new stable value is.</p>
+<p>The CO<sub>2</sub> concentration never actually gets to a stable value where it stops
+changing, but over time the rate of change slows down as it gets closer and
+closer to the stable value.</p>
+<p>This means that we need to define what it means for CO<sub>2</sub> to stabilize. For the
+purposes of this lab, I will follow the lab instructions and define the time
+when CO<sub>2</sub> stabilizes as the time when the rate of change becomes smaller than
+some threshold. In this case, I followed the lab instructions and defined
+this threshold as a rate of change of 1 part per million in 50,000 years.</p>
+<p>I can calculate the rate of change with the R expression
+<code>(co2_atmos - lag(co2_atmos)) / (year - lag(year))</code>.
+I have to include the denominator <code>(year - lag(year))</code> because if you look at
+the data returned from the GEOCARB model, the number of years per time step
+changes. Right after year 0, the time step between consecutive rows of the
+data is 50 years. At 1,500 years, the time step increases to 500 years per row;
+at 30,000 years, it increases to 5,000 years per row;
+and at 150,000 years, it increases to 50,000 years per row.</p>
+<p>One additional complication is that in this case, the CO<sub>2</sub> level is rising, but
+if I were looking at a case where CO<sub>2</sub> was falling, the rate of change would
+be negative, so even when CO<sub>2</sub> was changing rapidly
+(e.g., -200 ppm per 50,000 years) the rate of change would
+be less than 1 ppm per 50,000 years.
+For this reason, I will define stabilization as occurring when the
+<em>absolute value</em> of the rate of change is less than 1 ppm per 50,000 years.</p>
+<p>Taking this working definition of stabilization,I find the year when the
+CO<sub>2</sub> concentration stabilizes by filtering the model output to keep only the
+rows that meet two conditions:</p>
+<ol style="list-style-type: decimal">
+<li>The year is greater than zero (so it’s after the degassing rate went up) and</li>
+<li>where the absolute value of the rate of change in atmospheric CO<sub>2</sub> is less
+than 1 / 50000.</li>
+</ol>
+<p>The first row of this new data table will be the year when CO<sub>2</sub> stabilized,
+according to our definition:</p>
+<pre class="r"><code>stabilized = geocarb_data %&gt;% 
+  mutate(rate_co2 = (co2_atmos - lag(co2_atmos)) / (year - lag(year))) %&gt;%
+  filter(year &gt; 0, abs(rate_co2) &lt; 2E-5)
+stabilization_year = stabilized$year[1]
+stabilized_co2 = tail(stabilized, 1)$co2_atmos
+# Remember that 5E4 is how we tell R 5 times 10^4, which is 50,000</code></pre>
+<p>After the degassing rate changes, it takes 1.2× 10<sup>6</sup> years for the
+atmosphere to stabilize.
+Even at 2 million years, CO<sub>2</sub> is changing slightly, so I estimated the new
+stable value of CO<sub>2</sub> as the value in the last line in the tibble, which
+is <code>r</code>round(stabilized_co2, 0)` parts per million, rather than the
+concentration in the year when it stabilized.</p>
+</div>
+<div id="dynamics-of-weathering" class="section level2">
+<h2>Dynamics of Weathering</h2>
+<p>Next, I looked at what happened to weathering after the degassing rate
+increased.</p>
+<pre class="r"><code>geocarb_data %&gt;% select(year, degassing_rate, silicate_weathering) %&gt;%
+   rename(weathering = &quot;silicate_weathering&quot;, degassing = &quot;degassing_rate&quot;) %&gt;%
+  pivot_longer(cols = -year, names_to = &quot;variable&quot;, values_to = &quot;value&quot;) %&gt;%
+  ggplot(aes(x = year, y = value, color = variable)) +
+  geom_line(size = 1) +
+  scale_x_continuous(labels = label_comma()) + 
+  scale_color_brewer(palette = &quot;Dark2&quot;, name = &quot;Rate&quot;) +
+  labs(x = &quot;Year&quot;, y = &quot;Rate (trillion moles/year)&quot;)</code></pre>
+<div class="figure"><span id="fig:geocarb-degas-weathering"></span>
+<img src="/lab_solutions/lab_06_answers_files/figure-html/geocarb-degas-weathering-1.png" alt="Change in the silicate weathering rate after a sudden change in the rate of volcanic degassing of CO2." width="600" />
+<p class="caption">
+Figure 3: Change in the silicate weathering rate after a sudden change in the rate of volcanic degassing of CO2.
+</p>
+</div>
+<div id="the-silicate-weathering-thermostat" class="section level3">
+<h3>The Silicate Weathering Thermostat</h3>
+<p>It can be useful to see how the temperature affects the rate of weathering:</p>
+<pre class="r"><code>ggplot(geocarb_data, aes(x = temp_atmos, y = silicate_weathering)) +
+   geom_line(size = 1) +
+   labs(x = &quot;Atmospheric Temperature (K)&quot;, y = &quot;Silicate weathering (trillion moles/year)&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_06_answers_files/figure-html/weathering-vs-temp-1.png" width="672" /></p>
+<p>There is a clear relationship between temperature and weathering.</p>
+<p>It is clear from looking at the figures above that after the degassing rate
+increased:</p>
+<ul>
+<li>The imbalance between degassing and weathering caused the amount of
+CO<sub>2</sub> to rise.</li>
+<li>The rising CO<sub>2</sub> caused the temeperature to rise.</li>
+<li>And the rising temperature caused weathering to rise.</li>
+</ul>
+<p>In the steady state, the rate of weathering must balance the rate of CO<sub>2</sub>
+degassing from the Earth, from volcanoes and deep-sea vents, and indeed, as the
+rate of change of CO<sub>2</sub> in the atmosphere stabilizes, the weathering rate is
+very close to the degassing rate.</p>
+<p>The following plot is <em><strong>not required for the lab</strong></em>, but it can be interesting
+to plot the rate of change in CO<sub>2</sub> concentration versus the difference between
+degassing and weathering:</p>
+<pre class="r"><code>geocarb_data %&gt;% 
+   mutate(rate_co2 = (co2_atmos - lag(co2_atmos)) / (year - lag(year)),
+          diff = degassing_rate - silicate_weathering) %&gt;%
+   ggplot(aes(x = diff, y = rate_co2)) +
+   geom_line(size = 1) +
+   labs(x = &quot;Degassing - weathering&quot;, y = &quot;Rate of change of CO2&quot;)</code></pre>
+<div class="figure"><span id="fig:co2-vs-weathering"></span>
+<img src="/lab_solutions/lab_06_answers_files/figure-html/co2-vs-weathering-1.png" alt="The rate of change in atmospheric CO2 versus the difference between the degassing rate and the weathering rate" width="672" />
+<p class="caption">
+Figure 4: The rate of change in atmospheric CO2 versus the difference between the degassing rate and the weathering rate
+</p>
+</div>
+<p>In this graph, we can really see the thermostat in action: When there is a big
+difference between degassing and weathering, the CO<sub>2</sub> concentration in the
+atmosphere rises, which causes the temperature to rise, which increases the
+rate of weathering. As the rate of weathering gets closer to the rate of
+degassing, the difference $( - ) gets closer
+to zero, and the rate of change of CO<sub>2</sub> becomes smaller.
+Eventually, the atmosphere stabilizes when degassing becomes very close to
+weathering, so the difference is very close to zero, and the rate of change of
+CO<sub>2</sub> becomes so close to zero that for all practical purposes, the amount of
+CO<sub>2</sub> in the atmosphere stops changing.</p>
+<p>That is how the silicate weathering thermostat works.</p>
+</div>
+<div id="the-effect-of-changing-degassing-rates" class="section level3">
+<h3>The effect of changing degassing rates</h3>
+<p>Finally, I explored how the final, stable CO<sub>2</sub> concentration and atmospheric
+temperature depend on the degassing rate.
+Here, I am only interested in the final quasi-stabilized value of CO<sub>2</sub> and
+atmospheric temperature for each value of degassing, so I can see how the
+stable conditions depend on the degassing rate.</p>
+<pre class="r"><code>multi_degas_data = tibble()
+for (degas_rate in c(7.5, 10, 12.5, 15, 17.5, 20)) {
+   geocarb_data = run_geocarb(co2_spike = 0, degas_spinup = 7.5, 
+                              degas_sim = degas_rate)
+   last_row = tail(geocarb_data, 1)
+   multi_degas_data = bind_rows(multi_degas_data, last_row)
+}</code></pre>
+<p>Now I can plot the stable value of CO<sub>2</sub> versus the degassing rate:</p>
+<pre class="r"><code>ggplot(multi_degas_data, aes(x = degassing_rate, y = co2_atmos)) +
+   geom_line(size = 1) +
+   labs(x = &quot;Degassing (trillion moles per year)&quot;, y = &quot;Stabilized CO2 (ppm)&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_06_answers_files/figure-html/co2_vs_degassing-1.png" width="672" /></p>
+<p>Next, I plot the difference between weathering and degassing at the end of
+each GEOCARB run:</p>
+<pre class="r"><code>ggplot(multi_degas_data, aes(x = degassing_rate, 
+                             y = degassing_rate - silicate_weathering)) +
+   geom_line(size = 1) +
+   labs(x = &quot;Degassing (trillion moles per year)&quot;, y = &quot;Degassing - Weathering&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_06_answers_files/figure-html/weathering_vs_degassing-1.png" width="672" /></p>
+<p>We see here that weathering doesn’t exactly match degassing at the end of
+1.95 million years, but it’s very close. The differences are less than 1% of
+the degassing rate (e.g., a difference of 0.04 when degassing is 16, which
+works out to 0.25% of the degassing rate)</p>
+<p>Next, I plot the stabilized silicate weathering rate versus CO<sub>2</sub> concentration</p>
+<pre class="r"><code>ggplot(multi_degas_data, aes(x = co2_atmos, y = silicate_weathering)) +
+   geom_line(size = 1) + 
+   labs(x = &quot;Stabilized CO2 (ppm)&quot;, y = &quot;Silicate weathering (trillion moles/year)&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_06_answers_files/figure-html/weathering-vs-co2-1.png" width="672" /></p>
+<p>So we see that silicate weathering rises as CO<sub>2</sub> does. The mechanism for this
+is largely the rise in temperature, which we can also plot:</p>
+<pre class="r"><code>ggplot(multi_degas_data, aes(x = temp_atmos, y = silicate_weathering)) +
+   geom_line(size = 1) +
+   labs(x = &quot;Atmospheric temperature (K)&quot;, y = &quot;Silicate weathering (trillion moles/year)&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_06_answers_files/figure-html/weathering-vs-stable-temp-1.png" width="672" /></p>
+<p>We see that rising temperature strongly affects weathering. This is how the
+silicate weathering thermostat works.</p>
+</div>
+</div>
+<div id="exercise-2-the-long-term-fate-of-fossil-fuel-co2" class="section level2">
+<h2>Exercise 2: The Long-Term Fate of Fossil Fuel CO<sub>2</sub></h2>
+<p>In the previous exercise, I looked at how the earth responds to a sustained
+increase in CO<sub>2</sub> emissions over millions of years. Here, I will look at
+what happens when there is a one-time release of a very large quantity of
+CO<sub>2</sub>. From a geological perspective, where people think in terms of millions
+of years, this is a good approximation of the release of fossil fuels. In the
+end, we expect that people will have burned a lot of fossil fuels in the span
+of 200 years or so and then will stop.</p>
+<p>Here I am going to investigate what happens after we stop burrning fossil fuels.</p>
+<p>I start with a very simple experiment: What would have happened to the
+atmosphere if people didn’t burn any fossil fuels. To simulate this, I set
+the CO<sub>2</sub> spike to 0 and also set the volcanic degassing rate during the
+simulation to the same value I used in the spinup (7.5 trillion moles per year).</p>
+<pre class="r"><code>geocarb_null = run_geocarb(co2_spike = 0, degas_spinup = 7.5, degas_sim = 7.5)</code></pre>
+<p>Now, I plot the change in CO<sub>2</sub>, silicate weathering, carbonate weathering, and
+total weathering, when the transition occurs at year 0:</p>
+<pre class="r"><code>geocarb_null %&gt;% filter(year &gt;= -200, year &lt;= 200) %&gt;%
+   select(year, co2_atmos, silicate_weathering, carbonate_weathering,
+          total_weathering) %&gt;%
+   kable(digits = 2, 
+         col.names = c(&quot;Year&quot;, &quot;CO~2~&quot;, &quot;Silicate Weathering&quot;, 
+                       &quot;Carbonate Weathering&quot;, &quot;Total Weathering&quot;))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Year</th>
+<th align="right">CO<sub>2</sub></th>
+<th align="right">Silicate Weathering</th>
+<th align="right">Carbonate Weathering</th>
+<th align="right">Total Weathering</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-200</td>
+<td align="right">272.64</td>
+<td align="right">7.5</td>
+<td align="right">8.39</td>
+<td align="right">15.89</td>
+</tr>
+<tr class="even">
+<td align="right">-150</td>
+<td align="right">272.64</td>
+<td align="right">7.5</td>
+<td align="right">8.39</td>
+<td align="right">15.89</td>
+</tr>
+<tr class="odd">
+<td align="right">-100</td>
+<td align="right">272.64</td>
+<td align="right">7.5</td>
+<td align="right">8.39</td>
+<td align="right">15.89</td>
+</tr>
+<tr class="even">
+<td align="right">-50</td>
+<td align="right">272.64</td>
+<td align="right">7.5</td>
+<td align="right">8.39</td>
+<td align="right">15.89</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">272.64</td>
+<td align="right">7.5</td>
+<td align="right">8.39</td>
+<td align="right">15.89</td>
+</tr>
+<tr class="even">
+<td align="right">50</td>
+<td align="right">272.64</td>
+<td align="right">7.5</td>
+<td align="right">8.39</td>
+<td align="right">15.89</td>
+</tr>
+<tr class="odd">
+<td align="right">100</td>
+<td align="right">272.64</td>
+<td align="right">7.5</td>
+<td align="right">8.39</td>
+<td align="right">15.89</td>
+</tr>
+<tr class="even">
+<td align="right">150</td>
+<td align="right">272.64</td>
+<td align="right">7.5</td>
+<td align="right">8.39</td>
+<td align="right">15.89</td>
+</tr>
+<tr class="odd">
+<td align="right">200</td>
+<td align="right">272.64</td>
+<td align="right">7.5</td>
+<td align="right">8.39</td>
+<td align="right">15.89</td>
+</tr>
+</tbody>
+</table>
+<p>This is completely unsurprising: If we don’t put any extra CO<sub>2</sub> in the
+atmosphere, the amount of CO<sub>2</sub> in the atmosphere does not change.</p>
+<p>Now I start looking at what happens when we do put CO<sub>2</sub> in the atmosphere.
+I ran GEOCARB with a spike of 2000 billion tons of CO<sub>2</sub> released into the
+atmosphere at year 0. Near year 0, each time step in the simulation represents
+50 years, so this is a slight simplification, but from the perspective of
+thousands or millions of years, it is pretty close to what we see happening in
+the real world.</p>
+<pre class="r"><code>geocarb_2k_spike = run_geocarb(co2_spike = 2000, degas_spinup = 7.5, 
+                               degas_sim = 7.5)</code></pre>
+<p>Now I am going to plot what happens to the silicate weathering right after
+the spike (i.e., right after year 0), and then I will plot the three kinds of
+weathering before and after year zero, when the spike is released.</p>
+<p>In the code below, I use the <code>str_replace_all</code> function to change
+<code>silicate_weathering</code> to <code>silicate</code> and so forth. I also use the <code>ordered</code>
+function to arrange the order in which <code>silicate</code>, <code>carbonate</code>, and <code>total</code>
+appear in the legend, from top to bottom, to match the order the three lines
+appear in the graph. That’s a level of fussiness I don’t expect from students’
+lab reports, but I put it in so you can see how it’s done.</p>
+<pre class="r"><code>weathering_history = geocarb_2k_spike %&gt;% 
+   select(year, silicate_weathering, carbonate_weathering, total_weathering) %&gt;%
+   pivot_longer(cols = -year, names_to = &quot;Weathering&quot;, values_to = &quot;rate&quot;) %&gt;%
+   mutate(Weathering = str_replace_all(Weathering, &quot;_weathering&quot;, &quot;&quot;) %&gt;%
+             ordered(levels = c(&quot;total&quot;, &quot;silicate&quot;, &quot;carbonate&quot;)))
+
+ggplot(weathering_history, aes(x = year, y = rate, color = Weathering)) + 
+   geom_line(size = 1, na.rm = TRUE) +
+   scale_color_brewer(palette = &quot;Dark2&quot;) +
+   xlim(-500, 1000) +
+   labs(x = &quot;Year&quot;, y = &quot;Rate (trillion moles per year)&quot;)</code></pre>
+<div class="figure">
+<img src="/lab_solutions/lab_06_answers_files/figure-html/plot_co2_spike-fast-1.png" alt="Silicate weathering right after a spike of CO~2~ containing 2000 BT carbon is released" width="672" />
+<p class="caption">
+(#fig:plot_co2_spike-fast)Silicate weathering right after a spike of CO<sub>2</sub> containing 2000 BT carbon is released
+</p>
+</div>
+<p>Next, I look over a much longer time:</p>
+<pre class="r"><code>ggplot(weathering_history, aes(x = year, y = rate, color = Weathering)) + 
+   geom_line(size = 1, na.rm = TRUE) +
+   scale_color_brewer(palette = &quot;Dark2&quot;) +
+   labs(x = &quot;Year&quot;, y = &quot;Rate (trillion moles/year)&quot;)</code></pre>
+<div class="figure">
+<img src="/lab_solutions/lab_06_answers_files/figure-html/plot_co2_spike-slow-1.png" alt="Silicate weathering right after a spike of CO~2~ containing 2000 BT carbon is released" width="672" />
+<p class="caption">
+(#fig:plot_co2_spike-slow)Silicate weathering right after a spike of CO<sub>2</sub> containing 2000 BT carbon is released
+</p>
+</div>
+<p>To test when the CO<sub>2</sub> stops changing, I use the same criterion I did in the
+previous exercise: when the absolute value of the rate of change is less than
+1 ppm per 50,000 years. The rate of change of CO<sub>2</sub> here is negative
+(CO<sub>2</sub> shoots up right after the spike, and then drops over time until it
+returns to close to its original value).
+I define stabilization as when the rate of change is very close to zero, whether
+it’s positive or negative, so my criterion is for the absolute value of the
+rate of change to be less than 1 ppm per 50,000 years.</p>
+<p>The stabilization year is the first year, after year zero, where this is true.
+However, because CO<sub>2</sub> continues to change slowly even after the nominal
+stabilization, I estimate the stable value of CO<sub>2</sub> to be the value at the very
+end of the run, at 1.95 million years.</p>
+<pre class="r"><code>spike_stabilized = geocarb_2k_spike %&gt;% 
+   mutate(co2_rate = (co2_atmos - lag(co2_atmos)) / (year - lag(year))) %&gt;%
+   filter(year &gt; 0, abs(co2_rate) &lt; 2E-5)
+stabilization_year = head(spike_stabilized$year, 1)
+stabilization_value = tail(spike_stabilized$co2_atmos, 1)</code></pre>
+<p>CO<sub>2</sub> approximately stabilizes after
+700,000 years, and the final
+stable value is approximately
+272.7 ppm.</p>
+<div id="weathering-and-carbonate-burial" class="section level3">
+<h3>Weathering and carbonate burial</h3>
+<p>Next, I looked at how the relationship between total weathering and carbonate
+burial changed over time. Total weathering measures the rate at which new
+carbonate that is released into the oceans, and carbonate burial is the rate
+at which carbonate is removed from the oceans by being converted to solid
+minerals and buried on the sea floor.</p>
+<pre class="r"><code>carbonate_history = geocarb_2k_spike %&gt;% 
+   select(year, &quot;Carbon burial&quot; = carbon_burial, 
+          &quot;Total weathering&quot; = total_weathering) %&gt;%
+   pivot_longer(cols = -year, names_to = &quot;variable&quot;, values_to = &quot;value&quot;)
+ggplot(carbonate_history, aes(x = year, y = value, color = variable)) +
+   geom_line(size = 1, na.rm = TRUE) +
+   scale_color_brewer(palette = &quot;Dark2&quot;, name = NULL) +
+   xlim(-1E3, 1E4) +
+   labs(x = &quot;Year&quot;, y = &quot;Rate (trillion moles per year)&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_06_answers_files/figure-html/carbonate-burial-10k-1.png" width="672" /></p>
+<p>When CO<sub>2</sub> dissolves into the oceans from the atmosphere, it depletes carbonate
+in the oceans. This slows down the rate of carbonate burial. Meanwhile, as
+CO<sub>2</sub> builds up in the atmosphere, the temperature rises and the weathering rate
+goes up.</p>
+<p>Weathering adds more carbonate to the ocean, which replaces the carbonate that
+was converted to bicarbonate by reacting with CO<sub>2</sub> from the atmosphere.
+As the carbonate in the oceans starts to rise, the carbonate burial also rises.</p>
+<p>Eventually, as the amount of CO<sub>2</sub> in the atmosphere stabilizes, the total
+weathering rate and the carbonate burial rate should become roughly equal.</p>
+<p>Now, let’s look at the rates over a longer period of time:</p>
+<pre class="r"><code>ggplot(carbonate_history, aes(x = year, y = value, color = variable)) +
+   geom_line(size = 1, na.rm = TRUE) +
+   scale_color_brewer(palette = &quot;Dark2&quot;, name = NULL) +
+   xlim(NA, 3E5) +
+   labs(x = &quot;Year&quot;, y = &quot;Rate (trillion moles per year)&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_06_answers_files/figure-html/carbonate-burial-medium-1.png" width="672" /></p>
+<p>After a few hundred thousand years, the difference between the two rates
+is too small to see on a graph that shows the initial spike, so I plotted
+the rates of burial and weathering starting 1 million years after the spike:</p>
+<pre class="r"><code>carbonate_history %&gt;% filter(year &gt;= 1E6) %&gt;%
+ggplot(aes(x = year, y = value, color = variable)) +
+   geom_line(size = 1, na.rm = TRUE) +
+   scale_color_brewer(palette = &quot;Dark2&quot;, name = NULL) +
+   xlim(1E6, 2E6) +
+   labs(x = &quot;Year&quot;, y = &quot;Rate (trillion moles per year)&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_06_answers_files/figure-html/carbonate-burial-long-1.png" width="672" /></p>
+<p>Notice the scale on the vertical axis: The difference between the weathering
+rate and the burial rate is less than 0.01 trillion moles per year. This is
+a huge difference from 10,000 years after the spike, when the difference was
+about 5 trillion moles per year, a factor of 500 greater.</p>
+</div>
+<div id="summary" class="section level3">
+<h3>Summary</h3>
+<p>In this exercise, I explored different aspects of how the geochemical carbon
+cycle changes after a large amount of CO<sub>2</sub> is discharged into the air.
+What I found was that silicate and carbonate weathering do eventually remove
+the excess CO<sub>2</sub> from the atmosphere and that things stabilize when the
+carbonate burial balances the total weathering.</p>
+<p>One important thing this exercise revealed is that the fate of CO<sub>2</sub>
+is ultimately controlled by the rate of geological weathering—the rate at
+which rain falling on rocks wears them away. This is very slow, and that
+means that even after we stop burning fossil fuels, it can take hundreds of
+thousands of years for CO<sub>2</sub> to return to its natural concentration in the
+atmosphere.</p>
+</div>
+</div>
+<div id="exercise-3-graduate-students-only-how-the-land-plants-changed-the-carbon-cycle" class="section level2">
+<h2>Exercise 3 (Graduate Students Only): How the Land Plants Changed the Carbon Cycle</h2>
+<p>In this exercise, I explored how the emergence of land plants altered the
+carbon cycle. To do this, I ran the GEOCARB model with no plants during its
+spinup and then added plants for the simulation, so this simulates a condition
+where there were no plants for millions of years, and then all of a sudden, at
+year zero, lots of land plants appeared.</p>
+<pre class="r"><code>geocarb_plants = run_geocarb(co2_spike = 0, plants_spinup = FALSE, 
+                             plants_sim = TRUE)</code></pre>
+<p>When the plants appeared, they immediately accelerated the weathering:</p>
+<pre class="r"><code>geocarb_plants %&gt;% filter(year &lt;= 1000) %&gt;% 
+   select(year, carbonate_weathering, silicate_weathering, total_weathering) %&gt;%
+   pivot_longer(-year, names_to = &quot;weathering&quot;, values_to = &quot;rate&quot;) %&gt;%
+   mutate(weathering = str_replace_all(weathering, &quot;_weathering&quot;, &quot;&quot;)) %&gt;%
+   ggplot(aes(x = year, y = rate, color = weathering)) +
+   geom_line(size = 1) +
+   scale_color_brewer(palette = &quot;Dark2&quot;) +
+   scale_x_continuous(labels = label_comma()) +
+   labs(x = &quot;Year&quot;, y = &quot;Weathering Rate&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_06_answers_files/figure-html/weathering-plants-1.png" width="672" /></p>
+<p>Over time, we see that the weathering rate gradually drops back to its original
+level.</p>
+<pre class="r"><code>geocarb_plants %&gt;% filter(year &lt;= 1E6) %&gt;%
+   select(year, carbonate_weathering, silicate_weathering, total_weathering) %&gt;%
+   pivot_longer(-year, names_to = &quot;weathering&quot;, values_to = &quot;rate&quot;) %&gt;%
+   mutate(weathering = str_replace_all(weathering, &quot;_weathering&quot;, &quot;&quot;)) %&gt;%
+   ggplot(aes(x = year, y = rate, color = weathering)) +
+   geom_line(size = 1) +
+   scale_color_brewer(palette = &quot;Dark2&quot;) +
+   scale_x_continuous(labels = label_comma()) +
+   labs(x = &quot;Year&quot;, y = &quot;Weathering Rate&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_06_answers_files/figure-html/weathering-plants-long-1.png" width="672" /></p>
+<p>So what does this do to atmospheric CO<sub>2</sub> concentrations?
+When the weathering goes up, our theories tell us that this should remove CO<sub>2</sub>
+from the atmosphere by moving it into the ocean as dissolved carbonate ions,
+and ultimately converting it to carbonate rocks, so atmospheric CO<sub>2</sub> should
+drop.</p>
+<pre class="r"><code>geocarb_plants %&gt;% 
+   ggplot(aes(x = year, y = co2_atmos)) +
+   geom_line(size = 1) +
+   scale_x_continuous(labels = label_comma()) +
+   labs(x = &quot;Year&quot;, y = &quot;Atmospheric CO2 (ppm)&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_06_answers_files/figure-html/co2-plants-1.png" width="672" /></p>
+<p>It’s useful to show a detail plot of what happens right at the transition where
+the plants appear.</p>
+<pre class="r"><code>geocarb_plants %&gt;% filter(year &lt;= 1000) %&gt;%
+   ggplot(aes(x = year, y = co2_atmos)) +
+   geom_line(size = 1) +
+   scale_x_continuous(labels = label_comma()) +
+   labs(x = &quot;Year&quot;, y = &quot;Atmospheric CO2 (ppm)&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_06_answers_files/figure-html/co2-plants-short-1.png" width="672" /></p>
+<p>So the CO<sub>2</sub> starts to drop as soon as the plants appear.</p>
+</div>
