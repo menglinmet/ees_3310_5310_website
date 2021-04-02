@@ -21,7 +21,7 @@ library(lubridate)
 library(knitr)
 library(kableExtra)
 
-game_day = ymd("2018-11-05")
+game_day = ymd("2021-04-12")
 long_game_day = format(game_day, "%A %B %e")
 short_game_day = format(game_day, "%b.\ %e")
 
@@ -179,10 +179,10 @@ _The Journal of Economic Education_ **42**, 70--78 (2011)
 [doi: 10.1080/00220485.2011.536491](https://doi.org/10.1080/00220485.2011.536491)
 
 \clearpage
-## Homework
+## Preparation
 
-Do the following homework (turn it in on `r long_game_day` at the beginning of 
-lab):
+To prepare for the lab, work through the following exercises. 
+(You do not need to turn it in):
 
 1. Table 1 lists the marginal profit a company earns by emitting CO~2~. 
    Fill in the blanks in the table to show the total profits it earns at each 

@@ -1,6 +1,7 @@
 ---
 title: 'Project: Decarbonization Policy for a Country'
 lab_date: '2021-04-05'
+report_due_date: 2021-04-30 23:59:00
 lab_number: 11
 pubdate: '2020-12-31'
 date: '2021-04-05'
@@ -12,12 +13,6 @@ output:
 # Overview:
 
 Either individually or with a partner, you will pick a country and begin working on a policy analysis for reducing its greenhouse gas emissions.
-
-## Important Update
-
-The original assignment said to analyze **both** the 2030 goal for the Paris nationally determined contribution **and** the 2050 goal that you choose. 
-
-I have decided that is too much work, so you should **only** do the analysis of how the country would achieve the **2050** goal that you choose (you **do not** have to analyze the difficulty of meeting the 2030 goal).
 
 ## Reading
 
