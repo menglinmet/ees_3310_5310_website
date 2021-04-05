@@ -240,7 +240,7 @@ Brightspace to get credit for this lab):
     you set the tax at?
    \vspace{2cm}
 
-### Table 1: Profits vs. Emissions
+### Tables: Emissions, Profits, and Harms
 
 ```{r profit_table}
 tax = 30
@@ -301,22 +301,13 @@ if (output_format == "latex") {
 
 kable(profits, format = output_format, align = "crrrr", digits = 0, 
       col.names = column_names,
-      booktabs = T, escape = FALSE) %>% 
+      booktabs = T, escape = FALSE,
+      caption = "**Table 1:** Profits versus emissions: The table lists the marginal profit, in millions of dollars, for each million tons of CO~2~ it emits. For instance, if it emits one million tons, it earns a marginal profit of $85 million. The total profit for _x_ million tons is the sum of the marginal profits for each million tons from 1 to _x_.\n\nFill in the blanks with the total profit the company earns by for each amount of CO~2~ emission.") %>% 
   add_header_above(c(" " = 1, "No Emissions Tax" = 2, 
                      "$30/ton Emissions Tax" = 2)) %>%
   kable_styling(c("bordered","hover"), c("striped", "scale_down"))
 ```
 
-**Table 1:** Profits versus emissions: The table lists the marginal profit, in 
-millions of dollars, for each million tons of CO~2~ it emits. For instance, if 
-it emits one million tons, it earns a marginal profit of $85 million. 
-The total profit for _x_ million tons is the sum of the marginal profits for 
-each million tons from 1 to _x_.
-
-Fill in the blanks with the total profit the company earns by for each amount 
-of CO~2~ emission.
-
-### Table 2: Environmental Harm vs. Emissions
 
 ```{r cost_table}
 costs = tibble(
@@ -363,20 +354,10 @@ if (output_format == "latex") {
 
 
 kable(costs, format = output_format, align = "crrrrrr", digits = 0,
-      col.names = column_names, booktabs = T, escape = escape) %>% 
+      col.names = column_names, booktabs = T, escape = escape,
+      caption = "**Table 2:** Economic impacts of CO~2~ emissions. The table lists the marginal environmental harm, in millions of dollars, for each million tons of CO~2~ released into the environment. For instance, the first million tons of emissions cause $5 million in damage.\n\nThe right pair of columns shows the net economic impact of the profits generated from the emissions (see Table 1) minus the environmental harm.\n\nFill in the blanks with the total environmental harm from CO~2~ emission and\n\ncompute the net economic impact.") %>% 
   add_header_above(c(" " = 1, "Environmental Harm" = 2, 
                      "Profits" = 2,
                      "Net Economic Impact" = 2)) %>%
   kable_styling(c("bordered","hover"), c("striped", "scale_down"))
 ```
-
-**Table 2**: Economic impacts of CO~2~ emissions. The table lists the marginal 
-environmental harm, in millions of dollars, for each million tons of CO~2~ 
-released into the environment. For instance, the first million tons of 
-emissions cause $5 million in damage.
-
-The right pair of columns shows the net economic impact of the profits 
-generated from the emissions (see Table 1) minus the environmental harm.
-
-Fill in the blanks with the total environmental harm from CO~2~ emission and 
-compute the net economic impact.
