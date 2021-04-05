@@ -28,5 +28,4 @@ There is no report to complete for this lab.  Full credit will be given for show
 * [Preparation for Lab on Regulating Greenhouse Gas Emissions](/lab_docs/lab_12_preparation){target="_blank"}
 
 ## Assignment
-
-The GitHub Classroom has not been posted yet.
+This lab does not use GitHub Classroom.
