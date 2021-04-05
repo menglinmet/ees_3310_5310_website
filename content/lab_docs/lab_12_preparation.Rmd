@@ -171,7 +171,7 @@ The game will have six stages:
 
 This exercise was adapted from The Pollution Game, an interactive exercise 
 developed by Jay R. Corrigan, Associate Professor of Economics, Kenyon College.  
-See J.R. Corrigan, ``The Pollution Game: A Classroom Exercise Demontrating the 
+See J.R. Corrigan, ``The Pollution Game: A Classroom Exercise Demonstrating the 
 Relative Effectiveness of Emissions Taxes and Tradable Permits,'' 
 _The Journal of Economic Education_ **42**, 70--78 (2011) 
 [doi: 10.1080/00220485.2011.536491](https://doi.org/10.1080/00220485.2011.536491)
