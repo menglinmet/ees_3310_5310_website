@@ -3,6 +3,7 @@
 \usepackage{booktabs}
 \usepackage[version=4]{mhchem}
 % \usepackage{longtable}
+\usepackage{caption}
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{wrapfig}
@@ -35,6 +36,14 @@
 \newcommand{\pH}{p\ce{H}}
 \newcommand{\permil}{\permille}
 
+\newcommand{\alintertext}[1]{%
+  \noalign{%
+    \vskip\belowdisplayshortskip
+    \vtop{\hsize=\linewidth#1\par
+      \expandafter}%
+    \expandafter\prevdepth\the\prevdepth
+  }%
+}
 
 \makeenvironment{Shaded}{\begin{snugshade}\small}{\end{snugshade}}
 \makecommand{\AttributeTok}[1]{\textcolor[rgb]{0.42,0.37,0.12}{#1}}

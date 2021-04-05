@@ -12,14 +12,16 @@ output:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
     toc: yes
 ---
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 
+library(pacman)
 library(tidyverse)
 library(lubridate)
 # library(xtable)
 library(knitr)
 library(kableExtra)
+p_load_gh("jonathan-g/cmarkjg")
 
 game_day = ymd("2021-04-12")
 long_game_day = format(game_day, "%A %B %e")
@@ -29,6 +31,17 @@ class_reading_day = ymd("2021-04-05")
 long_reading_day = format(class_reading_day, "%A %B %e")
 short_reading_day = format(class_reading_day, "%b.\ %e")
 
+output_format <- ifelse(is_html_output(), "html", "latex")
+message("Output format = ", output_format)
+
+md_render = if (output_format == "latex") {
+   function(x) {
+      markdown_latex(x, smart = TRUE, max_strikethrough = FALSE,
+                     normalize = TRUE, extensions = TRUE)
+   }
+} else {
+   function(x) { x }
+}
 ```
 # Introduction
 
@@ -179,10 +192,9 @@ _The Journal of Economic Education_ **42**, 70--78 (2011)
 \clearpage
 ## Optional Preparation Exercises: 
 
-To prepare for the lab, please do the following exercises. 
-**You do not need to turn it in**, but if you are unable to attend the lab 
-session on `r long_game_day`, then you should turn it in on 
-Brightspace to get credit for this lab):
+To prepare for the lab, please do the following exercises, which refer to 
+tables 1 & 2, below. 
+**You do not need to turn it in**:
 
 1. Table 1 lists the marginal profit a company earns by emitting CO~2~. 
    Fill in the blanks in the table to show the total profits it earns at each 
@@ -240,9 +252,10 @@ Brightspace to get credit for this lab):
     you set the tax at?
    \vspace{2cm}
 
+\clearpage
 ### Tables: Emissions, Profits, and Harms
 
-```{r profit_table}
+```{r profit-table}
 tax = 30
 mp_intercept = 91
 mp_slope = 6
@@ -285,13 +298,10 @@ column_names <- c("CO~2~ Emissions\n(million tons)",
                     "Marginal profit\n(million dollars)", 
                     "Total profit\n(million dollars)")
 
-output_format <- ifelse(is_html_output(), "html", "latex")
-# message("Output format = ", output_format)
-
 if (output_format == "latex") {
    escape = FALSE
    column_names <- linebreak(column_names) %>%
-      str_replace_all("CO~2~", "$\\\\text{CO}_2$")
+      str_replace_all("CO~2~", "CO\\\\textsubscript{2}")
    profits <- profits %>% 
       mutate(across(everything(), ~str_replace_all(., fixed("$"), "\\$")))
 } else {
@@ -299,17 +309,30 @@ if (output_format == "latex") {
    escape = TRUE
 }
 
-kable(profits, format = output_format, align = "crrrr", digits = 0, 
-      col.names = column_names,
-      booktabs = T, escape = FALSE,
-      caption = "**Table 1:** Profits versus emissions: The table lists the marginal profit, in millions of dollars, for each million tons of CO~2~ it emits. For instance, if it emits one million tons, it earns a marginal profit of $85 million. The total profit for _x_ million tons is the sum of the marginal profits for each million tons from 1 to _x_.\n\nFill in the blanks with the total profit the company earns by for each amount of CO~2~ emission.") %>% 
+tbl_1_cap = "Profits versus emissions: The table lists the marginal profit, in millions of dollars, for each million tons of CO~2~ it emits. For instance, if it emits one million tons, it earns a marginal profit of $85 million. The total profit for _x_ million tons is the sum of the marginal profits for each million tons from 1 to _x_.\\par Fill in the blanks with the total profit the company earns by for each amount of CO~2~ emission." %>%
+   md_render() %>% str_replace_all(fixed("\\textbackslash{}"), "\\")
+
+if (output_format != "latex") {
+   tbl_1_cap = str_c("**Table 1:** ", tbl_1_cap)
+}
+
+tbl_1 = kable(profits, format = output_format, align = "crrrr", digits = 0, 
+      col.names = column_names, booktabs = T, escape = escape, 
+      position = "hbtp",
+      caption =  tbl_1_cap,
+      caption.short = "Profits versus emissions") %>% 
   add_header_above(c(" " = 1, "No Emissions Tax" = 2, 
                      "$30/ton Emissions Tax" = 2)) %>%
   kable_styling(c("bordered","hover"), c("striped", "scale_down"))
+
+if (output_format == "latex") {
+   tbl_1 = raw_latex(tbl_1)
+}
+tbl_1
 ```
 
 
-```{r cost_table}
+```{r cost-table}
 costs = tibble(
   emissions = seq(1,20), 
   harm = mc_fn(emissions),
@@ -339,12 +362,9 @@ column_names <- c("CO~2~ Emissions\n(million tons)",
                     "Marginal\n(million dollars)", 
                     "Total\n(million dollars)")
 
-output_format <- ifelse(is_html_output(), "html", "latex")
-# message("Output format = ", output_format)
-
 if (output_format == "latex") {
    column_names <- linebreak(column_names) %>%
-      str_replace_all("CO~2~", "$\\\\text{CO}_2$")
+      str_replace_all("CO~2~", "CO\\\\textsubscript{2}")
    escape = FALSE
    costs <- costs %>% 
       mutate(across(everything(), ~str_replace_all(., fixed("$"), "\\$")))
@@ -352,12 +372,25 @@ if (output_format == "latex") {
    escape = TRUE
 }
 
+tbl_2_cap = "Economic impacts of CO~2~ emissions. The table lists the marginal environmental harm, in millions of dollars, for each million tons of CO~2~ released into the environment. For instance, the first million tons of emissions cause $5 million in damage. \n\nThe right pair of columns shows the net economic impact of the profits generated from the emissions (see Table 1) minus the environmental harm.\n\nFill in the blanks with the total environmental harm from CO~2~ emission and compute the net economic impact." %>% md_render()
 
-kable(costs, format = output_format, align = "crrrrrr", digits = 0,
+if (output_format != "latex") {
+   tbl_2_cap = str_c("**Table 2:** ", tbl_2_cap)
+}
+
+tbl_output = kable(costs, format = output_format, align = "crrrrrr", digits = 0,
       col.names = column_names, booktabs = T, escape = escape,
-      caption = "**Table 2:** Economic impacts of CO~2~ emissions. The table lists the marginal environmental harm, in millions of dollars, for each million tons of CO~2~ released into the environment. For instance, the first million tons of emissions cause $5 million in damage.\n\nThe right pair of columns shows the net economic impact of the profits generated from the emissions (see Table 1) minus the environmental harm.\n\nFill in the blanks with the total environmental harm from CO~2~ emission and\n\ncompute the net economic impact.") %>% 
+      position = "hbtp",
+      caption = tbl_2_cap,
+      caption.short = "Economic impacts of CO2 emissions.") %>% 
   add_header_above(c(" " = 1, "Environmental Harm" = 2, 
                      "Profits" = 2,
                      "Net Economic Impact" = 2)) %>%
   kable_styling(c("bordered","hover"), c("striped", "scale_down"))
+
+if (output_format == "latex") {
+   tbl_output = raw_latex(tbl_output)
+}
+tbl_output
+
 ```
