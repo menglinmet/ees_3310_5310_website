@@ -479,7 +479,8 @@ body {
 .reveal table.bordered tbody,
 .reveal table.bordered th,
 .reveal table.bordered tr,
-.reveal table.bordered td {
+.reveal table.bordered td,
+.reveal div.bordered {
   border-width: 2px;
   border-style: solid;
   border-color: black; }
@@ -496,6 +497,7 @@ body {
 .reveal table.noborder th,
 .reveal table.noborder tr,
 .reveal table.noborder td,
+.reveal div.noborder,
 .reveal img.noborder,
 .reveal .noborder img {
   border-style: none; }

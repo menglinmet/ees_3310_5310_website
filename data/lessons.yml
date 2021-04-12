@@ -144,6 +144,7 @@ lessons:
 - date: '2021-04-12'
   title: The Case for Renewable Energy
   reading: /reading/reading_34
+  lecture: /slides/class_34
   lab: lab_12
 - date: '2021-04-14'
   title: The Case for Nuclear Energy
