@@ -1,10 +1,10 @@
 ---
 title: Continuing to Work on Formal Report
-lab_date: '2021-03-22'
+lab_date: '2022-03-21'
 lab_number: 9
 github_classroom_assignment_url: https://classroom.github.com/a/c2o8gyj8
-pubdate: '2020-12-31'
-date: '2021-03-22'
+pubdate: '2021-06-18'
+date: '2022-03-21'
 slug: lab_09
 output:
   blogdown::html_page:

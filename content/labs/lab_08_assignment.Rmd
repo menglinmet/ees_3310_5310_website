@@ -1,10 +1,10 @@
 ---
 title: Using RMarkdown for Formal Reports
-lab_date: '2021-03-15'
+lab_date: '2022-03-14'
 lab_number: 8
 github_classroom_assignment_url: https://classroom.github.com/a/c2o8gyj8
-pubdate: '2020-12-31'
-date: '2021-03-15'
+pubdate: '2021-06-18'
+date: '2022-03-14'
 slug: lab_08
 output:
   blogdown::html_page:

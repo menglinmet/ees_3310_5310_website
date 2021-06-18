@@ -1,11 +1,11 @@
 ---
 title: Perturbing the Carbon Cycle
-class_date: '2021-02-19'
+class_date: '2022-02-07'
 class_number: 12
 weight: 12
 slug: reading_12
-pubdate: '2020-12-31'
-date: '2021-02-19'
+pubdate: '2021-06-18'
+date: '2022-02-07'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

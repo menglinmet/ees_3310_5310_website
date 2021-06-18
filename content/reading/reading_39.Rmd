@@ -1,11 +1,11 @@
 ---
 title: Global Warming Gridlock
-class_date: '2021-04-23'
+class_date: '2022-04-18'
 class_number: 39
 weight: 39
 slug: reading_39
-pubdate: '2020-12-31'
-date: '2021-04-23'
+pubdate: '2021-06-18'
+date: '2022-04-18'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

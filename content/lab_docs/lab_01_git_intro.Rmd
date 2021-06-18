@@ -2,9 +2,9 @@
 title: Introduction to Git and GitHub Classroom
 author: Jonathan Gilligan
 lab_number: 1
-lab_date: '2021-01-25'
-pubdate: '2020-12-31'
-date: '2021-01-25'
+lab_date: '2022-01-10'
+pubdate: '2021-06-18'
+date: '2022-01-10'
 pdf_url: /files/lab_docs/lab_01/git_intro.pdf
 slug: lab_01_git_intro
 output:
@@ -20,7 +20,7 @@ For an excellent introduction to using git with R, I recommend
 Professor Jenny Bryan's lecture, "Happy Git and GitHub for the useR."
 Her slides for the lecture are available at <http://happygitwithr.com/>,
 and you can watch the lecture online at 
-<https://www.rstudio.com/resources/videos/happy-git-and-gihub-for-the-user-tutorial/>
+<https://www.rstudio.com/resources/rstudioconf-2017/happy-git-and-gihub-for-the-user-tutorial/>
 (It's two hours long and walks you through using git with RStudio in detail and
 gives lots of practical advice)
 

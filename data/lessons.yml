@@ -1,184 +1,192 @@
 lessons:
-- date: '2021-01-25'
+- date: '2022-01-10'
   title: Introduction
   lecture: /slides/class_01
   lab: lab_01
-- date: '2021-01-27'
+- date: '2022-01-12'
   title: What is Climate Change?
   reading: /reading/reading_02
   lecture: /slides/class_02
-- date: '2021-01-29'
+- date: '2022-01-14'
   title: Energy Balance and Climate
   reading: /reading/reading_03
   lecture: /slides/class_03
-- date: '2021-02-01'
+- date: '2022-01-17'
+  title: Martin Luther King, Jr. Day
+- date: '2022-01-19'
   title: Greenhouse Effect
   reading: /reading/reading_04
   lecture: /slides/class_04
-  lab: lab_02
-- date: '2021-02-03'
+- date: '2022-01-21'
   title: Greenhouse Gases
   reading: /reading/reading_05
   lecture: /slides/class_05
-- date: '2021-02-05'
+- date: '2022-01-24'
   title: Vertical Structure of the Atmosphere
   reading: /reading/reading_06
   lecture: /slides/class_06
-- date: '2021-02-08'
+  lab: lab_02
+- date: '2022-01-26'
   title: Review of Greenhouse Effect
   reading: /reading/reading_07
   lecture: /slides/class_07
-  lab: lab_03
-- date: '2021-02-10'
+- date: '2022-01-28'
   title: Feedbacks
   reading: /reading/reading_08
   lecture: /slides/class_08
-- date: '2021-02-12'
+- date: '2022-01-31'
   title: Ocean and Biosphere Feedbacks
   reading: /reading/reading_09
   lecture: /slides/class_09
-- date: '2021-02-15'
+  lab: lab_03
+- date: '2022-02-02'
   title: 'The Carbon Cycle: Ocean and Biosphere'
   reading: /reading/reading_10
   lecture: /slides/class_10
-  lab: lab_04
-- date: '2021-02-17'
+- date: '2022-02-04'
   title: 'The Carbon Cycle: Mineral Weathering'
   reading: /reading/reading_11
   lecture: /slides/class_11
-- date: '2021-02-19'
+- date: '2022-02-07'
   title: Perturbing the Carbon Cycle
   reading: /reading/reading_12
   lecture: /slides/class_12
-- date: '2021-02-22'
+  lab: lab_04
+- date: '2022-02-09'
   title: Climates of the Past
   reading: /reading/reading_13
   lecture: /slides/class_13
-  lab: lab_05
-- date: '2021-02-24'
+- date: '2022-02-11'
   title: Review
   reading: /reading/reading_14
   lecture: /slides/class_14
-- date: '2021-02-26'
+- date: '2022-02-14'
   title: The Pleistocene Ice Ages
   reading: /reading/reading_15
   lecture: /slides/class_15
-- date: '2021-03-01'
+  lab: lab_05
+- date: '2022-02-16'
   title: Climate Models
   reading: /reading/reading_16
   lecture: /slides/class_16
-  lab: lab_06
-- date: '2021-03-03'
+- date: '2022-02-18'
   title: Future Climate Change
   reading: /reading/reading_17
   lecture: /slides/class_17
-- date: '2021-03-05'
+- date: '2022-02-21'
   title: Identifying Fallacies about Climate Change
   reading: /reading/reading_18
   lecture: /slides/class_18
-- date: '2021-03-08'
+  lab: lab_06
+- date: '2022-02-23'
   title: Climate Fallacies Game
   reading: /reading/reading_19
   lecture: /slides/class_19
-  lab: lab_07
-- date: '2021-03-10'
+- date: '2022-02-25'
   title: Uncertainty about Future Climates
   reading: /reading/reading_20
   lecture: /slides/class_20
-- date: '2021-03-12'
+- date: '2022-02-28'
   title: How Will Climate Change Affect Our Lives? (Part 1)
   reading: /reading/reading_21
   lecture: /slides/class_21
-- date: '2021-03-15'
+  lab: lab_07
+- date: '2022-03-02'
+  title: Spring Break
+- date: '2022-03-04'
+  title: Spring Break
+- date: '2022-03-06'
+  title: Spring Break
+- date: '2022-03-09'
   title: How Will Climate Change Affect Our Lives? (Part 2)
   reading: /reading/reading_22
   lecture: /slides/class_22
-  lab: lab_08
-- date: '2021-03-17'
+- date: '2022-03-11'
   title: Policy Myths
   reading: /reading/reading_23
   lecture: /slides/class_23
-- date: '2021-03-19'
+- date: '2022-03-14'
   title: 'The Kaya Identity: Energy Use, Efficiency, and Conservation'
   reading: /reading/reading_24
   lecture: /slides/class_24
-- date: '2021-03-22'
+  lab: lab_08
+- date: '2022-03-16'
   title: 'Reducing Carbon Emissions: Bottom-Up Approaches'
   reading: /reading/reading_25
   lecture: /slides/class_25
-  lab: lab_09
-- date: '2021-03-24'
+- date: '2022-03-18'
   title: 'Reducing Carbon Emissions: Top-Down Approaches'
   reading: /reading/reading_26
   lecture: /slides/class_26
-- date: '2021-03-26'
+- date: '2022-03-21'
   title: The Cost of Reducing Emissions
   reading: /reading/reading_27
   lecture: /slides/class_27
-- date: '2021-03-29'
+  lab: lab_09
+- date: '2022-03-23'
   title: Goals of Climate Policy
   reading: /reading/reading_28
   lecture: /slides/class_28
-  lab: lab_10
-- date: '2021-03-31'
+- date: '2022-03-25'
   title: Costs and Benefits
   reading: /reading/reading_29
   lecture: /slides/class_29
-- date: '2021-04-02'
+- date: '2022-03-28'
   title: Pricing Carbon
   reading: /reading/reading_30
   lecture: /slides/class_30
-- date: '2021-04-05'
+  lab: lab_10
+- date: '2022-03-30'
   title: Carbon Pricing Instruments
   reading: /reading/reading_31
   lecture: /slides/class_31
-  lab: lab_11
-- date: '2021-04-07'
+- date: '2022-04-01'
   title: Discounting and the Value of Time
   reading: /reading/reading_32
   lecture: /slides/class_32
-- date: '2021-04-09'
+- date: '2022-04-04'
   title: The Limits of Economic Approaches
   reading: /reading/reading_33
   lecture: /slides/class_33
-- date: '2021-04-12'
+  lab: lab_11
+- date: '2022-04-06'
   title: The Case for Renewable Energy
   reading: /reading/reading_34
   lecture: /slides/class_34
-  lab: lab_12
-- date: '2021-04-14'
+- date: '2022-04-08'
   title: The Case for Nuclear Energy
   reading: /reading/reading_35
   lecture: /slides/class_35
-- date: '2021-04-16'
+- date: '2022-04-11'
   title: 'Geoengineering: Solar Radiation Management'
   reading: /reading/reading_36
   lecture: /slides/class_36
-- date: '2021-04-19'
+  lab: lab_12
+- date: '2022-04-13'
   title: 'Geoengineering: Carbon Dioxide Management'
   reading: /reading/reading_37
   lecture: /slides/class_37
-  lab: lab_13
-- date: '2021-04-21'
+- date: '2022-04-15'
   title: Pragmatism and Climate Policy
   reading: /reading/reading_38
   lecture: /slides/class_38
-- date: '2021-04-23'
+- date: '2022-04-18'
   title: Global Warming Gridlock
   reading: /reading/reading_39
   lecture: /slides/class_39
-- date: '2021-04-26'
+  lab: lab_13
+- date: '2022-04-20'
   title: 'Beyond Gridlock: Second-Best Policies'
   reading: /reading/reading_40
   lecture: /slides/class_40
-  lab: lab_14
-- date: '2021-04-28'
+- date: '2022-04-22'
   title: Obstacles and Perspectives
   reading: /reading/reading_41
   lecture: /slides/class_41
-- date: '2021-04-30'
+- date: '2022-04-25'
   title: Review
   reading: /reading/reading_42
   lecture: /slides/class_42
-- date: '2021-05-10'
+  lab: lab_14
+- date: '2022-05-03'
   title: Take-home final exam due

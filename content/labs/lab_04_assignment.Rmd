@@ -1,11 +1,11 @@
 ---
 title: Convection and Clouds
-lab_date: '2021-02-15'
-report_due_date: '2021-03-01'
+lab_date: '2022-02-07'
+report_due_date: '2022-02-14'
 lab_number: 4
 github_classroom_assignment_url: https://classroom.github.com/a/f3FG1c56
-pubdate: '2020-12-31'
-date: '2021-02-15'
+pubdate: '2021-06-18'
+date: '2022-02-07'
 slug: lab_04
 output:
   blogdown::html_page:
@@ -41,9 +41,3 @@ Three things to note:
 
 ## Assignment
 Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/f3FG1c56>.
-
-## Solutions
-
-**Solutions for Lab Exercises**:
-
-* [Lab #4 Answers](/lab_solutions/lab_04_answers){target="_blank"}

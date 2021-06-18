@@ -1,11 +1,11 @@
 ---
 title: How Will Climate Change Affect Our Lives? (Part 2)
-class_date: '2021-03-15'
+class_date: '2022-03-09'
 class_number: 22
 weight: 22
 slug: reading_22
-pubdate: '2020-12-31'
-date: '2021-03-15'
+pubdate: '2021-06-18'
+date: '2022-03-09'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

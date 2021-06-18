@@ -2,9 +2,9 @@
 title: 'Project: Decarbonization Policy for One Country'
 author: Jonathan Gilligan
 lab_number: 11
-lab_date: '2021-04-05'
-pubdate: '2020-12-31'
-date: '2021-04-05'
+lab_date: '2022-04-04'
+pubdate: '2021-06-18'
+date: '2022-04-04'
 bibliography: decarbonization.bib
 pdf_url: /files/lab_docs/decarb_project/lab_11/lab_11_instructions.pdf
 slug: lab_11_instructions

@@ -1,11 +1,11 @@
 ---
 title: Climates of the Past
-class_date: '2021-02-22'
+class_date: '2022-02-09'
 class_number: 13
 weight: 13
 slug: reading_13
-pubdate: '2020-12-31'
-date: '2021-02-22'
+pubdate: '2021-06-18'
+date: '2022-02-09'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

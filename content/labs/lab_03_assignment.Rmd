@@ -1,11 +1,11 @@
 ---
 title: Infrared light in the atmosphere
-lab_date: '2021-02-08'
-report_due_date: '2021-02-15'
+lab_date: '2022-01-31'
+report_due_date: '2022-02-07'
 lab_number: 3
 github_classroom_assignment_url: https://classroom.github.com/a/p_q5Tals
-pubdate: '2020-12-31'
-date: '2021-02-08'
+pubdate: '2021-06-18'
+date: '2022-01-31'
 slug: lab_03
 output:
   blogdown::html_page:
@@ -60,9 +60,3 @@ knit correctly.
 
 ## Assignment
 Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/p_q5Tals>.
-
-## Solutions
-
-**Solutions for Lab Exercises**:
-
-* [Lab #3 Answers](/lab_solutions/lab_03_answers){target="_blank"}

@@ -2,9 +2,9 @@
 title: Introduction to R and RMarkdown
 author: Jonathan Gilligan
 lab_number: 1
-lab_date: '2021-01-25'
-pubdate: '2020-12-31'
-date: '2021-01-25'
+lab_date: '2022-01-10'
+pubdate: '2021-06-18'
+date: '2022-01-10'
 pdf_url: /files/lab_docs/lab_01/rmarkdown_intro.pdf
 slug: lab_01_rmarkdown_intro
 output:

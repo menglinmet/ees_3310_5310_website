@@ -1,11 +1,11 @@
 ---
 title: Identifying Fallacies about Climate Change
-class_date: '2021-03-05'
+class_date: '2022-02-21'
 class_number: 18
 weight: 18
 slug: reading_18
-pubdate: '2020-12-31'
-date: '2021-03-05'
+pubdate: '2021-06-18'
+date: '2022-02-21'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
