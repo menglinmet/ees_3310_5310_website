@@ -1,0 +1,475 @@
+---
+title: "Top-Down Decarbonization"
+class_no: 26
+class_date: "Wednesday, March 24"
+qrimage: qrcode.png
+pageurl: "ees3310.jgilligan.org/slides/class_26"
+pdfurl: "ees3310.jgilligan.org/slides/class_26/ees_3310_5310_class_26_slides.pdf"
+course: "EES 3310/5310"
+course_name: "Global Climate Change"
+author: "Jonathan Gilligan"
+semester: Spring
+year: 2021
+output:
+  revealjg::revealjs_presentation
+---
+```{r setup, cache = F, echo = F, eval = T, message=F, warning=F}
+knitr::opts_chunk$set(cache=TRUE, 
+                      echo=FALSE, message=FALSE, warning=FALSE,
+                      fig.height=9, fig.width=14, dpi=100,
+                      dev='png',fig.path='assets/fig/',cache.path='./cache/')
+
+library(rprojroot)
+
+semester_dir <- find_rstudio_root_file()
+data_dir <- file.path(semester_dir, "data")
+script_dir <- file.path(semester_dir, "lecture_scripts")
+
+source_semester_script <- function(script) {
+  script_file <- file.path(script_dir, script)
+  message("Running script", script_file)
+  source(script_file, chdir = T)
+}
+
+eval_in_sem_script_dir <- function(expr, loc = script_dir) {
+  this_dir <- getwd()
+  setwd(loc)
+  retval <- eval(expr)
+  setwd(this_dir)
+  invisible(retval)
+}
+
+library(magrittr)
+library(tidyverse)
+library(broom)
+library(scales)
+library(janitor)
+library(knitr)
+library(kayadata)
+library(RColorBrewer)
+
+kaya_current_year <- max(kaya_data$year, na.rm = T)
+
+theme_set(theme_bw(base_size = 15))
+
+source_semester_script('lecture_utils.R')
+```
+# Considerations on Projections<br/>of Future Emissions {#considerations-sec .center}
+
+## Grain of Salt {#grain-of-salt}
+
+* {+} Implied decarbonization rates depend on predictions of _P_, _G_, etc.
+* {+} Predicting population and economic growth are very tricky and imprecise.
+* {+} So take any of these calculations with a grain of salt.
+* {+} But are they still useful, despite the uncertainties?
+
+# Implied Decarbonization<br/>for Green New Deal {#bottom-up-gnd-sec .center}
+
+## Kaya Identity
+
+$$\color{firebrick}{F} = \color{darkgreen}{P} \times \color{blue}{g}\times 
+  \color{mediumorchid}{e} \times \color{crimson}{f}$$
+
+* $\color{firebrick}{F} =$ emissions (million metric tons (MMT) CO~2~ per year)
+* $\color{darkgreen}{P} =$ population (billions)
+* $\color{blue}{g} =$ per-capita GDP ($1000 per person)
+* $\color{mediumorchid}{e} =$ energy intensity of economy (quads / $ trillion)
+  * {+} Reducing [_e_]{style="color:darkorchid;"} means increasing [**energy efficiency**]{style="color:darkorchid;"}
+* $\color{crimson}{f} =$ carbon intensity of energy supply (MMT CO~2~ / quad)
+  * {+} Reducing [_f_]{style="color:crimson;"} means [**replacing fossil fuels**]{style="color:crimson;"} with cleaner energy
+
+# US Green New Deal {#gnd-sec .center}
+
+## US Green New Deal {#gnd-1}
+```{r calc_gnd_decarbonization}
+nat_data <- get_kaya_data("United States")
+last_year = kaya_current_year
+target_year = 2030
+ref_year = 2018
+trend_start_year = 1990
+alt_trend_start_year = last_year - 10
+reduction = 0.71
+
+last_year <- max(nat_data$year, na.rm = TRUE)
+delta_t = target_year - last_year
+
+F_ref  = nat_data %>% filter(year == ref_year) %$% F
+F_last = nat_data %>% filter(year == last_year) %$% F
+F_target = F_ref * (1 - reduction)
+
+r_P = nat_data %>% filter(year >= trend_start_year) %>% 
+  lm(log(P) ~ year, data = .) %>%  
+  tidy() %>% filter(term == "year") %$% estimate
+r_g = nat_data %>% filter(year >= trend_start_year) %>% 
+  lm(log(g) ~ year, data = .) %>% 
+  tidy() %>% filter(term == "year") %$% estimate
+r_G = nat_data %>% filter(year >= trend_start_year) %>% 
+  lm(log(G) ~ year, data = .) %>% 
+  tidy() %>% filter(term == "year") %$% estimate
+r_ef_hist = nat_data %>% filter(year >= trend_start_year) %>% 
+  lm(log(ef) ~ year, data = .) %>% 
+  tidy() %>% filter(term == "year") %$% estimate
+
+r_ef_hist_alt = nat_data %>% filter(year >= alt_trend_start_year) %>% 
+  lm(log(ef) ~ year, data = .) %>% 
+  tidy() %>% filter(term == "year") %$% estimate
+
+G_last = nat_data %>% filter(year == last_year) %$% G
+G_target = G_last * exp(r_G * delta_t)
+
+r_F = log(F_target / F_last) / delta_t
+r_ef = r_F - r_G
+
+ef_last = nat_data %>% filter(year == last_year) %$% ef
+```
+
+* The Green New Deal has many definitions:
+  * Resolution in Congress does not give specific emissions targets.
+  * Bernie Sanders campaigned on a promise to completely eliminate 
+    CO~2~ emissions by 2050 and reduce them 71% by 2030
+    * [$F(`r last_year`) = `r prt(F_last, 0)`~\text{MMT}$]{style="font-size:95%;"}
+    * [$F(`r target_year`) = `r prt(F_target, 0)`~\text{MMT}$]{style="font-size:95%;"}
+    * Could we do this in `r prt(delta_t, 0)` years?
+      * We would have to cut _ef_ by `r prt(abs(r_ef) * 100, 1)`% per year.
+      * Historically, since `r trend_start_year`, _ef_ has dropped 
+        `r prt(abs(r_ef_hist) * 100, 1)`% per year.
+
+# How Can We Decarbonize? {#decarb-options-sec .center}
+
+## Detailed Abatement Options
+
+::::::{.bare .mtop-3}
+![CO2 abatement options, from McKinsey Global Instittute](assets/images/mckinsey.jpg){height=900}
+
+:::{.credit}
+Image credit: McKinsey Global Institute
+:::
+::::::
+
+## Economic Carbon Intensity in `r kaya_current_year`
+
+```{r carbon_intensity, dependson='load_kaya'}
+kaya <- map_df(c('Australia', 'China', 'Germany', 'Japan', 'United Kingdom', 
+                 'United States', "France"), ~get_kaya_data(.x))
+
+last_year <- max(kaya$year, na.rm = T)
+kaya %>% filter(year == last_year) %>%
+  arrange(desc(ef), region) %>%
+  mutate(region = ordered(region, levels = unique(region))) %>%
+  ggplot(aes(x = region, y = ef, fill = region)) +
+  geom_bar(stat="identity", na.rm = T) +
+  scale_fill_brewer(palette = "Dark2", guide = 'none') +
+  labs(x = NULL, y = expression(Tons ~ CO[2] / "$1000 GDP"))
+```
+
+## CO~2~ Emissions `r kaya %>% filter(region %in% c("China", "United States"), ! is.na(F)) %$% year %>% min(na.rm = T)`--`r kaya_current_year` {#co2-emissions}
+
+```{r us_china_emissions, warning = FALSE, message = FALSE, dependson='load_kaya'}
+kaya %>% filter(region %in% c("China", "United States"), ! is.na(F)) %>%
+  ggplot(aes(x = year, y = F, color = region, shape = region)) +
+  geom_line(size = 1, na.rm = T) + geom_point(size = 2, na.rm = T) +
+  scale_color_brewer(palette = "Dark2", name = "Region") +
+  scale_shape_discrete(name = "Region") +
+  labs(x = "Year", y = expression(paste("Fossil-fuel ", CO[2], 
+                                        " emissions (million metric tons"))) +
+  theme(legend.position = c(0.01, 0.99), legend.justification = c(0,1), 
+        legend.key.width = unit(2, 'lines'))
+```
+
+## Relative improvement in carbon intensity 1990--`r kaya_current_year` {#relative-improvement .seventy}
+
+```{r relative_improvement, dependson='load_kaya'}
+df <- kaya %>% select(region, year, ef) %>% filter(year >= 1990)
+
+baseline <- df %>% filter(year == 1990) %>% select(region, baseline = ef)
+last_year <- df %>% filter(year == max(year, na.rm = T)) %>%
+  select(region, last_ef = ef)
+
+df <- df %>% left_join(baseline, by = 'region') %>% 
+  left_join(last_year, by = "region") %>%
+  mutate(ef = ef / baseline, last_ef = last_ef / baseline) %>%
+  arrange(desc(last_ef, year)) %>%
+  mutate(region = ordered(region, levels = unique(region)))
+
+ggplot(df, aes(x = year, y = ef, color = region)) +
+  geom_line(size = 1) + geom_point(size = 2) +
+  scale_color_brewer(palette='Dark2', name = NULL) +
+  scale_y_continuous(labels = percent, breaks = seq(0, 1.5, 0.25)) +
+  labs(y = "Economic emissions intensity relative to 1990", x = "Year") +
+  theme(legend.position = c(0.01, 0.01), legend.justification = c(0, 0), 
+        legend.key.width = unit(2, "lines"),
+        legend.key = element_rect(color = NA))
+```
+
+# Top-Down Analysis for Green New Deal {#top-down-gnd-sec .center}
+
+
+## Projected Energy Use in `r target_year` {#us-energy-2050 .eighty}
+```{r top_down_gnd}
+us_kaya <- get_kaya_data("United States")
+td_growth <- get_top_down_trends("United States")
+td_values <- get_top_down_values("United States")
+
+ref_year <- 2018
+target_year <- 2030
+target_reduction <- 0.71
+
+target_F <- us_kaya %>% filter(year == ref_year) %$% F * (1 - target_reduction)
+
+this_year <- us_kaya %>% arrange(year) %>% tail(1)
+fuel_mix_year <- get_fuel_mix("United States", 
+                              collapse_renewables = FALSE)$year[1]
+
+us_td_bau <- project_top_down("United States", target_year)
+us_2050 <- project_top_down("United States", 2050)
+```
+
+* Energy Information Administration top-down projection for energy demand
+  in United States in `r target_year`: 
+  * Total `r target_year` Primary Energy Use = `r prt(us_td_bau$E, 1)` 
+    Quads 
+  * Assume _P_, _g_, and _e_ are fixed. 
+  * Manage emissions by reducing _f_
+    * Switch from fossil fuels to clean energy
+
+## Energy Mix in `r kaya_current_year` {#us-energy-mix}
+
+:::::: {.columns}
+::: {.column width="50%"}
+```{r us_fuel_mix_plot, fig.width=9, fig.height=7}
+get_fuel_mix("United States", collapse_renewables = FALSE) %>% 
+  plot_fuel_mix(collapse_renewables = FALSE)
+```
+:::
+::: {.column width="50%" style="vertical-align:top;padding-top:1em;"}
+
+```{r us_fuel_mix_table}
+fuel_mix <- get_fuel_mix("United States", collapse_renewables = FALSE) %>%
+  mutate(fuel = fct_expand(fuel, "Total"))
+
+total <- fuel_mix %>% 
+  summarize(fuel = "Total", quads = sum(quads), frac = sum(frac))
+
+fuel_mix <- fuel_mix %>% arrange(fuel) %>% bind_rows(total)
+
+fuel_mix %>% mutate(frac = frac * 100) %>% select(fuel, quads, frac) %>%
+  kable(digits = c(0, 1, 0), align = "lrr", 
+        col.names = c("Fuel", "Quads", "%"), format = "pandoc")
+```
+
+:::
+::::::
+
+## Emissions Factors {#emissions-factors .eighty}
+
+```{r emissions_factors, results="asis"}
+emissions_factors(collapse_renewables = FALSE) %>% 
+  arrange(desc(emission_factor, fuel)) %>%
+  kable(col.names = c('Fuel','MMT CO~2~ per Quad'), digits = 0, format="pandoc")
+```
+
+### Projected Business as Usual Emissions in `r target_year`{style="margin-top:50px;"}
+
+```{r top_down_table_2, results = 'asis'}
+projected_E <- us_td_bau$E
+current_E <- us_kaya %>% filter(year == fuel_mix_year) %$% E
+
+projected <- fuel_mix %>% 
+  left_join(emissions_factors(collapse_renewables = FALSE), by = "fuel") %>% 
+  mutate(E = projected_E * frac, 
+         F = E * emission_factor,
+         F = ifelse(is.na(F), sum(F, na.rm = TRUE), F)) %>%
+  select(fuel, frac, E, emission_factor, F) %>%
+  mutate(frac = 100 * frac)
+
+emissions_projection_table <- kable(projected, col.names = c('Fuel', '%', 'Quads', 'MMT/Quad', 'MMT CO~2~'), digits = c(0, 0, 1, 0, 0),
+      format='pandoc')
+print(emissions_projection_table)
+```
+
+## Top-down emissions-reduction {#td-gnd-1}
+
+::::::{.columns}
+:::{.column}
+```{r top_down_table_3, results='asis'}
+projected_t <- projected %>% gather(-fuel, key = variable, value = value) %>%
+  spread(key = fuel, value = value) %>%
+  clean_names(case = "snake")
+
+factors <- emissions_factors() %>% { set_names(.$emission_factor, .$fuel) }
+
+proj_E <- projected_t %>% filter(variable == "E")
+proj_F <- projected_t %>% filter(variable == "F")
+
+projected_F <- proj_F$total
+
+delta_F <- projected_F - target_F
+
+remaining <- delta_F
+
+cut_coal <- min(proj_F$coal, remaining)
+cut_coal_E <- cut_coal / factors["Coal"]
+remaining <- remaining - cut_coal
+cut_gas <- min(proj_F$natural_gas, remaining)
+cut_gas_E <- cut_gas / factors["Natural Gas"]
+remaining <- remaining - cut_gas
+cut_oil <- min(proj_F$oil, remaining)
+cut_oil_E <- cut_oil / factors["Oil"]
+
+delta_E <- cut_coal_E + cut_gas_E + cut_oil_E
+
+print(emissions_projection_table)
+```
+:::
+::: {.column .eightyfive}
+* {+} Projected emissions for `r target_year` = `r prt(projected_F, 0)` MMT
+  * If _f_ doesn't change.
+* {+} Emissions goal for `r target_year` = `r prt(target_F, 0)` MMT
+* {+} Must cut by (`r prt(projected_F, 0)` &minus; `r prt(target_F, 0)`) = 
+  `r prt(delta_F, 0)` MMT
+* {+} Start with coal:
+  * Cut `r prt(cut_coal, 0)` MMT (`r prt(cut_coal_E, 2)` quads)
+  * `r prt(delta_F - cut_coal, 0)` MMT left
+* {+} Next, cut gas:
+  * Cut `r prt(cut_gas, 0)` MMT (`r prt(cut_gas_E, 2)` quads)
+  * `r prt(delta_F - cut_coal - cut_gas, 0)` MMT left
+* {+} Finally, cut oil:
+  * Cut `r prt(cut_oil, 0)` MMT (`r prt(cut_oil_E, 2)` quads)
+* {+} Total energy cuts = `r prt(cut_coal_E, 2)` + `r prt(cut_gas_E, 2)` + 
+  `r prt(cut_oil_E, 2)` = `r prt(delta_E, 2)` quads.
+:::
+::::::
+
+## Clean Energy Sources {#clean-energy .eighty}
+```{r clean_energy_substitution}
+quad = megawatts_per_quad() # MW for one year
+capacity = generation_capacity() %>%
+  bind_rows(
+    tibble(fuel = "Solar Photovoltaic", description = "Photovoltaic solar farm",
+           nameplate_capacity = 30, capacity_factor = 0.3)
+  ) %>%
+  mutate(avg_power = nameplate_capacity * capacity_factor, 
+         number_per_quad = megawatts_per_quad() / avg_power)
+
+nuclear_capacity <- capacity %>% filter(fuel == "Nuclear")
+nuclear_per_quad = nuclear_capacity$number_per_quad %>% signif(3)
+
+csp_capacity <- capacity %>% filter(fuel == "Solar Thermal")
+csp_per_quad = csp_capacity$number_per_quad %>% signif(2)
+
+pv_capacity <- capacity %>% filter(fuel == "Solar Photovoltaic")
+pv_per_quad = pv_capacity$number_per_quad %>% signif(2)
+
+wind_capacity <- capacity %>% filter(fuel == "Onshore Wind")
+wind_per_quad = wind_capacity$number_per_quad %>% signif(2)
+
+coal_capacity <- capacity %>% filter(fuel == "Coal")
+coal_per_quad = coal_capacity$number_per_quad %>% signif(3)
+
+
+
+num_nuclear = delta_E * nuclear_per_quad
+num_csp = delta_E * csp_per_quad
+num_pv = delta_E * pv_per_quad
+num_wind = delta_E * wind_per_quad
+
+num_years = target_year - kaya_current_year
+```
+
+* {+} `r prt(quad, 0, mark = ",")` megawatts (MW) for one year = 1 quad
+  * (See Climate Fix, p. 97)
+* {+} **Nuclear Power Plant**:
+  * `r nuclear_capacity$nameplate_capacity` MW &times; `r percent(nuclear_capacity$capacity_factor)`
+    capacity factor = **`r prt(nuclear_capacity$avg_power, 0)` MW average**
+  * 1 quad per year = `r prt(quad, 0, mark = ",")`  MW / 
+    (`r prt(nuclear_capacity$avg_power, 0)` MW per nuclear plant)<br/>= 
+    **`r nuclear_per_quad` nuclear plants**
+* {+} **Solar Photovoltaic**:
+  * `r pv_capacity$nameplate_capacity` MW &times; `r percent(pv_capacity$capacity_factor)`
+    capacity factor = **`r prt(pv_capacity$avg_power, 0)` MW average**
+  * **1 quad = `r prt(pv_per_quad, 0, mark=",")`  photovoltaic solar farms**
+* {+} **Wind Turbine**:
+  * `r wind_capacity$nameplate_capacity` MW &times; `r percent(wind_capacity$capacity_factor)`
+    capacity factor = **`r prt(wind_capacity$avg_power, 0)` MW average**
+  * **1 quad = `r prt(wind_per_quad, 0, mark=",")`  wind turbines**
+
+## Meeting Green New Deal Goal {#meeting-gnd-goal .eighty}
+
+* Cut CO~2~ by `r prt(delta_F, 0)` MMT
+  * `r prt(cut_coal, 0)` MMT from coal (`r prt(cut_coal_E,1)` quad)
+  * `r prt(cut_gas, 0)` MMT from gas (`r prt(cut_gas_E,1)` quad)
+  * `r prt(cut_oil, 0)` MMT from oil (`r prt(cut_oil_E,1)` quad)
+* Total clean energy needed:  quads per year
+
+::: {style="margin-top:1em;"}
+
+* {+} `r prt(delta_E,0)` quads &times; 
+  `r prt(nuclear_per_quad,0)` nuclear plants/quad =<br/> 
+  **`r label_comma(accuracy=10)(num_nuclear)` nuclear power plants** 
+  in `r num_years` years<br/>
+  (`r label_comma(accuracy = 1)(num_nuclear/num_years)` per year)
+* {+} `r prt(delta_E,0)` quads &times; 
+  `r label_comma(accuracy=100)(pv_per_quad)` photovoltaic solar farms/quad =<br/> 
+  **`r label_comma(accuracy=1000)(num_pv)` photovoltaic solar farms** in 
+  `r num_years` years<br/> 
+  (`r label_comma(accuracy=1000)(num_pv/num_years)` per year, 
+  or `r label_comma(accuracy=100)(num_pv/(52 * num_years))` per week)
+* {+} `r prt(delta_E,0)` quads &times; 
+  `r prt(wind_per_quad, 0, mark=",")` wind plants/quad =<br/>
+  **`r label_comma(accuracy=1000)(num_wind)` wind turbines** in 
+  `r num_years` years<br/>
+  (`r label_comma(accuracy=1000)(num_wind/num_years)` per year, 
+  or `r label_comma(accuracy=10)(num_wind/(365 * num_years))` per day)
+
+:::
+## Pielke's Bottom Line
+
+* Unfeasible to build so much clean energy so quickly
+* Expense of building so much clean energy would defeat economic goals
+* This is why we don't have the technology to decarbonize as quickly as 
+  politicians and activists have been promising.
+
+## But ...
+
+* Renewable energy is getting cheaper very quickly
+* It may soon be profitable to shut down existing fossil-fuel power plants
+  and replace them with renewables.
+
+# Review {#review-sec .center}
+
+## Bottom-Up Analysis {#bottom-up-review .eighty}
+
+* Start with individual Kaya-identity variables:
+  * _P_, _g_, _e_, _f_
+  * Figure out historical rates of change for each
+* {+} Gross Domestic Product: $G = P \times g$
+  * Rate of change of $G$: $r_G = r_P + r_g$
+  * Rate of change of a product is the sum of the rates of change of the 
+    factors.
+  * Use rate of change of _G_ to extrapolate _G_ in the future
+
+## Bottom-Up Analysis {#bottom-up-review-2 .eighty}
+
+* Start with individual Kaya-identity variables
+* Start with the policy goal: change in $F$.
+  * {+} Figure out implied rate of change of emissions $r_F$.
+* {+} Compare to the expected rate of change of GDP $r_G$.
+* {+} Calculate the implied rate of decarbonizing the economy, $r_{ef}$:
+
+  $$r_{ef} = r_F - r_G$$
+* {+} Compare implied $r_{ef}$ to the historical trend in _ef_ to assess the
+  difficulty of meeting the policy goals.
+
+## Top-Down Analysis {#top-down-review .eighty}
+
+* {+} Start with macroeconomic estimate of future energy demand _E_
+* {+} Use mix of energy sources and emissions factors to calculate
+  future emissions (_F_) if the mix of energy sources does not change.
+* {+} Your policy has a a goal for  _F_ 
+* {+} Calculate difference between projected future _F_ and policy goal for _F_.
+* {+} Calculate how many **quads of fossil-fuel energy** you would have to 
+  replace with clean energy to meet the policy goal.
+  * {+} Start with cutting coal, then cut natural gas, and finally cut oil
+  * {+} Why?
+* {+} Figure out how many power plants of different kinds you would have to 
+  build to supply the necessary clean energy.

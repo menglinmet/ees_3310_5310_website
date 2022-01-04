@@ -1,0 +1,360 @@
+---
+title: "Pragmatism and Climate Policy"
+class_no: 38
+class_date: "Wednesday April 21"
+qrimage: qrcode.png
+pageurl: "ees3310.jgilligan.org/slides/class_38"
+pdfurl: "ees3310.jgilligan.org/slides/class_38/ees_3310_5310_class_38_slides.pdf"
+course: "EES 3310/5310"
+course_name: "Global Climate Change"
+author: "Jonathan Gilligan"
+semester: Spring
+year: 2021
+output:
+  revealjg::revealjs_presentation
+---
+```{r setup, cache = F, echo = F, eval = T, message=F, warning=F}
+knitr::opts_chunk$set(cache=TRUE, 
+                      echo=FALSE, message=FALSE, warning=FALSE,
+                      fig.height=9, fig.width=14, dpi=100,
+                      dev='png',fig.path='assets/fig/',cache.path='./cache/')
+
+library(rprojroot)
+
+semester_dir <- find_rstudio_root_file()
+data_dir <- file.path(semester_dir, "data")
+script_dir <- file.path(semester_dir, "lecture_scripts")
+
+source_semester_script <- function(script) {
+  script_file <- file.path(script_dir, script)
+  message("Running script", script_file)
+  source(script_file, chdir = T)
+}
+
+eval_in_sem_script_dir <- function(expr, loc = script_dir) {
+  this_dir <- getwd()
+  setwd(loc)
+  retval <- eval(expr)
+  setwd(this_dir)
+  invisible(retval)
+}
+
+library(magrittr)
+library(tidyverse)
+library(lubridate)
+library(xtable)
+library(broom)
+library(ggrepel)
+library(scales)
+library(kayadata)
+
+theme_set(theme_bw(base_size = 20))
+```
+# Challenges of Decarbonization {#challenges .center}
+
+## Challenges of Decarbonization {#challenges-outline}
+
+* How hard will it be to reduce CO~2~ emissions?
+  * {+} Nordhaus:
+    * What technology can replace fossil fuels?
+    * What policies can stimulate innovation, investment, production, purchase of clean technology?
+  * {+} Pielke:
+    * The biggest challenge is cost: $RE < C$
+    * Make clean technology cheaper than fossil fuels and the problem is solved.
+
+## Perspective: US CO~2~ Emissions {#us-emissions .ninety}
+
+```{r us_emissions}
+us = get_kaya_data(region_code = "USA") %>% filter(! is.na(ef)) %>%
+  arrange(year, region)
+
+plot_kaya(us, "F", start_year = 0, stop_year = 3000,
+          y_lab = expression(paste("Energy-related ", CO[2], 
+                                   " emissions (million metric tons)"))) + 
+  geom_label_repel(aes(label = ifelse(year == 1973, "Arab Oil Embargo", 
+                                      ifelse(year == 1979, "Iran Revolution", 
+                                             NA))), 
+                   size = 6,
+                   nudge_y = 100, point.padding = 0.75, box.padding = 1, 
+                   na.rm = T, 
+                   arrow = arrow(length = unit(0.5, "char"), type = "closed", 
+                                 angle = 20))
+```
+
+## Rate of Decarbonization {#decarbonization-rate .ninety}
+
+```{r us_decarbonization, fig.height=7, fig.width=10}
+us_trends <- get_top_down_trends(region_code = "USA", quiet = TRUE)
+
+policy_F = (1 - 0.83) * filter(us, year == 2005)$F
+implied_F_trend = log(policy_F / filter(us, year == 2009)$F) / (2050 - 2009)
+implied_ef_trend = implied_F_trend - us_trends$G
+
+ef_fit = us %>% filter(year >= 1980) %>%
+  lm(log(ef) ~ year, data = .)
+  
+actual_ef_trend  = ef_fit %>% tidy() %>% filter(term == "year") %$% estimate
+
+p <- plot_kaya(us, "ef", start_year = 1990, log_scale = TRUE, 
+               trend_line = TRUE, font_size = 15,
+               y_lab = expression(paste(CO[2], " intensity of GDP (tonnes/$1000)")))
+p$layers[[2]]$aes_params <- 1
+p$layers[[3]]$aes_parames <- 1.5
+p
+```
+
+::: {.eighty}
+
+* {+} 2009 policy goal: US emissions 83% less than 2005 by 2050
+* {+} _ef_ must drop by `r round(100 * abs(implied_ef_trend),1)`% per year
+* {+} Actual rate has been about `r round(100 * abs(actual_ef_trend), 1)`% per 
+>   year
+
+:::
+
+## Implied Decarbonization {#implied-decarbonization}
+```{r implied_decarb}
+start_year = tail(us$year, 1)
+start_ef = tail(us$ef, 1)
+stop_year = 2050
+
+implied_decarb_us <- us %>% select(year, Historical = ef) %>% 
+  bind_rows(tibble(year = seq(start_year + 1, stop_year), Historical = NA)) %>% 
+  augment(ef_fit, newdata = .) %>% mutate(.fitted = exp(.fitted)) %>%
+  rename("Historical Trend" = .fitted) %>% 
+  mutate("Implied Decarbonization" = 
+           ifelse(year >= start_year, 
+                  start_ef * exp(implied_ef_trend * (year - start_year)), 
+                  NA))
+implied_decarb_us %>% 
+  filter(year >= 1980) %>% 
+  gather(one_of("Historical", "Historical Trend", "Implied Decarbonization"),
+         key = Category, value = ef) %>%
+  ggplot(aes(x = year, y = ef, color = Category)) + 
+  geom_line(size = 1, na.rm = T) + geom_point(size = 1, na.rm = T) +
+  scale_color_brewer(palette = "Dark2") +
+  ylim(0,NA) +
+  scale_x_continuous(breaks = seq(1900,2100, 10)) +
+  labs(x = "Year", 
+       y = expression(paste(CO[2], " intensity (tonnes / $1000 GDP"))) +
+  theme(legend.position = c(0.99,0.99), legend.just = c(1,1))
+```
+
+## Cost of Decarbonization {#decarb-cost .eightyfive}
+
+```{r lcoe, results='asis'}
+# From https://www.eia.gov/forecasts/aeo/pdf/electricity_generation.pdf
+lcoe <- data_frame(
+  technology = c('Coal (Conventional)',
+                 'Coal (Advanced with CCS)',
+                 'Gas (Conventional Comb. Cycle)',
+                 'Gas (Advanced Comb. Cycle)',
+                 'Gas (Advanced with CCS)',
+                 'Gas (Conventional Turbine)',
+                 'Nuclear (Advanced)',
+                 'Geothermal',
+                 'Wind',
+                 'Wind (Offshore)',
+                 'Solar (PV)',
+                 'Solar (Thermal)',
+                 'Hydroelectric'
+  ),
+  capacity_factor = c( 75, 85, 87, 87, 87, 30, 90, 91, 40, 45, 25, 20, 58),
+  lcoe = c( 80, 139.5, 58.1, 57.2, 84.8, 110.8, 102.8, 45.0, 64.5, 158.1, 84.7, 
+            235.9, 67.8)
+) %>% mutate(capacity_factor = str_c(capacity_factor, '%'))
+
+# Lazard Cost of Energy and Levelized Cost of Storage 2020
+# https://www.lazard.com/perspective/levelized-cost-of-energy-and-levelized-cost-of-storage-2020/
+#
+lcoe <- tibble(
+  technology = c("Solar Rooftop Residential",
+                 "Solar Rooftop Business",
+                 "Solar Community",
+                 "Solar Utility Scale",
+                 "Solar Thermal",
+                 "Geothermal",
+                 "Wind",
+                 "Gas",
+                 "Nuclear",
+                 "Coal"
+                 ),
+  low =      c(150,  74,  63, 29, 126,  59, 26, 44, 129,  65),
+  high =     c(227, 179,  94, 42, 156, 101, 54, 73, 198, 159),
+  existing = c( NA,  NA,  NA, NA,  NA,  NA, 86, 28,  29,  41)
+)
+
+lcoe <- lcoe %>% mutate(technology = ordered(technology, levels = technology)) 
+
+ggplot(lcoe) + 
+  geom_rect(aes(ymin = as.integer(technology) - 0.3, 
+                ymax = as.integer(technology) + 0.3, 
+                xmin = low, xmax = high,
+                color = "New capacity",
+                fill = "New capacity")) + 
+  geom_point(aes(x = existing, y = as.integer(technology),
+                 color = "Existing facilities",
+                 fill = "Existing facilities"), 
+             size = 6, shape = 18, na.rm = T) + 
+  scale_color_manual(values = c("Existing facilities" = "orange3",
+                                "New capacity" = "midnightblue"), 
+                     breaks = c("Existing facilities", 
+                                "New capacity"),
+                     name = NULL, drop = FALSE) +
+  scale_shape_manual(values = c("Existing facilities" = 18,
+                                "New capacity" = 15),
+                     drop = FALSE, name = NULL) +
+  scale_fill_manual(values = c("Existing facilities" = "white",
+                               "New capacity" = "midnightblue"),
+                    drop = FALSE, name = NULL) +
+  scale_y_continuous(breaks = seq_along(levels(lcoe$technology)), 
+                     labels = levels(lcoe$technology)) + 
+  scale_x_continuous(limits = c(0, NA), 
+                     expand = expansion(mult = c(0, 0.05), add = 0)) +
+  labs(x = "Levelized Cost ($ per megawatt-hour)", y = NULL,
+       title = "Unsubsidized Levelized Cost of Electricity") +
+  theme(legend.position = c(0.99, 0.99), legend.justification = c(1,1))
+```
+
+::: {.credit .bare}
+Lazard: 
+[_Levelized Cost of Energy and Levelized Cost of Storage 2020_](https://www.lazard.com/perspective/levelized-cost-of-energy-and-levelized-cost-of-storage-2020/) 
+report.
+:::
+
+# Pielke's Views {#pielke .center}
+
+## Tax on death? {#death-tax}
+
+* What do you think of Pielke's argument?
+
+::::::{.fragment .bare .mtop-3}
+![Cigarette consumption vs. cigarette tax](assets/images/State-tax-vs-Smoking-Rates.jpg){style="height:800px;"}
+
+:::{.credit}
+Image credit: [Brandon Merritt, West Virginia Center on Budget & Policy](https://wvpolicy.org/raising-the-tobacco-tax-for-health-and-wealth/)
+:::
+::::::
+
+## Challenge of decarbonizing {#challenge}
+
+```{r decarb, fig.height=7, fig.width=7}
+world <- get_kaya_data("World")
+p_e = plot_kaya(world, "e", start_year = 1980, 
+                trend_line = TRUE, log_scale = TRUE, font_size = 15,
+                y_lab = "Energy intensity of economy")
+p_f = plot_kaya(world, "f", start_year = 1970, stop_year = 2000,
+                trend_line = TRUE, log_scale = TRUE, font_size = 15,
+                y_lab = expression(paste(CO[2], " intensity of energy supply")))
+
+p_e$layers[[2]]$aes_params <- 1
+p_e$layers[[3]]$aes_parames <- 1.5
+
+p_f$layers[[2]]$aes_params <- 1
+p_f$layers[[3]]$aes_parames <- 1.5
+
+trend_e <- world %>% filter(year >= 1980) %>% 
+  lm(log(e) ~ year, data = .) %>% tidy() %>% filter(term == "year") %$% estimate
+
+trend_f <- world %>% filter(year >= 1970, year <= 2000) %>% 
+  lm(log(f) ~ year, data = .) %>% tidy() %>% filter(term == "year") %$% estimate
+
+p_e
+p_f
+```
+
+::: {.seventy style="margin:0;position:relative;top:-2rem;"} 
+* {+} Trend in _e_ (1980--present): `r label_percent(0.1)(trend_e)` per year.
+* {+} Trend in _f_ (1970--2000): `r label_percent(0.1)(trend_f)` per year.
+  * {+} Trend reversed in 2000, but rapid decrease since around 2008.
+* {+} So far: Decarbonization driven much more by efficiency than clean energy.
+* {+} Rebound: greater efficiency &rarr; more consumption.
+:::
+
+## Energy Poverty {#energy-poverty .eighty}
+
+::::::{.bare .mtop-3}
+![Guinean students study under the lights of the Conakry airport parking lot in June. Though they are dim, the lights are among the few in the electricity-starved capital that are sure to be on in the evening](assets/images/guinea_studying_energy_poverty.jpg){height=750}
+
+:::{.credit}
+Photo credit: [Rebecca Blackwell, Associated Press](https://thelede.blogs.nytimes.com/2007/07/20/squinting-at-the-future-in-an-airport-parking-lot/)
+:::
+::::::
+
+* {+} 1.1 billion people (17% of planet) lack access to electricity
+* {+} Over 3 billion (38%) lack clean cooking facilities
+* {+} In many nations in Africa and Asia 80--95% of the population is energy-poor.
+
+:::{.notes}
+Students walk for miles to read and study by the lights at the airport parking lot in Conakry Guinea.
+:::
+
+# Nordhaus's Perspective {#nordhaus-sec .center}
+
+## Innovation {#innovation-pv}
+
+::::::{.bare .mtop-3}
+![Crystalline silicon photovoltaic module prices](assets/images/bnef_pv_prices.jpg){style="height:900px;"}
+
+:::{.credit}
+Source: Paul Maycock, [Bloomberg New Energy Finance](https://www.climateinvestmentfunds.org/sites/cif_enc/files/knowledge-documents/bnef_2019-10-30_isa-cif_report-final_002.pdf)
+:::
+::::::
+
+::: {.fragment style="position:relative;top:-54rem;font-size:60%;width:35%;left:46%;color:darkblue;background:white;"}
+* Price has dropped from $80/Watt in 1976 to $0.22/Watt in 2019.
+* Dropped 99.7% (a factor of 360) in 43 years
+:::
+
+## Innovation Policy {#innovation-policy .eighty}
+
+::::::::::::{.columns}
+:::::::::{.column}
+* {+1} Knowing price of CO~2~ will rise provides incentive to invest in R&D
+* {+2} Valley of Death:
+  * {+3} Technology looks promising in laboratory
+  * {+4} Potential for big profits
+  * {+5} Many years, lots of money to turn laboratory device into product
+    * {+6} Product development might fail
+    * {+7} Product might not sell
+    * {+8} Competitors might copy product
+    * {+9} Valley of death
+  * {+10} Double externality
+    1. Inventors don't get all the value of their inventions
+    2. Polluters don't pay the costs of pollution
+  * {+11} Government support to cross valley of death
+:::::::::
+:::::::::{.column .ptop-3}
+::::::{.bare .fragment fragment-index="2"}
+![The Valley of Death](assets/images/valley-of-death.png){style="width:900px;"}
+
+:::{.credit}
+Image: Osawa & Miyazaki, Asian Journal of Technology Innovation **14**, 93 (2006) doi: [10.1080/19761597.2006.9668620](https://doi.org/10.1080/19761597.2006.9668620)
+:::
+::::::
+:::::::::
+::::::::::::
+
+# Pielke's Policy Proposal {#pielke-policy-sec .center}
+
+## Pielke's Policy Proposal: {#pielke-proposal}
+
+* {+} Competition within government
+* {+} Public-works model
+* {+} Demonstration projects
+* {+} Government as consumer of energy innovations
+  * Federal government is the largest consumer of energy in the U.S.
+    * 350,000 buildings
+    * 600,000 vehicles
+* {+} $5/ton carbon tax ($0.04 per gallon gas)
+  * invest in clean-energy R&D
+* {+} Monitor progress
+* {+} Develop "plan B" (geoengineering)
+
+
+## Obliquity {#obliquity .center}
+
+* Appeal to people who don't care about climate change
+  * Cheaper energy
+  * Reduce pollution (smog, etc.)
+  * Reduce dependence on foreign oil

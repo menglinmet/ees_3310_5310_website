@@ -1,0 +1,424 @@
+---
+title: "Review of Emissions Regulation Game"
+class_no: 33
+class_date: "Friday, April 9"
+qrimage: qrcode.png
+pageurl: "ees3310.jgilligan.org/slides/class_33"
+pdfurl: "ees3310.jgilligan.org/slides/class_33/ees_3310_5310_class_33_slides.pdf"
+course: "EES 3310/5310"
+course_name: "Global Climate Change"
+author: "Jonathan Gilligan"
+semester: Spring
+year: 2021
+output:
+  revealjg::revealjs_presentation
+---
+```{r setup, cache = F, echo = F, eval = T, message=F, warning=F}
+knitr::opts_chunk$set(cache=TRUE, 
+                      echo=FALSE, message=FALSE, warning=FALSE,
+                      fig.height=9, fig.width=14, dpi=100,
+                      dev='png',fig.path='assets/fig/',cache.path='./cache/')
+
+library(rprojroot)
+
+semester_dir <- find_rstudio_root_file()
+data_dir <- file.path(semester_dir, "data")
+script_dir <- file.path(semester_dir, "lecture_scripts")
+
+source_semester_script <- function(script) {
+  script_file <- file.path(script_dir, script)
+  message("Running script", script_file)
+  source(script_file, chdir = T)
+}
+
+eval_in_sem_script_dir <- function(expr, loc = script_dir) {
+  this_dir <- getwd()
+  setwd(loc)
+  retval <- eval(expr)
+  setwd(this_dir)
+  invisible(retval)
+}
+
+library(magrittr)
+library(tidyverse)
+library(readxl)
+library(xtable)
+
+source_semester_script('lecture_utils.R')
+source_semester_script('supply_demand.R')
+
+theme_set(theme_bw(base_size = 20))
+```
+# Reviewing Emissions Trading Game {.center}
+
+## Review of Game {#game_review .eighty}
+```{r game_outcome, echo=F}
+
+max.emissions <- 15
+
+coef <- data.frame(company = c('alpha', 'beta', 'epa'),
+                   slope = c(-6, -4, 2),
+                   intercept = c(6 * 14, 4 * 14, 2)) %>%
+  mutate(intercept = intercept - slope)
+
+marginal <- tibble(emissions = seq(1,30), alpha = NA, beta = NA, epa = NA) %>%
+  gather(key = company, value = value, -emissions) %>% merge(coef, by = 'company') %>%
+  mutate(cost = intercept + emissions * slope) %>%
+  select(-value, -intercept, -slope) %>%
+  spread(key = company, value = cost)
+
+profit <- function(actor, emissions) {
+  e <- emissions
+  m <- marginal %>% select_(~emissions, profit = actor) %>% filter(emissions <= e) %>% summarize(profit = sum(profit))
+  m$profit
+}
+
+tab_fmt <- function(x, dollar = FALSE, plus = FALSE, zero = FALSE) {
+  d <- ifelse(dollar, '$', '')
+  p <- ifelse(plus,'+','')
+  x <- str_c(ifelse(x == 0, ifelse(zero,str_c(d, x),''), 
+                    str_c(ifelse(x < 0, '&minus;', p ), d, abs(x))))
+}
+
+value <- function(alpha, beta, tax = NA, xfer = c(NA,NA), price = NA, ...) {
+  tab <- tibble(
+    actor = c('alpha', 'beta'),
+    emissions = c(alpha, beta)
+  )
+  if (! is.na(tax)) {
+    tab %<>% mutate(tax = -tax * emissions)
+  } else if (! any(is.na(xfer))) {
+    buy <- ifelse(xfer > 0, xfer, 0)
+    sell <- ifelse(xfer > 0, 0, -xfer)
+    tab %<>% rename(permits = emissions) %>%
+      mutate(bought = buy,
+             sold = sell,
+             emissions = permits + buy - sell,
+             price = -price * sign(xfer)
+    )
+  }
+  tab %<>% rowwise() %>% mutate(profit = profit(actor, emissions), cost = 0) %>% ungroup()
+  society <- tibble(actor = 'society', permits = 0, 
+                        bought = 0, sold = 0, 
+                        emissions = 0, 
+                        tax = tax * sum(tab$emissions),
+                        price = 0,
+                        profit = 0, cost = -profit('epa', sum(tab$emissions))) %>%
+    select_(.dots = colnames(tab))
+  tab %<>% bind_rows(society)
+  colnames(tab) <- str_to_title(colnames(tab))
+  total <- tab %>% select(-Actor) %>% summarize_all(funs(sum)) %>%
+    mutate(Actor = 'Total')
+  tab %<>% bind_rows(total) %>% mutate(Net = Profit + Cost)
+  if('Price' %in% colnames(tab))
+    tab %<>% mutate(Net = Net + Price)
+  if ('Tax' %in% colnames(tab))
+    tab %<>% mutate(Net = Net + Tax)
+  tab
+}
+
+print_tab <- function(tab, ...) {
+  dollar_cols = c('Tax','Price','Profit','Cost','Net', 'Rebate', 
+                  "Net.with.Rebate")
+  tax_cols <- intersect(c('Tax', 'Rebate'), colnames(tab))
+  dollar_cols <- intersect(setdiff(dollar_cols, tax_cols), colnames(tab))
+  other_cols <- setdiff(colnames(tab), c('Actor', tax_cols, dollar_cols))
+  
+  tab %<>% mutate_at(dollar_cols, funs(tab_fmt(., dollar = TRUE))) %>%
+    mutate_at(other_cols, funs(tab_fmt(., dollar = FALSE)))
+  if(length(tax_cols)>0)
+    tab %<>% mutate_at(tax_cols, funs(tab_fmt(., dollar = TRUE, plus = TRUE)))
+  tab %<>% mutate(Actor = str_to_title(Actor))
+  # rownames(tab) <- str_to_title(tab$Actor)
+  # 
+  # tab %<>% select(-Actor)
+  
+  tab %>% xtable(digits=0, 
+                 align = c('l', 'c', 'c', rep_len('r', ncol(.) - 2))) %>%
+    print(type='HTML', 
+          include.rownames = F, include.colnames = T,
+          sanitize.text.function = function(x) x,
+          sanitize.colnames.function = function(x) str_replace_all(x, fixed("."), " "),
+          ...)
+}
+
+optimum <- function() {
+  a <- marginal %>% filter(emissions <= max.emissions) %>%
+    select(firm.emissions = emissions, marginal.profit = alpha) %>%
+    mutate(firm = 'Alpha')
+  b <- marginal %>% filter(emissions <= max.emissions) %>%
+    select(firm.emissions = emissions, marginal.profit = beta) %>%
+    mutate(firm = 'Beta')
+  t <- bind_rows(a, b) %>%
+    arrange(desc(marginal.profit), firm.emissions) %>%
+    mutate(total.emissions = row_number(),
+           cumulative.profit = cumsum(marginal.profit))
+  c <- marginal %>% filter(emissions <= 2 * max.emissions) %>%
+    select(total.emissions = emissions, marginal.cost = epa) %>%
+    mutate(cumulative.cost = cumsum(marginal.cost))
+  t %<>% inner_join(c, by = 'total.emissions') %>%
+    mutate(marginal.net.profit = marginal.profit - marginal.cost,
+           cumulative.net.profit = cumulative.profit - cumulative.cost) %>%
+    select(firm.emissions, firm, total.emissions, cumulative.net.profit) %>%
+    top_n(1, cumulative.net.profit) %>%
+    # Put even total emissions first, and select that if it's an option.
+    arrange(total.emissions %% 2) %>% head(1) %>%
+    transmute(firm = firm, this = firm.emissions, other = total.emissions - firm.emissions,
+           net = cumulative.net.profit)
+  self <- str_to_lower(t$firm)
+  other <- ifelse(self == 'alpha', 'beta', 'alpha')
+  t %<>% rename_(.dots = setNames(list(~this, ~other), c(self, other))) %>%
+    select(-firm)
+  t
+}
+
+calc_deadweight <- function(tab) {
+  x <- tab %>% filter(Actor == 'Total') %>% select(Net) %>% unlist() %>% unname()
+  optimum()$net - x
+}
+
+epa <- tibble(
+  team    = c('A', 'B'),
+  cc      = c(10 * 2, 8 * 2),
+  permits = c(10 * 2, 8 * 2),
+  tax     = c(40, 44)
+)
+
+alpha <- tibble(
+  team = c('A','B'),
+  buy = c(2, 1),
+  price = c(29, 31),
+  tax.emissions = c(8, 7)
+)
+
+beta <- tibble(
+  team = c('A','B'),
+  buy = c(-2, -1),
+  price = c(29, 31),
+  tax.emissions = c(5, 4)
+)
+
+# alpha$tax.emissions <- epa$tax %>% map(~marginal %>% filter(alpha >= .x) %>% select(emissions) %>% max()) %>% simplify()
+# beta$tax.emissions <- epa$tax %>% map(~marginal %>% filter(beta >= .x) %>% select(emissions) %>% max()) %>% simplify()
+```
+
+* Command and Control:
+  * Each company emits the same amount
+  
+    ::: {style="color:#8080FF;"}
+    * {+3} A: `r epa %>% filter(team == 'A') %>% select(cc) %>% simplify()` total, 
+      `r epa %>% filter(team == 'A') %>% select(cc) %>% simplify()/2` each
+    * {+3} B: `r epa %>% filter(team == 'B') %>% select(cc) %>% simplify()` total, 
+      `r epa %>% filter(team == 'B') %>% select(cc) %>% simplify()/2` each
+    :::
+* {+1} Cap-and-trade:
+  * Give each company equal permits.
+  * Let them trade
+
+    ::: {style="color:#8080FF;"}
+    * {+4} A: `r epa %>% filter(team == 'A') %>% select(permits) %>% simplify() /2` permits each, 
+      Beta buys `r beta %>% filter(team == 'A') %>% select(buy) %>% simplify()` for 
+      $`r beta %>% filter(team == 'A') %>% select(price) %>% simplify()`
+    * {+4} B: `r epa %>% filter(team == 'B') %>% select(permits) %>% simplify() /2` permits each, 
+      Beta buys `r beta %>% filter(team == 'B') %>% select(buy) %>% simplify()` for 
+      $`r beta %>% filter(team == 'B') %>% select(price) %>% simplify()`
+    :::
+* {+2} Carbon Tax:
+  * Put a price on CO~2~ emissions
+  * Each company can emit as much as it wants to
+  * But it must pay the tax on every ton.
+
+    ::: {style="color:#8080FF;"}
+    * {+5} A: $`r epa %>% filter(team == 'A') %>% select(tax) %>% simplify()`/ton
+    * {+5} B: $`r epa %>% filter(team == 'B') %>% select(tax) %>% simplify()`/ton
+    :::
+`
+# Default { .eighty data-transition="fade-out" data-state="skip_slide"}
+
+## Default { .eighty data_transition="fade-in"}
+
+```{r default_table, echo=F, results='asis', dependson="game_outcome"}
+default_tab <- value(max.emissions, max.emissions)
+opt_tab <- with(optimum(), value(alpha, beta))
+deadweight_default <- calc_deadweight(default_tab)
+print_tab(default_tab)
+```
+<p class="fragment fade-in" style="color:#8080FF;"><b>Deadweight loss = $`r deadweight_default`</b></p>
+
+### Optimal
+```{r optimum_table, echo=F, results='asis', dependson="default_table"}
+print_tab(opt_tab)
+```
+
+## Command & Control (A) {.eighty}
+```{r cc_a, echo=F, results='asis', dependson="optimum_table"}
+cc_a_tab <- epa %>% filter(team == 'A') %>% select(cc) %>% simplify() %>% {value(./2, ./2)}
+deadweight_cc_a <- calc_deadweight(cc_a_tab)
+print_tab(cc_a_tab)
+```
+<p class="fragment fade-in" style="color:#8080FF;"><b>Deadweight loss = $`r deadweight_cc_a`</b></p>
+
+### Optimal
+```{r cc_a_opt, echo=F, results='asis', ref.label='optimum_table'}
+```
+
+## Cap & Trade (A) {.eighty}
+```{r trade_a, echo=F, results='asis', dependson="optimum_table"}
+trade_a_tab <- epa %>% filter(team == 'A') %>% select(cc) %>% simplify() %>% { 
+  value(./2, ./2,
+        xfer = c(alpha %>% filter(team == 'A') %>% select(buy) %>% simplify(),
+                 beta  %>% filter(team == 'A') %>% select(buy) %>% simplify()),
+        price =  alpha %>% filter(team == 'A') %>% select(price) %>% simplify()
+        )}
+deadweight_trade_a <- calc_deadweight(trade_a_tab)
+print_tab(trade_a_tab)
+```
+<p class="fragment fade-in" style="color:#8080FF;"><b>Deadweight loss = $`r deadweight_trade_a`</b></p>
+
+### Optimal
+```{r trade_a_opt, echo=F, results='asis', ref.label='optimum_table'}
+```
+
+## Carbon Tax (A): $`r epa %>% filter(team == 'A') %>% select(tax) %>% simplify()`/ton {.eighty}
+```{r tax_a, echo=F, results='asis', dependson="optimum_table"}
+tax_a_tab <- value(
+  alpha %>% filter(team == 'A') %>% select(tax.emissions) %>% simplify(),
+  beta %>% filter(team == 'A') %>% select(tax.emissions) %>% simplify(),
+  tax = epa %>% filter(team == 'A') %>% select(tax) %>% simplify()
+  )
+deadweight_tax_a <- calc_deadweight(tax_a_tab)
+
+tax_rebate_a_tab <- tax_a_tab %>% 
+  mutate(Rebate = c(rep(Tax[3]/2,2), -Tax[3],0), "Net.with.Rebate" = Net + Rebate,
+         Actor = str_to_title(Actor))
+
+print_tab(tax_rebate_a_tab)
+```
+<p class="fragment fade-in" style="color:#8080FF;"><b>Deadweight loss = $`r deadweight_tax_a`</b></p>
+
+### Optimal
+```{r tax_a_opt, echo=F, results='asis', ref.label='optimum_table'}
+```
+
+# Command & Control (B) { .eighty data-transition="fade-out" data-state="skip_slide"}
+
+## Command & Control (B) { .eighty data_transition="fade-in"}
+
+```{r cc_b, echo=F, results='asis', dependson="optimum_table"}
+cc_b_tab <- epa %>% filter(team == 'B') %>% select(cc) %>% simplify() %>% {value(./2, ./2)}
+deadweight_cc_b <- calc_deadweight(cc_b_tab)
+print_tab(cc_b_tab)
+```
+<p class="fragment fade-in" style="color:#8080FF;"><b>Deadweight loss = $`r deadweight_cc_b`</b></p>
+
+### Optimal
+```{r cc_b_opt, echo=F, results='asis', ref.label='optimum_table'}
+```
+
+## Cap & Trade (B) {.eighty}
+```{r trade_b, echo=F, results='asis', dependson="optimum_table"}
+trade_b_tab <- epa %>% filter(team == 'B') %>% select(cc) %>% simplify() %>% {
+  value(./2, ./2,
+        xfer = c(alpha %>% filter(team == 'B') %>% select(buy) %>% simplify(),
+                 beta  %>% filter(team == 'B') %>% select(buy) %>% simplify()),
+        price =  alpha %>% filter(team == 'B') %>% select(price) %>% simplify()
+  )}
+deadweight_trade_b <- calc_deadweight(trade_b_tab)
+print_tab(trade_b_tab)
+```
+<p class="fragment fade-in" style="color:#8080FF;"><b>Deadweight loss = $`r deadweight_trade_b`</b></p>
+
+### Optimal
+```{r trade_b_opt, echo=F, results='asis', ref.label='optimum_table'}
+```
+
+## Carbon Tax (B): $`r epa %>% filter(team == 'B') %>% select(tax) %>% simplify()`/ton {.eighty}
+```{r tax_b, echo=F, results='asis', dependson="optimum_table"}
+tax_b_tab <- value(
+  alpha %>% filter(team == 'B') %>% select(tax.emissions) %>% simplify(),
+  beta  %>% filter(team == 'B') %>% select(tax.emissions) %>% simplify(),
+  tax = epa %>% filter(team == 'B') %>% select(tax) %>% simplify())
+deadweight_tax_b <- calc_deadweight(tax_b_tab)
+
+tax_rebate_b_tab <- tax_b_tab %>% 
+  mutate(Rebate = c(rep(Tax[3]/2,2), -Tax[3],0), "Net.with.Rebate" = Net + Rebate,
+         Actor = str_to_title(Actor))
+
+print_tab(tax_rebate_a_tab)
+```
+<p class="fragment fade-in" style="color:#8080FF;"><b>Deadweight loss = $`r deadweight_tax_b`</b></p>
+
+### Optimal
+```{r tax_b_opt, echo=F, results='asis', ref.label='optimum_table'}
+```
+
+# Summary of Deadweight Losses { .eighty data-transition="fade-out" data-state="skip_slide"}
+
+## Summary of Deadweight Losses { .eighty data_transition="fade-in"}
+
+<br/>
+
+```{r, summary_deadweight, echo=F, results='asis', dependson="optimum_table"}
+dw_summary <- tibble(team = c('Group A','Group B'), 
+                      default = c(deadweight_default, deadweight_default),
+                      cc = c(deadweight_cc_a, deadweight_cc_b),
+                      trade = c(deadweight_trade_a, deadweight_trade_b),
+                      tax = c(deadweight_tax_a, deadweight_tax_b)
+                      )
+colnames(dw_summary) <- c('Group', 'Default','Command<br/>&amp; Control', 'Cap &amp;<br/>Trade', 'Tax')
+print(xtable(dw_summary, digits = 0, align='ccrrrr'),
+      include.rownames = F, include.colnames = T,
+      sanitize.colnames.function = function(x) x,
+      type='html'
+      )
+```
+
+## Summary of Net Profit/Cost {.seventyfive}
+
+<br/>
+
+### Group A
+
+```{r, summary_profit_a, echo=F, results='asis'}
+wa <- default_tab %>% select(Actor, Net) %>% mutate(key = "Default")
+xa <- cc_a_tab %>% select(Actor, Net) %>% mutate(key = "Cmd & Ctrl")
+ya <- trade_a_tab %>% select(Actor, Net) %>% mutate(key = "Cap & Trade")
+za <- tax_a_tab %>% select(Actor, Net) %>% mutate(key = "Tax")
+ra <- tax_a_tab %>% 
+  mutate(rebate = c(rep(Tax[3]/2,2), -Tax[3],0), Net = Net + rebate) %>%
+  select(Actor,Net) %>% mutate(key = "Tax & Rebate")
+sum_a <- bind_rows(wa, xa, ya, za, ra) %>% spread(key = key, value = Net) %>% 
+  mutate(X. = c('Alpha profit', 'Beta profit', 'Social cost', 'Total')) %>%
+  select_(.dots = map(c('X.', 'Default', 'Cmd & Ctrl', 'Cap & Trade', 'Tax', 
+                        'Tax & Rebate'), as.name))
+
+print(xtable(sum_a, digits = 0, align='ccrrrrr'),
+      include.rownames = F, include.colnames = T,
+      sanitize.colnames.function = function(x) str_replace(x, '^X\\.$',''),
+      type='html'
+      )
+```
+
+<br/>
+
+### Group B
+
+```{r, summary_profit_b, echo=F, results='asis'}
+wb <- default_tab %>% select(Actor, Net) %>% mutate(key = "Default")
+xb <- cc_b_tab %>% select(Actor, Net) %>% mutate(key = "Cmd & Ctrl")
+yb <- trade_b_tab %>% select(Actor, Net) %>% mutate(key = "Cap & Trade")
+zb <- tax_b_tab %>% select(Actor, Net) %>% mutate(key = "Tax")
+rb <- tax_b_tab %>% 
+  mutate(rebate = c(rep(Tax[3]/2,2), -Tax[3],0), Net = Net + rebate) %>%
+  select(Actor,Net) %>% mutate(key = "Tax & Rebate")
+sum_b <- bind_rows(wb, xb, yb, zb, rb) %>% spread(key = key, value = Net) %>%
+  mutate(X. = c('Alpha profit', 'Beta profit', 'Social cost', 'Total')) %>%
+  select_(.dots = map(c('X.', 'Default', 'Cmd & Ctrl', 'Cap & Trade', 'Tax', 
+                        'Tax & Rebate'), as.name))
+
+print(xtable(sum_b, digits = 0, align='ccrrrrr'),
+      include.rownames = F, include.colnames = T,
+      sanitize.colnames.function = function(x) str_replace(x, '^X\\.$', ''),
+      type='html'
+      )
+```

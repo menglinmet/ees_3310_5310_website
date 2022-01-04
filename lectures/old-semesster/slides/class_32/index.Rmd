@@ -1,0 +1,507 @@
+---
+title: "Discounting and the<br/>Value of Time"
+class_no: 32
+class_date: "Wednesday, April 7"
+qrimage: qrcode.png
+pageurl: "ees3310.jgilligan.org/slides/class_32"
+pdfurl: "ees3310.jgilligan.org/slides/class_32/ees_3310_5310_class_32_slides.pdf"
+course: "EES 3310/5310"
+course_name: "Global Climate Change"
+author: "Jonathan Gilligan"
+semester: Spring
+year: 2021
+output:
+  revealjg::revealjs_presentation
+---
+```{r setup, cache = F, echo = F, eval = T, message=F, warning=F}
+knitr::opts_chunk$set(cache=TRUE, 
+                      echo=FALSE, message=FALSE, warning=FALSE,
+                      fig.height=9, fig.width=14, dpi=100,
+                      dev='png',fig.path='assets/fig/',cache.path='./cache/')
+
+library(rprojroot)
+
+semester_dir <- find_rstudio_root_file()
+data_dir <- file.path(semester_dir, "data")
+script_dir <- file.path(semester_dir, "lecture_scripts")
+
+source_semester_script <- function(script) {
+  script_file <- file.path(script_dir, script)
+  message("Running script", script_file)
+  source(script_file, chdir = T)
+}
+
+eval_in_sem_script_dir <- function(expr, loc = script_dir) {
+  this_dir <- getwd()
+  setwd(loc)
+  retval <- eval(expr)
+  setwd(this_dir)
+  invisible(retval)
+}
+
+library(magrittr)
+library(tidyverse)
+library(wesanderson)
+library(readxl)
+library(knitr)
+library(xtable)
+
+source_semester_script('lecture_utils.R')
+source_semester_script('supply_demand.R')
+
+theme_set(theme_bw(base_size = 20))
+```
+# Review of Market-Based Regulations {.center}
+
+## Marginal and Cumulative Costs & Benefits {data-transition="fade-in"}
+
+::: {.mtop-3}
+```{r emissions.trading.data, results = "hide"}
+emissions <- tibble(
+  emissions = 0:5,
+  m.cost = 20 * emissions,
+  m.benefit = 30 * (5 - emissions)
+)
+```{r emissions.table.2, dependson="emissions.trading.data"}
+options("knitr.kable.NA" = "---")
+
+emissions %>% mutate(across(-emissions, ~c(0, tail(.x, -1)))) %>%
+  mutate(gross.cost = cumsum(m.cost), 
+         gross.benefit = cumsum(m.benefit),
+         net.benefit = gross.benefit - gross.cost) %>%
+  select(emissions, m.cost, m.benefit, gross.cost, gross.benefit, net.benefit) %>%
+  mutate(across(c(m.cost,m.benefit), ~c(NA, tail(.x, -1)))) %>%
+  kable(digits = 0,
+        col.names = c("CO~2~ emissions", 
+                      "Marginal cost",  "Marginal benefit", 
+                      "Gross cost", "Gross benefit",
+                      "Net benefit"))
+```
+:::
+
+* Gross (cumulative) costs and benefits are the sum of marginal 
+  costs and benefits from zero to the current level.
+* Net benefit is the gross benefit minus the gross cost.
+* {+} What is the optimal number of permits to issue?
+* {+} What is the optimal emissions tax?
+
+## Two Companies {.eighty}
+
+::::::::: {.columns .ptop-3}
+:::::: {.column width="25%"}
+```{r company.data}
+options(knitr.kable.NA = "---")
+emissions.A = tibble(Emissions = 0:5, MB = 20 * (7 - Emissions))
+emissions.B = emissions.A %>% mutate(MB = 26 * (6 - Emissions))
+costs = tibble(Emissions = 0:10, MC = 21 * Emissions)
+```
+```{r company.A.table, dependson="company.data"}
+options("knitr.kable.NA" = "---")
+
+emissions.A %>% mutate(across(-Emissions, ~c(NA, tail(.x, -1)))) %>%
+  kable(digits = 0)
+```
+
+::: {.mtop-1}
+```{r company.B.table, dependson="company.data"}
+options("knitr.kable.NA" = "---")
+
+emissions.B %>% mutate(across(-Emissions, ~c(NA, tail(.x, -1)))) %>%
+  kable(digits = 0)
+```
+:::
+::::::
+:::::: {.column width="25%"}
+```{r company.cost.table, dependson="company.data"}
+options("knitr.kable.NA" = "---")
+
+costs %>% mutate(across(-Emissions, ~c(NA, tail(.x, -1)))) %>%
+  kable(digits = 0)
+```
+::::::
+:::::::::
+
+## Two Companies {.eighty}
+
+::: {.mtop-3}
+```{r company.combined.table, dependson="company.data"}
+options("knitr.kable.NA" = "---")
+
+  emissions.A %>% mutate(Company = "A") %>%
+    bind_rows(mutate(emissions.B, Company = "B")) %>%
+    filter(Emissions > 0) %>% arrange(desc(MB)) %>%
+    mutate(Emissions = seq(n())) %>%
+    select(Emissions, Company, MB) %>%
+    left_join(costs, by = "Emissions") %>%
+    mutate(cum_benefits = cumsum(MB), cum_costs = cumsum(MC),
+           net_benefits = cum_benefits - cum_costs) %>%
+  kable(digits = 0,
+        col.names = c("Emissions", "Company", "MB", "MC", 
+                      "Gross Benefits", "Gross Costs", "Net Benefits"))
+```
+:::
+
+* {+} Benefits depend on which company produces the emissions
+* {+} Costs only depend on the total emissions
+* {+} Put emissions in descending order of marginal benefit.
+* {+} What is the optimum emissions level?
+* {+} What is the optimum emissions tax?
+
+
+# Discounting:<br/>Should we spend more today<br/>to offset damages in the future? {#Introduction .center .eighty}
+
+## Should we pay $100 for a bond today<br/>that will pay $1000 in 50 years? {#net-present-value-1 .eighty data-transition="fade-out"}
+
+* What would you expect to earn if you invested \$100 today in something else?
+  * "_**Opportunity cost**_"
+* {+} Compounding interest:
+  $$
+  V_{\text{future}} = V_{\text{present}} \times (1 + r)^n,
+  $$
+  where:
+  * _V_ is value
+  * _r_ is interest rate (4% &rarr; _r_ = 0.04)
+  * _n_ is number of years
+* {+} Rule of 72:
+  * The number of years to double your investment is roughly<br/>
+    72 / (percent interest rate)
+
+## Should we pay $100 for a bond today<br/>that will pay $1000 in 50 years? {#net-present-value-2 .eighty data-transition="fade-out"}
+
+* What would you expect to earn if you invested \$100 today in something else?
+* Assume real interest rate is 4%
+  * Compounding interest:
+    $$
+    V_{\text{future}} = V_{\text{present}} \times (1 + r)^n,
+    $$
+
+    :::{.fragment}
+    $$
+    \begin{align}
+    V_{\text{present}} &= \$100\\
+    V_{\text{future}} &= V_{\text{present}} \times (1 + r)^n\\
+    &= \$100 \times 1.04^{50}\\
+    &= \$`r round(100 * 1.04^50)`.
+    \end{align}
+    $$
+    :::
+* {+} $\color{darkgreen}{\$1000 > \$`r round(100 * 1.04^50)`}$, so it's a 
+  good deal.
+
+## Should we pay $100 for a bond today<br/>that will pay $1000 in 50 years? {#net-present-value-3 .eighty data-transition="fade-out"}
+
+* Formula for net present value (NPV) is the inverse of the interest formula:
+
+$$
+\begin{align}
+V_{\text{future}} &= V_{\text{present}} \times (1 + r)^n\\
+V_{\text{present}} &= \frac{V_{\text{future}}}{(1 + r)^n}
+\end{align}
+$$
+
+::: {.fragment}
+$$
+\begin{align}
+V_{\text{future}} &= \$1000\\
+V_{\text{present}} &= \frac{\$1000}{1.04^{50}}\\
+&= \frac{\$1000}{`r round(1.04^50,2)`}\\
+&= \color{darkgreen}{\$`r round(1000 / 1.04^50)` > \$100}.
+\end{align}
+$$
+:::
+
+## Different Discount Rates
+
+* Higher rate (10%)
+
+  $$
+  V_{\text{present}} = \frac{V_{\text{future}}}{(1 + {\color{red}{r}})^n}
+  = \frac{1000}{1.{\color{red}{10}}^{50}}
+  = \color{red}{\$`r round(1000 / 1.10^50)` < \$100}
+  $$
+
+* Lower rate (1%)
+
+  $$
+  V_{\text{present}} = \frac{V_{\text{future}}}{(1 + {\color{darkgreen}{r}})^n}
+  = \frac{1000}{1.{\color{darkgreen}{01}}^{50}}
+  = \color{darkgreen}{\$`r round(1000 / 1.01^50)` > \$100}
+  $$
+
+# Future Generations {.center}
+
+## Should we spend money today to offset damages in the future? {#today-vs-future}
+
+::: {.fragment style="margin-top:25px;margin-bottpm:25px;"}
+### How much is it worth to us **today** to avoid climate disruption **in 100 years**?
+:::
+
+![](assets/images/present_cost_future_benefit.jpg){style="width:1400px;"}
+
+------
+
+* {+} How much is the welfare of your children worth, relative to your own 
+  welfare?
+* {+} Your grandchildren?
+* {+} Your great-grandchildren?
+* {+} Your great-great grandchildren?
+* {+} Your great^3^ grandchildren?
+* {+} At what great^n^ do we stop?
+
+## Assume each future generation is worth half of the previous generation
+
+::: {style="margin-top:50px;"}
+$$ 1 + \frac{1}{2} + \frac{1}{2^2} + \frac{1}{2^3} + \cdots = 2 $$
+:::
+::: {.fragment style="vertical-align:middle;text-align:center;margin-top:50px;font-size:200%;"}
+![Pete Davidson](assets/images/pete-davidson-cropped.jpg){style="height:600px;vertical-align:middle;"} = ![Armageddon](assets/images/nuclear-bomb.jpg){style="height:600px;vertical-align:middle"}
+:::
+
+## Assume each generation is equal
+
+::: {style="margin-top:300px;"}
+$$ 1 + 1 + 1 + 1 + \cdots = {\Huge \infty} $$
+:::
+
+## Valuing the present (high discount rate)
+
+::: {style="margin-top:100px;"}
+* {+} We're poor relative to the future!
+* {+} Don't take from the poor (that's us) to give to the rich 
+  (future generations)
+* {+} But if we apply this to **spatial** inequalities that exist **now** ... 
+  justifies massive wasteful transfers from rich to poor
+:::
+
+# Rates Matter! {.center}
+
+## Stern vs. Nordhaus {#stern-nordhaus-1 data-transition="fade-out"}
+
+![Stern vs. Nordhaus](assets/images/stern_v_nordhaus_1.jpg){style="width:1400px;margin-top:162px;border:none;box-shadow:none"}
+
+## Stern vs. Nordhaus {#stern-nordhaus-2 data-transition="fade-in"}
+
+![Stern vs. Nordhaus](assets/images/stern_v_nordhaus_2.jpg){style="width:1400px;margin-top:50px;border:none;box-shadow:none"}
+
+## Consumption elasticity $\eta$
+
+:::::: {.columns}
+::: {.column .eighty}
+* {+} Proportional rate at which marginal utility of consumption is reduced as 
+  consumption increases <span class="fragment">(_**What**?_)</span>
+* {+} Giving $100 to someone in poverty adds more to total well-being than 
+  giving $100 to Jeff Bezos
+* {+} High $\eta$: Value current consumption, strong benefits for redistribution 
+  from rich to poor
+* {+} Low $\eta$: Value future consumption, weak benefits for redistribution 
+  from rich to poor
+:::
+::: {.column .fragment}
+
+```{r utility, fig.height=5, fig.width=7}
+eta = list(stern = 1, nordhaus = 2)
+eps = 0.1
+utility <- function(x, eta) {
+  if (eta <= 1) {
+    x = pmax(x, eps)
+    log(x) - log(eps)
+  } else {
+    pmax(0, (x^(1 - eta) - 1) / (1 - eta))
+  }
+}
+
+df <- tibble(x = seq(0, 1000, 5), Stern = utility(x, eta$stern), 
+       Nordhaus = utility(x, eta$nordhaus)) %>%
+  gather(-x, key = author, value = utility) %>%
+  group_by(author) %>% mutate(utility = utility / quantile(utility, 0.1)) %>%
+  ungroup() %>%
+  mutate(author = ordered(author, levels = c("Stern", "Nordhaus")))
+
+ggplot(df, aes(x = x, y = utility, color = author)) +
+    geom_line(size = 1) + 
+    scale_color_manual(values = c(Stern = "#6495ED", Nordhaus = "#EE2C2C"),
+                       name = NULL) +
+    labs(x = "Consumption", y = "Utility", title = "Total Utility") +
+  theme(legend.position = c(1, 0.5), legend.justification = c(1,1))
+```
+
+* <span style="color:#6495ED;">Stern:</span> $\eta = 1$
+* <span style="color:#EE2C2C;">Nordhaus:</span> $\eta = 2$
+
+:::
+::::::
+
+## Time discount rate $\rho$
+
+:::::: {style="text-align:left;"}
+
+> * How do we value future welfare, relative to our own?
+> * $\rho = 0$: All generations equal
+> * $\rho > 0$: Future generations count less than our own
+> * $\rho < 0$: Future generations count more than our own
+
+::: {.fragment style="margin-top:50px;"}
+
+* <span style="color:#6495ED;">Stern:</span> $\rho = 0.1\%$
+* <span style="color:#EE2C2C;">Nordhaus:</span> $\rho = 1.5\%$
+
+:::
+::::::
+
+## Per-capita consumption growth rate, $g$
+
+:::::: {.columns}
+::: {.column style="width:49%;vertical-align:middle"}
+
+* <span style="color:#6495ED;">Stern:</span> $g = 1.3\%$
+* <span style="color:#EE2C2C;">Nordhaus:</span> $g = 1.3\%$
+
+:::
+::: {.column style="width:49%;vertical-align:middle"}
+
+```{r yoghurt, include=TRUE}
+read_excel(file.path(data_dir, "agriculture", 'dairy_per_capita_consumption_us.xlsx'), 
+           range="A12:C61", col_names = c("year", "milk", "yoghurt"),
+           col_types = "numeric") %>%
+  select(year, yoghurt) %>% na.omit() %>%
+ggplot(aes(x = year, y = yoghurt)) +
+  geom_line(size = 1, color = "#FF7F00") +
+  geom_point(size = 3, color = "#FF7F00") +
+  theme_bw(base_size = 30) +
+  labs(x = "Year", y = "Pounds per person", 
+       title = "Annual Per-Capita Yoghurt Consumption (U.S.)")
+```
+```{r meat, include=FALSE}
+read_excel(file.path(data_dir, "agriculture", "meat_consumption.xls"), 
+           sheet = "Meat per Cap", skip = 5, n_max = 109 - 5,
+           col_names = c("year", "skip", "chicken", "turkey", "beef", "pork", 
+                         "total"),
+           col_types = c("numeric", "text", rep("numeric",5))) %>%
+  select(-skip) %>%
+  gather(-year, key = type, value = consumption) %>%
+  mutate(type = str_to_title(type) %>% 
+           ordered(levels = c("Chicken", "Turkey", "Pork", "Beef", "Total")) %>%
+           fct_collapse("Poultry" = c("Chicken", "Turkey"))) %>%
+  na.omit() %>%
+  group_by(year, type) %>% summarize(consumption = sum(consumption)) %>%
+  ungroup() %>%
+  ggplot(aes(x = year, y = consumption, color = type)) +
+  geom_line(size = 1) +
+  # geom_point(size = 1) +
+  scale_color_manual(values = wes_palette("Darjeeling1"), name = "Type") +
+  theme_bw(base_size = 20) +
+  labs(x = "Year", y = "Pounds per person", 
+       title = "Annual Per-Capita Meat Consumption (U.S.)")
+```
+
+:::
+::::::
+
+## Real return on capital $r$
+
+* Potential of capital to create value
+* High $r$ &rarr; Wait and reduce emissions in the **future** (capital yield is 
+  higher in future)
+* Low $r$ &rarr; Reduce emissions in the **present** (future damages likely to 
+  exceed future output)
+
+## Stern vs. Nordhaus {#stern-nordhaus-3 data-transition="fade-in" data-background="assets/images/stern_v_nordhaus_2.jpg" data-background-size="1400px" data-background-position="center"}
+
+:::::: {.columns .fragment style="margin-top:600px;margin-left:0px;margin-right:0px;padding:0px;padding-left:100px;padding-right:100px;margin-top:700px;"}
+
+::: {.column style="width:35%;text-align:center;vertical-align:bottom;"}
+$$
+\begin{aligned}
+r &= 0.1 + 1 \times 1.3\\
+  &= 1.4 
+\end{aligned}
+$$
+:::
+::: {.column style="width:28%;"}
+
+:::
+::: {.column style="width:35%;text-align:center;vertical-align:bottom;"}
+$$
+\begin{aligned}
+r &= 1.5 + 2 \times 1.3\\
+  &= 4.1
+\end{aligned}
+$$
+:::
+::::::
+
+# Discount Rates and Decarbonization {.center}
+
+## Discount Rates and Decarbonization {.eighty}
+
+* {+} Investing $10 million in wind today produces<br/>$100 million in real value 
+  50 years from now
+  * {+} Rate of 1%: $V_{\text{present}} = \frac{\$100 \text{M}}{1.01^{50}}
+    = \$`r round(100 / 1.01^50)` \text{M} > \$10 \text{M}$ 
+    ![thumbs up](assets/images/thumb_up.jpg){style="height:50px;vertical-align:middle;border:none;"}
+
+  * {+} Rate of 4%: $V_{\text{present}} = \frac{\$100 \text{M}}{1.04^{50}} 
+    = \$`r round(100 / 1.04^50)` \text{M} > \$10 \text{M}$ 
+    ![thumbs up](assets/images/thumb_up.jpg){style="height:50px;vertical-align:middle;border:none;"}
+  * {+} Rate of 7%: $V_{\text{present}} = \frac{\$100 \text{M}}{1.07^{50}} 
+    = \$`r round(100 / 1.07^50)` \text{M} < \$10 \text{M}$ 
+    ![thumbs down](assets/images/thumb_down.jpg){style="height:100px;vertical-align:middle;border:none;"}
+
+# Stern vs. Nordhaus on Implications of Discount Rate {.center}
+
+## Nordhaus {.eighty}
+
+:::::: {.columns}
+::: {.column style="width:60%"}
+> ... we need to use a discount rate that reflects the actual market 
+> opportunities that societies face, not an abstract definition of equity taken 
+> out of the context of market realities.
+:::
+::: {.column style="width:39%;vertical-align:top;"}
+
+![William Nordhaus](assets/images/Nordhaus.jpg){style="height:550px;vertical-align:top"}
+
+:::
+::::::
+
+## Stern {.eighty data-transition="fade-out"}
+
+:::::: {.columns}
+::: {.column style="width:39%;vertical-align:top;"}
+
+![Sir Nicholas Stern](assets/images/Stern.jpg){style="height:550px;"}
+
+:::
+::: {.column style="width:60%"}
+
+> ... the benefits of strong early action far outweigh the economic costs of
+> not acting.
+
+> ... even at moderate levels of warming, all the evidence ... shows that
+> climate change will have serious impacts on world output, on human life,
+> and on the environment.
+
+[Stern Review, pp. xv&ndash;xvi]{style="font-size:60%;color:darkgray;"}
+
+:::
+::::::
+
+## Stern {.eighty data-transition="fade-in"}
+
+:::::: {.columns}
+::: {.column style="width:39%;vertical-align:top;"}
+
+![Sir Nicholas Stern](assets/images/Stern.jpg){style="height:550px;"}
+
+:::
+::: {.column style="width:60%"}
+
+> ... we should go beyond the narrow framework of social welfare functions to
+> consider other ethical approaches, including those involving rights and
+> sustainability.
+
+> ... disaggregated approach to consequences --- looking at different dimensions,
+> places, and times --- and a broad ethical approach.
+
+:::
+::::::

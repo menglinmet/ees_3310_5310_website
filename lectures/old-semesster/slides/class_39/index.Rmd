@@ -1,0 +1,300 @@
+---
+title: "Global Warming Gridlock"
+class_no: 39
+class_date: "Friday, April 23"
+qrimage: qrcode.png
+pageurl: "ees3310.jgilligan.org/slides/class_39"
+pdfurl: "ees3310.jgilligan.org/slides/class_39/ees_3310_5310_class_39_slides.pdf"
+course: "EES 3310/5310"
+course_name: "Global Climate Change"
+author: "Jonathan Gilligan"
+semester: Spring
+year: 2021
+output:
+  revealjg::revealjs_presentation
+---
+```{r setup, cache = F, echo = F, eval = T, message=F, warning=F}
+knitr::opts_chunk$set(cache=TRUE, 
+                      echo=FALSE, message=FALSE, warning=FALSE,
+                      fig.height=9, fig.width=14, dpi=100,
+                      dev='png',fig.path='assets/fig/',cache.path='./cache/')
+
+library(rprojroot)
+
+semester_dir <- find_rstudio_root_file()
+data_dir <- file.path(semester_dir, "data")
+script_dir <- file.path(semester_dir, "lecture_scripts")
+
+source_semester_script <- function(script) {
+  script_file <- file.path(script_dir, script)
+  message("Running script", script_file)
+  source(script_file, chdir = T)
+}
+
+eval_in_sem_script_dir <- function(expr, loc = script_dir) {
+  this_dir <- getwd()
+  setwd(loc)
+  retval <- eval(expr)
+  setwd(this_dir)
+  invisible(retval)
+}
+
+library(magrittr)
+library(tidyverse)
+library(janitor)
+library(ggstance)
+
+source_semester_script('lecture_utils.R')
+source_semester_script('gridlock.R')
+source_semester_script('rd_budget.R')
+
+theme_set(theme_bw(base_size = 20))
+```
+## Final Exam {.ninety}
+
+* Take-home, essay format
+  * I will post the exam to Brightspace on Friday April 30
+  * Due (on Brightspace) Monday May 10 by 2:00 PM Nashville time
+  * I recommend you read the exam shortly after I post it even if 
+    you won't start working on it until much later.
+    * Give yourself a chance to think about it, ask questions if anything is
+      unclear.
+* **Rules**
+  * Open book, open notes, use can use additional books, internet, etc.
+  * **You must do your own work**
+* **Format**
+  * Two short essays tying together material we have studied throughout the 
+    semester
+    * The focus is about the big ideas we have studied, not little details
+  * Recommended length: about 1--2 pages single-spaced for each essay
+
+# Gridlock {#research-sec .center}
+
+## Gridlock: Basic Outline {#gridlock-intro}
+
+1. {+ .highlight-current-med-blue} Science: CO~2~ is a "stock pollutant"
+2. Three myths:
+   a) {+ .highlight-current-med-blue} Scientists' myth: Science can us tell 
+      what policy should be
+   b) {+ .highlight-current-med-blue} Diplomats' myth: Universal treaties
+   c) {+ .highlight-current-med-blue} Engineers' myth: _RE_ < _C_
+3. {+ .highlight-current-med-blue} Regulating emissions
+   * Power, interests, capabilities
+4. {+ .highlight-med-blue} Investing in innovation
+5. Bracing for change
+6. New International Strategy
+
+## Investing in Innovation {#research-funding}
+```{r rd_budget, echo=F}
+p <- plot_funding(rd_budget_nd)
+print(p)
+```
+
+------
+
+```{r eere_budget, echo=F, fig.height=10}
+eere_budget <- data.frame(year =  c(as.character(2003:2020),'2021 (request)'),
+                   budget = c(              1.202, 1.220, 1.249, 
+                              1.163, 1.457, 1.704, 2.157, 2.216, 
+                              1.796, 1.810, 1.692, 1.902, 1.924,  
+                              2.069, 2.09,  2.04,  2.379, 2.777,
+                              0.719)
+)
+
+p <- ggplot(eere_budget, aes(x = year, y = budget)) + 
+  geom_bar(stat='identity', fill = '#305000') +
+  labs(x = "Year", y = "$ Billion", 
+       title = "U.S. Energy Efficiency and Renewable Energy Budget") +
+  scale_y_continuous(expand=c(0,0), limits=c(0,2.9)) +
+  theme_bw(base_size = 20) +
+  theme(axis.text.x = element_text(angle = 35, hjust = 1.1, vjust = 1), 
+        panel.grid.major.x = element_blank())
+#cat('<img src="')
+print(p)
+#cat('"/>')
+```
+
+------
+
+::::::{.bare}
+![](assets/images/eli_subsidies.jpg){style="height:1000px;"}
+
+:::{.credit}
+Image credit: Environmental Law Institute
+:::
+::::::
+
+# Gridlock {#fairness-sec .center}
+
+## Gridlock: Basic Outline {#gridlock-change}
+
+1. Science: CO~2~ is a "stock pollutant"
+2. Three myths:
+   a) Scientists' myth: Science can us tell what policy should be
+   b) Diplomats' myth: Universal treaties
+   c) Engineers' myth: _RE_ < _C_
+3. Regulating emissions
+   * Power, interests, capabilities
+4. Investing in innovation
+5. {+ .highlight-current-med-blue} Bracing for change
+   * Adaptation, geoengineering
+6. {+ .highlight-current-med-blue} New International Strategy
+
+## Fairness & Justice {#fairness}
+
+:::::::::::: {.columns}
+::::::::: {.column style="width:1000px;"}
+* Corrective Justice
+* Distributive Justice
+
+:::::: {style="background: white; border: 2px black;width:900px;"}
+**U.S. TO GIVE $3 BILLION TO CLIMATE FUND
+TO HELP POOR NATIONS AND SPUR RICH ONES**
+
+[By CORAL DAVENPORT and MARK LANDLER]{.eighty}
+
+:::
+::: {.sixty}
+NY Times, Nov. 15, 2014, p. A5
+
+:::
+::: {style="background:white;border: 2px black;"}
+Republicans ... are working to block the administration from funneling 
+federal dollars to developing nations so they can tackle climate change.
+
+::: {.sixty}
+By AMY HARDER
+and KRISTINA PETERSON
+
+:::
+::::::
+:::::: {.sixty}
+The Wall Street Journal, Nov. 27, 2015
+
+::::::
+:::::::::
+::::::::: {.column .centertext style="width:400px;"}
+![](assets/images/nyt_clipping.png){heigh=600, width=400}
+
+:::::: {.sixty}
+NY Times, Nov. 17, 2013, p. A1
+::::::
+:::::::::
+::::::::::::
+
+## CO~2~ emissions {#emissions}
+
+```{r compare_emissions, message=FALSE, warning=FALSE}
+# Data from CDIAC hsitorical emissions by nation 1751-2014
+names <- read_csv(file.path(data_dir, "ghg_emissions", "cdiac", 
+                            "nation.1751_2014.csv"), 
+                  col_names = FALSE, n_max = 1) %>% 
+  str_replace_all(c("^Total CO2.*$" = "total", "Emissions from " = "", 
+                    "Per capita CO2.*$" = "per-capita", " consumption" = "", 
+                    "\\(.*\\)" = "")) %>% 
+  str_trim()
+
+emissions <- read_csv(file.path(data_dir, "ghg_emissions", "cdiac", 
+                                "nation.1751_2014.csv"), 
+                      col_names = simplify(names), skip = 4, 
+                      na = c("NA", "", ".")) %>% 
+  clean_names() %>%
+  mutate(nation = str_to_title(nation) %>% 
+           str_replace_all(c(" Of " = " of ", " And " = " and ", " The " = " the ",
+                             " *\\(.*\\)" = "", 
+                             "Republic of Korea" = "South Korea",
+                             "Russian Federation" = "Russia", 
+                             "United States of America" = "USA",
+                             "Islamic Republic of +" = "")) %>% 
+           str_trim(),
+         total = total * (44 / 12) * 1E-6,
+         per_capita = per_capita * (44 / 12))
+
+end_year <- max(emissions$year, na.rm = T)
+start_year <- min(emissions$year, na.rm = T)
+year_range <- str_c(start_year, "-", end_year)
+
+eu_members <- c("Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus",
+                "Czech Republic", "Czechoslovakia", "Denmark", "Estonia",
+                "Finland", "France", "Germany", 
+                "Former German Democratic Republic", 
+                "Federal Republic of Germany", 
+                "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania",
+                "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal",
+                "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", 
+                "United Kingdom")
+
+recent_emissions <- emissions %>% filter(year == end_year) %>%
+  select(nation, total, per_capita) %>%
+  mutate(nation = ifelse(nation %in% eu_members, "EU", nation)) %>%
+  group_by(nation) %>% summarize_all(funs(sum(., na.rm = T))) %>%
+  ungroup() %>% 
+  mutate(per_capita = ifelse(nation == "EU", total / 0.511, per_capita)) %>%
+  arrange(desc(total)) %>% head(10)
+
+top_10 <- recent_emissions$nation
+
+recent_emissions <- recent_emissions %>% 
+  gather(-nation, key = variable, value = emissions)
+
+cum_emissions <- emissions %>% 
+  mutate(nation = ifelse(nation %in% eu_members, "EU", nation)) %>%
+  filter(nation %in% top_10) %>%
+  group_by(nation) %>% 
+  summarize(emissions = sum(total), variable = year_range) %>%
+  ungroup()
+
+new_vars <- set_names(c(as.character(end_year), 
+                        year_range,
+                        str_c("Per person, ", end_year)),
+                      c("total", year_range, "per_capita")) %>%
+  ordered(., levels = .)
+
+compare_emissions <- recent_emissions %>% bind_rows(cum_emissions) %>%
+  mutate(variable = new_vars[variable],
+         nation = ordered(nation, levels = rev(top_10))) %>%
+  arrange(variable, nation)
+
+ggplot(compare_emissions, aes(x = emissions, y = nation)) +
+  geom_colh(color = "orange3", fill = "orange3") +
+  facet_wrap(~variable, scales = "free_x") +
+  labs(x = expression(paste(CO[2], 
+                            " emissions (billion tons, or tons per person)")), 
+       y = NULL, title = "Three different ways to compare emissions")
+
+```
+
+## 12 Nations = 77% of emissions {#carbon-club .eighty .noborder}
+
+::::::{.columns}
+:::{.column .ptop-3}
+
+1. China
+1. [US]{style="font-weight:bold;color:#A00000;"}
+1. [EU]{style="font-weight:bold;color:#A00000;"}
+1. India
+1. Brazil
+1. [Japan]{style="font-weight:bold;color:#A00000;"}
+1. [Canada]{style="font-weight:bold;color:#A00000;"}
+1. [Australia]{style="font-weight:bold;color:#A00000;"}
+1. Indonesia
+1. S. Korea, 
+1. S. Africa, 
+1. Mexico
+
+:::
+:::{.column}
+```{r gridlock, echo=F, fig.width=9, fig.height=9, cache=F}
+# p <- treemap_gridlock(nations) + 
+#   guides(fill = "none") +
+#   coord_equal() + 
+#   theme(plot.margin = unit(c(0,0,0,0), "npc"), 
+#         panel.spacing = unit(0, 'npc'),
+#         panel.background = element_blank(), # element_rect(fill = 'light blue', color = "green"),
+#         plot.background  = element_blank() # element_rect(fill = 'pink', color = "red")
+#         )
+
+treemap_gridlock(nations)
+```
+:::
+::::::

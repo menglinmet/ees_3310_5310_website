@@ -1,0 +1,859 @@
+---
+title:  "Temperature Structure of the Atmosphere"
+class_no: 6
+class_date: "Friday, February 5"
+qrimage: qrcode.png
+pageurl: "ees3310.jgilligan.org/slides/class_06"
+pdfurl: "ees3310.jgilligan.org/slides/class_06/ees_3310_5310_class_06_slides.pdf"
+course: "EES 3310/5310"
+course_name: "Global Climate Change"
+author: "Jonathan Gilligan"
+semester: Spring
+year: 2021
+output:
+  revealjg::revealjs_presentation
+---
+```{r setup, cache = F, echo = F, eval = T, message=F, warning=F}
+knitr::opts_chunk$set(cache=TRUE, 
+                      echo=FALSE, message=FALSE, warning=FALSE,
+                      fig.height=9, fig.width=14, dpi=100,
+                      dev='png',fig.path='assets/fig/',cache.path='./cache/')
+
+library(rprojroot)
+
+semester_dir <- find_rstudio_root_file()
+data_dir <- file.path(semester_dir, "data")
+script_dir <- file.path(semester_dir, "lecture_scripts")
+
+source_semester_script <- function(script) {
+  script_file <- file.path(script_dir, script)
+  message("Running script", script_file)
+  source(script_file, chdir = T)
+}
+
+eval_in_sem_script_dir <- function(expr, loc = script_dir) {
+  this_dir <- getwd()
+  setwd(loc)
+  retval <- eval(expr)
+  setwd(this_dir)
+  invisible(retval)
+}
+
+library(magrittr)
+library(tidyverse)
+
+source_semester_script('modtran.R')
+source_semester_script('convective_greenhouse.R')
+
+t1l_earth <- tbr_earth * 2^0.25
+t1l_mars  <- tbr_mars  * 2^0.25
+t1l_venus <- tbr_venus * 2^0.25
+```
+```{r generate_spectra, eval = FALSE, include=FALSE, echo=FALSE}
+for (atmos in c("standard", "tropical")) {
+  atmos_abbr = c(standard = "std", tropical = "trop")[atmos] %>%
+    unname()
+  for (z in c(20, 70)) {
+    dir <- file.path(data_dir, 'modtran', sprintf('%dkm_sat', z))
+    
+    mod_file <- file.path(dir, str_c("modtran", atmos_abbr, "defaults.txt", 
+                                     sep = "_"))
+    if (!file.exists(mod_file)) {
+      run_modtran(mod_file, delta_t = 0, h2o_fixed = "vapor pressure", 
+                  atmosphere = atmos, clouds = "none", 
+                  altitude_km = z, looking = "down")
+    }
+    
+    for (pco2 in 10^seq(-1,4)) {
+      if (pco2 < 1) {
+        mod_file = sprintf('co2_%08.2f_%s', pco2, atmos_abbr) %>% 
+          str_replace(fixed("."), "_") %>% 
+          str_c(., ".txt")
+      } else {
+        mod_file = sprintf('co2_%05d_%s.txt', pco2, atmos_abbr)
+      }
+      mod_file <- file.path(dir, mod_file)
+      
+      if (! file.exists(mod_file)) {
+        run_modtran(mod_file, co2_ppm = pco2, ch4_ppm = 0, trop_o3_ppb = 0, 
+                    strat_o3_scale = 0, h2o_scale = 0, freon_scale = 0, 
+                    delta_t = 0, h2o_fixed = "vapor pressure", 
+                    atmosphere = atmos, clouds = "none", 
+                    altitude_km = z, looking = "down")
+      }
+    }
+  }
+}
+```
+## Review Question   {#ghg_review_questions}
+
+### What is the "atmospheric window"?
+
+1. Regions where there are few clouds to block radiation.
+2. Desert regions with very little water vapor.
+3. Tropical regions with low CO~2~ concentrations.
+4. [A range of wavelengths where no greenhouse gases absorb much.]{.fragment .highlight-blue}
+
+# Measuring Greenhouse Effect: {#greenhouse_effect_sec .center }
+
+## Measuring Greenhouse Effect: {#greenhouse_effect data-transition="fade-out"}
+
+* Go to MODTRAN, set CO~2~ to 0 ppm, and set all other gases to zero.
+* {+} Set altitude to 70 km and location to "Tropical Atmosphere".
+* {+} Press "Save this run to background"
+* {+} Note _I_~out~
+* {+} Set CO~2~ to 400 ppm and note the change in _I_~out~
+* {+} Adjust the temperature offset to make the difference in <br/>
+  \(I_{\text{out}} (\text{New} - \text{BG})\) equal zero.
+
+## No Greenhouse Gases {#greenhouse_effect_00 data-transition="fade"}
+```{r warming.000, echo=FALSE}
+mod_data <- read_modtran(file.path(data_dir,'modtran','greenhouse_effect',
+                                   'co2_00000_ppm.txt'))
+gl <- plot_modtran(mod_data, annotate_size=10, legend_size=0.05, text_size=25,
+                   legend_text_size=25)
+i_out_ref  <- mod_data$i_out
+t_ref <- mod_data$t_ground
+last_i_out <- mod_data$i_out
+plot(gl)
+```
+
+## 400 ppm  {#greenhouse_effect_400 data-transition="fade"}
+```{r warming.400, echo=FALSE}
+mod_data <- read_modtran(file.path(data_dir,'modtran','greenhouse_effect',
+                                   'co2_00400_ppm.txt'))
+gl <- plot_modtran(modtran_data = mod_data, i_out_ref = i_out_ref, 
+                   delta_t = 0.0, annotate_size=10, legend_size=0.05, 
+                   text_size=25, legend_text_size=25)
+plot(gl)
+```
+
+## Adjust temperature  {#greenhouse_effect_400_warm data-transition="fade"}
+```{r warming.400.warm, echo=FALSE}
+mod_data <- read_modtran(file.path(data_dir,'modtran','greenhouse_effect',
+                                   'co2_00400_ppm_7_65K.txt'))
+delta_t <- mod_data$t_ground - t_ref
+gl <- plot_modtran(modtran_data = mod_data, i_out_ref = i_out_ref, 
+                   delta_t = delta_t, annotate_size=10, legend_size=0.05, 
+                   text_size=25, legend_text_size=25)
+plot(gl)
+```
+
+# Calculating Global Warming {#calc_warming_sec .center data-transition="fade"}
+
+## Calculating Global Warming  {#calc_warming data-transition="fade"}
+
+* "Climate sensitivity" = \(\Delta T_{2x}\)
+  * Temperature rise for doubled CO~2~.
+  * Uncertain (because of feedbacks)
+  * Best estimate: $\Delta T_{2x} \sim$ 3.2K (range  2.0--4.5 K)
+* {+} Every time you double CO~2~, \(T\) rises by \(\Delta T_{2x}\).
+* {+} For arbitrary change in CO~2~:
+
+  ::: {style="background-color:ghostwhite;margin:20px;border:10px;color:darkblue;"}
+  $$\Delta T = \Delta T_{2x} \times 
+  \frac{\ln\left(\frac{\text{new}~p\COO}{\text{old}~p\COO}\right)}{\ln 2}$$
+  :::
+
+## Global Warming Potential {#gwp}
+
+* Absorption by CO~2~ and water vapor are very saturated
+* {+} Absorption in the atmospheric window is not saturated
+* {+} Therefore, molecule-for-molecule, gases that absorb in the window 
+  have a much bigger effect on the climate than adding more CO~2~.
+  * {+} One chlorofluorocarbon molecule = thousands of CO~2~ molecules
+* {+} Global Warming Potential (GWP)  of _x_ = how many CO~2~ molecules 
+  cause the same warming as one molecule of _x_
+
+# Evolving theory of greenhouse effect {#evolving_theory_sec .center}
+
+## Greenhouse effect {#evolving_theory .eighty}
+
+1. Purely radiative (no convection) 
+   * Each layer has uniform temperature
+     a. {+} Single-layer, uniform spectrum [(Mon. 2/1)]{style="color:blue;"}
+        * Absorbs 100% longwave light
+     b. {+} Multi-layer, uniform spectrum [(Lab #2)]{style="color:blue;"}
+        * More layers \(\Rightarrow\) greater greenhouse effect.
+     c. {+} Realistic spectrum [(Wed. 2/3 & today)]{style="color:blue;"}
+        * More realistic
+        * Harder to do calculations (need computer)
+2. {+} Introduce convection [(Today & Monday 2/8)]{style="color:blue;"}
+   * Temperature changes with height
+   * Convection moves heat up and down
+   * Radiative-convective models are very accurate
+     * But require computers
+
+# The Vertical Structure of the Atmosphere {#vertical_structure_sec .center}
+
+## Greenhouse effect  {#evolving_theory_2 .eighty}
+
+::: {style="color:#a8a8c0;"}
+1. Purely radiative (no convection) 
+   * Each layer has uniform temperature
+     a. Single-layer, uniform spectrum
+        * Absorbs 100% longwave light
+     b. Multi-layer, uniform spectrum
+        * More layers \(\Rightarrow\) greater greenhouse effect.
+     c. Realistic spectrum
+        * More realistic
+        * Harder to do calculations (need computer)
+:::
+::: {style="color:#006080;"}
+2. Convection:
+   * Temperature changes with height
+   * Convection moves heat up and down
+   * Radiative-convective models are very accurate
+     * But require computers
+:::
+
+## Radiative-Convective Equilibrium  {#radiative_convective .center}
+
+![Radiative-Convective Equilibrium](assets/images/ar05f10.png){style="height:850px;"}
+
+## Normal Atmosphere: {#normal_atmosphere .center}
+
+```{r temp.profile, echo=FALSE, warning=FALSE, message=FALSE, cache=FALSE}
+run_modtran(file.path(data_dir, 'modtran', 'trop_atmosphere_defaults.txt'), 
+            atmosphere = "tropical")
+run_modtran(file.path(data_dir, 'modtran', 'std_atmosphere_defaults.txt'),
+            atmosphere = 'standard')
+
+profile <- read_modtran_profile(file.path(data_dir, 'modtran', 'std_atmosphere_defaults.txt'))
+profile <- profile[profile$Z <= 50,]
+trng <- range(profile$T)
+profile$delta <- NA
+profile$delta[-1] <- tail(profile$T,-1) - head(profile$T,-1)
+tropopause <- profile$Z[which(abs(profile$delta) < 1) - 1]
+ggplot(profile, aes(x=T, y=Z)) + 
+  geom_rect(aes(NULL,NULL,fill="stratosphere"), ymin=max(tropopause),ymax=50,xmin=trng[1], xmax=trng[2]) + 
+  geom_rect(aes(NULL,NULL,fill="troposphere"), ymin=0,ymax=min(tropopause), xmin=trng[1], xmax=trng[2]) + 
+  geom_rect(aes(NULL,NULL,fill="tropopause"), ymin=min(tropopause),ymax=max(tropopause),xmin=trng[1],xmax=trng[2]) + 
+  geom_path(color="black",size=1) + 
+  scale_fill_manual(values=alpha(c("rosybrown2","lavender", "darkseagreen2"),
+                                 0.2),
+                    guide="none") + 
+  geom_text(x=280,y=min(tropopause) - 2, label="Troposphere", size=8, 
+            hjust=1, vjust=1) +
+  geom_text(x=230, y=5, label="Lapse > 0", size=8, hjust=0, vjust=1) +
+  geom_text(x=280, y=mean(tropopause), label="Lower Stratosphere,\nTropopause", 
+            size=8, hjust=1, vjust=0.5) +
+  geom_text(x=230, y=mean(tropopause), label="Lapse = 0", size=8, 
+            hjust=0, vjust=0.5) +
+  geom_text(x=280, y=max(tropopause) + 2, label="Stratosphere", size=8, 
+            hjust=1, vjust=0) +
+  geom_text(x=230,y= max(tropopause) + 2, label="Lapse < 0", size=8, 
+            hjust=0, vjust=0) +
+  theme_classic() + theme(text=element_text(size=20)) +
+  labs(x = "Temperature (K)", y = "Altitude (km)")
+```
+
+## Vertical Structure {#lapse-rate .center data-transition="fade"}
+
+$$ \text{Lapse rate} = \frac{- \Delta T}{\Delta \text{height}} $$
+
+* Positive lapse rate: Air overhead is cooler<br/>
+  (normal for troposphere)
+
+* Negative lapse rate: Air overhead is warmer<br/>
+  (abnormal, "inversion")
+
+## Air vs. Water {#air_water .center}
+
+:::::: {.columns}
+::: {.column .rightcol}
+
+```{r air.pressure, echo=FALSE, fig.width=6, fig.height=8}
+z <- seq(0,50)
+p <- 1 * 2^(-z/5.5)
+air.pressure <- data.frame(z=z, p=p)
+ggplot(air.pressure, aes(x=p, y=z)) + geom_line(size=1) +
+  labs(x="Pressure (atm)", y="Height (km)",
+       title="Air presssure") +
+  theme_classic() + theme(text=element_text(size=20))
+```
+
+:::
+::: {.column .leftcol }
+
+```{r water.pressure, echo=FALSE, fig.width=6, fig.height=8}
+z <- seq(-100,11)
+p <- unlist(lapply(z, function(x) max(c(1, 1- x / 10))))
+water.pressure <- data.frame(z=z, p=p)
+ggplot(water.pressure, aes(x=p, y=z)) + geom_path(size=1) +
+  scale_y_continuous(breaks=seq(-100,10,12)) +
+  scale_x_continuous(breaks=seq(0,10), limits=c(0,12)) +
+  labs(x="Pressure (atm)", y="Height (m)",
+       title="Water Pressure") +
+  theme_classic() + theme(text=element_text(size=20))
+```
+
+:::
+::::::
+
+## Air vs. Water {#air_water_2}
+
+:::::: {.columns}
+::: {.column style="padding-top:3rem;"}
+
+* {+} Pressure = weight of everything overhead.
+* {+} Air is compressible, water isn't.
+* {+} 1 cubic meter of water weighs 1000&nbsp;kg
+* {+} 1 cubic meter of dry air at sea-level density weighs 1.3&nbsp;kg
+* {+} 1 cubic meter of dry air 10 km above sea level weighs 0.4&nbsp;kg
+
+:::
+::: {.column}
+
+![bricks](assets/images/ar05f04.png){style="height:900px;"}
+
+:::
+::::::
+
+## Air Pressure {#air_pressure}
+
+:::::: {.columns}
+::: {.column .ninety}
+
+* {+} Pressure at height \(h\):
+  $$
+  \begin{aligned}
+  P(h) & = P_0\: e^{-h/8.0 \text{km}} \\
+  &= P_0\: 2^{-h / 5.5 \text{km}} \\
+  &= P_0 \left(\frac{1}{2}\right)^{h / 5.5 \text{km}}
+  \end{aligned}
+  $$
+  
+  * {+} Half the air in the atmosphere is below 5.5 km.
+  * {+} 3/4 is below 11 km
+  * {+} 7/8 is below 16.5 km
+* {+} **NOTE:** The number 5.5 km is not exact, <br/>
+  but it's  consistent with the textbook.
+
+:::
+::: {.column}
+
+```{r air.pressure.2, echo=FALSE, fig.width=8, fig.height=8}
+z <- seq(0,50)
+p <- 1 * 2^(-z/5.5)
+air.pressure <- data.frame(z=z, p=p)
+ggplot(air.pressure, aes(x=p, y=z)) + geom_line(size=1) +
+  labs(x="Pressure (atm)", y="Height (km)",
+       title="Air presssure") +
+  theme_classic() + theme(text=element_text(size=25))
+```
+
+:::
+::::::
+
+## Why is the air cooler higher up? {#review_q_lapse .ninety}
+
+![adiabatic lapse](assets/images/adiabatic_lapse.jpg){style="height:900px;"}
+
+## Terminology {#terminology}
+
+* **Environmental Lapse**
+  * Measured temperature of actual atmosphere
+  * Compares one bit of air at one height with another bit at another height.
+  * Changes from one time and place to another.
+* {+} **Adiabatic Lapse**
+  * Change in a single parcel of air as it moves up or down
+  * "**Adiabatic**" means no heat flowing in or out
+    * **Adiabatic changes</b> are reversible**
+    * **Heat flow** is irreversible
+
+# Overview of Convection {#convection_overview_sec .center}
+
+## Overview of convection {#convection_overview data-transition="fade-out"}
+
+![Adiabatic Lapse](assets/images/adiabatic_lapse_1.png){style="height:700px;margin-top:1em;"}
+
+* Closer to vertical = smaller lapse rate (vertical = zero)
+* Closer to horizontal = larger lapse rate
+
+## Stable Atmosphere  {#stable_atm_1 data-transition="fade"}
+
+### Initial State
+
+![Initial state in stable atmosphere](assets/images/stable_lapse_2.png){style="height:700px;"}
+
+* [green = adiabatic lapse]{style="color:darkgreen;"}
+* [blue = environmental lapse]{style="color:darkblue;"} < [adiabatic]{style="color:darkgreen;"}
+
+
+## Stable Atmosphere {#stable_atm_heated data-transition="fade"}
+
+### Parcel is heated
+
+![Heated parcel in stable atmosphere](assets/images/stable_heated_2.png){style="height:700px;"}
+
+## Stable Atmosphere  {#stable_atm_rise data-transition="fade"}
+
+### Rises to new equilibrium
+
+![Rising in stable atmosphere](assets/images/stable_rise_2.png){style="height:700px;"}
+
+## Stable Atmosphere   {#stable_atm_cool data-transition="fade"}
+
+### Parcel is cooled
+
+![Cooled parcel in stable atmosphere](assets/images/stable_cool_2.png){style="height:700px;"}
+
+## Stable Atmosphere   {#stable_atm_sink data-transition="fade-in"}
+
+### Sinks to new equilibrium
+
+![Falling in stable atmosphere](assets/images/stable_fall_2.png){style="height:700px;"}
+
+# Unstable Atmosphere {#unstable_atm_sec .center}
+
+## Unstable Atmosphere   {#unstable_atm data-transition="fade-out"}
+
+### Initial State
+
+![Initial state in unstable atmosphere](assets/images/unstable_lapse_2.png){style="height:700px;"}
+
+* [green = adiabatic lapse]{style="color:darkgreen;"}
+* [blue = environmental lapse]{style="color:darkblue;"} > [adiabatic]{style="color:darkgreen;"}
+
+## Unstable Atmosphere   {#unstable_atm_heat data-transition="fade"}
+
+### Parcel is heated
+
+![Heated parcel in unstable atmosphere](assets/images/unstable_heat_2.png){style="height:700px;"}
+
+## Unstable Atmosphere    {#unstable_atm_rise data-transition="fade"}
+
+### Rises without stopping
+
+![Rising in unstable atmosphere](assets/images/unstable_rise_2.png){style="height:700px;"}
+
+# Summary of Stability {#summary_stability_sec .center}
+
+## Summary of stability: {#summary_stability}
+
+* Stable conditions:
+  * Adiabatic Lapse > Environmental Lapse
+    
+* Unstable conditions:
+  * Adiabatic Lapse < Environmental Lapse
+
+<!--- --->
+
+* Why is stability important?
+  * {+} A stable atmosphere does not move heat around
+  * {+} An unstable atmosphere undergoes **convection**:
+    * Hot air rises, cold air sinks
+    * Redistributes heat
+
+# Moist Convection  {#moist_convection_sec .center}
+
+## Moist Convection  {#moist_convection data-transition="fade-out"}
+
+![Moist Convection](assets/images/ar05f09.png){style="height:550px;"}
+
+*  {+} Dry air rises and cools
+*  {+} Cooling \(\Rightarrow\) water vapor condenses to liquid
+*  {+} Condensation releases latent heat
+*  {+} Latent heat warms air
+
+## Moist Convection    {#moist_stability data-transition="fade"}
+
+![Moist Convection](assets/images/ar05f09.png){style="height:550px;"}
+
+* {+} Latent heat warms air
+* {+} Heat reduces adiabatic cooling
+* {+} Moist adiabatic lapse < Dry adiabatic lapse
+* {+} Smaller lapse = less stable
+* {+} **Humid air is less stable than dry air**
+
+## Perspective {#stability}
+
+* {+} Stable:
+  * Environmental lapse \(\le\) adiabatic lapse
+* {+} Unstable:
+  * Environmental lapse > adiabatic lapse
+* {+} Adiabatic lapse:
+  * Dry: 10 K/km
+  * Moist: 4-8 K/km (depends on humidity)
+* {+} Pure radiative equilibrium:
+  * Would produce lapse of **16 K/km**: unstable
+* {+} Radiative-Convective equilibrium:
+  * Convection modifies environmental lapse
+  * Normal environmental lapse is roughly **6 K/km**
+    <br/>(typical *moist adiabatic lapse rate*)
+
+
+
+# Greenhouse effect {#convective_greenhouse_sec .center}
+
+## Greenhouse effect {#gw-baseline .ninety data-transition="fade"}
+
+```{r baseline.conv.gh, echo=FALSE, fig.height=7, fig.width=10}
+angle = 39
+adiabat_labels <- rep_len('environ. lapse rate',2)
+plot.conv.greenhouse(z.ratio = 1.3, angle=angle, 
+                     reserve = 1.5,
+                     adiabat.labels = adiabat_labels, plot.warming=FALSE)
+```
+
+* Skin temp: 
+  $T_{\text{skin}} = T_{\text{bare rock}} = `r round(tbr_earth)`~\text{K}$.
+* Ground temp: 
+  $T_{\text{ground}} = T_{\text{skin}} + h_{\text{skin}} \times \text{ELR}$
+  * ELR = Environmental Lapse Rate
+
+## Global warming {#gw-convect .ninety data-transition="fade"}
+
+```{r warm.conv.gh, echo=FALSE, fig.height=7, fig.width=10, dependson="baseline.conv.gh"}
+plot.conv.greenhouse(z.ratio = 1.3, angle=angle, 
+                     reserve = 1.5,
+                     adiabat.labels = adiabat_labels, plot.warming=TRUE)
+```
+
+* Greater CO~2~ $\rightarrow$ greater skin height.
+* Warming: $\Delta T_{\text{ground}} = \Delta h_{\text{skin}} \times \text{env. lapse}$
+
+# Vertical Structure and Saturation {#vertical-saturation-sec .center}
+
+## Set up MODTRAN: {#setup-modtran .eighty}
+
+### Go to MODTRAN ([http://climatemodels.uchicago.edu/modtran/](http://climatemodels.uchicago.edu/modtran/))
+
+<!-- -->
+
+* {+} Set altitude to **70 km** and location to "1976 U.S. Standard Atmosphere".
+* {+} Set CO~2~ to 0.1 ppm, all other gases to zero.
+* {+} Now increase by factors of 10 (1, 10, 100, 1000, 10000)
+
+## 0.1 ppm CO~2~  {#vert-co2-00001 data-transition="fade-out"}
+```{r co2.00000_1.hi, echo=FALSE, warning=FALSE, message=FALSE}
+pco2 = 0.1
+z = 70
+atmos = "std"
+mod_file = file.path(data_dir, 'modtran', sprintf('%dkm_sat', z), 
+                     sprintf('co2_00000_10_%s.txt', atmos))
+if (! file.exists(mod_file)) {
+  stop("Can't find file ", mod_file)
+  # mod_data = run_modtran(mod_file, co2_ppm = pco2, ch4_ppm = 0, trop_o3_ppb = 0, 
+  #                        strat_o3_scale = 0, h2o_scale = 0, freon_scale = 0, 
+  #                        delta_t = 0, h2o_fixed = "vapor pressure", 
+  #                        atmosphere = "tropical", clouds = "none", 
+  #                        altitude_km = z, looking = "down")
+} else {
+  mod_data <- read_modtran(mod_file)
+}
+# i_out_table <- data.frame(pco2 = mod_data$co2, i_out = mod_data$i_out, 
+# delta = NA, increment = NA)
+i_out_ref  <- mod_data$i_out
+last_i_out <- mod_data$i_out
+
+gl <- plot_modtran(modtran_data = mod_data, 
+                   descr = sprintf('%.1 f ppm CO2, %d km', pco2, z),
+           legend_size=0.05, legend_text_size=25, text_size = 25, 
+           annotate_size = NA)
+
+plot(gl)
+```
+
+## 1 ppm CO~2~  {#vert-co2-00001 data-transition="fade"}
+```{r co2.00001.hi, echo=FALSE, warning=FALSE, message=FALSE}
+pco2 = 1
+z = 70
+atmos = "std"
+mod_file = file.path(data_dir, 'modtran', sprintf('%dkm_sat', z), 
+                     sprintf('co2_%05d_%s.txt', pco2, atmos))
+if (! file.exists(mod_file)) {
+  stop("Can't find file ", mod_file)
+  # mod_data = run_modtran(mod_file, co2_ppm = pco2, ch4_ppm = 0, trop_o3_ppb = 0, 
+  #                        strat_o3_scale = 0, h2o_scale = 0, freon_scale = 0, 
+  #                        delta_t = 0, h2o_fixed = "vapor pressure", 
+  #                        atmosphere = "tropical", clouds = "none", 
+  #                        altitude_km = z, looking = "down")
+} else {
+  mod_data <- read_modtran(mod_file)
+}
+# i_out_table <- bind_rows(i_out_table,
+#                          data.frame(pco2 = mod_data$co2, 
+#                                     i_out = mod_data$i_out,
+#                                     delta = mod_data$i_out - i_out_ref,
+#                                     increment = mod_data$i_out - last_i_out))
+i_out_ref  <- mod_data$i_out
+last_i_out <- mod_data$i_out
+
+gl <- plot_modtran(modtran_data = mod_data, 
+                   descr = sprintf('%d ppm CO2, %d km', pco2, z),
+           legend_size=0.05, legend_text_size=25, text_size = 25, 
+           annotate_size = NA)
+
+plot(gl)
+```
+
+## 10 ppm CO~2~  {#vert-co2-00010 data-transition="fade"}
+```{r co2.00010.hi, echo=FALSE, warning=FALSE, message=FALSE, dependson = "co2.00001.hi"}
+pco2 = 10
+z = 70
+atmos = "std"
+mod_file = file.path(data_dir, 'modtran', sprintf('%dkm_sat', z), 
+                     sprintf('co2_%05d_%s.txt', pco2, atmos))
+if (! file.exists(mod_file)) {
+  stop("Can't find file ", mod_file)
+  # mod_data = run_modtran(mod_file, co2_ppm = pco2, ch4_ppm = 0, trop_o3_ppb = 0, 
+  #                        strat_o3_scale = 0, h2o_scale = 0, freon_scale = 0, 
+  #                        delta_t = 0, h2o_fixed = "vapor pressure", 
+  #                        atmosphere = "tropical", clouds = "none", 
+  #                        altitude_km = z, looking = "down")
+} else {
+  mod_data <- read_modtran(mod_file)
+}
+# i_out_table <- bind_rows(i_out_table,
+#                          data.frame(pco2 = mod_data$co2, 
+#                                     i_out = mod_data$i_out,
+#                                     delta = mod_data$i_out - i_out_ref,
+#                                     increment = mod_data$i_out - last_i_out))
+i_out_ref  <- mod_data$i_out
+last_i_out <- mod_data$i_out
+
+gl <- plot_modtran(modtran_data = mod_data, 
+                   descr = sprintf('%d ppm CO2, %d km', pco2, z),
+           legend_size=0.05, legend_text_size=25, text_size = 25, 
+           annotate_size = NA)
+
+plot(gl)
+```
+
+## 100 ppm CO~2~  {#vert-co2-00100 data-transition="fade"}
+```{r co2.00100.hi, echo=FALSE, warning=FALSE, message=FALSE, dependson = "co2.00010.hi"}
+pco2 = 100
+z = 70
+atmos = "std"
+mod_file = file.path(data_dir, 'modtran', sprintf('%dkm_sat', z), 
+                     sprintf('co2_%05d_%s.txt', pco2, atmos))
+if (! file.exists(mod_file)) {
+  stop("Can't find file ", mod_file)
+  # mod_data = run_modtran(mod_file, co2_ppm = pco2, ch4_ppm = 0, trop_o3_ppb = 0, 
+  #                        strat_o3_scale = 0, h2o_scale = 0, freon_scale = 0, 
+  #                        delta_t = 0, h2o_fixed = "vapor pressure", 
+  #                        atmosphere = "tropical", clouds = "none", 
+  #                        altitude_km = z, looking = "down")
+} else {
+  mod_data <- read_modtran(mod_file)
+}
+# i_out_table <- bind_rows(i_out_table,
+#                          data.frame(pco2 = mod_data$co2, 
+#                                     i_out = mod_data$i_out,
+#                                     delta = mod_data$i_out - i_out_ref,
+#                                     increment = mod_data$i_out - last_i_out))
+i_out_ref  <- mod_data$i_out
+last_i_out <- mod_data$i_out
+
+gl <- plot_modtran(modtran_data = mod_data, 
+                   descr = sprintf('%d ppm CO2, %d km', pco2, z),
+           legend_size=0.05, legend_text_size=25, text_size = 25, 
+           annotate_size = NA)
+
+plot(gl)
+```
+
+## 1000 ppm CO~2~  {#vert-co2-01000 data-transition="fade"}
+```{r co2.01000.hi, echo=FALSE, warning=FALSE, message=FALSE, dependson = "co2.00100.hi"}
+pco2 = 1000
+z = 70
+atmos = "std"
+mod_file = file.path(data_dir, 'modtran', sprintf('%dkm_sat', z), 
+                     sprintf('co2_%05d_%s.txt', pco2, atmos))
+if (! file.exists(mod_file)) {
+  stop("Can't find file ", mod_file)
+  # mod_data = run_modtran(mod_file, co2_ppm = pco2, ch4_ppm = 0, trop_o3_ppb = 0, 
+  #                        strat_o3_scale = 0, h2o_scale = 0, freon_scale = 0, 
+  #                        delta_t = 0, h2o_fixed = "vapor pressure", 
+  #                        atmosphere = "tropical", clouds = "none", 
+  #                        altitude_km = z, looking = "down")
+} else {
+  mod_data <- read_modtran(mod_file)
+}
+# i_out_table <- bind_rows(i_out_table,
+#                          data.frame(pco2 = mod_data$co2, 
+#                                     i_out = mod_data$i_out,
+#                                     delta = mod_data$i_out - i_out_ref,
+#                                     increment = mod_data$i_out - last_i_out))
+i_out_ref  <- mod_data$i_out
+last_i_out <- mod_data$i_out
+
+gl <- plot_modtran(modtran_data = mod_data, 
+                   descr = sprintf('%d ppm CO2, %d km', pco2, z),
+           legend_size=0.05, legend_text_size=25, text_size = 25, 
+           annotate_size = NA)
+
+plot(gl)
+```
+
+## 10,000 ppm CO~2~  {#vert-co2-10000 data-transition="fade-in"}
+```{r co2.10000.hi, echo=FALSE, warning=FALSE, message=FALSE, dependson = "co2.01000.hi"}
+pco2 = 10000
+z = 70
+atmos = "std"
+mod_file = file.path(data_dir, 'modtran', sprintf('%dkm_sat', z), 
+                     sprintf('co2_%05d_%s.txt', pco2, atmos))
+if (! file.exists(mod_file)) {
+  stop("Can't find file ", mod_file)
+  # mod_data = run_modtran(mod_file, co2_ppm = pco2, ch4_ppm = 0, trop_o3_ppb = 0, 
+  #                        strat_o3_scale = 0, h2o_scale = 0, freon_scale = 0, 
+  #                        delta_t = 0, h2o_fixed = "vapor pressure", 
+  #                        atmosphere = "tropical", clouds = "none", 
+  #                        altitude_km = z, looking = "down")
+} else {
+  mod_data <- read_modtran(mod_file)
+}
+# i_out_table <- bind_rows(i_out_table,
+#                          data.frame(pco2 = mod_data$co2, 
+#                                     i_out = mod_data$i_out,
+#                                     delta = mod_data$i_out - i_out_ref,
+#                                     increment = mod_data$i_out - last_i_out))
+i_out_ref  <- mod_data$i_out
+last_i_out <- mod_data$i_out
+
+gl <- plot_modtran(modtran_data = mod_data, 
+                   descr = sprintf('%d ppm CO2, %d km', pco2, z),
+           legend_size=0.05, legend_text_size=25, text_size = 25, 
+           annotate_size = NA)
+
+plot(gl)
+```
+
+## Question {#question-3 data-transition="fade-out"}
+
+```{r std_atmos_plot, echo=FALSE, fig.height=7, warning=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','std_atmosphere_defaults.txt'))$mtime)}
+atmos <- "std"
+mod_file = file.path(data_dir, 'modtran', 
+                     str_c(atmos, "atmosphere_defaults.txt", sep = "_"))
+gl <- plot_modtran(mod_file, 
+                   legend_size=0.05, legend_text_size=15, text_size=15, 
+                   annotate_size = NA)
+plot(gl)
+```
+
+
+* Why do we see the spike in the middle<br/>of the CO~2~ absorption feature?
+
+## Answer {#answer-3 data-transition="fade"}
+
+::::::: {.columns}
+::: {.column .eighty style="width:49%;padding-top:1em;"}
+```{r high_plot, echo=FALSE, fig.height=7, warning=FALSE, fig.width=9, fig.height=7, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','std_atmosphere_defaults.txt'))$mtime)}
+atmos = "std"
+z = 70
+mod_file <- file.path(data_dir,'modtran',sprintf('%dkm_sat', z), 
+                      str_c('modtran', atmos, 'defaults.txt', sep = "_"))
+mod_data <- read_modtran(mod_file)
+gl <- plot_modtran(mod_data, 
+                   descr = sprintf('%.0 f ppm CO2, %d km', mod_data$co2, 
+                                   mod_data$alt),
+                   lambda = c(1, 2, 2.5, 3, 3.5, 4, 5:10, 12, 14, 17, 20, 25, 
+                              30, 40, 50, 100),
+                   tmax = 280, nc = 4,
+                   legend_size=0.05, legend_text_size=15, text_size = 15, 
+                   annotate_size = NA)
+plot(gl)
+```
+:::
+::: {.column .eighty style="width:49%;padding-top:1em;"}
+```{r low_plot, echo=FALSE, fig.height=7, warning=FALSE, fig.width=9, fig.height=7, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','std_atmosphere_defaults.txt'))$mtime)}
+z <- 20
+atmos = "std"
+mod_file <- file.path(data_dir,'modtran',sprintf('%dkm_sat', z), 
+                      str_c('modtran', atmos, 'defaults.txt', sep = "_"))
+mod_data <- read_modtran(mod_file)
+gl <- plot_modtran(mod_data,
+                   descr = sprintf('%.0 f ppm CO2, %d km', mod_data$co2, 
+                                   mod_data$alt),
+                   lambda = c(1, 2, 2.5, 3, 3.5, 4, 5:10, 12, 14, 17, 20, 25, 
+                              30, 40, 50, 100),
+                   tmax = 280, nc = 4,
+                   legend_size=0.05, legend_text_size=15, text_size = 15, 
+                   annotate_size = NA)
+plot(gl)
+```
+:::
+::::::
+
+## Answer {#answer-3b data-transition="fade-in"}
+
+::::::: {.columns}
+::: {.column .eighty style="width:49%;padding-top:1em;"}
+```{r high_plot_2, ref.label="high_plot", echo=FALSE, fig.height=7, warning=FALSE, fig.width=9, fig.height=7}
+```
+:::
+::: {.column .eighty style="width:49%;padding-top:1em;"}
+```{r modtran_profile, echo=FALSE, fig.height=7, warning=FALSE, fig.width=9, fig.height=7, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','std_atmosphere_defaults.txt'))$mtime)}
+z = 20
+atmos = "std"
+mod_file <- file.path(data_dir,'modtran', sprintf('%2dkm_sat', z), 
+                      str_c('modtran', atmos, 'defaults.txt', sep = "_"))
+mod_profile <- read_modtran_profile(mod_file)
+marg <- theme_get()$plot.margin
+marg[2] <- unit(1, "line")
+gl <- mod_profile %>% filter(Z <= 50) %>% 
+  ggplot(aes(x = T, y = Z)) +
+  geom_path(size = 1) +
+  scale_x_continuous(breaks = seq(200, 300, 10), 
+                     limits=c(215,290),
+                     expand = c(0,0)) +
+  scale_y_continuous(expand = c(0,0)) +
+  labs(x = "T (Kelvin)", y = "Altitude (km)") +
+  theme(plot.margin = marg)
+plot(gl)
+```
+:::
+::::::
+
+## Question {#question-4 data-transition="fade-out"}
+
+```{r h2o.question, ref.label="std_atmos_plot", fig.height=7}
+```
+
+* Water vapor absorption is completely saturated.
+  * Why does water vapor emit at warmer temperatures than CO~2~?
+
+## Answer {#answer-4 data-transition="fade-in"}
+
+::: {.bare style="margin-top:1rem;"}
+```{r h2o_answer, fig.height=7}
+mod_prof <- read_modtran_profile(file.path(data_dir, "modtran", "70km_sat", "modtran_defaults.txt"))
+mod_prof <- mod_prof %>% select(Z, P, H2O, CO2) %>% 
+  pivot_longer(cols=c(H2O, CO2), names_to = "Molecule", values_to = "ppm") %>%
+  mutate(mbar = ppm * 1E-6 * P)
+marg <- theme_get()$plot.margin
+marg[2] <- unit(1, "lines")
+
+log_format <- function(x) {
+  lx <- log10(x)
+  ifelse(lx < 0,
+    math_format(10^.x)(log10(x)),
+    x)
+}
+
+gl <- mod_prof %>%
+  filter(Z <= 25) %>%
+  ggplot(aes(x = mbar, y = Z, color = Molecule)) +
+  geom_path(size = 1.5) +
+  # scale_x_continuous(limits = c(-10, 6000), expand = c(0,0), 
+  #                    breaks = seq(0, 10000, 500)) +
+  scale_x_log10(breaks = c(1E-4, 1E-3, 1E-2, 1E-1, 1.0, 10),
+                labels = label_number(trim = TRUE, drop0trailing = TRUE)) +
+  scale_y_continuous(expand = c(0,0)) +
+  scale_color_brewer(palette = "Dark2", breaks = c("CO2", "H2O"),
+                     labels = expression(CO[2], H[2] * O)) +
+  labs(x = "Partial pressure (mbar)", y = "Altitude (km)") +
+  theme(legend.position = c(0.99, 0.99), legend.justification = c(1,1),
+        legend.key.width = unit(2, "lines"),
+        plot.margin = marg)
+plot(gl)
+```
+:::
+::: {.bare .eighty}
+* {+} Near the ground, there is much more water vapor (10 times more)
+* {+} Above about 7 km, there is much more CO~2~ (100 times more at 20 km)
+  * {+} Water vapor concentrations become small enough to be transparent to space
+    <br/>at a much lower altitude than CO~2~
+:::

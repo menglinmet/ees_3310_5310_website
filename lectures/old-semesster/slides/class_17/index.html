@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<!-- JG Reveal.js Template --><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="pandoc">
+<meta name="author" content="Jonathan Gilligan">
+<title>Climates of the Future</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+<link rel="stylesheet" href="../../lecture_lib/library/reveal.js-3.8.0/css/reset.css">
+<link rel="stylesheet" href="../../lecture_lib/library/reveal.js-3.8.0/css/reveal.min.css">
+<style type="text/css">
+      code{white-space: pre-wrap;}
+      .smallcaps{font-variant: small-caps;}
+      .line-block{white-space: pre-line;}
+      .column{display: inline-block;}  </style>
+<style type="text/css">
+    div.qrbox,
+    aside.qrbox {
+     text-align: left;
+     vertical-align: bottom;
+     width: 95%;
+     position: fixed;
+     left: 2.5%;
+     bottom: 1rem;
+     display: block;
+    }
+  </style>
+<!-- theme = solarized_jg --><link rel="stylesheet" href="../../lecture_lib/library/assets/css/theme/solarized_jg.css" id="theme">
+<!-- Printing and PDF exports --><script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../lecture_lib/library/reveal.js-3.8.0/css/print/pdf.css' : '../../lecture_lib/library/reveal.js-3.8.0/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script><!--[if lt IE 9]>
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/lib/js/html5shiv.js"></script>
+  <![endif]--><script src="../../lecture_lib/library/header-attrs-2.6.6.9000/header-attrs.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+            <!-- start title slide -->
+<section class="center" id="title"><h1 class="title">Climates of the Future</h1>
+    <h3 class="author">EES 3310/5310</h3>
+        <h3 class="author">Global Climate Change</h3>
+    <h3 class="author">Jonathan Gilligan</h3>
+    <h3 class="date">
+      Class #17:
+       Wednesday, March 3
+      2021
+    </h3>
+	<!-- end title slide -->
+</section><section><section id="iams-sec" class="title-slide slide level1 center" data-transition="fade-out"><h1 class="center" data-transition="fade-out">Modeling for<br>Science vs. Policy</h1>
+
+</section><section id="iams" class="slide level2 ninety" data-transition="fade-out"><h2 class="ninety" data-transition="fade-out">Modeling for Science vs. Policy</h2>
+<h3 id="integrated-assessment-models-iams">Integrated Assessment Models (IAMS)</h3>
+<ul>
+<li class="fragment">Combine climate system and world economy<ul>
+<li class="fragment">Emissions as a consequence of economic activity<ul>
+<li class="fragment">Energy use for production (factories, etc.)</li>
+<li class="fragment">Energy use for consumption (households, etc.)</li>
+<li class="fragment">Farming: fertilizers, livestock, paddy fields, etc.</li>
+</ul>
+</li>
+<li class="fragment">Climatic impacts on economy<ul>
+<li class="fragment">Cost of severe weather</li>
+<li class="fragment">Sea level rise</li>
+<li class="fragment">Droughts &amp; heat waves</li>
+<li class="fragment">…</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="fragment"><strong>Optimize for greatest net economic output</strong>
+</li>
+</ul></section><section id="model-scenarios" class="slide level2 eightyfive"><h2 class="eightyfive">Predictions &amp; Projections</h2>
+<ul>
+<li>Predictions are hard:</li>
+<li class="fragment">Biggest uncertainty in predicting future climates is GHG emissions<ul>
+<li class="fragment">We can predict consequences of emissions</li>
+<li class="fragment">We can’t predict what emissions will be</li>
+</ul>
+</li>
+<li class="fragment">Projections:<ul>
+<li class="fragment">Conditional predictions:<ul>
+<li>“<strong>If</strong> emissions do this, <strong>then</strong> climate will do that.”</li>
+</ul>
+</li>
+<li class="fragment">Scenarios and Pathways of future emissions:<ul>
+<li class="fragment"><strong>Scenario</strong>:
+<ul>
+<li>Start with a story of economic &amp; political development</li>
+<li>Calculate resulting emissions</li>
+</ul>
+</li>
+<li class="fragment"><strong>Pathway</strong>:
+<ul>
+<li>Start with possible emissions trajectory</li>
+<li>Develop a plausible story that could produce it</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></section><section id="us-projections" class="slide level2 center" data-transition="fade"><h2 class="center" data-transition="fade"><!--- ---></h2>
+<h3 id="projections-for-future-emissions-in-us">Projections for future emissions in US:</h3>
+<table>
+<thead><tr class="header">
+<th></th>
+<th style="text-align: right;">2010</th>
+<th style="text-align: right;">2050</th>
+<th style="text-align: right;">Growth rate</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>
+<em>g</em> ($/person)</td>
+<td style="text-align: right;">42,300</td>
+<td style="text-align: right;">83,495</td>
+<td style="text-align: right;">1.7%</td>
+</tr>
+<tr class="even">
+<td>
+<em>ef</em> (tons/$million)</td>
+<td style="text-align: right;">432</td>
+<td style="text-align: right;">228</td>
+<td style="text-align: right;">-1.6%</td>
+</tr>
+<tr class="odd">
+<td>
+<em>P</em> (millions)</td>
+<td style="text-align: right;">309</td>
+<td style="text-align: right;">393</td>
+<td style="text-align: right;">0.6%</td>
+</tr>
+<tr class="even">
+<td>
+<strong>Total Emissions</strong> <span class="math inline">\(F\)</span><br>(million tons CO<sub>2</sub>)</td>
+<td style="text-align: right;"><strong>5,647</strong></td>
+<td style="text-align: right;"><strong>7,471</strong></td>
+<td style="text-align: right;">1.7 - 1.6 + 0.6 = <strong>0.7%</strong>
+</td>
+</tr>
+</tbody>
+</table></section><section id="world-projections" class="slide level2 center" data-transition="fade"><h2 class="center" data-transition="fade"><!--- ---></h2>
+<h3 id="projections-for-future-world-emissions">Projections for future world emissions:</h3>
+<table>
+<thead><tr class="header">
+<th></th>
+<th style="text-align: right;">2010</th>
+<th style="text-align: right;">2050</th>
+<th style="text-align: right;">Growth rate</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>
+<em>g</em> ($/person)</td>
+<td style="text-align: right;">9,780</td>
+<td style="text-align: right;">22,654</td>
+<td style="text-align: right;">2.1%</td>
+</tr>
+<tr class="even">
+<td>
+<em>ef</em> (tons/$million)</td>
+<td style="text-align: right;">522</td>
+<td style="text-align: right;">275</td>
+<td style="text-align: right;">-1.6%</td>
+</tr>
+<tr class="odd">
+<td>
+<em>P</em> (millions)</td>
+<td style="text-align: right;">6,410</td>
+<td style="text-align: right;">9,188</td>
+<td style="text-align: right;">0.9%</td>
+</tr>
+<tr class="even">
+<td>
+<strong>Total Emissions</strong> <span class="math inline">\(F\)</span><br>(million tons CO<sub>2</sub>)</td>
+<td style="text-align: right;"><strong>32,724</strong></td>
+<td style="text-align: right;"><strong>57,289</strong></td>
+<td style="text-align: right;">2.1 - 1.6 + 0.9 = <strong>1.4%</strong>
+</td>
+</tr>
+</tbody>
+</table></section><section id="model-uncertainties-2" class="slide level2" data-transition="fade"><h2 data-transition="fade">Uncertainties in Projections</h2>
+<h3 class="mtop-3" id="projections-for-future-world-emissions-1">Projections for future world emissions:<br> </h3>
+<table>
+<thead><tr class="header">
+<th></th>
+<th style="text-align: right;">2010</th>
+<th style="text-align: right;">2050</th>
+<th style="text-align: right;">2100</th>
+<th style="text-align: right;">Growth rate</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>
+<em>g</em> ($/person)</td>
+<td style="text-align: right;">9,780</td>
+<td style="text-align: right;">22,654</td>
+<td style="text-align: right;">64,737</td>
+<td style="text-align: right;">2.1%</td>
+</tr>
+<tr class="even">
+<td>
+<em>ef</em> (tons/$million)</td>
+<td style="text-align: right;">522</td>
+<td style="text-align: right;">275</td>
+<td style="text-align: right;">124</td>
+<td style="text-align: right;">-1.6%</td>
+</tr>
+<tr class="odd">
+<td>
+<em>P</em> (millions)</td>
+<td style="text-align: right;">6,410</td>
+<td style="text-align: right;">9,188</td>
+<td style="text-align: right;">14,409</td>
+<td style="text-align: right;">0.9%</td>
+</tr>
+<tr class="even">
+<td>
+<strong>Total Emissions</strong> <span class="math inline">\(F\)</span><br>(million tons CO<sub>2</sub>)</td>
+<td style="text-align: right;"><strong>32,724</strong></td>
+<td style="text-align: right;"><strong>57,289</strong></td>
+<td style="text-align: right;"><strong>115,366</strong></td>
+<td style="text-align: right;"><strong>1.4%</strong></td>
+</tr>
+</tbody>
+</table></section><section id="higher-growth" class="slide level2" data-transition="fade"><h2 data-transition="fade">Uncertainties in Projections</h2>
+<h3 class="mtop-3" id="projections-for-future-world-emissions-with-slightly-different-growth-rates">Projections for future world emissions<br>with slightly different growth rates:</h3>
+<table>
+<thead><tr class="header">
+<th></th>
+<th style="text-align: right;">2010</th>
+<th style="text-align: right;">2050</th>
+<th style="text-align: right;">2100</th>
+<th style="text-align: right;">Growth rate</th>
+<th style="text-align: right;">Δ rate</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>
+<em>g</em> ($/person)</td>
+<td style="text-align: right;">9,780</td>
+<td style="text-align: right;">24,541</td>
+<td style="text-align: right;">77,505</td>
+<td style="text-align: right;">2.3%</td>
+<td style="text-align: right;">0.2%</td>
+</tr>
+<tr class="even">
+<td>
+<em>ef</em> (tons/$million)</td>
+<td style="text-align: right;">522</td>
+<td style="text-align: right;">298</td>
+<td style="text-align: right;">148</td>
+<td style="text-align: right;">-1.4%</td>
+<td style="text-align: right;">0.2%</td>
+</tr>
+<tr class="odd">
+<td>
+<em>P</em> (millions)</td>
+<td style="text-align: right;">6,410</td>
+<td style="text-align: right;">9,563</td>
+<td style="text-align: right;">15,766</td>
+<td style="text-align: right;">1.0%</td>
+<td style="text-align: right;">0.1%</td>
+</tr>
+<tr class="even">
+<td>
+<strong>Total Emissions</strong> <span class="math inline">\(F\)</span><br>(million tons CO<sub>2</sub>)</td>
+<td style="text-align: right;"><strong>32,724</strong></td>
+<td style="text-align: right;"><strong>69,973</strong></td>
+<td style="text-align: right;"><strong>180,930</strong></td>
+<td style="text-align: right;"><strong>1.9%</strong></td>
+<td style="text-align: right;">0.5%</td>
+</tr>
+<tr class="odd">
+<td><strong>Difference</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"><strong>12,684</strong></td>
+<td style="text-align: right;"><strong>65,564</strong></td>
+<td style="text-align: right;"><strong>0.5%</strong></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td><strong>Difference (%)</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"><strong>22%</strong></td>
+<td style="text-align: right;"><strong>57%</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table></section><section id="uncertainty" class="slide level2" style="font-size:66%;"><h2 style="font-size:66%;">Decisions Under Uncertainty</h2>
+<ul>
+<li class="fragment"><strong>Global Climate change:</strong>
+<ul>
+<li>Great Certainty:
+<ul>
+<li>People are warming the planet.</li>
+<li>Warming will continue long after CO<sub>2</sub> stops rising.</li>
+<li>Changes will persist for thousands of years.</li>
+</ul>
+</li>
+<li>Uncertain:
+<ul>
+<li>How much will planet warm (factor of ~2).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="fragment"><strong>Impacts of Global Climate Change:</strong>
+<ul>
+<li>Fairly Certain:
+<ul>
+<li>Severe heat waves will get worse.</li>
+<li>Drought will get worse for much of the planet.</li>
+<li>Intense rain &amp; floods will get worse.</li>
+</ul>
+</li>
+<li>Very Uncertain:
+<ul>
+<li>Hurricanes &amp; tornadoes.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="fragment"><strong>Local/Regional Climate Change</strong>
+<ul>
+<li>Fairly certain about some detailed local impacts.</li>
+<li>Enormously uncertain about others.</li>
+</ul>
+</li>
+</ul></section><section id="review_policy" class="slide level2" data-transition="fade"><h2 data-transition="fade">Consequences of Climate Change</h2>
+<ul>
+<li>
+<strong>Economic effects:</strong>
+<ul>
+<li>Costs of acting</li>
+<li>Costs of inaction</li>
+<li>Uncertainties</li>
+</ul>
+</li>
+<li>
+<strong>Policy issues:</strong>
+<ul>
+<li>Markets vs. Regulation
+<ul>
+<li>Externalities</li>
+<li>Kaya Identity: <span class="math inline">\(F = P \times g \times e \times f\)</span>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></section></section><section><section id="tipping-point-summary-sec" class="title-slide slide level1 center" data-transition="fade-out"><h1 class="center" data-transition="fade-out">Tipping points</h1>
+
+</section><section id="tipping-point-summary" class="slide level2" data-transition="fade-in"><h2 data-transition="fade-in">What we know about tipping points</h2>
+<ul>
+<li class="fragment">Very hard to predict them.</li>
+<li class="fragment"><em>Climate Casino</em>: important tipping points:
+<ul>
+<li>Ice sheet melting</li>
+<li>Coral reefs</li>
+<li>Tropical rain Forests</li>
+<li>Runaway greenhouse gas release</li>
+<li>Slowdown of ocean conveyor belt circulation</li>
+<li>…</li>
+</ul>
+</li>
+</ul></section><section id="bistability" class="slide level2"><h2>Bistability &amp; Tipping Points</h2>
+<p><img data-src="assets/images/tipping_point.png" style="height:900px"></p>
+</section></section><section><section id="hysteresis-sec" class="title-slide slide level1 center"><h1 class="center">Hysteresis and Tipping Points</h1>
+
+</section><section id="grantism" class="slide level2" data-transition="fade"><h2 data-transition="fade">GRANTISM Model</h2>
+<iframe height="900," width="1400," src="https://climatemodels.jgilligan.org/ism/ism.html">
+<a href="http://climatemodels.uchicago.edu/ism/ism.html" class="uri">http://climatemodels.uchicago.edu/ism/ism.html</a>
+</iframe>
+</section><section id="hysteresis-no-tip" class="slide level2" data-transition="fade"><h2 data-transition="fade">Hysteresis:<br>Temperature and Ice Sheets</h2>
+<p><img data-src="assets/fig/hysteresis_reversible-1.png"></p>
+</section><section id="hysteresis-tip" class="slide level2" data-transition="fade"><h2 data-transition="fade">Hysteresis:<br>Crossing Tipping Point</h2>
+<p><img data-src="assets/fig/hysteresis_irreversible-1.png"></p>
+</section><section id="tipping-principles" class="slide level2 eighty"><h2 class="eighty">Principles of Tipping Points</h2>
+<ul>
+<li class="fragment">Ordinary positive feedbacks amplify changes <br>(hot → hotter, cold → colder).
+<ul>
+<li>Small positive feedbacks amplify but the <em>system remains stable</em>.</li>
+</ul>
+</li>
+<li class="fragment">If positive feedbacks are too strong they become <em>self-perpetuating</em>.
+<ul>
+<li>Secondary forcing from feedback creates <em>unstoppable change</em>.</li>
+</ul>
+</li>
+<li class="fragment">If feedback <em>strengthens with warming</em>:
+<ul>
+<li>Tipping point: feedback becomes strong enough<br>to continue warming independent of external forcing.</li>
+</ul>
+</li>
+<li class="fragment"><strong>Not all positive feedbacks have tipping points.</strong>
+</li>
+<li class="fragment"><strong>Hard to predict</strong> when a positive feedback might go from <em>amplifying</em> to <em>runaway</em> (tipping point).</li>
+</ul></section><section id="where-are-they" class="slide level2"><h2>Where are they?</h2>
+<ul>
+<li class="fragment"><em>Climate Casino</em>: No big danger of fast tipping points if warming stays less than 3°C</li>
+<li class="fragment">But, recent research finds that West Antarctic Ice Sheet has already crossed irreversible tipping point.</li>
+</ul></section><section id="recent-scientific-paper" class="slide level2"><h2>Recent Scientific Paper</h2>
+<div class="bare mtop-2">
+<p><img data-src="assets/images/nature_tipping_points.jpg" style="height:930px;" alt="Nature: Lenton et al., Climate tipping points — too risky to bet against"></p>
+<div class="credit">
+<p>T. Lenton <em>et al.</em>, Nature <strong>575</strong>, 592 (2019).</p>
+</div>
+</div>
+</section></section><section><section id="trust-sec" class="title-slide slide level1 center" data-transition="fade-out"><h1 class="center" data-transition="fade-out">But Can We Trust the Experts?</h1>
+
+</section><section id="trust-2" class="slide level2" data-transition="fade"><h2 data-transition="fade">But Can We Trust the Experts?</h2>
+<video width="1800" height="900" controls><source src="/static/video/limbaugh_water_mars.mp4" type="video/mp4"></source></video></section></section><section><section id="consensus-sec" class="title-slide slide level1" data-transition="fade-out" data-state="skip_slide"><h1 data-transition="fade-out" data-state="skip_slide">What is the Scientific Consensus?</h1>
+
+</section><section id="consensus-1" class="slide level2" data-transition="fade"><h2 data-transition="fade">What is the Scientific Consensus?</h2>
+<ul>
+<li class="fragment">Is there a consensus?</li>
+<li class="fragment">If there is, should we trust it?</li>
+</ul></section><section id="consensus-2" class="slide level2" data-transition="fade-in"><h2 data-transition="fade-in">What is the Scientific Consensus?</h2>
+<ul>
+<li class="fragment">Is it important whether most scientists agree or not?</li>
+<li class="fragment">What if some scientists disagree?</li>
+<li class="fragment">Do most scientists agree?<ul>
+<li class="fragment">Careful reviews of scientific literature find 95% of scientists publishing about climate change believe planet is warming because of human activity.</li>
+</ul>
+</li>
+</ul></section><section id="dissidents" class="slide level2"><h2>Dissident Scientists</h2>
+<div class="columns">
+<div class="column textright bare mtop-3">
+<p><img data-src="assets/images/duesberg.jpg" style="vertical-align:top;margin:none;" height="450"></p>
+</div>
+<div class="column eighty ptop-3 mtop-3">
+<h3 id="peter-duesberg">Peter Duesberg</h3>
+<ul>
+<li>Famous biology professor</li>
+<li>Member National Academy of Science</li>
+<li>Major discovery of cancer-causing virus</li>
+<li>Claims that HIV virus does not cause AIDS</li>
+</ul>
+</div>
+</div>
+<div class="columns bare">
+<div class="column textright bare ptop-1">
+<p><img data-src="assets/images/mullis.jpg" style="vertical-align:top;margin:none;" height="450"></p>
+</div>
+<div class="column eighty ptop-3 mtop-3">
+<h3 id="kary-mullis">Kary Mullis</h3>
+<ul>
+<li>Nobel Prize in medicine/biology</li>
+<li>Invented PCR for analyzing DNA</li>
+<li>Endorses Duesberg’s theory of AIDS</li>
+</ul>
+</div>
+</div>
+</section><section id="meaning-of-consensus" class="slide level2"><h2>Meaning of Consensus</h2>
+<ul>
+<li class="fragment">Does scientific consensus mean we can be<br>100% certain that people are warming the planet?</li>
+<li class="fragment">What about the future impacts of climate change?</li>
+</ul></section></section><section><section id="policy-obs-sec" class="title-slide slide level1" data-transition="fade" data-state="skip_slide"><h1 data-transition="fade" data-state="skip_slide">What Gets in the Way of Policy?</h1>
+
+</section><section id="policy-obs" class="slide level2" data-transition="fade"><h2 data-transition="fade">What Gets in the Way of Policy?</h2>
+<ul>
+<li class="fragment">Politicians don’t understand science?</li>
+<li class="fragment">Public doesn’t understand science?</li>
+<li class="fragment">Scientists don’t understand politics?</li>
+</ul></section><section id="policy-obs-3" class="slide level2"><h2>Issues for Policy</h2>
+<ul>
+<li>What do scientists agree on?</li>
+<li class="fragment">Should policy focus on limits to CO<sub>2</sub> or <span class="math inline">\(\Delta T\)</span>?</li>
+<li class="fragment">Should policy wait for better scientific certainty?</li>
+<li class="fragment">Uncertainty:<ul>
+<li class="fragment">How much warming is “dangerous”?</li>
+<li class="fragment">How much CO<sub>2</sub> would produce dangerous warming?</li>
+<li class="fragment">Are there tipping points?</li>
+<li class="fragment">If so, where are they?</li>
+</ul>
+</li>
+<li class="fragment">Addressing uncertainty:<ul>
+<li class="fragment">Precautionary principle<ul>
+<li><em>Better safe than sorry</em></li>
+</ul>
+</li>
+<li class="fragment">No regrets policy<ul>
+<li><em>Worth doing even if global warming turns out to be not so bad.</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></section><section id="nrc-report" class="slide level2 ninety"><h2 class="ninety">1979 Report</h2>
+<section id="carbon-dioxide-and-climate-a-scientific-assessment" class="textcenter centercol bare ptop-1" style="background:white;width:1200px;padding-bottom:10px;margin-top:100px;"><h3><strong>Carbon Dioxide and Climate:<br>A Scientific Assessment</strong></h3>
+<div class="ninety textleft" style="box-shadow:none;width:90%;margin:20px;font-size:90%;">
+<p>The conclusions of this brief but intense investigation may be comforting to scientists but disturbing to policymakers. If carbon dioxide continues to increase, the study group finds no reason to doubt that climate changes will result and no reason to believe that these changes will be negligible. …   <span style="background:#FFFFC0;color=black;">A wait-and-see policy may mean waiting until it is too late</span>.</p>
+</div>
+<div class="eighty textcenter">
+<p>National Research Council, <em>Carbon Dioxide and Climate:<br>A Scientific Assessment</em> (Nat’l. Academy Press, 1979)</p>
+</div>
+</section></section></section>
+</div>
+  </div>
+  <!--
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/js/reveal.js"></script>
+  <!-- -->
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/js/reveal.min.js"></script><!-- --><script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: false,
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+        // Display the page number of the current slide
+        showSlideNumber: 'speaker',
+        // Push each slide change to the browser history
+        history: true,
+        //  Enable hashing slide content to URL
+        hash: true,
+        // Vertical centering of slides
+        center: false,
+        // Don't separate fragments in PDF rendering
+        pdfSeparateFragments: false,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1920,
+        height: 1080,
+      
+        // Optional reveal.js plugins
+        dependencies: [
+                    { src: '../../lecture_lib/library/assets/plugin/chalkboard/chalkboard.js', async: true },
+                                        { src: '../../lecture_lib/library/assets/plugin/reveal-skip-fragments/skip-fragments.js', async: true },
+                    { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/notes/notes.js', async: true }
+        ],
+        shift_keyboard: {
+    	    67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'C' is pressed
+    	    66: function() { RevealChalkboard.toggleChalkboard() },	  // toggle chalkboard when 'B' is pressed
+    	    88: function() { RevealChalkboard.clear() },	            // clear chalkboard when 'X' is pressed
+    	    82: function() { RevealChalkboard.reset() },	            // reset chalkboard data on current slide when 'R' is pressed
+    	    68: function() { RevealChalkboard.download() },	          // downlad recorded chalkboard drawing when 'D' is pressed
+        },
+              	// Shortcut for showing all fragments
+      	skipFragmentsShowShortcut: 'S',
+
+      	// Shortcut for hiding all fragments
+      	skipFragmentsHideShortcut: 'H',
+      	      });
+    </script><script>
+  	function createSingletonNodejg( container, tagname, classname, innerHTML ) {
+
+		// Find all nodes matching the description
+		var nodes = container.querySelectorAll( '.' + classname );
+
+		// Check all matches to find one which is a direct child of
+		// the specified container
+		for( var i = 0; i < nodes.length; i++ ) {
+			var testNode = nodes[i];
+			if( testNode.parentNode === container ) {
+				return testNode;
+			}
+		}
+
+		// If no node was found, create it now
+		var node = document.createElement( tagname );
+		node.className = classname;
+		if( typeof innerHTML === 'string' ) {
+			node.innerHTML = innerHTML;
+		}
+		container.appendChild( node );
+
+		return node;
+
+	}
+
+  var dom_wrapper = document.querySelector('.reveal');
+  createSingletonNodejg(dom_wrapper, 'div', 'qrbox',
+  '<div class="qrbox" id="qrbox" style="font-size:90%;">' + '\n' +
+  '<div style="font-size:30%;width:100%;">' + '\n' +
+      '<a href="https://ees3310.jgilligan.org/slides/class_17">' +
+  	'<img src="qrcode.png" alt="https://ees3310.jgilligan.org/slides/class_17"/>' +
+  	'</a>' + '\n' +
+	  '</div>' + '\n' +
+  '<div style="font-size:30%;width:100%;vertical-align:top;">' + '\n' +
+    '<span style="display:inline-block;text-align:left;margin-left:0">' + '\n' +
+        'Live web page: <a href="https://ees3310.jgilligan.org/slides/class_17">https://ees3310.jgilligan.org/slides/class_17</a>' + '\n' +
+              '<br/>' + '\n' +
+        'PDF: <a href="https://ees3310.jgilligan.org/slides/class_17/ees_3310_5310_class_17_slides.pdf" target="_blank">https://ees3310.jgilligan.org/slides/class_17/ees_3310_5310_class_17_slides.pdf</a>' + '\n' +
+          	'</span>' + '\n' +
+  	'<span style="display:inline-block;text-align:right;vertical-align:top;position:absolute;right:0;bottom:0;">' + '\n' +
+  	  'Navigate slides: next: N or &lt;space&gt;; previous: P or &lt;backspace&gt;<br/>' + '\n' +
+  	  'Also: up, down, left, right arrows; overview: o; help: ?' + '\n' +
+  	'</span>' + '\n' +
+	'</div>' + '\n' +
+  '</div>' + '\n'
+  );
+</script><script>
+var MathJax = { jax: ["input/TeX", "output/HTML-CSS"],
+                TeX: {extensions: ["color.js", "mhchem.js"],
+                Macros: {
+                  COO: "\\ce{CO2}",
+                  methane: "\\ce{CH4}",
+                  degC: "^\\circ \\mathrm{C}",
+                  degF: "^\\circ \\mathrm{F}",
+                  water: "\\mathrm{H_2O}",
+                  carb: "\\ce{CO3^2-}",
+                  bicarb: "\\ce{HCO3-}",
+                  carbonic: "\\ce{H2CO3}",
+                  Hplus: "\\ce{H+}",
+                  OH: "\\ce{OH-}",
+                  silica: "\\ce{SiO2}",
+                  calcite: "\\ce{CaCO3}",
+                  Caplus: "\\ce{Ca^2+}",
+                  silicate: "\\ce{SiO3^2-}",
+                  CaSi: "\\ce{CaSiO3}",
+                  pH: "p\\ce{H}",
+                  permil: "\\unicode{x2030}"
+                },
+                  },
+                "HTML-CSS" : {scale: 100 }};
+</script><!-- dynamically load mathjax for compatibility with self-contained --><script type="text/x-mathjax-config">
+MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["HTML-CSS"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+	  VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+	  VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+	});
+MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["SVG"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+	  VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+	  VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+	});
+  </script><script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script><script>
+  var qrbox = document.querySelector("#qrbox");
+  var advance_fragment = 0;
+
+	function isPrintingPDF() {
+	  let printing = ( /print-pdf/gi ).test( window.location.search );
+	  console.log("printing test: " + printing);
+	  return printing;
+	}
+
+
+  if ( qrbox.hasAttribute('qr-box-hide') || Reveal.isOverview() ||
+      ! Reveal.isFirstSlide() || isPrintingPDF()) {
+    console.log("Initializing");
+    console.log("Hiding QR box");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+  }
+
+  Reveal.addEventListener('overviewshown', function() {
+      console.log("Overview shown");
+    console.log("Hiding QR box");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+  }, false);
+
+  Reveal.addEventListener('overviewhidden', function() {
+    if (Reveal.isFirstSlide() && ! qrbox.hasAttribute('qr-box-hide') &&
+        ! isPrintingPDF()) {
+      console.log("Overview hidden");
+      console.log("Showing QR box");
+      qrbox.style.visibility="visible";
+      qrbox.style.display="block";
+    }
+  }, false);
+
+  Reveal.addEventListener('slidechanged', function() {
+    console.log("Slide changed...");
+    if (Reveal.isFirstSlide() && ! Reveal.isOverview() &&
+        ! qrbox.hasAttribute('qr-box-hide') &&
+        ! isPrintingPDF()) {
+      console.log("Showing QR box");
+      qrbox.style.visibility="visible";
+      qrbox.style.display="block";
+    } else {
+      console.log("Hiding QR box");
+      qrbox.style.visibility="hidden";
+      qrbox.style.display="none";
+    }
+  }, false);
+
+  Reveal.addEventListener('pdf-ready', function() {
+    console.log("hiding qrbox for printing");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+    qrbox.setAttribute('qr-box-hide', 'true');
+  });
+
+  </script><script>
+  Reveal.addEventListener('slidechanged', function() {
+    while (advance_fragment > 0) {
+      // console.log('advancing fragment');
+      Reveal.nextFragment();
+      advance_fragment--;
+    }
+  }, false);
+
+  Reveal.addEventListener('slidechanged', function() {
+    if ( Reveal.getCurrentSlide().hasAttribute('data-skip')) {
+      // console.log("going to next slide...");
+      Reveal.next();
+    }
+  }, false);
+
+  Reveal.addEventListener('skip_slide', function() {
+    Reveal.next();
+  }, false);
+
+  Reveal.addEventListener('advance_fragment', function() {
+    // console.log("setting advance fragment");
+    advance_fragment++;
+    }, false);
+  </script>
+</body>
+</html>

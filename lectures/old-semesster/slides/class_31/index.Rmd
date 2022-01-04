@@ -1,0 +1,355 @@
+---
+title: "Carbon-Pricing Instruments"
+class_no: 31
+class_date: "Monday, April 5"
+qrimage: qrcode.png
+pageurl: "ees3310.jgilligan.org/slides/class_31"
+pdfurl: "ees3310.jgilligan.org/slides/class_31/ees_3310_5310_class_31_slides.pdf"
+course: "EES 3310/5310"
+course_name: "Global Climate Change"
+author: "Jonathan Gilligan"
+semester: Spring
+year: 2021
+output:
+  revealjg::revealjs_presentation
+---
+```{r setup, cache = F, echo = F, eval = T, message=F, warning=F}
+knitr::opts_chunk$set(cache=TRUE, 
+                      echo=FALSE, message=FALSE, warning=FALSE,
+                      fig.height=9, fig.width=14, dpi=100,
+                      dev='png',fig.path='assets/fig/',cache.path='./cache/')
+
+library(rprojroot)
+
+semester_dir <- find_rstudio_root_file()
+data_dir <- file.path(semester_dir, "data")
+script_dir <- file.path(semester_dir, "lecture_scripts")
+
+source_semester_script <- function(script) {
+  script_file <- file.path(script_dir, script)
+  message("Running script", script_file)
+  source(script_file, chdir = T)
+}
+
+eval_in_sem_script_dir <- function(expr, loc = script_dir) {
+  this_dir <- getwd()
+  setwd(loc)
+  retval <- eval(expr)
+  setwd(this_dir)
+  invisible(retval)
+}
+
+library(magrittr)
+library(tidyverse)
+library(knitr)
+
+source_semester_script('supply_demand.R')
+
+# These slides use different figure settings than
+# usual because figures are generally 1:1 aspect ratio.
+knitr::opts_chunk$set(fig.height=9, fig.width=9)
+set_cb_theme(base_size = 30)
+set_aspect_ratio(6.5)
+
+```
+# Perspectives on<br/>Market-Based Regulations {.center}
+
+## Market-Based Regulations {.eighty}
+
+* Most economists (liberal & conservative) favor putting a price on
+  greenhouse gas emissions.
+  * {+} **Cap-and-trade:**
+    * Require a permit for every ton of fossil fuels
+    * Issue a limited number of permits
+    * Companies can buy and sell permits
+  * {+} **Carbon tax:**
+    * Charge a tax on every ton of fossil fuels
+    * Price equal to social cost of carbon emissions
+  * {+} In principle, cap-and-trade and carbon tax are equivalent if 
+    costs and benefits are known accurately.
+    * M. Weitzman, 1974. "Prices vs. Quantities," _Rev. Econ. Studies_ 
+      **41**, 477--491. <https://doi.org/10.2307/2296698>
+    * {+} Different consequences for inaccuracies in costs or benefits.
+
+## Considerations about Market-Based Regulations {.eighty}
+
+* They work best when the total amount of pollution matters, but 
+  it doesn't matter who emits it, or where.
+  * {+} The impact is spread over large areas, regardless where the emissions 
+    happen.
+  * {+} Not appropriate when the biggest effects are local: 
+    lead pollution, mercury from power plants, urban smog, ...
+* {+} They work best when it's easy to monitor pollution and track the sources.
+  * {+} Sulfur pollution (acid rain) was emitted from large power plants and
+    factories.
+  * {+} CO~2~ from fossil fuels: fossil fuel production is already 
+    well-monitored
+    * {+} If we had to monitor every car's tailpipe, it wouldn't work.
+  * {+} Doesn't work for illegal dumping (pouring motor oil down sewer drains)
+  * {+} The largest source of dioxin (a dangerous cancer-causing chemical) is 
+    people in rural areas burning plastic trash in their back yards
+* {+} Market-based regulations do not address the distribution of costs and 
+  benefits:
+  * One group may pay most of the costs and another may enjoy most
+  of the benefits.
+  * The distribution of costs may be regressive, with low-income people paying
+  a disproportionate share.
+
+## Optimum Emissions Abatement
+
+:::::: {.columns}
+::: {.column .ptop-3}
+* Optimum emissions = E^\*^
+* {+} EPA issues permits for E^\*^ tons of emissions
+* {+} Free-trading in permits reduces emissions to E^\*^ at minimal cost
+* {+} Total net benefits are maximized
+:::
+::: {.column}
+```{r optimum.emissions}
+fig.4.b()
+```
+:::
+::::::
+
+# Uncertainty and Errors {.center}
+
+## Market-Based Regulations and Uncertainty
+
+* Cap-and-trade:
+  * Maximum quantity of pollution is known
+  * Cost to polluters is uncertain
+* Emissions taxes
+  * Cost to polluters is known
+  * Quantity of pollution is uncertain
+
+## Imperfect Emissions Abatement {#imperfect-abatement data-transition="fade-out"}
+
+:::::: {.columns}
+::: {.column .ptop-3 .eighty}
+* Optimum emissions = E^\*^
+* EPA underestimates benefits of emissions (cost of cutting emissions)
+  * Issues permits for E' instead of E^\*^
+:::
+::: {.column}
+```{r sub.optimum.emissions}
+fig.5.a()
+```
+:::
+::::::
+
+## Deadweight Losses {#deadweight-losses data-transition="fade"}
+
+:::::: {.columns}
+::: {.column .ptop-3 .eighty}
+* Optimum emissions = E^\*^
+* EPA underestimates benefits of emissions (cost of cutting emissions)
+  * Issues permits for E' instead of E^\*^
+* Deadweight loss (blue triangle) = difference between **actual net benefit**
+  and **optimum net benefit**.
+:::
+::: {.column}
+```{r deadweight.1}
+fig.7.a()
+```
+:::
+::::::
+
+
+## Imperfect Emissions Abatement {#deadweight-losses-2 data-transition="fade"}
+:::::: {.columns}
+::: {.column .ptop-3 .eighty}
+* Optimum emissions = E^\*^
+* EPA overestimates benefits of emissions (cost of cutting emissions)
+    * Issues permits for E' instead of E^\*^
+:::
+::: {.column}
+```{r excessive.emissions}
+fig.7.b()
+```
+:::
+::::::
+
+## Deadweight Loss with Carbon Tax {#deadweight-losses-tax data-transition="fade-in"}
+
+:::::: {.columns}
+::: {.column .ptop-3 .eighty}
+* Optimum emissions = E^\*^
+  * This corresponds to a price P^\*^
+* EPA overestimates benefits of emissions (cost of cutting emissions)
+  * Sets the price at P' instead of P^\*^
+  * Actual emissions are where the price P' intersects the actual benefit curve
+* {+} When benefit curve is linear and steeper than the cost curve, then
+  taxes produce better results under uncertainty
+  * {+} Taxes may be worse if:
+    * The cost curve is steeper than the benefit curve
+    * or if the benefit or cost curve is sharply nonlinear near the optimum
+:::
+::: {.column}
+```{r deadweight.taxes.emissions}
+fig.7.c()
+```
+:::
+::::::
+
+# Market-Based Regulations in Action {.center}
+
+## 1990 Clean Air Amendments
+
+* {+} Acid rain, mostly from sulfate and nitrate chemicals emitted by burning 
+  coal
+* {+} Market-based regulation (cap-and-trade)
+  * Permits sold at auction
+  * Companies could buy and sell permits with each other
+* {+} Environmentalists complained about selling the right to pollute
+* {+} Industry groups worried permits would be too expensive
+
+## How Things Went
+
+* {+} Plan:
+  * Gradually reduce emissions by 37% during 1990s
+  * Big reductions start in 2000 to reduce pollution 70%
+* {+} Predicted costs:
+  * Industry: 
+    * Regulation would cost \$3--7 billion per year in 1990s, 
+    * \$7--25 billion per year after 2000
+  * EPA: 
+    * \$1.9--5.5 billion per year
+* {+} Actual costs:
+  * $0.8 billion per year during 1990s
+  * $1 billion per year after 2000.
+  * Emission reductions met 1999 goals in 1995, four years ahead of schedule.
+
+## Broader Patterns in Environmental Regulation
+
+* {+} An economic study of the costs of environmental regulations found:
+  * 50% cost at least 25% less than predicted
+  * 40% cost roughly as much as predicted
+  * 10% cost at least 25% more than predicted
+* {+} A 2017 audit of the Clean Air Act by the Office of Management and Budget 
+  under President Donald Trump found that out of 55 clean-air regulations
+  they studied, 
+  * 46 had benefits that were greater than the costs 
+  * Only 2 had costs greater than the benefits.
+* {+} A 2003 report from the Office of Management and Budget under President
+  George H.W. Bush found that clean-air regulations produced benefits between
+  3 and 4 times greater than the costs of compliance.
+
+# Discuss different approaches to policy {.center}
+
+# Emissions Trading In Detail {.center}
+
+## Emissions Trading In Detail {data-transition="fade-out"}
+```{r emissions.trading.data, results = "hide"}
+emissions <- tibble(
+  emissions = 0:5,
+  m.cost = 20 * emissions,
+  m.benefit = 30 * (5 - emissions)
+)
+
+```
+
+:::::: {.columns style="margin-top:100px;"}
+::: {.column .ptop-3}
+* What is the optimum amount of emissions?
+* What is the total (gross) cost of emissions?
+* What is the total (gross) benefit to society?
+* What is the net benefit?
+:::
+::: {.column}
+```{r emissions.table.1, dependson="emissions.trading.data"}
+options("knitr.kable.NA" = "---")
+
+emissions %>% mutate_at(vars(-emissions), funs(c(NA, tail(., -1)))) %>%
+  kable(digits = 0, 
+        col.names = c("CO~2~ emissions", 
+                      "Marginal cost", "Marginal benefit"))
+```
+:::
+::::::
+
+## Marginal and Cumulative Costs & Benefits {data-transition="fade-in"}
+
+::: {.mtop-3}
+```{r emissions.table.2, dependson="emissions.trading.data"}
+options("knitr.kable.NA" = "---")
+
+emissions %>% mutate_at(vars(-emissions), funs(c(0, tail(., -1)))) %>%
+  mutate(gross.cost = cumsum(m.cost), 
+         gross.benefit = cumsum(m.benefit),
+         net.benefit = gross.benefit - gross.cost) %>%
+  select(emissions, m.cost, m.benefit, gross.cost, gross.benefit, net.benefit) %>%
+  mutate_at(vars(m.cost,m.benefit), funs(c(NA, tail(., -1)))) %>%
+  kable(digits = 0,
+        col.names = c("CO~2~ emissions", 
+                      "Marginal cost",  "Marginal benefit", 
+                      "Gross cost", "Gross benefit",
+                      "Net benefit"))
+```
+:::
+
+* Gross (cumulative) costs and benefits are the sum of marginal 
+  costs and benefits from zero to the current level.
+* Net benefit is the gross benefit minus the gross cost.
+* {+} What is the optimal number of permits to issue?
+* {+} What is the optimal emissions tax?
+
+## Two Companies {.eighty}
+
+::::::::: {.columns .ptop-3}
+:::::: {.column width="25%"}
+```{r company.data}
+emissions.A = tibble(Emissions = 0:5, MB = 20 * (6 - Emissions))
+emissions.B = emissions.A %>% mutate(MB = 25 * (6 - Emissions))
+costs = tibble(Emissions = 0:10, MC = 20 * Emissions)
+```
+```{r company.A.table, dependson="company.data"}
+options("knitr.kable.NA" = "---")
+
+emissions.A %>% mutate_at(vars(-Emissions), funs(c(NA, tail(., -1)))) %>%
+  kable(digits = 0)
+```
+
+::: {.mtop-1}
+```{r company.B.table, dependson="company.data"}
+options("knitr.kable.NA" = "---")
+
+emissions.B %>% mutate_at(vars(-Emissions), funs(c(NA, tail(., -1)))) %>%
+  kable(digits = 0)
+```
+:::
+::::::
+:::::: {.column width="25%"}
+```{r company.cost.table, dependson="company.data"}
+options("knitr.kable.NA" = "---")
+
+costs %>% mutate_at(vars(-Emissions), funs(c(NA, tail(., -1)))) %>%
+  kable(digits = 0)
+```
+::::::
+:::::::::
+
+## Two Companies {.eighty}
+
+::: {.mtop-3}
+```{r company.combined.table, dependson="company.data"}
+options("knitr.kable.NA" = "---")
+
+  emissions.A %>% mutate(Company = "A") %>%
+    bind_rows(mutate(emissions.B, Company = "B")) %>%
+    filter(Emissions > 0) %>% arrange(desc(MB)) %>%
+    mutate(Emissions = seq(n())) %>%
+    select(Emissions, Company, MB) %>%
+    left_join(costs, by = "Emissions") %>%
+    mutate(cum_benefits = cumsum(MB), cum_costs = cumsum(MC),
+           net_benefits = cum_benefits - cum_costs) %>%
+  kable(digits = 0,
+        col.names = c("Emissions", "Company", "MB", "MC", 
+                      "Gross Benefits", "Gross Costs", "Net Benefits"))
+```
+:::
+
+* {+} Benefits depend on which company produces the emissions
+* {+} Costs only depend on the total emissions
+* {+} Put emissions in descending order of marginal benefit.
+* {+} What is the optimum emissions level?
+* {+} What is the optimum emissions tax?

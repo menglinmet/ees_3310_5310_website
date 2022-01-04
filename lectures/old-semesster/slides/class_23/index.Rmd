@@ -1,0 +1,892 @@
+---
+title: "Policy Myths and Options"
+class_no: 23
+class_date: "Wednesday, March 17"
+qrimage: qrcode.png
+pageurl: "ees3310.jgilligan.org/slides/class_23"
+pdfurl: "ees3310.jgilligan.org/slides/class_23/ees_3310_5310_class_23_slides.pdf"
+course: "EES 3310/5310"
+course_name: "Global Climate Change"
+author: "Jonathan Gilligan"
+semester: Spring
+year: 2021
+output:
+  revealjg::revealjs_presentation
+---
+```{r setup, cache = F, echo = F, eval = T, message=F, warning=F}
+knitr::opts_chunk$set(cache=TRUE, 
+                      echo=FALSE, message=FALSE, warning=FALSE,
+                      fig.height=9, fig.width=14, dpi=100,
+                      dev='png',fig.path='assets/fig/',cache.path='./cache/')
+
+library(rprojroot)
+
+semester_dir <- find_rstudio_root_file()
+data_dir <- file.path(semester_dir, "data")
+script_dir <- file.path(semester_dir, "lecture_scripts")
+
+source_semester_script <- function(script) {
+  script_file <- file.path(script_dir, script)
+  message("Running script", script_file)
+  source(script_file, chdir = T)
+}
+
+eval_in_sem_script_dir <- function(expr, loc = script_dir) {
+  this_dir <- getwd()
+  setwd(loc)
+  retval <- eval(expr)
+  setwd(this_dir)
+  invisible(retval)
+}
+
+library(magrittr)
+library(tidyverse)
+library(lubridate)
+library(ggthemes)
+library(RColorBrewer)
+library(readxl)
+library(janitor)
+
+library(ggrepel)
+library(grid)
+library(gtable)
+library(gridExtra)
+
+library(kayadata)
+
+source_semester_script('lecture_utils.R')
+source_semester_script('download_lcv.R')
+```
+# Adding Up Damages  {#damages-sec .center}
+
+## Risk Premiums
+
+* {+} Why do people buy insurance?
+* {+} Costs and benefits of insurance
+  * {+} How does insurance company set premiums relative to expected payouts?
+  * {+} On average do customers get more, less, or the same back as they paid in?
+  * {+} So why does anyone buy insurance?
+* {+} Is there a lesson here for climate policy?
+
+## Overview of Damage Assessment  {#damage-overview .center .eightyfive}
+
+* {+} Climate change is an externality:<br/>Unintended consequence of economic activity
+* {+} Zero growth would dramatically slow warming
+* {+} Climate change can slow future growth
+  * {+} If climate change causes negative growth,<br/>
+    economic calculations stop making sense
+* {+} Converting unmanaged $\rightarrow$ managed systems reduces damage, vulnerability
+* {+} Forecasting damage from climate change requires forecasting economies:
+  * {+} How much of economy will be managed?
+  * {+} What technology will be available to adapt & mitigate damage?
+* {+} Value of non-economic goods<br/>(wilderness, ecosystems, biodiversity, ...)
+
+## How much damage?  {#how.big  data-transition="convex-out"}
+
+:::::: {.bare}
+![](assets/images/tol_dice_costs.jpeg){style="height:850px;"}
+
+::: {.credit}
+Source: R.S.J. Tol, J. Econ. Perspect. **23**, 29 (2009). 
+[doi:10.1257/jep.23.2.29](https://doi.org/10.1257/jep.23.2.29)
+:::
+::::::
+
+* {+} Note benefits at 1.0 and 2.5 degrees...
+
+## Oops! Gremlins!  {#tol_error_1 .center data-transition="convex"}
+
+::::::::: {.columns .vcenter}
+:::::: {.column style="font-size:120%;"}
+_"Gremlins intervened in the preparation of my paper ...
+minus signs were dropped from the two impact estimates ..."_
+
+::: {.credit}
+R.S.J. Tol, J. Econ. Perspect. **28**, 221 (2014)
+[doi: 10.1257/jep.28.2.221](https:/doi.org/10.1257/jep.28.2.221)
+:::
+::::::
+:::::: {.column}
+::: {.bare .mtop-3}
+![Gremlin](assets/images/gremlin.jpg){style="width:100%;"}
+:::
+::::::
+:::::::::
+
+::: {.eighty}
+* {+} Global warming was worse than Tol thought:
+  * Two studies that found net harm from global warming were reported as net benefits.
+  * Four studies that found net harm were simply omitted.
+* {+} Then, in 2015, more Gremlins: 
+  * numbers were not even calibrated correctly.
+:::
+
+## Damages from Warming {#tol_error_2 data-transition="fade"}
+
+:::::: {.columns .vcenter}
+::: {.column }
+```{r tol_figures, echo=F, eval=T, warning=F, message=F, fig.width=9, fig.height=9}
+source_semester_script('tol_figure.R')
+
+tol_data <- read_tol_data()
+
+plot_original_tol_data(tol_data) + ggtitle("Original Figure")
+```
+
+:::
+::: {.column .fragment}
+```{r tol_figures_2b, echo=F, eval=T, warning=F, message=F, fig.width=9, fig.height=9}
+plot_tol_data(tol_data)
+```
+:::
+::::::
+
+## More Recent Work {#nonlinear-productivity}
+
+:::::: {.bare .mtop-3}
+![](assets/images/climate_productivity.jpg){style="height:850px;margin:2px;vertical-align:middle"}
+![](assets/images/climate_productivity_2.png){style="height:750px;margin:2px;vertical-align:middle"}
+
+::: {.credit}
+M. Burke _et al._, Nature **527**, 235 (2015). [doi:10.1038/nature15725](https://doi.org/10.1038/nature15725)
+:::
+::::::
+
+::: {.bare}
+Under a worst-case scenario
+:::
+
+## Global Warming is Already Affecting Economic Inequality
+
+:::::: {.flush style="margin-top:3rem;"}
+![Impact of Global Warming on Economic Inequality](assets/images/global_warming_inequality_2.jpg){style="height:900px;"}
+
+::: {.credit}
+N.S. Diffenbaugh & M. Burke, Proc. Nat'l Acad. Sci. **116**, 9808 (2019) [10.1073/pnas.1816020116](https://doi.org/10.1073/pnas.1816020116)
+:::
+::::::
+
+## Benefits of Reaching International Climate Goals
+
+:::::: {.flush style="margin-top:3rem;"}
+![Economic benefits from limiting warming to 1.5&deg; C](assets/images/benefits_of_1_5.jpg){style="height:900px;"}
+
+::: {.credit}
+M. Burke _et al._, Nature **557**, 549 (2018)  [10.1038/s41586-018-0071-9](https://doi.org/10.1038/s41586-018-0071-9)
+:::
+::::::
+
+# Pielke's Lessons from the Ozone Hole {#ozone-hole-sec .center}
+
+## Pielke's Lessons from the Ozone Hole {#ozone-hole .center .eighty}
+![](assets/images/ozone_hole.jpg){style="height:600px;"}
+
+* {+} 1970s: Significant scientific uncertainty
+* {+} Decision to take action without waiting for certainty
+* {+} Discovery of hole: tipping point
+* {+} "No regrets"" policy
+* {+} Flexible policy (renegotiate details every two years)
+
+# Policy Myths  {#myths-sec .center}
+
+## Policy Myths  {#myths .center}
+
+1. We lack political will
+2. We must trade off the economy for the environment
+3. We have all the technology we need
+
+# Myth 1: We Lack Political Will {#myth-1 .center}
+
+## Public Opinion: Is the Earth Warming  {#yale-warming .ninety data-transition="fade-out"}
+
+```{r opinion, echo=FALSE}
+# https://news.gallup.com/poll/1615/environment.aspx
+gallup <- data.frame( year = ymd(c(
+  '1992-01-01', '1997-11-07', '2001-03-06', '2002-03-05', '2003-03-04', 
+  '2004-03-09', '2005-03-08', '2006-03-14', '2007-03-12', '2008-03-07', 
+  '2010-03-05', '2011-03-04', '2012-03-09', '2013-03-09', '2014-03-07',
+  '2015-03-07', '2016-03-04', '2017-03-03', '2018-03-04', '2019-03-05')),
+                      happening     = c(NA, 48, 61, NA, NA,
+                                        NA, NA, 65, NA, 65,
+                                        52, 55, 58, 62, 60,
+                                        62, 65, 71, 66, 65
+                                        ),
+                      not.happening = c(NA,  7,  4, NA, NA,
+                                        NA, NA,  3, NA,  7,
+                                        10,  8,  7,  6,  8,
+                                         8,  7,  5,  6,  6
+                                        ),
+                      no.opinion    = c(NA,     39 + 6, 30 + 5,     NA,     NA,
+                                        NA,     NA,     29 + 3,     NA, 26 + 3, 
+                                        36 + 2, 33 + 4, 32 + 3, 28 + 4, 29 + 3,
+                                        27 + 3, 25 + 3, 22 + 2, 24 + 4, 26 + 2
+                                        ),
+                      human      = c(NA, NA, NA, NA, 61,
+                                     NA, NA, 58, 61, 58,
+                                     50, 52, 53, 57, 57,
+                                     55, 65, 68, 64, 66),
+                      natural    = c(NA, NA, NA, NA, 33,
+                                     NA, NA, 36, 35, 38,
+                                     46, 43, 41, 39, 40,
+                                     41, 31, 29, 33, 31),
+                      no.opinion = c(NA, NA, NA, NA,  6,
+                                     NA, NA,  6,  5,  5,
+                                      5,  5,  6,  4,  3,
+                                      4,  4,  3,  3,  3)
+                      )
+
+# Climate Change in the American Mind, Nov. 2019
+# https://climatecommunication.yale.edu/publications/
+yale <- data.frame( year = ymd(c(
+  '2008-11-01', '2010-01-01', '2010-06-01', '2011-05-01', 
+  '2011-11-01', '2012-03-01', '2012-09-01', '2013-04-01', 
+  '2013-11-01', '2014-04-01', '2014-10-01', '2015-03-01', 
+  '2015-10-01', '2016-03-01', '2016-11-01', '2017-05-01', 
+  '2017-10-01', '2018-03-01', '2018-12-04', '2019-04-03',
+  '2019-11-14', '2020-04-01', '2020-12-01'
+  )),
+  human         = c(57,47,50,47,50,46,54,50,46,52,51,52,53,53,55,58,54,58,62,
+                    55,59,62,58),
+  natural       = c(32,36,35,35,33,37,32,33,35,34,33,32,33,34,30,30,33,28,23,
+                    32,30,29,29),
+  happening     = c(71,57,61,63,63,66,70,63,63,64,66,63,67,70,70,70,71,70,73,
+                    69,72,73,72),
+  not.happening = c(10,20,18,18,17,14,12,16,23,19,16,18,16,11,13,13,13,14,14,
+                    16,12,10,13)
+)
+my <- yale %>% gather(key = variable, value = value, -year)
+mg <- gallup %>% gather(key = variable, value = value, -year)
+```
+
+```{r yale_warming, dependson="opinion"} 
+my %>% filter(variable %in% c('happening','not.happening')) %>%
+  ggplot(aes(x=year,y=value,color=variable,shape=variable)) + 
+  geom_hline(yintercept = 50, color = "dark gray", size = 1) +
+  geom_line(size = 1) + 
+  geom_point(size=I(5)) + 
+  ylim(0,100) + 
+  scale_color_brewer(type='qual',palette='Dark2', 
+                     breaks=c('happening','not.happening'), labels=c('Yes','No'),
+                     name="Believe global warming is happening?") + 
+  scale_shape(breaks=c('happening','not.happening'), labels=c('Yes','No'),
+              name="Believe global warming is happening?") +
+  labs(y=NULL,x='Year') + 
+  theme_gdocs(base_size=20) + 
+  theme(legend.key.width = unit(4, "line"),
+        legend.background = element_rect(fill = "white", colour = "gray60"),
+        legend.position=c(1,1), legend.justification=c(1,1), 
+        panel.grid.minor=element_line(color='gray90',size=0.05), 
+        panel.grid.major.y=element_line(color='gray80',size=0.2))
+
+```
+
+::: {.credit}
+Yale Program on Climate Communication: [Climate Change in the American Mind: December 2020](http://climatecommunication.yale.edu/publications/climate-change-american-mind-december-2020/)
+:::
+::::::
+
+## Public Opinion: Cause of Warming? {#gallup-warming-cause .ninety data-transition="fade-in"}
+
+::: {.bare .mtop-3}
+```{r cause_yale, dependson="opinion"}
+my %>% filter(variable %in% c('human','natural')) %>% 
+  ggplot(aes(x=year,y=value,color=variable,shape=variable)) + 
+  geom_hline(yintercept = 50, color = "dark gray", size = 1) +
+  geom_line(size = 1) + 
+  geom_point(size=I(5)) + 
+  ylim(0,100) + 
+  scale_color_brewer(type='qual',palette='Dark2', 
+                     name="Cause of global warming?", 
+                     breaks=c('human','natural'), 
+                     labels=c('Human Activity','Natural Causes')) + 
+  scale_shape(name="Cause of global warming?", breaks=c('human','natural'), 
+              labels=c('Human Activity','Natural Causes')) +  
+  labs(y=NULL,x='Year') + 
+  theme_gdocs(base_size=20) + 
+  theme(legend.key.width = unit(4, "line"),
+        legend.background = element_rect(fill = "white", colour = "gray60"),
+        legend.position=c(1,1), legend.justification=c(1,1), 
+        panel.grid.minor=element_line(color='gray90',size=0.05), 
+        panel.grid.major.y=element_line(color='gray80',size=0.2))
+```
+
+::: {.credit}
+Yale Program on Climate Communication: [Climate Change in the American Mind: November 2019](http://climatecommunication.yale.edu/publications/climate-change-american-mind-november-2019/)
+:::
+::::::
+
+## Variation across polls {#poll-variation}
+
+```{r poll_variation, dependson="opinion"}
+source_semester_script('public_opinion.R')
+public_opinion = get_public_opinion()
+plot_public_opinion(public_opinion)
+```
+
+# Partisan Split {#partisan-split-sec .center}
+
+## Partisan Split:
+
+::::::::: {.columns .mtop-3}
+:::::: {.column}
+* {+} Climate policy is the most divisive issue
+* {+} Greater partisan polarization than abortion
+::::::
+:::::: {.column .bare}
+
+![](assets/images/partisan_priorities.png){style="height:900px;"}
+
+::: {.credit}
+[Pew: As Economic Concerns Recede, Environmental Protection Rises on the Public’s Policy Agenda](https://www.people-press.org/2020/02/13/as-economic-concerns-recede-environmental-protection-rises-on-the-publics-policy-agenda/)
+:::
+::::::
+:::::::::
+
+## Partisan split {#partisan-split-2}
+
+:::::: {.bare .mtop-3}
+```{r partisan, echo=FALSE}
+gallup_partisan <- data.frame( 
+  Year        = c(1998, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008,  
+                  2009, 2010, 2011, 2012, 2013, 2015, 2016, 2017, 2018,
+                  2019),
+  Democrats   = c(  46,   61,   56,   55,   54,   57,   66,   70,   76, 
+                    69,   66,   62,   65,   67,   72,   77,   73,   82,
+                    75),
+  Republicans = c(  47,   48,   44,   43,   42,   40,   42,   45,   41, 
+                    32,   31,   32,   40,   39,   36,   40,   41,   34,
+                    36)
+)
+gp <- gallup_partisan %>% gather(key = Party, value = percent, -Year)
+
+ggplot(gp, aes(x=Year,y=percent,color=Party,shape=Party)) + 
+  geom_hline(yintercept = 50, color = "dark gray", size = 1) +
+  geom_line(size = 1) + 
+  geom_point(size=I(5)) + 
+  scale_y_continuous(limits=c(25,85), breaks = seq(0,100,10), 
+                     labels = paste0(seq(0,100,10), "%")) +
+  scale_x_continuous(breaks=seq(1990,2020,2)) +
+  scale_color_manual(values = c(Democrats="dark blue", Republicans="dark red"), 
+                     breaks=c('Democrats','Republicans'),
+                     name="Party") + 
+  scale_shape(name="Party",breaks=c('Democrats','Republicans')) +
+  labs(y=NULL,x='Year', title="Have effects of global warming already begun?") + 
+  theme_gdocs(base_size=20) + 
+  theme(legend.key.width = unit(4, "line"),
+        legend.position=c(0.98,0.67), legend.justification=c(1,1), 
+        legend.background = element_rect(fill = "white", colour = "gray80"),
+        plot.title = element_text(size = 22, hjust=0.5),
+        panel.grid.minor= element_blank(), #element_line(color='gray90',size=0.05), 
+        panel.grid.major.y=element_line(color='gray80',size=0.2))
+```
+
+::: {.credit}
+Gallup: 
+[Americans' Views on Global Warming, 2019](https://news.gallup.com/poll/248030/americans-views-global-warming-2019-trends.aspx),
+[U.S. Concern About Global Warming at Eight-Year High (2016)](http://news.gallup.com/poll/190010/concern-global-warming-eight-year-high.aspx)
+[Republican Skepticism Toward Global Warming Eases (2013)](http://news.gallup.com/poll/161714/republican-skepticism-global-warming-eases.aspx),
+:::
+::::::
+
+```{r get-lcv, include=FALSE}
+download_lcv(max_year = 2020)
+lcv <- load_lcv()
+```
+
+## Polarization in Congress `r min(lcv$year)`--`r max(lcv$year)` {#congress-polarization}
+
+:::::: {.bare .mtop-3}
+```{r lcv_polarization, echo=FALSE}
+p <- plot_lcv(lcv)
+plot(p)
+```
+
+::: {.credit}
+Data: [League of Conservation Voters](http://scorecard.lcv.org/)
+:::
+::::::
+
+# Myth 2:<br/>We must trade off the economy<br/>for the environment {#myth-2 .center data-transition="fade-out"}
+
+## Willingness to pay (2009) {#wtp-economist}
+
+:::::: {.bare .mtop-3}
+```{r pielke_economist_data, echo=F, warning=FALSE, fig.height=8}
+yougov_gw_problem = data.frame(very.serious = 41.5, somewhat.serious = 27.9, not.serious =  25.7, unsure = 5.0 )
+yougov_gw_cause = data.frame(human = 56.6, natural = 25.9, unsure = 17.5)
+yougov_gw_policy = data.frame(cost = c('Unconditional', '$80/year', '$175/year', '$770/year'),
+                              percent = c(61.8, 52.1, 28.7, 6.7))
+yougov_data_source = '[The Economist, Jul 1, 2009.](http://media.economist.com/media/pdf/Tabs20090701.pdf)'
+```
+```{r pielke_wtp, echo=F}
+gw_wtp <- yougov_gw_policy
+gw_wtp$cost = ordered(gw_wtp$cost, levels = rev(gw_wtp$cost))
+gw_wtp <- gw_wtp %>% arrange(desc(cost))
+
+p3 <- ggplot(gw_wtp, aes(x = cost, y = percent)) +
+  geom_bar(stat='identity') +
+  geom_bar(stat="identity", color = "black", fill = brewer.pal(4, "Blues")[3], show.legend=FALSE)
+
+p3 <- p3 +  
+  geom_text(aes(y = percent + 2, label = paste0(percent, '%')), color = "black", size = 10, hjust = 0) +
+  scale_y_continuous(breaks = c(0, 50, 100), labels = c('0%', '50%', '100%'), limits=c(0,100), expand=c(0,0)) + 
+  labs(x = "", y = "Cost", title = "Would you support a policy if\nthe average cost per household is...?") +
+  coord_flip()
+
+p3 <- p3 +  theme_bw(base_size = 30) +
+  theme(plot.margin = unit(c(0,3,1,1), "line"),
+        axis.title.x = element_text(size = 20, lineheight=0.5, vjust=0))
+
+p3
+```
+
+::: {.credit}
+`r yougov_data_source`
+:::
+::::::
+
+## Iron Law of Climate Policy {#iron-law .center}
+
+* {+} People want action on global warming
+* {+} But <span style="color:darkblue; font-weight:bold;">if climate policies conflict with economic growth, growth will win every time.</span>
+
+## Frank Luntz (2010) {#luntz .center}
+
+> What has changed is that the American economy went to hell. 
+> And when you ask voters are they more concerned about 
+> destroying their environment over the next 100 years or 
+> rehabilitating their economy over the next 100 weeks, they'll
+> choose the economy over the environment any day.
+
+[“Candidates Take Aim At Climate Bill To Win Votes”
+*All Things Considered*, NPR, 28 Oct. 2010<br/>
+<https://www.npr.org/templates/story/story.php?storyId=130888515>]{style="font-size:50%;"}
+
+## James Inhofe (2016) {#inhofe .center}
+
+> I assumed like everybody else, way back when everyone was talking about 
+> global warming and all that, I assumed that that was probably right, 
+> until I found out what it was going to cost
+
+[Heritage Foundation Energy & Climate Policy Summit, Dec. 8, 2016<br/>
+<https://www.youtube.com/watch?v=surP84BQwhc>]{style="font-size:50%;"}
+
+## New Data {#new-data}
+
+:::::: {.bare .mtop-3 .eighty}
+> Nearly two-thirds of Americans ranked protecting the environment as a 
+> leading policy priority. 
+> --- [Pew survey (2020)](https://www.people-press.org/2020/02/13/as-economic-concerns-recede-environmental-protection-rises-on-the-publics-policy-agenda/)
+
+> By the widest margin since 2000, more Americans believe environmental 
+> protection should take precedence over economic growth.
+> <br/>--- [Gallup Survey (2019)](https://news.gallup.com/poll/248243/preference-environment-economy-largest-2000.aspx)
+::::::
+:::::: {.bare .mtop-3}
+
+```{r gallup_environment_economy, fig.height=5}
+gallup_ee <- tibble(
+  date = c('1984-09-29', '1990-04-06', '1991-04-12', '1992-02-01', '1995-04-18',
+           '1997-07-26', '1998-04-18', '1999-03-13', '1999-04-12', '2000-01-14',
+           '2000-04-13', '2001-03-06', '2002-03-05', '2003-03-04', '2004-03-09',
+           '2005-03-08', '2006-03-14', '2007-03-12', '2008-03-07', '2009-03-06', 
+           '2010-03-05', '2010-05-24', '2011-03-04', '2012-03-07', '2013-03-08', 
+           '2014-03-07', '2015-03-06', '2016-03-04', '2017-03-03', '2018-03-03', 
+           '2019-03-05'),
+  environment = c(61, 71, 71, 58, 62, 
+                  66, 68, 65, 67, 70, 
+                  67, 57, 54, 47, 49, 
+                  53, 52, 55, 49, 42, 
+                  38, 50, 36, 41, 43, 
+                  50, 46, 56, 56, 57, 
+                  65),
+  economy     = c(28, 19, 20, 26, 32, 27, 24, 30, 28, 23, 28, 33, 36, 42, 44,
+                  36, 37, 37, 42, 51, 53, 43, 54, 49, 48, 41, 42, 37, 35, 35,
+                  30)
+) %>% gather(-date, key = issue, value = support) %>% 
+  mutate(date = ymd(date), support = support / 100,
+         issue = str_to_sentence(issue)) 
+
+ggplot(gallup_ee, aes(x = date, y = support, color = issue, shape = issue)) +
+  geom_line(size = 1) + geom_point(size = 3) +
+  scale_color_brewer(palette = "Dark2", name = "Issue") +
+  scale_shape(name = "Issue") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  labs(x = NULL, y = NULL, title = "Which issue should be given priority?") +
+  theme_gdocs(base_size=20) + 
+  theme(legend.key.width = unit(4, "line"),
+        legend.position=c(0.02,0.67), legend.justification=c(0,1), 
+        legend.background = element_rect(fill = "white", colour = "gray80"),
+        plot.title = element_text(size = 22, hjust=0.5),
+        panel.grid.minor= element_blank(), 
+        #element_line(color='gray90',size=0.05), 
+        panel.grid.major.y=element_line(color='gray80',size=0.2))
+```
+
+::: {.credit}
+Source: [Gallup: Preference for Environment Over Economy Largest Since 2000 (2019)](https://news.gallup.com/poll/248243/preference-environment-economy-largest-2000.aspx)
+
+:::
+::::::
+
+## Public Opinion on Priorities (2015) {#priorities .ninety}
+```{r policy_priority, echo=FALSE}
+ccam_priority = data.frame(question = c('Global warming', 'Developing sources\nof clean energy'),
+                           very.high = c(18, 29),
+                           high = c(27, 35),
+                           medium = c(31, 24),
+                           low = c(24, 12))
+
+ccam_priority_x = ccam_priority %>% gather(key = priority, value = percent, -question)
+ccam_priority_x$priority <- ordered(ccam_priority_x$priority, levels = c('low', 'medium', 'high', 'very.high'), labels = c('Low', 'Medium', 'High', 'Very high'))
+ccam_priority_x <- ccam_priority_x %>% group_by(question) %>% mutate(cum_pct = cumsum(percent)) %>% ungroup()
+
+p <- ggplot(ccam_priority_x, aes(y = percent, x = question, fill = priority)) + 
+  geom_bar(stat='identity') +
+  geom_bar(stat="identity", color = "black", show.legend=FALSE) + 
+  geom_text(aes(y = cum_pct - percent/2, label = paste0(percent, '%')), color = "black", size = 10) +
+  scale_fill_brewer(breaks = rev(levels(ccam_priority_x$priority)), name = "Priority: ") + 
+  labs(y = " \nDo you think the following should be a low, medium, high,\nor very high priority for the president and Congress?", x = NULL) + 
+  scale_y_continuous(breaks = c(0, 50, 100), labels = c('0%', '50%', '100%'), limits=c(0,100), expand=c(0,0)) + 
+  coord_flip() + 
+  theme_bw(base_size = 30) +
+  theme(legend.position = 'top', legend.background = element_rect(color = 'black'),
+        legend.key = element_rect(color="black"),
+        plot.margin = unit(c(0,3,1,1), "line"),
+        axis.title.x = element_text(size = 20, vjust=0))
+
+gg <- ggplotGrob(p)
+gg <- gtable_add_grob(gg, textGrob("Climate Change in the American Mind, March 2015\nhttp://www.climatechangecommunication.org",x=1, hjust=0, gp=gpar(col="gray50", cex=0.7)), t=6, l=1, clip="off")
+grid.draw(gg)
+
+```
+
+## Public Support for Policies (2017) {#policy-support .eighty}
+```{r policy_support, echo=FALSE}
+ccam_support = data.frame(question = c('Fund more research into renewable\nenergy sources,such as solar and wind power',
+                                       'Provide tax rebates for people who purchase\nenergy-efficient vehicles or solar panels',
+                                       'Regulate carbon dioxide (the primary\ngreenhouse gas) as a pollutant',
+                                       'Require electric utilities to produce at least\n20% of their electricity from ...\nrenewable energy sources even if it costs\nthe average household an extra $100 a year.'),
+                          strongly.support = c(51, 39, 59, 29),
+                          somewhat.support = c(36, 43, 33, 37),
+                          somewhat.oppose  = c( 7,  9,  6, 17),
+                          strongly.oppose  = c( 5,  8,  1, 16)
+                          )
+
+ccam_support <- ccam_support %>% mutate(no.answer = 100 - (strongly.support + somewhat.support + somewhat.oppose + strongly.oppose)) %>% arrange(strongly.support + somewhat.support)
+
+ccam_support$question <- ordered(ccam_support$question, levels = ccam_support$question)
+
+ccam_support_x = ccam_support %>% gather(key = support, value = percent, -question)
+ccam_support_x$support = ordered(ccam_support_x$support, levels = c('strongly.oppose', 'somewhat.oppose', 'no.answer', 'somewhat.support', 'strongly.support' ), labels = c('Strongly\noppose', 'Somewhat\noppose', 'No\nanswer', 'Somewhat\nsupport', 'Strongly\nsupport'))
+ccam_support_x <- ccam_support_x %>% arrange(question, desc(support))
+ccam_support_x <- ccam_support_x %>% group_by(question) %>% mutate(cum_pct = cumsum(percent)) %>% ungroup()
+
+p <- ggplot(ccam_support_x, aes(y = percent, x = question, fill = support)) + 
+  geom_bar(stat='identity') +
+  geom_bar(stat="identity", color = "black", show.legend=FALSE) + 
+  geom_text(aes(y = cum_pct - percent/2, label = paste0(percent, '%')), color = "black", size = 5) +
+  scale_fill_brewer(type="div", palette="RdBu", breaks = rev(levels(ccam_support_x$support)), name = "Support: ") + 
+  labs(y = " \nHow much to you support or oppose the following policies?", x = NULL) + 
+  scale_y_continuous(breaks = c(0, 50, 100), labels = c('0%', '50%', '100%'), limits=c(0,100), expand=c(0,0)) + 
+  coord_flip() + 
+  theme_bw(base_size = 20) +
+  theme(legend.position = 'top', legend.background = element_rect(color = 'black'),
+        # legend.text = element_text(size=10),
+        legend.key = element_rect(color="black"),
+        axis.text.y = element_text(size=15),
+        axis.title.x = element_text(size = 20, lineheight=0.5, vjust=0),
+        plot.margin = unit(c(0,2,1,1), "line")
+        )
+
+gg <- ggplotGrob(p)
+gg <- gtable_add_grob(gg, textGrob("Climate Change in the American Mind, March 2017\nhttp://www.climatechangecommunication.org",x=1, hjust=0, gp=gpar(col="gray50")), t=6, l=1, clip="off")
+grid.draw(gg)
+```
+
+# Political Will {#political-will-sec .center data-transition="fade-out"}
+
+## Political Will {#political-will .center .eighty data-transition="fade-in"}
+
+* Walter Lippmann  (Pielke's paraphrase):
+
+  > The goal of politics is not to get everyone to think alike, but to get 
+  > people who think differently to act alike
+
+* {+} Cass Sunstein
+
+  > people can often agree on constitutional practices, and even on 
+  > constitutional rights, when they cannot agree on constitutional theories
+  > <br/>
+  > ... 
+  > <br/>
+  > a major goal of a heterogeneous society [is] to make it possible to 
+  > obtain agreement where agreement is necessary, and to make it unnecessary 
+  > to obtain agreement where agreement is impossible.
+
+# Myth 3:<br/>We have all<br/>the technology we need. {#myth-3 .center}
+
+
+## Do we have the technology? {#wedges data-transition="fade"}
+
+:::::: {.bare .mtop-3}
+![](assets/images/issue20wedges8.jpg){style="height:900px;"}
+
+::: {.credit}
+Image credit: S. Pacala & R. Socolow, _Science_ **305**, 968 (2004). 
+[doi: 10.1126/science.1100103](https://doi.org/10.1126/science.1100103)
+:::
+::::::
+
+## Do we have the technology? {#dangerous-assumptions .ninety data-transition="fade-in"}
+
+:::::: {.bare .mtop-3}
+![](assets/images/pielke_cumulative_emissions.jpg){style="height:775px;"}
+
+::: {.credit}
+R.A. Pielke, Jr. <i>et al.</i>, Nature <b>452</b>, 531 (2008).
+[doi: 10.1038/452531a](https://doi.org/10.1038/452531a)
+:::
+::::::
+::: {.eighty}
+* Blue = Assumed spontaneous emissions reduction
+* Brown = Regulations
+* Yellow = Allowed emissions to stabilize CO<sub style="font-size:60%;">2</sub> at 550 ppm.
+:::
+
+## Optimism on energy efficiency {#pielke-kaya .center .ninety}
+
+:::::: {.bare .mtop-3}
+![](assets/images/pielke_assumed_decarbonization.jpg){style="height:900px;"}
+
+::: {.credit}
+R.A. Pielke, Jr. <i>et al.</i>, Nature <b>452</b>, 531 (2008).
+[doi: 10.1038/452531a](https://doi.org/10.1038/452531a)
+:::
+::::::
+
+## The View from 2018: {#gilligan-kaya}
+
+* Pielke's numbers focus on 2000--2005
+    * The years when China's economy began really rapid growth
+* After 2005, things changed:
+
+:::::: {.columns}
+::: {.column}
+```{r post_2005_e, echo=F, message=F, warning=F, fig.height=7, fig.width=9}
+get_kaya_data("World") %>% filter(year >= 1980) %>%
+  plot_kaya("e", y_lab = "quad / $ trillion", log_scale = TRUE,
+            start_year = 2000, stop_year = 2005) +
+  labs(title = "Energy intensity of world economy") +
+  scale_y_log10(breaks = seq(6, 11, 2)) +
+  theme_bw(base_size = 15)
+```
+:::
+::: {.column}
+```{r post_2005_f, echo=F, message=F, warning=F, fig.height=7, fig.width=9}
+get_kaya_data("World") %>% filter(year >= 1980) %>%
+  plot_kaya("f", y_lab = expression(paste(MMT * CO[2] / quad)), log_scale = TRUE,
+            start_year = 2000, stop_year = 2005) +
+  labs(title = "Carbon intensity of world energy supply") +
+  # scale_y_log10(breaks = seq(62, 78, 4)) +
+  theme_bw(base_size = 15) 
+```
+:::
+::::::
+
+
+## Current Emissions Pathways {#rcps}
+
+:::::: {.columns}
+::: {.column}
+
+```{r rcp_data}
+data_file <- file.path(data_dir, "ghg_emissions", "GCAMRCPData.xls")
+
+rcp_45   <- read_excel(data_file, 'RCP4.5') %>% clean_names()
+gcam_60  <- read_excel(data_file, 'GCAM6.0') %>% clean_names()
+gcam_85  <- read_excel(data_file, 'GCAM8.5') %>% clean_names()
+gcam_26  <- read_excel(data_file, 'GCAM2.6') %>% clean_names()
+gcam_ref <- read_excel(data_file, 'GCAMReference') %>% clean_names()
+gcam_by_sector <- read_excel(data_file, 'CO2EmissionsbySector') %>% clean_names()
+
+#
+# Clean up a list of variables by converting them into legal names
+#
+clean_vars <- function(vv) {
+  new_vv <- vv %>%
+    str_replace_all(c("['\"]" = "", "%" = "percent", "^[ ]+" = "_")) %>%
+    make.names() %>%
+    str_replace_all(c("[._]+" = "_", "_+$" = "")) %>% str_to_lower()
+}
+
+#
+# The excel sheet runs years in columns and variables in rows.
+# Flip this to put years in columns (and we need to fix "x2008" type col names
+# and convert years to integers), and clean up variable names to make them
+# legal column names.
+#
+process_scenario <- function(df) {
+  df %>% gather(key = "year", value = "value", -model, -scenario, -region, 
+                -variable, -unit) %>%
+    mutate(year = str_replace_all(year, "^[^0-9]+", "") %>% as.integer()) %>%
+    mutate(variable = clean_vars(variable))
+}
+
+for(s in c('gcam_26', 'rcp_45', 'gcam_60', 'gcam_85', 'gcam_ref', 'gcam_by_sector')) {
+  get(s) %>% process_scenario() %>% assign(x = s, value = ., pos = globalenv())
+}
+
+all_scenarios <- rbind(gcam_26, rcp_45, gcam_60, gcam_85, gcam_ref)
+
+#
+# There are lots of variables. We're interested in the Kaya ones, so filter
+# those out, and change the names to the ones we want.
+# Change scenario names to what we want.
+# Then add up values for each region to get whole world numbers.
+#
+gcam_scenarios <- all_scenarios %>%
+  filter(variable %in% c("population_total", "gdp_total_mer", "primary_energy_total",
+                         "emissions_co2_fossil_fuels_and_industry")) %>%
+  select(scenario, region, variable, year, value) %>%
+  mutate(variable = str_replace_all(variable, c("_.*$" = "", "^population" = "P",
+                                                "^gdp" = "G", "^primary" = "E",
+                                                "^emissions" = "F")),
+         scenario = str_replace_all(scenario, "(GCAM|RCP)([0-9]|Reference)", "\\1 \\2")) %>%
+  group_by(scenario, variable, year) %>% summarize(value = sum(value)) %>% ungroup()
+```
+```{r rcp_rates}
+rates <- gcam_scenarios %>% spread(key = variable, value = value) %>%
+  mutate(e = E / G, f = F / E) %>% select(year, scenario, e, f) %>%
+  filter(year >= 2005, year <= 2020) %>% gather(key = variable, value = value, e, f) %>%
+  nest(-scenario, -variable) %>% group_by(scenario, variable) %>%
+  mutate(fit = map(data, ~lm(log(value) ~ year, data = .x))) %>%
+  mutate(coefs = map(fit, coef)) %>% mutate(rate = map_dbl(coefs, 2)) %>%
+  ungroup() %>%
+  select(scenario, variable, rate) %>% mutate(variable = str_c("r.", variable)) %>%
+  spread(key = variable, value = rate)
+
+hist_rates <- get_kaya_data("World") %>% select(year, e, f) %>% 
+  filter(year >= 2005) %>%
+  gather(key = variable, value = value, -year) %>%
+  nest(-variable) %>% group_by(variable) %>%
+  mutate(fit = map(data, ~lm(log(value) ~ year, data = .x))) %>%
+  mutate(coefs = map(fit, coef)) %>% mutate(rate = map_dbl(coefs, 2)) %>%
+  ungroup() %>%
+  select(variable, rate) %>% mutate(variable = str_c("r.", variable)) %>%
+  spread(key = variable, value = rate) %>% mutate(scenario = "Historical")
+
+rates <- rates %>% bind_rows(hist_rates) %>%
+  mutate(scenario = str_replace(scenario, "GCAM Reference", "Baseline")) %>%
+  mutate(scenario = str_replace(scenario, "GCAM", "RCP"))
+```
+```{r plot_rcp, fig.width = 9}
+rcp_scales <- tribble(
+  ~scenario,    ~order, ~break_order, ~shape, ~size,   ~nx,  ~ny,
+  "Historical",      3,            1,     18,     5,   0.05,  0.02,
+  "Baseline",        1,            2,     16,     3,   0.01,  0.01,
+  "RCP 8.5",         2,            3,     16,     3,   0.00,  0.01,
+  "RCP 6.0",         4,            4,     16,     3,   0.01, -0.01,
+  "RCP 4.5",         5,            5,     16,     3,  -0.01,  0.01,
+  "RCP 2.6",         6,            6,     16,     3,   0.00,  0.01
+  ) %>% arrange(order) %>% mutate(scenario = ordered(scenario, levels = scenario))
+
+
+rcp_levels <- levels(rcp_scales$scenario)
+rcp_breaks <- rcp_scales %>% arrange(break_order) %>% select(scenario) %>% simplify() %>% unname()
+rcp_shapes <- rcp_scales %>% arrange(order) %>% select(scenario, shape) %>%
+  spread(key = scenario, value = shape) %>% simplify()
+rcp_sizes  <- rcp_scales %>% arrange(order) %>% select(scenario, size) %>%
+  spread(key = scenario, value = size) %>% simplify()
+
+r <- rates %>%
+  mutate(scenario = ordered(scenario, levels = rcp_levels)) %>%
+  left_join(rcp_scales %>% select(scenario, nx, ny), by = "scenario")
+
+r_hist <- r %>% filter(scenario == "Historical") %>%
+  bind_rows(., .)
+
+rate_plot <-  ggplot(r, aes(x = 100 * r.f, y = 100 * r.e, color = scenario,
+                            shape = scenario, size = scenario)) +
+  geom_hline(size = 1, color = "gray70", yintercept = 0.0) +
+  geom_vline(size = 1, color = "gray70", xintercept = 0.0) +
+  geom_point() +
+  geom_abline(mapping = aes(intercept = 100 * (r.e + r.f), 
+                            color = scenario, slope = -1),
+              data = r_hist,
+              size = 1) +
+  geom_text_repel(aes(label = scenario),
+                  force = 2.0,
+                  color = "black", size = 4,
+                  box.padding = 0.4,
+                  nudge_x = r$nx, 
+                  nudge_y = r$ny
+                  ) +
+  labs(y = expression(paste(Delta, " Energy Intensity of GDP (%/year)")),
+       x = expression(paste(Delta, "Carbon Intensity of Energy (%/year)")))  +
+  scale_x_continuous(expand = c(0, 0.125)) +
+  scale_color_brewer(palette = "Dark2", direction = -1,
+                     name = "Scenario", guide = "none") +
+  scale_shape_manual(values = rcp_shapes, breaks = rcp_breaks, name = "Scenario",
+                     guide = "none") +
+  scale_size_manual(values = rcp_sizes, breaks = rcp_breaks, name = "Scenario",
+                    guide = "none") +
+  coord_fixed(ratio = 1) +
+  theme_bw(base_size = 15)
+
+rate_plot
+```
+
+:::
+::: {.column .seventy style="width:45%;vertical-align:top;margin-top:1.0em;padding-left:0.5em;"}
+* Comparing actual trends for 2005--2017 to trends for 2005--2020 in 5
+  emissions scenarios:
+  * {+} Points above & right of the magenta line have higher emission trends 
+    than historical
+  * {+} Points below & left of the magenta line have lower emission trends than 
+    historical
+* {+} The historical trend from 2005--2017 is doing better (lower emissions) 
+  than several scenarios including baseline (no policies) and RCP 6.0
+  (business as usual with current policies).
+:::
+::::::
+
+## Summary
+
+* Pielke and others were very pessimistic around 2010
+* Ten years later:
+  * Some reasons for greater optimism
+  * But still cause for concern
+  
+## 2021 UN Report {.seventyfive}
+
+![Washington Post Headline: United Nations: Countries' pledges to cut emissions are far too meager to halt climate change](assets/images/wapo-un-emissions-report.png){style="height:400px;"}
+
+::: {.fragment .bare}
+> “Current levels of climate ambition are very far from putting us on a pathway 
+> that will meet our Paris agreement goals,” said Patricia Espinosa, executive 
+> secretary of the U.N. Framework Convention on Climate Change. 
+
+:::
+::: {.fragment .bare .mtop-2}
+> Even if countries follow through, [they] would put the world on a path to 
+> achieve only a 1 percent reduction in global emissions by 2030....
+> 
+> By contrast, scientists have said that emissions must fall by nearly 
+> 50 percent this decade for the world to realistically have a shot at avoiding 
+> devastating temperature rise.
+
+:::
+
+
+## Do we have the technology? {.center}
+
+:::::: {.bare .mtop-3}
+![](assets/images/Hoffert_Wedges.jpg){style="height:900px;"}
+
+::: {.credit}
+M.I. Hoffert, _Science_ **329**, 1292 (2010)
+[doi: 10.1126/science.1195449](https://doi.org/10.1126/science.1195449)
+:::
+::::::
+

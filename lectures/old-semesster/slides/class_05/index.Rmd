@@ -1,0 +1,1085 @@
+---
+title: "Greenhouse Gases"
+class_no: 5
+class_date: "Wednesday, February 3"
+qrimage: qrcode.png
+pageurl: "ees3310.jgilligan.org/slides/class_05"
+pdfurl: "ees3310.jgilligan.org/slides/class_05/ees_3310_5310_class_05_slides.pdf"
+course: "EES 3310/5310"
+course_name: "Global Climate Change"
+author: "Jonathan Gilligan"
+semester: Spring
+year: 2021
+output:
+  revealjg::revealjs_presentation
+---
+```{r setup, cache = F, echo = F, eval = T, message=F, warning=F}
+knitr::opts_chunk$set(cache=TRUE, 
+                      echo=FALSE, message=FALSE, warning=FALSE,
+                      fig.height=9, fig.width=14, dpi=100,
+                      dev='png',fig.path='assets/fig/',cache.path='./cache/')
+
+library(rprojroot)
+
+semester_dir <- find_rstudio_root_file()
+data_dir <- file.path(semester_dir, "data")
+script_dir <- file.path(semester_dir, "lecture_scripts")
+
+source_semester_script <- function(script) {
+  script_file <- file.path(script_dir, script)
+  message("Running script", script_file)
+  source(script_file, chdir = T)
+}
+
+eval_in_sem_script_dir <- function(expr, loc = script_dir) {
+  this_dir <- getwd()
+  setwd(loc)
+  retval <- eval(expr)
+  setwd(this_dir)
+  invisible(retval)
+}
+
+library(magrittr)
+library(tidyverse)
+
+source_semester_script('modtran.R')
+source_semester_script('nimbus_spectrum.R')
+
+t1l_earth <- tbr_earth * 2^0.25
+t1l_mars  <- tbr_mars  * 2^0.25
+t1l_venus <- tbr_venus * 2^0.25
+```
+```{r regenerate_spectra, eval = FALSE, include=FALSE, echo=FALSE}
+for (co2 in c(0, 2^seq(0,11))) {
+  filename = file.path(data_dir, "modtran", "20km_sat", 
+                       sprintf("co2_%05d_ppm.txt", co2))
+  run_modtran(filename, co2_ppm = co2, ch4_ppm = 0, trop_o3_ppb = 0, 
+              strat_o3_scale = 0, h2o_scale = 0, freon_scale = 0, 
+              atmosphere = "standard", altitude_km = 20)
+}
+
+for (co2 in c(0.25, 0.50)) {
+  filename = file.path(data_dir, "modtran", "20km_sat", 
+                       sprintf("co2_00000_%d_ppm.txt", 100 * co2))
+  run_modtran(filename, co2_ppm = co2, ch4_ppm = 0, trop_o3_ppb = 0, 
+              strat_o3_scale = 0, h2o_scale = 0, freon_scale = 0, 
+              atmosphere = "standard", altitude_km = 20)
+}
+
+for (co2 in c(0, 2^seq(0,11))) {
+  filename = file.path(data_dir, "modtran", "70km_sat", 
+                       sprintf("co2_%05d_ppm.txt", co2))
+  run_modtran(filename, co2_ppm = co2, ch4_ppm = 0, trop_o3_ppb = 0, 
+              strat_o3_scale = 0, h2o_scale = 0, freon_scale = 0, 
+              atmosphere = "standard", altitude_km = 70)
+}
+
+for (co2 in c(0.25, 0.50)) {
+  filename = file.path(data_dir, "modtran", "70km_sat", 
+                       sprintf("co2_00000_%d_ppm.txt", 100 * co2))
+  run_modtran(filename, co2_ppm = co2, ch4_ppm = 0, trop_o3_ppb = 0, 
+              strat_o3_scale = 0, h2o_scale = 0, freon_scale = 0, 
+              atmosphere = "standard", altitude_km = 70)
+}
+
+run_modtran(file.path(data_dir, "modtran", "greenhouse_effect", 
+                      "co2_00000_ppm.txt"), 
+            atmosphere = "tropical", altitude_km = 70, 
+            co2_ppm = 0, ch4_ppm = 0, trop_o3_ppb = 0, strat_o3_scale = 0, 
+            h2o_scale = 0, freon_scale = 0)
+
+run_modtran(file.path(data_dir, "modtran", "greenhouse_effect", 
+                      "co2_00400_ppm.txt"), 
+            atmosphere = "tropical", altitude_km = 70, 
+            co2_ppm = 400, ch4_ppm = 0, trop_o3_ppb = 0, strat_o3_scale = 0, 
+            h2o_scale = 0, freon_scale = 0)
+
+run_modtran(file.path(data_dir, "modtran", "greenhouse_effect", 
+                      "co2_00400_ppm_6_9K.txt"), 
+            atmosphere = "tropical", altitude_km = 70, 
+            co2_ppm = 400, ch4_ppm = 0, trop_o3_ppb = 0, strat_o3_scale = 0, 
+            h2o_scale = 0, freon_scale = 0, delta_t = 6.9)
+
+run_modtran(file.path(data_dir, "modtran", "greenhouse_effect", 
+                      "co2_00400_ppm_7_65K.txt"), 
+            atmosphere = "tropical", altitude_km = 70, 
+            co2_ppm = 400, ch4_ppm = 0, trop_o3_ppb = 0, strat_o3_scale = 0, 
+            h2o_scale = 0, freon_scale = 0, delta_t = 7.65)
+```
+# Lab #2 Assignment, Part 2: {.center}
+
+## General Principles: {#general_principles .center .eighty}
+
+### Start at the top and work down:
+
+#. {+} Balance budget at boundary to space
+   * {+} Get "skin temperature" (top layer)
+#. {+} Balance budget at top layer of atmosphere
+   * {+} Get temp. of next layer down (2^nd^ from top)
+#. {+} Balance budget at next layer of atmosphere
+   * {+} Get temp. of next layer down (3^rd^ from top)
+#. {+} ...
+#. {+} Balance budget at bottom layer of atmosphere
+   * {+} This gives surface (ground) temperature.
+
+. . .
+
+::: {.darkredtext style="margin:20px;margin-top:50px;"}
+
+As long as the albedo and the solar constant don't change, 
+***the skin temperature is always the same***
+for all models: 
+`r round(bare_rock(solar_constant, albedo_earth))` K.
+
+:::
+
+::: {.credit style="font-size:200%;"}
+--- _Understanding the Forecast_, p. 25.
+:::
+
+## "Balance the Budget" {#budget_expl}
+
+### \(\text{Heat}_{\text{in}} = \text{Heat}_{\text{out}}\)
+
+* {+} Nature balances the budget automatically.
+* {+} We use this fact to find the ground temperature.
+* {+} If you know that \(\text{Heat}_{\text{in}} = \text{Heat}_{\text{out}}\), you can figure out the intensities you don't know.
+* {+} If you know the intensity of heat going out of something, you know its temperature.
+
+## 1-Layer Model Review  {#one_layer_review .center}
+
+:::::: {.columns}
+::: {.column .seventy style="width:1200px;"}
+
+* When **shortwave radiation** hits surface:
+  * Fraction $\alpha$ is _reflected_.
+  * Fraction $1 - \alpha$ is _absorbed_.
+* {+} When **longwave radiation** hits surface or layer of atmosphere:
+  * 100% is _absorbed_.
+* {+} When radiation is absorbed:
+  * It transforms from **radiative energy** to  **thermal energy**.
+  * It stops behaving like _radiation_.
+  * It becomes _vibrations of the molecules_ in the dirt, water, or atmosphere.
+* {+} Separately from radiation being absorbed:
+  * **Thermal radiation** is emitted from hot objects.
+* {+} Greenhouse effect _is not longwave radiation **reflecting** off atmosphere_
+  * {+} **Longwave radiation** is absorbed by atmosphere
+  * {+} **Radiation** changes into **thermal energy** in air molecules.
+    * Air molecules get _hotter_.
+  * {+} Later, **air molecules** give off **thermal radiation**
+    * This radiation is _different_ to the radiation they absorbed.
+    
+:::
+::: {.column style="width:700px;"}
+
+![One-layer model](assets/images/ar03f04.png){width=600px}
+
+:::
+::::::
+
+## 1-Layer Model in Brief  {#one_layer_brief .center}
+
+:::::: {.columns}
+::: {.column .eighty style="width:1200px;"}
+### **Start at top:**
+
+* {+} Balance heat budget at boundary to space.
+  $$
+  \frac{(1 - \alpha) I_{\text{solar}}}{4} = \epsilon\sigma T_{\text{atmos}}^4
+  $$
+  * {+} [Same as bare-rock model: 
+    \(T_{\text{atmos}} = 
+    `r round(bare_rock(solar_constant, albedo_earth))`~K\).]{.darkgreentext}
+  * {+} _skin temperature_
+* {+} Balance budget at atmosphere:
+  $$
+  \begin{aligned}
+    \Rule{0pt}{3ex}{0ex}\epsilon\sigma T_{\text{ground}}^4 &= 2\epsilon\sigma T_{\text{atmos}}^4\\
+    T_{\text{ground}}^4 &= 2 T_{\text{atmos}}^4\\
+    T_{\text{ground}} &= \sqrt[4]{2}\: T_{\text{atmos}}
+  \end{aligned}
+  $$
+  * {+} **Ground temp**:
+    \(T_{\text{ground}} = \sqrt[4]{2}\: T_{\text{skin}} = `r round(layer_temp(1))`~K\).
+:::
+::: {.column style="width:700px;"}
+![One-layer model](assets/images/ar03f04.png){width=600px}
+:::
+::::::
+
+## 1-Layer Model: Heat Balance Details
+```{r single_layer_balance, echo=FALSE}
+i_in = (1 - albedo_earth) * solar_constant / 4.0
+i_up_a = i_in
+i_down_a = i_in
+i_up_ground = i_up_a + i_down_a
+```
+:::::: {.columns}
+::: {.column .eighty style="width:1200px;"}
+
+* Numbers: 
+  * $I_{\text{solar}} = `r prt(solar_constant, digits = 0)`~W/m^2$
+  * {+} $I_{\text{in}} = (1 - \alpha) I_{\text{solar}} / 4 = `r prt(i_in, digits=0)`~W/m^2$
+  * {+} $I_{\text{down,atm}} = I_{\text{up,atm}} = I_{\text{in}} = `r prt(i_in, digits=0)`~W/m^2$
+  * {+} $I_{\text{up,ground}} = 2 I_{\text{up,atm}} = `r prt(i_up_ground, digits=0)`~W/m^2$
+* {+} Balance:
+  * {+} Boundary to Space: 
+    * $\text{in} = I_{\text{in}} = `r prt(i_in, digits=0)`~W/m^2$,
+    * $\text{out} = I_{\text{up,atm}} = `r prt(i_up_a, digits=0)`~W/m^2$.
+  * {+} Atmosphere Layer: 
+    * $\text{in} = I_{\text{up,ground}} = `r prt(i_up_ground, digits = 0)`~W/m^2$,
+    * $\text{out} = I_{\text{up,atm}} + I_{\text{down,atm}} = `r prt(2 * i_up_a, digits=0)`~W/m^2$.
+  * {+} Ground:
+    * $\text{in} = I_{\text{in}} + I_{\text{down,atm}} = `r prt(2 * i_in, digits=0)`~W/m^2$,
+    * $\text{out} = I_{\text{up,ground}} = `r prt(i_up_ground, digits = 0)`~W/m^2$.
+
+:::
+::: {.column style="width:700px;"}
+
+![One-layer model](assets/images/ar03f04.png){width=600px}
+
+:::
+::::::
+
+# Greenhouse Gases {#ghg_section .center}
+
+```{r read_atmos, include=FALSE}
+atmos <- read.table(file.path(data_dir,'modtran','normal_atmos.txt'),header=F, 
+                    skip=110, nrows=33, 
+                    col.names=c('i','z','p','t','h2o','o3','co2','co','ch4',
+                                'n2o','o2','nh3','no','no2','so2'))
+```
+
+## Greenhouse Gases  {#ghg .eighty}
+
+Layer model was too simple:
+
+* Emissivity \(\varepsilon\), varies with wavelength 
+* Temperature varies with altitude
+
+```{r load_iris_spectrum, echo=FALSE, fig.width=11, fig.height=7}
+  # source('nimbus_spectrum.r')
+if (TRUE) {
+  iris_spectrum <- read_spectrum(file.path(data_dir,'nimbus/sahara.csv'))
+  iris_spectrum_desc <- 'Sahara desert in April'
+  iris_match_file <- 'sahara_match.txt'
+  iris_label <- str_c("Data source: NASA IRIS IR spectrometer",
+                      "ftp://acdisc.gsfc.nasa.gov/data/s4pa/Nimbus4_IRIS_Level1B/IRISN4RAD.001/",
+                      sep="\n")
+} else {
+  iris_spectrum <- read_spectrum(file.path(data_dir,'nimbus/pacific.csv'))
+  iris_spectrum_desc <- 'Tropical Pacific Ocean in April'
+  iris_match_file <- NULL
+}
+process_spectrum(iris_spectrum,paste0("(",iris_spectrum_desc,")"),220,280,7,0.8)
+```
+
+
+## Temperature in the Atmosphere {#temperature_profile.center .eighty}
+
+```{r temp_profile, echo=FALSE, fig.width=10, fig.height=9.5}
+p <- atmos %>% filter(z > 0) %>%
+  ggplot(aes(x=ktof(t), y=z)) + 
+  geom_path(color='darkblue', size=1) + 
+  geom_hline(aes(yintercept=11), color="darkred") + 
+  geom_text(aes(x=5,y=12.5), label="Tropopause", size=8, color="darkred", 
+            hjust=0, vjust=0) +
+  theme_classic() + theme(text=element_text(size=20),
+                          panel.grid.major = element_line(color='gray85')) +
+  labs(x = 'Temperature (F)', y = 'Altitude (km)', 
+       title="Temperature Profile of the Atmosphere") + 
+  scale_y_log10(breaks=c(0.01,0.02,0.04,0.06,0.08,
+                         0.1,0.2,0.4,0.6,0.8,
+                         1,2,4,6,8,
+                         10,20,40,60,80,100))
+
+plot(p)
+```
+
+# Longwave Light in the Atmosphere {#radiative_diffusion .center}
+
+:::::: {.columns}
+::: {.column .eighty}
+* {+} At wavelengths where gases in the atmosphere absorb longwave:
+  * Atmosphere is opaque. 
+  * Like fog
+* {+} For light to get out to space, **there can't be too many absorbing molecules overhead**.
+  * The stronger the absorption at that wavelength,
+  * or the greater the concentration of the gas in the atmosphere,
+  * **the higher up you have to go before the atmosphere overhead is no longer opaque**.
+* {+} The troposphere gets colder the higher you go.
+  * 6.5K (12&deg;F) cooler per kilometer altitude.
+  * Colder air emits lower intensity.
+:::
+::: {.column}
+![Figure 4.4 from _Understanding the Forecast_ ](assets/images/ar04f04.png){style="height:750px"}
+:::
+::::::
+
+## Earth seen by GOES satellite {#GOES_all_channel}
+
+![GOES satellite images](assets/images/geall.14240.1900.png){style="height:950px;"}
+
+# Understanding Greenhouse Gases {.center}
+
+## Molecular Structure {.eighty}
+
+:::::: {.columns}
+::: {.column style="vertical-align:middle;"}
+![Modes of vibration in H~2~O](assets/images/ar04f01.jpg){height="300"}
+
+![Modes of vibration in CO~2~](assets/images/ar04f02.jpg){height="500"}
+:::
+::: {.column}
+* Single atoms & two-atom molecules with the same atom (O~2~, N~2~) 
+  have little or no longwave absorption
+* {+} Molecules with:
+  * two different atoms (CO, NO) absorb (simple stretch)
+  * {+} three or more atoms (CO~2~, O~3~, H~2~O) absorb strongly 
+    (multiple stretching & bending modes)
+  * {+} More atoms, more different kinds &rarr; stronger absorption 
+    (CH~4~, C~2~F~3~Cl~3~ aka CFC 113)
+:::
+::::::
+
+## Models and Observations {#models_observations_sec data-transition="fade"}
+
+## Models and Observations {#models_observations data-transition="fade-in" data-backgorund-transition="fade"}
+```{r model.sahara, echo=FALSE, fig.width=12, fig.height=8}
+iris_sim_file <- file.path(data_dir,'modtran',iris_match_file)
+# iris_sim <- run_modtran(filename = iris_sim_file, 
+#                         atmosphere = "midlatitude summer", 
+#                         delta_t = -13, h2o_scale = 0.1, 
+#                         h2o_fixed = "vapor pressure", co2 = 350, 
+#                         trop_o3_ppb = 30, ch4_ppm = 1.0)
+iris_sim <- read_modtran(file.path(data_dir,'modtran',iris_match_file))
+
+k_limits <- c(400, 1600)
+
+lambda = c(1, 2, 2.5, 3, 3.5, 4, 5:10,
+           12, 14, 17, 20, 25, 30, 35, 40, 50,
+           100)
+
+iris_df <- iris_sim$spectrum %>% 
+  filter(between(k, min(k_limits), max(k_limits))) %>% 
+  select(k, i = tk) %>% 
+  mutate(spectrum = "MODTRAN") %>% 
+  bind_rows(mutate(iris_spectrum, i = i * pi / 1000,
+                   spectrum = "Satellite measurements")) %>% 
+  mutate(spectrum = ordered(spectrum))
+
+text_size = 15
+legend_text_size = text_size
+legend_size = 0.2
+
+lambda_axis <- sec_axis(~ ., breaks = 1E4 / lambda,
+                        labels = as.character(lambda),
+                        name = expression(paste("Wavelength ", (mu * m))))
+
+
+ggplot(iris_df, aes(x = k, y = i, color = spectrum, size = spectrum)) + 
+  geom_line() + 
+  scale_color_manual(values = c("Satellite measurements" = "black", 
+                                MODTRAN = "magenta"), 
+                     name = NULL) +
+  scale_size_manual(values = c("Satellite measurements" = 0.5, MODTRAN = 0.1), 
+                    name = NULL) +
+  scale_x_continuous(limits= k_limits, sec.axis = lambda_axis) +
+  labs(x = expression(paste("Wavenumber (", cm^-1, ")")),
+       y = expression(paste("Intensity (", W/m^2 * cm^-1, ")")),
+       title = "Satellite measurements vs. MODTRAN model") +
+  annotate('text', x = 410, y = 0.005, size=4, color = 'darkgray', 
+           hjust = 0, vjust = 0,
+           label = iris_label) +  
+  theme_bw(base_size = text_size) +
+  theme(panel.grid.major=element_line(size=0.1,color="gray85"),
+        panel.grid.minor=element_line(size=0.1,color="gray95"),
+        legend.key.size = unit(legend_size,"npc"),
+        legend.text = element_text(size=legend_text_size),
+        legend.position = c(0.99,0.99), legend.justification = c(1,1),
+        legend.key.height = unit(1, "lines"), legend.key.width = unit(2, "lines"),
+        legend.background = element_rect(color = "black", fill = "white"))
+```
+
+Checking MODTRAN model: It looks very similar to real life.
+
+# MODTRAN Computer Model {#modtran_section .center data-transition="fade-out"}
+
+## What is MODTRAN? {#what_is_modtram data-transition="fade" .eightyfive}
+
+> * Pure radiative calculation
+>     * Air does not move:
+>         * No wind or convection
+> * Only calculates infrared heat flux
+>     * Does not give equilibrium ground temperature
+> * Only calculates one spot
+>     * Does not give global averages
+> * You specify:
+>     * Ground temperature
+>     * Composition of atmosphere
+> * Modtran computes:
+>     * Longwave radiation at different altitudes
+>     * Total radiation to space
+
+## Running MODTRAN {#running_modtran}
+
+* Go to <http://climatemodels.uchicago.edu/modtran/>
+* [Next](#double_co2)
+
+<iframe src="https://climatemodels.jgilligan.org/modtran/" style="height:800px;width:1500px;">
+[http://climatemodels.uchicago.edu/modtran/](http://climatemodels.uchicago.edu/modtran)
+</iframe>
+
+
+## Exercise: Double CO~2~ {#double_co2 .eighty}
+
+:::::: {.columns .vtop}
+::: {.column .vtop}
+* Set Locality to "Tropical Atmosphere"
+* Click "Save This Run to Background"
+* Note the Upward IR heat flux
+* Double the amount of CO~2~
+* Adjust T offset until new heat flux = background flux
+* What is the new ground temperature?
+:::
+::: {.column}
+<iframe src="https://climatemodels.jgilligan.org/modtran/" style="height:750px;width:940px;"></iframe>
+:::
+::::::
+
+## Exercise: Double CO~2~ {#double_co2_2}
+
+<iframe src="https://climatemodels.jgilligan.org/modtran/" style="height:800px;width:1500px;"></iframe>
+
+# Different Gases {#different_gas_sec .center}
+
+## Different Gases {#different_gases}
+
+<iframe src="https://climatemodels.jgilligan.org/modtran/" style="height:800px;width:1500px;"></iframe>
+
+# Band Saturation {#band_saturation_intro_sec .center}
+
+## Set up MODTRAN: {#setup_modtran .eighty}
+
+* Set "Location" to "1976 U.S. Standard Atmosphere"
+* Set All greenhouse gases to zero
+* Set altitude to 20 km
+
+<iframe src="https://climatemodels.jgilligan.org/modtran/" style="height:800px;width:1500px;"></iframe>
+
+## No CO~2~ {#co2_00000 data-transition="fade-out"}
+```{r no.ghg, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00000_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00000_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+i_ref <- mod_data$i_out
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = NA)
+i_list <- data.frame(co2 = mod_data$co2, i = mod_data$i_out)
+last_i <- i_ref
+plot(p)
+```
+
+## 1 ppm CO~2~ {#co2_00001 data-transition="fade"}
+```{r co2.00001, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00001_ppm.txt'))$mtime, last_i)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00001_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = NA)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+
+## 2 ppm CO~2~ {#co2_00003_125 data-transition="fade"}
+```{r co2.00002, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00002_ppm.txt'))$mtime, last_i)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00002_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = NA)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+
+## 4 ppm CO~2~ {#co2_00004 data-transition="fade"}
+```{r co2.00004, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00004_ppm.txt'))$mtime, last_i)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00004_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = NA)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+
+## 8 ppm CO~2~ {#co2_00008 data-transition="fade"}
+```{r co2.00008, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00008_ppm.txt'))$mtime, last_i)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00008_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = NA)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## 16 ppm CO~2~ {#co2_00016 data-transition="fade"}
+```{r co2.00016, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00016_ppm.txt'))$mtime, last_i)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00016_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = NA)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## 32 ppm CO~2~ {#co2_00032 data-transition="fade"}
+```{r co2.00032, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00032_ppm.txt'))$mtime, last_i)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00032_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = NA)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+
+## 64 ppm CO~2~ {#co2_00064 data-transition="fade"}
+```{r co2.00064, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00064_ppm.txt'))$mtime, last_i)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00064_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = NA)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## 128 ppm CO~2~ {#co2_00128 data-transition="fade"}
+```{r co2.00128, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00128_ppm.txt'))$mtime, last_i)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00128_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = NA)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## 256 ppm CO~2~ {#co2_00256 data-transition="fade"}
+```{r co2.00256, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00256_ppm.txt'))$mtime, last_i)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00256_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = NA)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## 512 ppm CO~2~ {#co2_00512 data-transition="fade"}
+```{r co2.00512, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00512_ppm.txt'))$mtime, last_i)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00512_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = NA)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## 1024 ppm CO~2~ {#co2_01024 data-transition="fade"}
+```{r co2.01024, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_01024_ppm.txt'))$mtime, last_i)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_01024_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = NA)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## 2048 ppm CO~2~ {#co2_02048 data-transition="fade-in"}
+```{r co2.02048, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_02048_ppm.txt'))$mtime, last_i)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_02048_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = NA)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+# Measuring Band Saturation {#band_saturation_detect_sec .center}
+
+## Set up MODTRAN: {#setup_modtran_2 .eighty}
+
+* Go to MODTRAN, set CO~2~ to 0.25 ppm, and set all other gases to zero.
+
+<!-- -->
+
+> * Set altitude to 20 km and location to "1976 U.S. Standard Atmospheree".
+> *  Press "Save this run to background"
+> *  Note _I_~out~
+> *  Double CO~2~ and note the change in _I_~out~
+> *  Keep doubling CO~2~ until you get to 1024 ppm.
+> *  Do you notice anything about the changes in _I_~out~?
+
+## 0 ppm CO~2~ {#co2_delta_00000 data-transition="fade-out"}
+```{r co2.delta.00000, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00000_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00000_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+i_ref <- mod_data$i_out
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = 10)
+last_i <- mod_data$i_out
+i_list <- data.frame(co2 = mod_data$co2, i = mod_data$i_out)
+plot(p)
+```
+
+## 0.25 ppm CO~2~ {#co2_delta_00000_25 data-transition="fade"}
+```{r co2.delta.00000_25, echo=FALSE, dependson="co2.delta.00000", cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00000_25_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00000_25_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  i_out_ref = i_ref, last_i_out = last_i,
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = 10)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+
+## 0.5 ppm CO~2~ {#co2_delta_00000_5 data-transition="fade"}
+```{r co2.delta.00000_5, echo=FALSE, dependson="co2.delta.00000_25", cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00000_50_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00000_50_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  i_out_ref = i_ref, last_i_out = last_i,
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = 10)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+
+## 1 ppm CO~2~ {#co2_delta_00001 data-transition="fade"}
+```{r co2.delta.00001, echo=FALSE, dependson="co2.delta.00000_5", cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00001_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00001_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  i_out_ref = i_ref, last_i_out = last_i,
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = 10)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## 2 ppm CO~2~ {#co2_delta_00003_125 data-transition="fade"}
+```{r co2.delta.00002, echo=FALSE, dependson="co2.delta.00001", cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00002_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00002_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  i_out_ref = i_ref, last_i_out = last_i,
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = 10)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+
+## 4 ppm CO~2~ {#co2_delta_00004 data-transition="fade"}
+```{r co2.delta.00004, echo=FALSE, dependson="co2.delta.00002", cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00004_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00004_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  i_out_ref = i_ref, last_i_out = last_i,
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = 10)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+
+## 8 ppm CO~2~ {#co2_delta_00008 data-transition="fade"}
+```{r co2.delta.00008, echo=FALSE, dependson="co2.delta.00004", cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00008_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00008_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  i_out_ref = i_ref, last_i_out = last_i,
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = 10)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## 16 ppm CO~2~ {#co2_delta_00016 data-transition="fade"}
+```{r co2.delta.00016, echo=FALSE, dependson="co2.delta.00008", cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00016_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00016_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  i_out_ref = i_ref, last_i_out = last_i,
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = 10)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## 32 ppm CO~2~ {#co2_delta_00032 data-transition="fade"}
+```{r co2.delta.00032, echo=FALSE, dependson="co2.delta.00016", cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00032_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00032_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  i_out_ref = i_ref, last_i_out = last_i,
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = 10)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+
+## 64 ppm CO~2~ {#co2_delta_00064 data-transition="fade"}
+```{r co2.delta.00064, echo=FALSE, dependson="co2.delta.00032", cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00064_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00064_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  i_out_ref = i_ref, last_i_out = last_i,
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = 10)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## 128 ppm CO~2~ {#co2_delta_00128 data-transition="fade"}
+```{r co2.delta.00128, echo=FALSE, dependson="co2.delta.00064", cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00128_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00128_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  i_out_ref = i_ref, last_i_out = last_i,
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = 10)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## 256 ppm CO~2~ {#co2_delta_00256 data-transition="fade"}
+```{r co2.delta.00256, echo=FALSE, dependson="co2.delta.00128", cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00256_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00256_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  i_out_ref = i_ref, last_i_out = last_i,
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = 10)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## 512 ppm CO~2~ {#co2_delta_00512 data-transition="fade"}
+```{r co2.delta.00512, echo=FALSE, dependson="co2.delta.00256", cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_00512_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_00512_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  i_out_ref = i_ref, last_i_out = last_i,
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = 10)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## 1024 ppm CO~2~ {#co2_delta_01024 data-transition="fade"}
+```{r co2.delta.01024, echo=FALSE, dependson="co2.delta.00512", cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_01024_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_01024_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  i_out_ref = i_ref, last_i_out = last_i,
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = 10)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## 2048 ppm CO~2~ {#co2_delta_02048 data-transition="fade-in"}
+```{r co2.delta.02048, echo=FALSE, dependson="co2.delta.01024", cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','20km_sat','co2_02048_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','20km_sat','co2_02048_ppm.txt'))
+pco2 <- mod_data$co2
+alt <- mod_data$alt
+p <- plot_modtran(modtran_data = mod_data, 
+                  descr = str_c(pco2, ' ppm CO2, ', alt, ' km'),
+                  i_out_ref = i_ref, last_i_out = last_i,
+                  legend_size=0.05, legend_text_size=25, text_size = 25, 
+                  annotate_size = 10)
+last_i <- mod_data$i_out
+i_list <- rbind(i_list, data.frame(co2 = mod_data$co2, i = mod_data$i_out))
+plot(p)
+```
+
+## Band Saturation (I~out~) {#band_sat_i data-transition="fade-out"}
+```{r band.sat.i.out, echo=FALSE, warning=FALSE, dependson="co2.delta.02048"}
+
+data <- i_list %>% rename(iout = i) %>% mutate(delta = iout - iout[1],
+                                               inc = delta - lag(delta))
+
+ggplot(data,aes(co2,iout)) +
+  geom_point(size=5) + geom_line() +
+  (if(FALSE) {
+  geom_text(aes(x= co2 + ifelse(co2 > 500, 0, 30),
+                y= iout + ifelse(co2 > 500, 1, ifelse( co2 > 50, 0.5, 0)),
+                hjust= ifelse(co2 > 800, 0.5, 0), 
+                vjust= ifelse(co2 > 100, 0, 0.5),
+                label=paste0(formatC(co2, digits=0,format='f'),' ppm', 
+                             ifelse(co2 < 50 | co2 > 800, '\n', ': '),
+                            formatC(iout, digits=2,format='f'))))
+  } else {
+  geom_text(aes(x= co2 + ifelse(co2 > 500, 0, 30),
+                y= iout + ifelse(co2 > 200, 1, ifelse( co2 > 50, 0.5, 0)),
+                hjust= ifelse(co2 > 200, 0.5, 0), 
+                vjust= ifelse(co2 > 200, 0, 0.5),
+                label=formatC(iout, digits=2,format='f')))
+  }) +
+  scale_x_continuous(limits=c(0,1100), breaks=seq(0,1200,200)) +
+  labs(x=expression(paste(CO[2], " (ppm)")),
+       y=expression(paste(I[out], " (", W / m^2, ")")),
+       title = expression(paste("Saturation of ", CO[2], " absorption"))) +
+  theme_bw(base_size = 20)
+```
+
+## I~out~ (CO~2~ on log scale) {#band_sat_i data-transition="fade"}
+```{r band.sat.i.out.log, echo=FALSE, warning=FALSE, dependson="band.sat.i.out"}
+
+ggplot(filter(data, co2 > 0), aes(co2,iout)) +
+  geom_point(size=5) + geom_line() +
+  (if(FALSE) {
+  geom_text(aes(x= co2 + ifelse(co2 > 500, 0, 30),
+                y= iout + ifelse(co2 > 500, 1, ifelse( co2 > 50, 0.5, 0)),
+                hjust= ifelse(co2 > 800, 0.5, 0), 
+                vjust= ifelse(co2 > 100, 0, 0.5),
+                label=paste0(formatC(co2, digits=0,format='f'),' ppm', 
+                             ifelse(co2 < 50 | co2 > 800, '\n', ': '),
+                            formatC(iout, digits=2,format='f'))))
+  } else {
+  geom_text(aes(x= co2 * 1.1,
+                y= iout + 0.5,
+                hjust= 0,
+                vjust= 0,
+                label=formatC(iout, digits=2,format='f')))
+  }) +
+  scale_x_log10(limits=c(0.25,1200), breaks=2^(-2:10),
+                labels = function(x) {format(x, digits = 2, drop0trailing = TRUE)}
+  ) +
+  labs(x=expression(paste(CO[2], " (ppm)")),
+       y=expression(paste(I[out], " (", W / m^2, ")")),
+       title = expression(paste("Saturation of ", CO[2], " absorption"))) +
+  theme_bw(base_size = 20)
+```
+
+## $\Delta I_{\text{out}}$  {#band_sat_delta data-transition="fade"}
+```{r band.sat.delta.i, echo=FALSE, warning=FALSE, dependson="band.sat.i.out"}
+
+ggplot(filter(data, co2 > 0),aes(co2,delta)) +
+  geom_point(size=5) + geom_line() +
+  (if(FALSE) {
+  geom_text(aes(x= log10(co2 + ifelse(co2 > 500, 0, 30)),
+                y= delta + ifelse(co2 > 500, 1, ifelse( co2 > 50, 0.5, 0)),
+                hjust= ifelse(co2 > 800, 0.5, 0), 
+                vjust= ifelse(co2 > 100, 0, 0.5),
+                label=paste0(formatC(co2, digits=0,format='f'),' ppm', 
+                             ifelse(co2 < 50 | co2 > 800, '\n', ': '),
+                            formatC(delta, digits=2,format='f'))))
+  } else {
+  geom_text(aes(x= co2 * 1.1,
+                y= delta + 0.5,
+                hjust = 0,
+                vjust = 0,
+                label=formatC(delta, digits=2,format='f')))
+  }) +
+  scale_x_log10(limits=c(0.25,1200), breaks=2^(-2:10),
+                labels = function(x) {format(x, digits = 2, drop0trailing = TRUE)}
+  ) +
+  labs(x=expression(paste(CO[2], " (ppm)")),
+       y=expression(paste(Delta * I[out], " (", W / m^2, ")")),
+       title = expression(paste("Saturation of ", CO[2], " absorption"))) +
+  theme_bw(base_size = 20)
+
+```
+
+Change in _I_~out~ from no CO~2~
+
+## Increments of _I_~out~  {#band_sat_inc data-transition="fade-in"}
+```{r band.sat.inc, echo=FALSE, warning=FALSE, dependson="band.sat.i.out"}
+require(dplyr)
+
+data %>% filter(co2 > 0.25, co2 < 1024) %>%
+  ggplot(aes(co2,inc)) +
+  geom_point(size=5) + geom_line() +
+  geom_text(aes(x= co2 * 1.1,
+                y= inc  + 0.1,
+                hjust= 0, 
+                vjust= 0, 
+                label=paste(formatC(inc, digits=2,format='f'))),
+            size=7, angle=30) +
+  scale_x_log10(limits=c(0.5, 700), breaks=2^(-2:10),
+                labels = function(x) {format(x, digits = 2, drop0trailing = TRUE)}
+  ) +
+  scale_y_continuous(limits=c(-6,0), breaks=seq(-10,0,2)) +
+  labs(x=expression(paste(CO[2], " (ppm)")),
+       y=expression(paste("Increment of  ", I[out], " (", W / m^2, ")")),
+       title = expression(paste("Saturation of ", CO[2], " absorption"))) +
+  theme_bw(base_size = 20)
+```
+
+Change in _I_~out~ from previous _I_~out~
+
+
+# Measuring Greenhouse Effect: {#greenhouse_effect_sec .center }
+
+## Measuring Greenhouse Effect: {#greenhouse_effect data-transition="fade-out"}
+
+* Go to MODTRAN, set CO~2~ to 0 ppm, and set all other gases to zero.
+* {+} Set altitude to 70 km and location to "Tropical Atmosphere".
+* {+} Press "Save this run to background"
+* {+} Note _I_~out~
+* {+} Set CO~2~ to 400 ppm and note the change in _I_~out~
+* {+} Adjust the temperature offset to make the difference in <br/>
+  \(I_{\text{out}} (\text{New} - \text{BG})\) equal zero.
+
+## No Greenhouse Gases {#greenhouse_effect_00 data-transition="fade"}
+```{r warming.000, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','greenhouse_effect','co2_00000_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','greenhouse_effect','co2_00000_ppm.txt'))
+gl <- plot_modtran(modtran_data = mod_data, 
+                   annotate_size=10, legend_size=0.05, text_size=25, legend_text_size=25)
+i_out_ref  <- mod_data$i_out
+t_ref <- mod_data$t_ground
+last_i_out <- mod_data$i_out
+plot(gl)
+```
+
+## 400 ppm  {#greenhouse_effect_400 data-transition="fade"}
+```{r warming.400, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','70km_sat','co2_00400_ppm.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','greenhouse_effect','co2_00400_ppm.txt'))
+gl <- plot_modtran(modtran_data = mod_data, 
+                   i_out_ref = i_out_ref, delta_t = 0.0,
+                   annotate_size=10, legend_size=0.05, text_size=25, legend_text_size=25)
+plot(gl)
+```
+
+## Adjust temperature  {#greenhouse_effect_400_warm data-transition="fade"}
+```{r warming.400.warm, echo=FALSE, cache.extra=c(data_dir,file.info(file.path(data_dir,'modtran','70km_sat','co2_00400_ppm_6_9K.txt'))$mtime)}
+mod_data <- read_modtran(file.path(data_dir,'modtran','greenhouse_effect','co2_00400_ppm_7_65K.txt'))
+delta_t <- mod_data$t_ground - t_ref
+gl <- plot_modtran(modtran_data = mod_data,
+                   i_out_ref = i_out_ref, delta_t = delta_t,
+                   annotate_size=10, legend_size=0.05, text_size=25, legend_text_size=25)
+plot(gl)
+```
+
+# Calculating Global Warming {#calc_warming_sec .center data-transition="fade"}
+
+## Calculating Global Warming  {#calc_warming data-transition="fade"}
+
+* "Climate sensitivity" = \(\Delta T_{2x}\)
+  * Temperature rise for doubled CO~2~.
+  * Uncertain (because of feedbacks)
+  * Best estimate: $\Delta T_{2x} \sim$ 3.2K (range  2.0--4.5 K)
+* {+} Every time you double CO~2~, \(T\) rises by \(\Delta T_{2x}\).
+* {+} For arbitrary change in CO~2~:
+
+  ::: {style="background-color:ghostwhite;margin:20px;border:10px;color:darkblue;"}
+  $$\Delta T = \Delta T_{2x} \times 
+  \frac{\ln\left(\frac{\text{new}~p\COO}{\text{old}~p\COO}\right)}{\ln 2}$$
+  :::
+
+## Global Warming Potential {#gwp}
+
+* Absorption by CO~2~ and water vapor are very saturated
+* {+} Absorption in the atmospheric window is not saturated
+* {+} Therefore, molecule-for-molecule, gases that absorb in the window 
+  have a much bigger effect on the climate than adding more CO~2~.
+  * {+} One chlorofluorocarbon molecule = thousands of CO~2~ molecules
+* {+} Global Warming Potential (GWP)  of _x_ = how many CO~2~ molecules 
+  cause the same warming as one molecule of _x_

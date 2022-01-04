@@ -1,0 +1,716 @@
+---
+title: "Nuclear Energy"
+class_no: 35
+class_date: "Wednesday, April 14"
+qrimage: qrcode.png
+pageurl: "ees3310.jgilligan.org/slides/class_35"
+pdfurl: "ees3310.jgilligan.org/slides/class_35/ees_3310_5310_class_35_slides.pdf"
+course: "EES 3310/5310"
+course_name: "Global Climate Change"
+author: "Jonathan Gilligan"
+semester: Spring
+year: 2021
+output:
+  revealjg::revealjs_presentation
+---
+```{r setup, cache = F, echo = F, eval = T, message=F, warning=F}
+knitr::opts_chunk$set(cache=TRUE, 
+                      echo=FALSE, message=FALSE, warning=FALSE,
+                      fig.height=9, fig.width=14, dpi=100,
+                      dev='png',fig.path='assets/fig/',cache.path='./cache/')
+
+library(rprojroot)
+
+semester_dir <- find_rstudio_root_file()
+data_dir <- file.path(semester_dir, "data")
+script_dir <- file.path(semester_dir, "lecture_scripts")
+
+source_semester_script <- function(script) {
+  script_file <- file.path(script_dir, script)
+  message("Running script", script_file)
+  source(script_file, chdir = T)
+}
+
+eval_in_sem_script_dir <- function(expr, loc = script_dir) {
+  this_dir <- getwd()
+  setwd(loc)
+  retval <- eval(expr)
+  setwd(this_dir)
+  invisible(retval)
+}
+
+library(magrittr)
+library(tidyverse)
+library(readxl)
+library(janitor)
+library(broom)
+library(knitr)
+library(scales)
+library(xtable)
+library(ggrepel)
+
+source_semester_script('lecture_utils.R')
+source_semester_script('supply_demand.R')
+
+theme_set(theme_bw(base_size = 15))
+```
+# Reviewing Emissions Regulation Game {.center}
+
+## Review of Game {#game_review .seventyfive}
+```{r game_outcome, echo=F}
+
+max.emissions <- 15
+
+coef <- tibble(company = c('alpha', 'beta', 'epa'),
+               slope = c(-6, -4, 2),
+               intercept = c(6 * 14, 4 * 14, 2)) %>%
+  mutate(intercept = intercept - slope)
+
+
+marginal <- tibble(emissions = seq(1,30), alpha = NA, beta = NA, epa = NA) %>%
+  pivot_longer(-emissions, names_to = "company", values_to = "value") %>% 
+  full_join(coef, by = 'company') %>%
+  mutate(cost = intercept + emissions * slope) %>%
+  select(-value, -intercept, -slope) %>%
+  pivot_wider(names_from = company, values_from = cost)
+
+profit <- function(actor, emissions) {
+  e <- emissions
+  m <- marginal %>% select(emissions, profit = {{ actor }}) %>% 
+    filter(emissions <= e) %>% 
+    summarize(profit = sum(profit))
+  m$profit
+}
+
+tab_fmt <- function(x, dollar = FALSE, plus = FALSE, zero = FALSE) {
+  d <- ifelse(dollar, '$', '')
+  p <- ifelse(plus,'+','')
+  x <- str_c(ifelse(x == 0, ifelse(zero,str_c(d, x),''), 
+                    str_c(ifelse(x < 0, '&minus;', p ), d, abs(x))))
+}
+
+value <- function(alpha, beta, tax = NA, xfer = c(NA,NA), price = NA, ...) {
+  tab <- tibble(
+    actor = c('alpha', 'beta'),
+    emissions = c(alpha, beta)
+  )
+  if (! is.na(tax)) {
+    tab %<>% mutate(tax = -tax * emissions)
+  } else if (! any(is.na(xfer))) {
+    buy <- ifelse(xfer > 0, xfer, 0)
+    sell <- ifelse(xfer > 0, 0, -xfer)
+    tab %<>% rename(permits = emissions) %>%
+      mutate(bought = buy,
+             sold = sell,
+             emissions = permits + buy - sell,
+             price = -price * sign(xfer)
+    )
+  }
+  tab %<>% rowwise() %>% 
+    mutate(profit = profit(actor, emissions), cost = 0) %>% 
+    ungroup()
+  society <- tibble(actor = 'society', permits = 0, 
+                    bought = 0, sold = 0, 
+                    emissions = 0, 
+                    tax = tax * sum(tab$emissions),
+                    price = 0,
+                    profit = 0, 
+                    cost = -profit('epa', sum(tab$emissions))) %>%
+    select(names(tab))
+  tab %<>% bind_rows(society)
+  colnames(tab) <- str_to_title(colnames(tab))
+  total <- tab %>% select(-Actor) %>% 
+    summarize(across(everything(), sum)) %>%
+    mutate(Actor = 'Total')
+  tab %<>% bind_rows(total) %>% mutate(Net = Profit + Cost)
+  if('Price' %in% colnames(tab))
+    tab %<>% mutate(Net = Net + Price)
+  if ('Tax' %in% colnames(tab))
+    tab %<>% mutate(Net = Net + Tax)
+  tab
+}
+
+print_tab <- function(tab, ...) {
+  dollar_cols = c('Tax','Price','Profit','Cost','Net', 'Rebate', 
+                  "Net.with.Rebate")
+  tax_cols <- intersect(c('Tax', 'Rebate'), colnames(tab))
+  dollar_cols <- intersect(setdiff(dollar_cols, tax_cols), colnames(tab))
+  other_cols <- setdiff(colnames(tab), c('Actor', tax_cols, dollar_cols))
+  
+  tab %<>% mutate(across(dollar_cols, ~ tab_fmt(.x, dollar = TRUE))) %>%
+    mutate(across(other_cols, ~tab_fmt(.x, dollar = FALSE)))
+  if(length(tax_cols)>0)
+    tab %<>% mutate(across(tax_cols, ~tab_fmt(.x, dollar = TRUE, plus = TRUE)))
+  tab %<>% mutate(Actor = str_to_title(Actor))
+  # rownames(tab) <- str_to_title(tab$Actor)
+  # 
+  # tab %<>% select(-Actor)
+  
+  tab %>% xtable(digits=0, 
+                 align = c('l', 'c', 'c', rep_len('r', ncol(.) - 2))) %>%
+    print(type='HTML', 
+          include.rownames = F, include.colnames = T,
+          sanitize.text.function = function(x) x,
+          sanitize.colnames.function = function(x) str_replace_all(x, fixed("."), " "),
+          ...)
+}
+
+optimum <- function() {
+  a <- marginal %>% filter(emissions <= max.emissions) %>%
+    select(firm.emissions = emissions, marginal.profit = alpha) %>%
+    mutate(firm = 'Alpha')
+  b <- marginal %>% filter(emissions <= max.emissions) %>%
+    select(firm.emissions = emissions, marginal.profit = beta) %>%
+    mutate(firm = 'Beta')
+  t <- bind_rows(a, b) %>%
+    arrange(desc(marginal.profit), firm.emissions) %>%
+    mutate(total.emissions = row_number(),
+           cumulative.profit = cumsum(marginal.profit))
+  c <- marginal %>% filter(emissions <= 2 * max.emissions) %>%
+    select(total.emissions = emissions, marginal.cost = epa) %>%
+    mutate(cumulative.cost = cumsum(marginal.cost))
+  t %<>% inner_join(c, by = 'total.emissions') %>%
+    mutate(marginal.net.profit = marginal.profit - marginal.cost,
+           cumulative.net.profit = cumulative.profit - cumulative.cost) %>%
+    select(firm.emissions, firm, total.emissions, cumulative.net.profit) %>%
+    top_n(1, cumulative.net.profit) %>%
+    # Put even total emissions first, and select that if it's an option.
+    arrange(total.emissions %% 2) %>% head(1) %>%
+    transmute(firm = firm, this = firm.emissions, 
+              other = total.emissions - firm.emissions,
+              net = cumulative.net.profit)
+  self <- str_to_lower(t$firm)
+  other <- ifelse(self == 'alpha', 'beta', 'alpha')
+  t <- t %>% rename({{ self }} := this, {{ other }} := other) %>%
+    select(-firm)
+  t
+}
+
+calc_deadweight <- function(tab) {
+  x <- tab %>% filter(Actor == 'Total') %>% select(Net) %>% unlist() %>% unname()
+  optimum()$net - x
+}
+
+epa <- tibble(
+  team    = c('1', '2'),
+  cc      = c(7 * 2, 13 * 2),
+  permits = c(7 * 2, 13 * 2),
+  tax     = c(28, 52)
+)
+
+alpha <- tibble(
+  team = c('1','2'),
+  buy = c(2, 0),
+  price = c(64, 0),
+  tax.emissions = c(10, 6)
+)
+
+beta <- tibble(
+  team = c('1','2'),
+  buy = c(-2, 0),
+  price = c(64, 0),
+  tax.emissions = c(7, 2)
+)
+
+# alpha$tax.emissions <- epa$tax %>% map(~marginal %>% filter(alpha >= .x) %>% select(emissions) %>% max()) %>% simplify()
+# beta$tax.emissions <- epa$tax %>% map(~marginal %>% filter(beta >= .x) %>% select(emissions) %>% max()) %>% simplify()
+```
+
+* Command and Control:
+  * Each company emits the same amount
+
+    ::: {style="color:#8080FF;"}
+    * {+3} 1: `r epa %>% filter(team == '1') %>% select(cc) %>% simplify()` total, 
+      `r epa %>% filter(team == '1') %>% select(cc) %>% simplify()/2` each
+    * {+3} 2: `r epa %>% filter(team == '2') %>% select(cc) %>% simplify()` total, 
+      `r epa %>% filter(team == '2') %>% select(cc) %>% simplify()/2` each
+    :::
+* {+1} Cap-and-trade:
+  * Give each company equal permits.
+  * Let them trade
+
+    ::: {style="color:#8080FF;"}
+    * {+4} 1: `r epa %>% filter(team == '1') %>% select(permits) %>% simplify() /2` permits each, 
+      Alpha buys `r alpha %>% filter(team == '1') %>% select(buy) %>% simplify()` for 
+      $`r alpha %>% filter(team == '1') %>% select(price) %>% simplify()`
+    * {+4} 2: `r epa %>% filter(team == '2') %>% select(permits) %>% simplify() /2` permits each, 
+      Alpha buys `r alpha %>% filter(team == '2') %>% select(buy) %>% simplify()` for 
+      $`r alpha %>% filter(team == '2') %>% select(price) %>% simplify()`
+    :::
+* {+2} Carbon Tax:
+  * Put a price on CO~2~ emissions
+  * Each company can emit as much as it wants to
+  * But it must pay the tax on every ton.
+
+    ::: {style="color:#8080FF;"}
+    * {+5} 1: $`r epa %>% filter(team == '1') %>% select(tax) %>% simplify()`/ton
+    * {+5} 2: $`r epa %>% filter(team == '2') %>% select(tax) %>% simplify()`/ton
+    :::
+
+# Default { .eighty data-transition="fade-out" data-state="skip_slide"}
+
+## Default { .eighty data_transition="fade-in"}
+
+```{r default_table, echo=F, results='asis', dependson="game_outcome"}
+default_tab <- value(max.emissions, max.emissions)
+opt_tab <- with(optimum(), value(alpha, beta))
+deadweight_default <- calc_deadweight(default_tab)
+print_tab(default_tab)
+```
+
+:::{.fragment style="color:#8080FF;"}
+**Deadweight loss = $`r deadweight_default` million**
+:::
+
+### Optimal
+```{r optimum_table, echo=F, results='asis', dependson="default_table"}
+print_tab(opt_tab)
+```
+
+## Command & Control (Group 1) {.eighty}
+```{r cc_a, echo=F, results='asis', dependson="optimum_table"}
+cc_a_tab <- epa %>% filter(team == '1') %>% select(cc) %>% simplify() %>% {value(./2, ./2)}
+deadweight_cc_a <- calc_deadweight(cc_a_tab)
+print_tab(cc_a_tab)
+```
+
+:::{.fragment style="color:#8080FF;"}
+**Deadweight loss = $`r deadweight_cc_a` million**
+:::
+
+### Optimal
+```{r cc_a_opt, echo=F, results='asis', ref.label='optimum_table'}
+```
+
+## Cap & Trade (Group 1) {.eighty}
+```{r trade_a, echo=F, results='asis', dependson="optimum_table"}
+trade_a_tab <- epa %>% filter(team == '1') %>% select(cc) %>% simplify() %>% { 
+  value(./2, ./2,
+        xfer = c(alpha %>% filter(team == '1') %>% select(buy) %>% simplify(),
+                 beta  %>% filter(team == '1') %>% select(buy) %>% simplify()),
+        price =  alpha %>% filter(team == '1') %>% select(price) %>% simplify()
+        )}
+deadweight_trade_a <- calc_deadweight(trade_a_tab)
+print_tab(trade_a_tab)
+```
+
+:::{.fragment style="color:#8080FF;"}
+**Deadweight loss = $`r deadweight_trade_a` million**
+:::
+
+### Optimal
+```{r trade_a_opt, echo=F, results='asis', ref.label='optimum_table'}
+```
+
+## Carbon Tax (Group 1): $`r epa %>% filter(team == '1') %>% select(tax) %>% simplify()`/ton {.eighty}
+```{r tax_a, echo=F, results='asis', dependson="optimum_table"}
+tax_a_tab <- value(
+  alpha %>% filter(team == '1') %>% select(tax.emissions) %>% simplify(),
+  beta %>% filter(team == '1') %>% select(tax.emissions) %>% simplify(),
+  tax = epa %>% filter(team == '1') %>% select(tax) %>% simplify()
+  )
+deadweight_tax_a <- calc_deadweight(tax_a_tab)
+
+tax_rebate_a_tab <- tax_a_tab %>% 
+  mutate(Rebate = c(rep(Tax[3]/2,2), -Tax[3],0), "Net.with.Rebate" = Net + Rebate,
+         Actor = str_to_title(Actor))
+
+print_tab(tax_rebate_a_tab)
+```
+
+:::{.fragment style="color:#8080FF;"}
+**Deadweight loss = $`r deadweight_tax_a` million**
+:::
+
+### Optimal
+```{r tax_a_opt, echo=F, results='asis', ref.label='optimum_table'}
+```
+
+# Command & Control (Group 2) { .eighty data-transition="fade-out" data-state="skip_slide"}
+
+## Command & Control (Group 2) { .eighty data_transition="fade-in"}
+
+```{r cc_b, echo=F, results='asis', dependson="optimum_table"}
+cc_b_tab <- epa %>% filter(team == '2') %>% select(cc) %>% simplify() %>% {value(./2, ./2)}
+deadweight_cc_b <- calc_deadweight(cc_b_tab)
+print_tab(cc_b_tab)
+```
+
+:::{.fragment style="color:#8080FF;"}
+**Deadweight loss = $`r deadweight_cc_b` million**
+:::
+
+### Optimal
+```{r cc_b_opt, echo=F, results='asis', ref.label='optimum_table'}
+```
+
+## Cap & Trade (Group 2) {.eighty}
+```{r trade_b, echo=F, results='asis', dependson="optimum_table"}
+trade_b_tab <- epa %>% filter(team == '2') %>% select(cc) %>% simplify() %>% {
+  value(./2, ./2,
+        xfer = c(alpha %>% filter(team == '2') %>% select(buy) %>% simplify(),
+                 beta  %>% filter(team == '2') %>% select(buy) %>% simplify()),
+        price =  alpha %>% filter(team == '2') %>% select(price) %>% simplify()
+  )}
+deadweight_trade_b <- calc_deadweight(trade_b_tab)
+print_tab(trade_b_tab)
+```
+
+:::{.fragment style="color:#8080FF;"}
+**Deadweight loss = $`r deadweight_trade_b` million**
+:::
+
+### Optimal
+```{r trade_b_opt, echo=F, results='asis', ref.label='optimum_table'}
+```
+
+## Carbon Tax (Group 2): $`r epa %>% filter(team == '2') %>% select(tax) %>% simplify()`/ton {.eighty}
+```{r tax_b, echo=F, results='asis', dependson="optimum_table"}
+tax_b_tab <- value(
+  alpha %>% filter(team == '2') %>% select(tax.emissions) %>% simplify(),
+  beta  %>% filter(team == '2') %>% select(tax.emissions) %>% simplify(),
+  tax = epa %>% filter(team == '2') %>% select(tax) %>% simplify())
+deadweight_tax_b <- calc_deadweight(tax_b_tab)
+
+tax_rebate_b_tab <- tax_b_tab %>% 
+  mutate(Rebate = c(rep(Tax[3]/2,2), -Tax[3],0), "Net.with.Rebate" = Net + Rebate,
+         Actor = str_to_title(Actor))
+
+print_tab(tax_rebate_a_tab)
+```
+
+:::{.fragment style="color:#8080FF;"}
+**Deadweight loss = $`r deadweight_tax_b` million**
+:::
+
+### Optimal
+```{r tax_b_opt, echo=F, results='asis', ref.label='optimum_table'}
+```
+
+# Summary of Deadweight Losses { .eighty data-transition="fade-out" data-state="skip_slide"}
+
+## Summary of Deadweight Losses { .eighty data_transition="fade-in"}
+
+<br/>
+
+```{r, summary_deadweight, echo=F, results='asis', dependson="optimum_table"}
+dw_summary <- tibble(team = c('Group 1','Group 2'), 
+                      default = c(deadweight_default, deadweight_default),
+                      cc = c(deadweight_cc_a, deadweight_cc_b),
+                      trade = c(deadweight_trade_a, deadweight_trade_b),
+                      tax = c(deadweight_tax_a, deadweight_tax_b)
+                      )
+colnames(dw_summary) <- c('Group', 'Default','Command<br/>&amp; Control', 'Cap &amp;<br/>Trade', 'Tax')
+print(xtable(dw_summary, digits = 0, align='ccrrrr'),
+      include.rownames = F, include.colnames = T,
+      sanitize.colnames.function = function(x) x,
+      type='html'
+      )
+```
+
+:::::: {.columns}
+::: {.column .fragment}
+**Group 1:**
+
+  * EPA had good estimates of optimum emissions
+  * Very small deadweight losses
+  * {+} Cap & Trade was better than Command & Control
+  * {+} Taxes performed best
+:::
+::: {.column .fragment}
+**Group 2:**
+
+  * EPA had poor information, made poor estimates of optimum emissions
+  * {+} Even so, deadweight losses from very inefficient regulations were much 
+    smaller than with no regulations
+:::
+::::::
+
+::: {.mtop-2}
+* {+} For both groups, taxes gave the lowest deadweight losses
+:::
+
+## Summary of Net Profit/Cost {.seventyfive}
+
+<br/>
+
+### Group 1
+
+```{r, summary_profit_a, echo=F, results='asis'}
+wa <- default_tab %>% select(Actor, Net) %>% mutate(key = "Default")
+xa <- cc_a_tab %>% select(Actor, Net) %>% mutate(key = "Cmd & Ctrl")
+ya <- trade_a_tab %>% select(Actor, Net) %>% mutate(key = "Cap & Trade")
+za <- tax_a_tab %>% select(Actor, Net) %>% mutate(key = "Tax")
+ra <- tax_a_tab %>% 
+  mutate(rebate = c(rep(Tax[3]/2,2), -Tax[3],0), Net = Net + rebate) %>%
+  select(Actor,Net) %>% mutate(key = "Tax & Rebate")
+sum_a <- bind_rows(wa, xa, ya, za, ra) %>% spread(key = key, value = Net) %>% 
+  mutate(X. = c('Alpha profit', 'Beta profit', 'Social cost', 'Total')) %>%
+  select( c('X.', 'Default', 'Cmd & Ctrl', 'Cap & Trade', 'Tax', 
+                        'Tax & Rebate') )
+
+print(xtable(sum_a, digits = 0, align='ccrrrrr'),
+      include.rownames = F, include.colnames = T,
+      sanitize.colnames.function = function(x) str_replace(x, '^X\\.$',''),
+      type='html'
+      )
+```
+
+<br/>
+
+### Group 2
+
+```{r, summary_profit_b, echo=F, results='asis'}
+wb <- default_tab %>% select(Actor, Net) %>% mutate(key = "Default")
+xb <- cc_b_tab %>% select(Actor, Net) %>% mutate(key = "Cmd & Ctrl")
+yb <- trade_b_tab %>% select(Actor, Net) %>% mutate(key = "Cap & Trade")
+zb <- tax_b_tab %>% select(Actor, Net) %>% mutate(key = "Tax")
+rb <- tax_b_tab %>% 
+  mutate(rebate = c(rep(Tax[3]/2,2), -Tax[3],0), Net = Net + rebate) %>%
+  select(Actor,Net) %>% mutate(key = "Tax & Rebate")
+sum_b <- bind_rows(wb, xb, yb, zb, rb) %>% spread(key = key, value = Net) %>%
+  mutate(X. = c('Alpha profit', 'Beta profit', 'Social cost', 'Total')) %>%
+  select_(.dots = map(c('X.', 'Default', 'Cmd & Ctrl', 'Cap & Trade', 'Tax', 
+                        'Tax & Rebate'), as.name))
+
+print(xtable(sum_b, digits = 0, align='ccrrrrr'),
+      include.rownames = F, include.colnames = T,
+      sanitize.colnames.function = function(x) str_replace(x, '^X\\.$', ''),
+      type='html'
+      )
+```
+
+# Thermal Electricity Generation {#thermal-sec .center data-state="skip_slide"}
+```{r energy_data}
+heat_to_efficiency = function(heat_rate) {
+  kwh = 3412 # BTU per kWh
+  kwh / heat_rate
+}
+
+# heat rates from https://www.eia.gov/totalenergy/data/monthly/pdf/sec13_7.pdf
+heat_rates = c(coal = 10493, gas = 7870, nuclear = 10459)
+
+# Capacity factors from https://www.eia.gov/electricity/monthly/#tabs_unit-4
+capacity_factors = c(coal = 0.537, gas = 0.513, nuclear = 0.922, wind = 0.346, 
+                     solar_pv = 0.257, solar_csp = 0.218)
+
+energy = read_excel(file.path(data_dir, "energy", "us_electricity_by_source.xlsx"),
+                    sheet = 1, range = cell_rows(4:15),
+                    na = c("", "N/A", "NA"), col_names = TRUE) %>%
+  clean_names() %>%
+  filter(str_detect(period, "^[0-9]+$")) %>%
+  transmute(period = as.integer(period), coal, gas = natural_gas + other_gas, 
+            nuclear,
+            hydro = hydroelectric_conventional,
+            solar = solar + ifelse(is.na(estimated_solar_photovoltaic), 0, 
+                                   estimated_solar_photovoltaic),
+            renewables = renewable_sources_excluding_hydroelectric_and_solar) %>%
+  mutate(renewables = renewables + solar) %>% select(-solar)
+
+energy_trend <- energy %>% 
+  summarize(across(-period, ~ lm(log(.x) ~ period) %>% tidy() %>% 
+                      filter(term == "period") %>% pull(estimate)))
+```
+
+## Thermal Electricity Generation {#thermal-generation .eighty}
+
+![Steam generator](assets/images/coal_schematic.jpg){style="height:550px;margin-bottom:0;"}
+
+::: {style="font-size:80%;margin-top:0"}
+
+* Coal, nuclear:
+    * Heat boils water
+    * Steam spins turbine
+    * Turbine turns generator, makes electricity
+* Thermodynamics limits efficiency
+    * Coal plant: `r round(100 * heat_to_efficiency(heat_rates['coal']))`% 
+      efficient
+    * Nuclear plant: `r round(100 * heat_to_efficiency(heat_rates['nuclear']))`% 
+      efficient
+    * Advanced gas plant: `r round(100 * heat_to_efficiency(heat_rates['gas']))`% 
+      efficient
+
+:::
+
+## Kingston Fossil Plant (TN) {#kingston .eighty}
+
+![Kingston Fossil Plant](assets/images/kingston.jpg){height=750}
+
+* 1450 megawatts
+* 14,000 tons of coal per day (140 train cars)
+
+## Fuel Requirements for a 1000 MW Plant {#coal-fuel .eighty}
+
+:::::: {.columns}
+::: {.column style="width:60%;padding-top:50px;vertical-align:top;margin-bottom:0"}
+
+* Coal: 10,000 tons/day (100 rail cars)
+* Diesel: 40,000 barrel/day (1 tanker/week)
+* Gas: 240 million cubic feet/day
+* Nuclear: 3 kg/day of ^235^U
+
+![Kingston coal cars](assets/images/kingston_coal_train.jpg){style="height:650px;margin:0;"}
+
+:::
+:::{.column style="width:39%;"}
+
+![Coal cars in Missouri](assets/images/coal_train_missouri.jpg){style="height:900px;"}
+
+:::
+::::::
+
+## Watts Bar Nuclear Plant {#watts-bar}
+
+::: {.eighty style="margin-bottom:0;"}
+
+![Watts Bar Nuclear Plant](assets/images/Watts_Bar_Unit2-1024x737.jpg){style="margin-bottom:0;height:800px;"}
+
+* 2300 megawatts (two units)
+* 2.3 tons enriched uranium per year
+
+:::
+
+## Nuclear Reactor {#reactor .eighty}
+
+![reactor diagram](assets/images/PWR_nuclear_power_plant_diagram.svg){style="height:900px;"}
+
+## Getting Energy from Nuclear Fission {#fission .seventyfive}
+
+::: {style="text-align:left"}
+
+* Nuclear chain reactions produce lots of energy
+* Natural uranium:
+    * ^238^U (99.3%): won't fission
+    * ^235^U ( 0.7%): will fission
+    * Must enrich natural uranium:
+        * Reactor fuel: 3--5% ^235^U
+        * Bomb: >80% ^235^U
+    * 1 ounce enriched uranium produces as much heat as 2--3 tons coal
+
+:::
+::: {.fragment style="text-align:left"}
+    
+* Other fissionable substances:
+    * ^239^Pu (plutonium)
+        * Can be produced by hitting ^238^U with a neutron
+        * Byproduct of uranium chain reactions
+        * **Breeder reactors**
+    * ^233^U
+        * Produced by hitting ^232^Th with a neutron
+        * **Thorium reactors**
+
+:::
+
+# Feasibility of Nuclear Power {#feasibility-sec .center}
+
+## Feasibility of Nuclear Power {#feasibility .eighty}
+
+* Nuclear is much safer than coal or gas
+    * Properly operating coal power plants in the U.S. alone kill more people in 
+      one month than all the nuclear reactor accidents in history in the entire world.
+* The biggest challenges are:
+    * Irrational public fear
+    * Cost
+        * In early 2000s, forecast of "nuclear renaissance"
+        * Costs of natural gas, wind, and solar fell much faster than anyone imagined
+        * New nuclear plants went way over-budget, behind schedule
+    * Investor fears:
+        * Costs of nuclear much less predictable than other technologies
+        * Accidents are far more costly than other technologies
+
+## Industry View {#industry-view}
+
+> Exelon, the nation’s biggest nuclear utility, 
+> with 17 plants, estimates that new nuclear 
+> plants are **more expensive than any other energy 
+> source** except [solar] photovoltaic.<br/>
+> <span text-align:right>---Washington Post, 3/16/2011</span>
+
+## Investor View {#investor-view}
+
+> Wall Street learned [from Three-Mile Island] that a group of licensed 
+> operators no worse than any other could transform a 
+> **billion-dollar asset** into a **two billion dollar clean-up**
+> in ninety minutes<br/>
+> <span text-align:right>---Peter A. Bradford,<br/>
+> Former Commissioner,<br/>Nuclear Regulatory Commission</br>
+> Senate Testimony 3/24/2009</span>
+
+# Recent Trends in Nuclear {#trends .center}
+
+## Recent Trends {#recent-trends data-transition="fade-out"}
+
+![Lazard Levelized Cost Analysis](assets/images/Price-of-electricity-new-renewables-vs-new-fossil-no-geo.png){height=905 style="margin-bottom:0;padding-bottom:0;"}
+
+## Recent Trends {#recent-trends-2 data-transition="fade-in"}
+
+![Lazard Levelized Cost Analysis](assets/images/Price-of-electricity-new-renewables-vs-new-fossil-no-geo-2.png){height=905 style="margin-bottom:0;padding-bottom:0;"}
+
+## New Power Plants for 2018--2019 {#new-plants}
+
+![Power plants planned for 2018--2019](assets/images/planned_new_plants.png){style="height:950px;"}
+
+## Power Plants Retiring in 2018--2019 {#retiring-plants}
+
+![Power plants scheduled to retire in 2018--2019](assets/images/planned_retirements.png){style="height:950px;"}
+
+## Trends in Electricity {#electricity-trends}
+
+```{r electric-trends, fig.height=6.5, fig.width=10}
+energy %>% gather(-period, key = source, value = gwh) %>%
+  mutate(gwh = gwh / 1000, 
+         source = str_to_title(source) %>% ordered(., levels = unique(.))) %>%
+  ggplot(aes(x = period, y = gwh, color = source)) +
+  geom_line(size = 1) + geom_point(size = 2) +
+  geom_text_repel(aes(label = source), color = "black", hjust = 0, nudge_x = 0.2,
+            data = . %>% filter(period == max(period))) +
+  scale_color_brewer(palette = "Dark2", name = "Energy Source", guide = "none") +
+  scale_y_continuous(labels = comma_format(), limits = c(0, NA),
+                     expand = c(0, 0, 0.05, 0)) +
+  scale_x_continuous(breaks = seq(2000,2030, 2), limits = c(NA, 2021)) +
+  labs(x = "Year", y = "Electricity (TWh)")
+```
+
+#### Growth Rates
+
+```{r electric_table}
+energy_trend %>% mutate(across(everything(), ~percent(.x, 0.1))) %>%
+  kable(align = "r", col.names = str_to_title(names(energy_trend)))
+```
+
+# Promise for Nuclear {#nuclear-promise-sec .center}
+
+## Promise for Nuclear {#nuclear-promise .ninety}
+
+* China, Russia, and India are investing heavily in nuclear:
+    * 19 reactors under construction in China, 7 in Russia, 6 in India
+* Private sector is investing heavily:
+    * 30 research and development projects
+    * $1.3 billion in private investment
+    * TerraPower (founded by Bill Gates)
+    * Interest in standardized small modular reactors (SMR)
+        * Intrinsically safe
+        * Benefits of mass production: learning, economies of scale
+        * Many sites don't need 1000--2000 megawatts
+
+## Challenges for Nuclear {#nuclear-challenges .ninety}
+
+:::::: {.columns}
+::: {.column}
+* Currently nuclear is very expensive
+  * {+1} French Flamanville 3 reactor:
+    * {+} Started construction 2007
+    * {+} Planned launch: 2012
+    * {+} Budget: $4 billion
+    * {+} Now estimated to launch 2022 
+      * 10 years late
+    * {+} Current budget: $20 billion 
+      * 5 times original
+* {+} But as renewables become a greater fraction of all power, 
+  intermittency becomes a greater, more expensive challenge.
+* {+} Fear is a great challenge.
+:::
+::: {.column}
+![Flammanville 3 Reactor construction](assets/images/flamanville_dsc_0094_2_0.jpg){.fragment data-fragment-index="1" style="width:100%;"}
+:::
+::::::
