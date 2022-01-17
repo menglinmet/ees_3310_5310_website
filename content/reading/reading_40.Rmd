@@ -1,11 +1,11 @@
 ---
-title: 'Beyond Gridlock: Second-Best Policies'
-class_date: '2022-04-20'
+title: Obstacles and Perspectives
+class_date: '2022-04-27'
 class_number: 40
 weight: 40
 slug: reading_40
-pubdate: '2021-06-18'
-date: '2022-04-20'
+pubdate: '2021-12-31'
+date: '2022-04-27'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
@@ -14,18 +14,6 @@ output:
 
 ### Required Reading (everyone):
 
-* Handout: [J.M. Gilligan & M.P. Vandenbergh, "A framework for assessing the impact of private climate governance," _Energy Research & Social Science,_ **60**, 101400 (2020).](/files/reading_handouts/gilligan_2020_framework.pdf){target="_blank"}.
-* Handout: [K.S. Nielsen _et al.,_ "Improving climate change mitigation analysis: A framework for examining feasibility," _One Earth,_ **3**, 325--336 (2020).](/files/reading_handouts/nielsen_2020_improving_climate_change.pdf){target="_blank"}.
+* Climate Casino, Ch. 26.
+* Handout: [P.  Krugman, "Gambling with Civilization," New York Review of Books, Nov. 7 2013](/files/reading_handouts/Krugman-GamblingWithCivilization-2013.pdf){target="_blank"}.
 
-### Reading Notes:
-
-These readings address two important aspects that are neglected in most analyses of climate policy:
-
-1. Gilligan & Vandenbergh write about the obstacles that partisan polarization and political gridlock pose for 
-   effective action on climate change and offer ideas for how private-sector initiatives can contribute to making 
-   progress even when government remains paralyzed by gridlock. They also introduce a framework for analyzing 
-   the effectiveness of private-sector initiatives as well as government regulatory policy.
-2. Nielsen _et al._ dig more deeply into the policy-analysis framework from Gilligan & Vandenbergh and suggest
-   ways that integrated assessment models of climate, energy, and the economy could incorporate more realistic
-   treatments of human behavior and of the political systems and how these more pragmatic approaches to policy
-   analysis could improve reports on potential policy responses to climate change.

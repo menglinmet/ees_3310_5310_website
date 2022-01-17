@@ -1,11 +1,11 @@
 ---
 title: Uncertainty about Future Climates
-class_date: '2022-02-25'
+class_date: '2022-03-04'
 class_number: 20
 weight: 20
 slug: reading_20
-pubdate: '2021-06-18'
-date: '2022-02-25'
+pubdate: '2021-12-31'
+date: '2022-03-04'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

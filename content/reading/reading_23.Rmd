@@ -1,11 +1,11 @@
 ---
 title: Policy Myths
-class_date: '2022-03-11'
+class_date: '2022-03-18'
 class_number: 23
 weight: 23
 slug: reading_23
-pubdate: '2021-06-18'
-date: '2022-03-11'
+pubdate: '2021-12-31'
+date: '2022-03-18'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

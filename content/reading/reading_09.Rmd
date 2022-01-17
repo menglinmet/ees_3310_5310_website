@@ -1,11 +1,11 @@
 ---
 title: Ocean and Biosphere Feedbacks
-class_date: '2022-01-31'
+class_date: '2022-02-07'
 class_number: 9
 weight: 9
 slug: reading_09
-pubdate: '2021-06-18'
-date: '2022-01-31'
+pubdate: '2021-12-31'
+date: '2022-02-07'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

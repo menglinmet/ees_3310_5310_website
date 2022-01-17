@@ -2,9 +2,9 @@
 title: Introduction to EES 3310/5310 Labs
 author: Jonathan Gilligan
 lab_number: 1
-lab_date: '2022-01-10'
-pubdate: '2021-06-18'
-date: '2022-01-10'
+lab_date: '2022-01-24'
+pubdate: '2021-12-31'
+date: '2022-01-24'
 pdf_url: /files/lab_docs/lab_01/lab_01_overview.pdf
 slug: lab_01_overview
 output:

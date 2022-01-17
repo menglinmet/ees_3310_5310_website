@@ -1,11 +1,11 @@
 ---
 title: Clouds and Climate Feedbacks
-lab_date: '2022-02-14'
-report_due_date: '2022-02-21'
+lab_date: '2022-02-21'
+report_due_date: '2022-02-28'
 lab_number: 5
 github_classroom_assignment_url: https://classroom.github.com/a/DHSukcMP
-pubdate: '2021-06-18'
-date: '2022-02-14'
+pubdate: '2021-12-31'
+date: '2022-02-21'
 slug: lab_05
 output:
   blogdown::html_page:

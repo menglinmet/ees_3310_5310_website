@@ -2,9 +2,9 @@
 title: New Tools for Data Analysis
 author: Jonathan Gilligan
 lab_number: 10
-lab_date: '2022-03-28'
-pubdate: '2021-06-18'
-date: '2022-03-28'
+lab_date: '2022-04-04'
+pubdate: '2021-12-31'
+date: '2022-04-04'
 pdf_url: /files/lab_docs/lab_10/new_tools.pdf
 slug: lab_10_new_tools
 output:

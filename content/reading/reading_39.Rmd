@@ -1,11 +1,11 @@
 ---
-title: Global Warming Gridlock
-class_date: '2022-04-18'
+title: 'Beyond Gridlock: Second-Best Policies'
+class_date: '2022-04-25'
 class_number: 39
 weight: 39
 slug: reading_39
-pubdate: '2021-06-18'
-date: '2022-04-18'
+pubdate: '2021-12-31'
+date: '2022-04-25'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
@@ -14,8 +14,18 @@ output:
 
 ### Required Reading (everyone):
 
-* Handout: [David Victor, _Global Warming Gridlock_, (Cambridge University Press, 2011)](/files/reading_handouts/Victor_GlobalWarmingGridlock_Chapter01.pdf){target="_blank"}, Ch. 1.
+* Handout: [J.M. Gilligan & M.P. Vandenbergh, "A framework for assessing the impact of private climate governance," _Energy Research & Social Science,_ **60**, 101400 (2020).](/files/reading_handouts/gilligan_2020_framework.pdf){target="_blank"}.
+* Handout: [K.S. Nielsen _et al.,_ "Improving climate change mitigation analysis: A framework for examining feasibility," _One Earth,_ **3**, 325--336 (2020).](/files/reading_handouts/nielsen_2020_improving_climate_change.pdf){target="_blank"}.
 
 ### Reading Notes:
 
-I have posted Chapter 1 online. The entire book is [available as an e-book](https://catalog.library.vanderbilt.edu/discovery/fulldisplay?docid=cambookslvl10.1017/CBO9780511975714&context=PC&vid=01VAN_INST:vanui&search_scope=MyInst_and_CI&tab=Everything&lang=en) online through the Vanderbilt Library.
+These readings address two important aspects that are neglected in most analyses of climate policy:
+
+1. Gilligan & Vandenbergh write about the obstacles that partisan polarization and political gridlock pose for 
+   effective action on climate change and offer ideas for how private-sector initiatives can contribute to making 
+   progress even when government remains paralyzed by gridlock. They also introduce a framework for analyzing 
+   the effectiveness of private-sector initiatives as well as government regulatory policy.
+2. Nielsen _et al._ dig more deeply into the policy-analysis framework from Gilligan & Vandenbergh and suggest
+   ways that integrated assessment models of climate, energy, and the economy could incorporate more realistic
+   treatments of human behavior and of the political systems and how these more pragmatic approaches to policy
+   analysis could improve reports on potential policy responses to climate change.

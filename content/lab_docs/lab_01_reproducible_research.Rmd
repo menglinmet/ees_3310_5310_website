@@ -2,9 +2,9 @@
 title: Introduction to Reproducible Research
 author: Jonathan Gilligan
 lab_number: 1
-lab_date: '2022-01-10'
-pubdate: '2021-06-18'
-date: '2022-01-10'
+lab_date: '2022-01-24'
+pubdate: '2021-12-31'
+date: '2022-01-24'
 bibliography: reproducible-research.bib
 pdf_url: /files/lab_docs/lab_01/reproducible_research.pdf
 slug: lab_01_reproducible_research

@@ -1,11 +1,11 @@
 ---
 title: Climate Fallacies Game
-class_date: '2022-02-23'
+class_date: '2022-03-02'
 class_number: 19
 weight: 19
 slug: reading_19
-pubdate: '2021-06-18'
-date: '2022-02-23'
+pubdate: '2021-12-31'
+date: '2022-03-02'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

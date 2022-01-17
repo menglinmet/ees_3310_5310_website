@@ -1,11 +1,11 @@
 ---
 title: Review of Greenhouse Effect
-class_date: '2022-01-26'
+class_date: '2022-02-02'
 class_number: 7
 weight: 7
 slug: reading_07
-pubdate: '2021-06-18'
-date: '2022-01-26'
+pubdate: '2021-12-31'
+date: '2022-02-02'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

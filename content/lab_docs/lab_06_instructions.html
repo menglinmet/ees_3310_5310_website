@@ -2,9 +2,9 @@
 title: 'Instructions for Lab #6: The Carbon Cycle'
 author: Jonathan Gilligan
 lab_number: 6
-lab_date: '2022-02-21'
-pubdate: '2021-06-18'
-date: '2022-02-21'
+lab_date: '2022-02-28'
+pubdate: '2021-12-31'
+date: '2022-02-28'
 pdf_url: /files/lab_docs/lab_06/lab_06_instructions.pdf
 slug: lab_06_instructions
 output:
@@ -82,7 +82,7 @@ carbon cycle adjust to the new parameters and the CO<sub>2</sub> spike.</p></li>
 <dd><p>is the rate at which CO<sub>2</sub> is released to the atmosphere by volcanic activity</p>
 </dd>
 <dt><code>tCO2</code></dt>
-<dd><p>is the total amount of CO<sub>2</sub> dissolved in the ocean, adding all of its forms:</p>
+<dd>is the total amount of CO<sub>2</sub> dissolved in the ocean, adding all of its forms:
 </dd>
 </dl>
 <p><span class="math display">\[ \ce{\text{tco2} = [CO2] + [H2CO3] + [HCO3-] + [CO3^{2-}]}. \]</span></p>
@@ -119,7 +119,7 @@ various forms of carbon dissolved in the ocean water.</p>
 <dd><p>is the average air temperature.</p>
 </dd>
 <dt><code>Tocn</code></dt>
-<dd><p>is the average temperature of ocean water.</p>
+<dd>is the average temperature of ocean water.
 </dd>
 </dl>
 <div id="running-the-geocarb-model-from-r" class="section level2">
@@ -315,8 +315,15 @@ kable(head(df_tidy))</code></pre>
 <h2>Modifying the Axes of a Plot</h2>
 <p>Sometimes you have a lot of data and you just want to plot a small part of it.
 Consider the following GEOCARB model run:</p>
-<pre class="r"><code>geocarb_data = run_geocarb(1000)
-ggplot(geocarb_data, aes(x = year, y = co2_atmos)) + geom_line() +
+<pre class="r"><code>geocarb_data = run_geocarb(1000)</code></pre>
+<pre><code>## Rows: 140 Columns: 14
+## -- Column specification --------------------------------------------------------
+## Delimiter: &quot;,&quot;
+## dbl (14): year, tco2, alk, d13Cocn, pCO2, d13Catm, CO3, WeatC, WeatS, TotW, ...
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>ggplot(geocarb_data, aes(x = year, y = co2_atmos)) + geom_line() +
   labs(x = &quot;Year&quot;, y = &quot;CO2&quot;)</code></pre>
 <p><img src="/lab_docs/lab_06_instructions_files/figure-html/geocarb-axes-example-1.png" width="672" /></p>
 <p>This shows us all 2 million years of the model run, but we can’t see the detail

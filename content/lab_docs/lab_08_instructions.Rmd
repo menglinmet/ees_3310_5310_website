@@ -2,9 +2,9 @@
 title: Instructrions for Writing Up Lab Results
 author: Jonathan Gilligan
 lab_number: 8
-lab_date: '2022-03-14'
-pubdate: '2021-06-18'
-date: '2022-03-14'
+lab_date: '2022-03-21'
+pubdate: '2021-12-31'
+date: '2022-03-21'
 pdf_url: /files/lab_docs/lab_08/lab_08_instructions.pdf
 slug: lab_08_instructions
 output:

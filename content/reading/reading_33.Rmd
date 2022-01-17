@@ -1,11 +1,11 @@
 ---
 title: The Limits of Economic Approaches
-class_date: '2022-04-04'
+class_date: '2022-04-11'
 class_number: 33
 weight: 33
 slug: reading_33
-pubdate: '2021-06-18'
-date: '2022-04-04'
+pubdate: '2021-12-31'
+date: '2022-04-11'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists

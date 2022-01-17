@@ -1,19 +1,19 @@
 ---
-title: Obstacles and Perspectives
-class_date: '2022-04-22'
+title: Review
+class_date: '2022-04-29'
 class_number: 41
 weight: 41
 slug: reading_41
-pubdate: '2021-06-18'
-date: '2022-04-22'
+pubdate: '2021-12-31'
+date: '2022-04-29'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
 ---
 ## Reading:
 
-### Required Reading (everyone):
+No new reading for today.
 
-* Climate Casino, Ch. 26.
-* Handout: [P.  Krugman, "Gambling with Civilization," New York Review of Books, Nov. 7 2013](/files/reading_handouts/Krugman-GamblingWithCivilization-2013.pdf){target="_blank"}.
+### Notes:
 
+No reading for today. We will review the semester and discuss climate change and climate policy in the big picture.
