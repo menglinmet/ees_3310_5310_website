@@ -9,6 +9,7 @@ date: '2022-01-26'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
+pdf_url: /files/reading_asgts/reading_04.pdf
 ---
 ## Reading:
 

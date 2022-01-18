@@ -9,6 +9,7 @@ date: '2022-01-28'
 output:
   blogdown::html_page:
     md_extensions: +tex_math_single_backslash+compact_definition_lists
+pdf_url: /files/reading_asgts/reading_05.pdf
 ---
 ## Reading:
 
@@ -29,7 +30,7 @@ nitrogen (N~2~) and oxygen (O~2~) molecules, which make up almost 99% of
 the atmosphere?
 
 What is the "atmospheric window," that spans the range of about
-800--1250 cycles/cm (wavelengths of 8--12 &mu;m)?
+800--1250 cycles/cm (wavelengths of 8--12 $\mu$m)?
 
 ### Understanding emissions spectra seen by satellites
 
