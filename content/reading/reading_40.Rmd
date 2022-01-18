@@ -15,5 +15,5 @@ output:
 ### Required Reading (everyone):
 
 * Climate Casino, Ch. 26.
-* Handout: [P.  Krugman, "Gambling with Civilization," New York Review of Books, Nov. 7 2013](/files/reading_handouts/Krugman-GamblingWithCivilization-2013.pdf){target="_blank"}.
+* Handout: [P.  Krugman, "Gambling with Civilization," _New York Review of Books_, Nov. 7 2013](/files/reading_handouts/Krugman-GamblingWithCivilization-2013.pdf){target="_blank"}.
 

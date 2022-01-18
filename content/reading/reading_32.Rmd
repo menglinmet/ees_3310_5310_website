@@ -18,14 +18,14 @@ output:
 
 ### Required for Grad Students (optional for undergrads):
 
-* Handout: [W. Nordhaus, "Critical Assumptions in the Stern Review on Climate Change," Science **317**, 201--202 (2007)
+* Handout: [W. Nordhaus, "Critical Assumptions in the Stern Review on Climate Change," _Science_ **317**, 201--202 (2007)
   ](http://www.econ.yale.edu/~nordhaus/homepage/homepage/nordhaus_stern_science.pdf){target="_blank"}.
-* Handout: [N. Stern & C. Taylor, "Climate Change: Risk, Ethics, and the Stern Review," Science **317**, 203--204 (2007)](/files/reading_handouts/Stern-Risk_Ethics-2007.pdf
+* Handout: [N. Stern & C. Taylor, "Climate Change: Risk, Ethics, and the Stern Review," _Science_ **317**, 203--204 (2007)](/files/reading_handouts/Stern-Risk_Ethics-2007.pdf
   ){target="_blank"}.
 
 ### Optional Extra Reading:
 
-* Handout: [J. Quiggin, "Stern and His Critics on Discounting and Climate Change: An Editorial Essay," Climatic Change **89**, 195 (2008)](/files/reading_handouts/Quiggin-Discounting-2008.pdf){target="_blank"}.
+* Handout: [J. Quiggin, "Stern and His Critics on Discounting and Climate Change: An Editorial Essay," _Climatic Change_ **89**, 195--205 (2008)](/files/reading_handouts/Quiggin-Discounting-2008.pdf){target="_blank"}.
 
 ### Reading Notes:
 

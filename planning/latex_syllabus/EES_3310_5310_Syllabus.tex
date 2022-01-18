@@ -12,6 +12,9 @@
 \makeatother
 
 \definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\makeatletter
+\@ifundefined{AddToHook}{}{\AddToHook{package/xcolor/after}{\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}}}
+\makeatother
 \newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
 \newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
 \newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
@@ -46,6 +49,14 @@
 \definecolor{messagecolor}{rgb}{0, 0, 0}
 \definecolor{warningcolor}{rgb}{1, 0, 1}
 \definecolor{errorcolor}{rgb}{1, 0, 0}
+\makeatletter
+\@ifundefined{AddToHook}{}{\AddToHook{package/xcolor/after}{
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+}}
+\makeatother
 \newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
 
 \usepackage{alltt}
@@ -82,6 +93,7 @@
 %
 %
 %
+
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 \maketitle
@@ -117,75 +129,92 @@ Laboratory: \LabMeetings
 \medskip
 
 \noindent
-\TaTitle\ will be grading labs and homework, so address questions about your homework and lab grades
-to \TaAccusative.
+\TaTitle\ will be grading labs and homework, so address questions about your
+homework and lab grades to \TaAccusative.
 
 \subsection{Email}
-If you want to communicate with Professor Gilligan or \TaTitle\ be sure to begin the
-subject line of your email with ``{\scshape EES~3310}'' or ``{\scshape EES~5310}''. This helps assure
+If you want to communicate with Professor Gilligan or \TaTitle\ be sure to
+begin the subject line of your email with ``{\scshape EES~3310}'' or
+``{\scshape EES~5310}''. This helps assure
 that we will see your message quickly and respond to it.
 
-I have set my email reader to flag all messages like this as important, so I will read
-them first. This also assures that I do not mistake your email for spam. I typically
-receive over 100 emails per day, so if you do not follow these instructions I may not
-notice your email.
+I have set my email reader to flag all messages like this as important, so I
+will read them first.
+This also assures that I do not mistake your email for spam. I typically
+receive over 100 emails per day, so if you do not follow these instructions,
+I may not notice your email.
 
 \medskip
 \clearpage
 \section[Description]{Course Description}
 \subsection{Catalog Description}
-Scientific principles and policy applications. Earth's past; evidence of human impact; future climate change; and economic, social, and ecological consequences. Economic, technological, and public policy responses. Repeat credit for 2110. Students who have earned credit for 2110 will earn only one credit hour for this course. Prerequisite: one of 1030, 1080, 1510, BSCI 1510, CHEM 1601, ECON 1010, ES 1401 or PHYS 1501, 1601, 1901. [4] (MNS)
+Scientific principles and policy applications. Earth's past; evidence of human
+impact; future climate change; and economic, social, and ecological consequences.
+Economic, technological, and public policy responses. Repeat credit for 2110.
+Students who have earned credit for 2110 will earn only one credit hour for
+this course. Prerequisite: one of 1030, 1080, 1510, BSCI 1510, CHEM 1601,
+ECON 1010, ES 1401 or PHYS 1501, 1601, 1901. [4] (MNS)
 \subsection{Narrative Description}
-This course will study earth's climate and the way it has changed throughout our planet's
-history. We will study:
+This course will study earth's climate and the way it has changed throughout
+our planet's history. We will study:
 \begin{itemize}
-	\item Determinants of climate: What factors affect climate, how do we know this, and
-    how certain are we?
-    \item Scientific evidence about past climates: What do we know, how do we know it,
-    and how certain are we?
+	\item Determinants of climate: What factors affect climate, how do we know
+	  this, and how certain are we?
+    \item Scientific evidence about past climates: What do we know, how do we
+    know it, and how certain are we?
 	\item Natural climate change in earth's history.
 	\item Effects of human activity on global climate in the last 200 years.
-	\item What do we know about future climate change and how will it affect the quality
-	of people's lives?
-	\item How do economists and political scientists assess the costs of climate change
-	and the value of policies to limit it?
-	\item What can we do to mitigate future global climate change or adapt to life in a
-	different climate?
-	\item What is happening politically, both in the U.S. and internationally, to respond
-	to climate change?
+	\item What do we know about future climate change and how will it affect the
+	quality of people's lives?
+	\item How do economists and political scientists assess the costs of climate
+	change and the value of policies to limit it?
+	\item What can we do to mitigate future global climate change or adapt to life
+	in a different climate?
+	\item What is happening politically, both in the U.S. and internationally, to
+	respond to climate change?
 \end{itemize}
 
 \section[Goals]{Goals for the Course}
 My goals for this course are that at the end of the semester:
 \begin{itemize}
-\item You will have a solid quantitative understanding of the basic physical and chemical principles
-that control the system and be able to apply that knowledge to reasoning about the climate system and its response to disturbances.
-\item You will have working familiarity with a variety of computer models that simulate various aspects of the climate system
-and be able to use those models to explore the implications of scientific principles that are too complex to calculate with pencil and paper.
-\item You will have a solid scientific understanding of what scientists know, what they don't know,
-and how they know what they know about how climate works, how and why it has changed in the past,
-and how it may change in the future.
-\item You will be able to evaluate the evidence for and against the idea that human
-activity is warming the planet and assess for yourself whether the evidence is persuasive.
-\item You will be familiar with the ways economists and policy analysts
-approach the problem of climate change and public policies that respond to it.
-\item You will understand the history of scientific and political concern and activity
-around global warming, the principal policy measures being considered to address
-climate change, and their major strengths and weaknesses.
-\item You will have the tools and knowledge to make informed decisions about what
-climate policies you support or oppose.
+  \item You will have a solid quantitative understanding of the basic physical
+    and chemical principles that control the system and be able to apply that
+    knowledge to reasoning about the climate system and its response to
+    disturbances.
+  \item You will have working familiarity with a variety of computer models that
+    simulate various aspects of the climate system and be able to use those
+    models to explore the implications of scientific principles that are too
+    complex to calculate with pencil and paper.
+  \item You will have a solid scientific understanding of what scientists know,
+    what they don't know, and how they know what they know about how climate
+    works, how and why it has changed in the past, and how it may change in the
+    future.
+  \item You will be able to evaluate the evidence for and against the idea that
+    human activity is warming the planet and assess for yourself whether the
+    evidence is persuasive.
+  \item You will be familiar with the ways economists and policy analysts
+    approach the problem of climate change and public policies that respond to
+    it.
+  \item You will understand the history of scientific and political concern and
+    activity around global warming, the principal policy measures being
+    considered to address climate change, and their major strengths and
+    weaknesses.
+  \item You will have the tools and knowledge to make informed decisions about
+    what climate policies you support or oppose.
 \item In the laboratory, you will learn to:
-\begin{itemize}
-\item Use simple climate models to explore the dynamics of the climate system.
-\item Use open-source statistical tools to download and analyze real climate data.
-\item Follow established reproducible research practices.
-\end{itemize}
+  \begin{itemize}
+    \item Use simple climate models to explore the dynamics of the climate
+      system.
+    \item Use open-source statistical tools to download and analyze real climate
+      data.
+    \item Follow established reproducible research practices.
+  \end{itemize}
 \end{itemize}
 
-When you leave this course, you will not be qualified to work as a climate scientist, but
-you will be able to follow and critically evaluate news
-reporting about climate change and climate policy, debate intelligently and knowledgeably,
-and be an informed voter.
+When you leave this course, you will not be qualified to work as a climate
+scientist, but you will be able to follow and critically evaluate news
+reporting about climate change and climate policy, debate intelligently and
+knowledgeably, and be an informed voter.
 
 I do not care whether you agree with me politically.
 I respect people who think for themselves.
@@ -195,30 +224,40 @@ and support it with solid evidence and reasoned argument.}
 %
 %
 %\clearpage
-\iffalse
+\iftrue
 \section{Important Dates:}
-Many of you have athletic and other commitments during the term and may travel for
-personal reasons. As you plan for your semester, particularly if you are purchasing
-nonrefundable airplane tickets, consult the syllabus.
+Many of you have athletic and other commitments during the term and may travel
+for personal reasons. As you plan for your semester, particularly if you are
+purchasing nonrefundable airplane tickets, consult the syllabus.
 
-If you have away games that require you to miss a scheduled test or group laboratory activity, let me know well in advance.
+If you have away games that require you to miss a scheduled test or group
+laboratory activity, let me know well in advance.
 \begin{itemize}
-%
-\item The mid-term test is on
-\textbf{NA}.
-\item On
-\textbf{., . }
-we will be playing a game in lab to simulate the challenge of converting
-New York City to using clean energy and on
-\textbf{Mon., Apr. 12}
-we will be doing a participatory role-playing
-exercise in lab, where you will play out different kinds of policies
-for reducing greenhouse gas emissions. It is especially important for you to be
-present for these labs.
+  \iffalse
+    \item The mid-term test is on
+      \textbf{Monday, February~28}.
+  \fi
+  \item On
+    %
+    \textbf{Mon., Apr. 18}
+    we will be doing a participatory role-playing
+    exercise in lab, where you will play out different kinds of policies
+    for reducing greenhouse gas emissions.
+    %
+    and on
+    %
+    \textbf{Mon., Apr. 25}
+    we will be playing a game in lab to simulate the challenge of converting
+    New York City to using clean energy
+    %
+    It is especially important for you to  be present for these labs.
+\item The midterm exam will be a take-home test of your knowledge about the
+    basic science of the climate system and climate change.
 \item The final exam will be in a take-home essay format and it is due at
-\textbf{\TakeHomeExamEndTime~\TakeHomeExamDay, \TakeHomeExamMonth~\TakeHomeExamDate}%
-. You submit the final exam electronically, so you do not need to be on campus
-for this.
+  \textbf{\TakeHomeExamEndTime~\TakeHomeExamDay,
+    \TakeHomeExamMonth~\TakeHomeExamDate}%
+  . You submit the final exam electronically, so you do not need to be on campus
+  for this.
 \end{itemize}
 \fi
 %
@@ -232,7 +271,7 @@ I divide the semester into two parts:
 \begin{enumerate}
     \item \textbf{Scientific Principles of Climate}: For the first half of the
     semester, we will focus on the scientific principles of climate and natural
-    climate change in earth's past. This will be very mathematical, using basic
+    climate change in earth's past. This will be very mathematical, using basic %'
     algebra. We do not use calculus or other advanced math in this class, but
     you should be comfortable with simple algebraic equations.
     We will then look at climate change in the last two centuries and what might
@@ -292,13 +331,14 @@ during the term and posted on Brightspace.
 	\item \LongPielke
 \end{itemize}
 There is a companion web site to \emph{\Archer\/} at \ArcherURL, which includes
-%videos of the author's own lectures on the material and
+%videos of the author's own lectures on the material and %
 interactive on-line computer models that we will use for some exercises in the
 book.
 
 \subsubsection[Recommended Reading]{Recommended Reading Materials}
 \begin{itemize}
-  \item \LongWickham. This book is also available as a free online edition at \WickhamURL.
+  \item \LongWickham. This book is also available as a free online edition at
+    \WickhamURL.
 \end{itemize}
 
 \subsubsection{Overview of Reading Materials}
@@ -307,7 +347,7 @@ class and notes on important things you should understand.
 \textbf{I expect you to complete the reading before you come to class or watch
   the recorded class session on the day for which the reading is assigned},
 so you can participate in discussions of the assigned material and ask
-questions if there are things you don't understand.
+questions if there are things you don't understand.  %'
 
 While science aims to give correct answers to scientific questions, there are
 not right or wrong answers to questions of what is the best economic model with
@@ -317,8 +357,8 @@ that present different points of view on the political and economic aspects.
 \iffalse
 
 \subsubsection[Optional Reading]{Optional Supplementary Reading Materials}
-See the ``External Links'' page on the course Brightspace site for links to optional
-supplementary materials that you can read on-line or download free.
+See the ``External Links'' page on the course Brightspace site for links to
+optional supplementary materials that you can read on-line or download free.
 \fi
 
 %\clearpage
@@ -330,42 +370,46 @@ supplementary materials that you can read on-line or download free.
 
 \begin{center}
 	\begin{tabular}[t]{cr}
-		Class participation & 15\%\\
+		Class participation & 5\%\\
 %		Homework & grade_weights["homework"]\%\\
-%		Mid-term exam & grade_weights["midterm"]\%\\
+		Mid-term exam & 10\%\\
 		Laboratory \& Homework & 55\%\\
 		Final exam   & 30\%\\
 	\end{tabular}
 \end{center}
 %
+\iffalse
 \subsubsection[Participation]{Participation}
 To make sure that people who are taking the course asynchronously have lots of
 opportunity to participate in discussions, I will be putting discussion
 questions on the Brightspace discussion board each week and you will get
 participation credit for posting on the discussion boards and responding to
-other students' posts.
+other students' posts. %'
 
 I am also setting up discussion boards for questions about the readings and
 lectures and labs. I encourage you to ask on those boards about anything that
-you didn't understand or thought was unclear, or would like to see me cover
-in greater detail in future classes.'
-
+you didn't understand or thought was unclear, or would like to see me cover %'
+in greater detail in future classes.
+\fi
 %
 %
 %
 \iffalse
 \subsubsection{Homework}
 Homework is due at the beginning of class on the day it is assigned.
-Late homework will be accepted for half-credit if I receive it before I post the answer key on Brightspace (usually a week after the assignment is due).
+Late homework will be accepted for half-credit if I receive it before I post
+the answer key on Brightspace (usually a week after the assignment is due).
 \fi
-%
-%\subsubsection{Projects}
-% You will do a few extended projects, which constitute policy analyses of possible measures to reduce greenhouse gas emissions.
+\iffalse
+  \subsubsection{Projects}
+  You will do a few extended projects, which constitute policy analyses of
+  possible measures to reduce greenhouse gas emissions.
+\fi
 
 \subsubsection{Tests and Examinations}
 \iffalse
 There will be one in-class midterm exam, on
-\textbf{NA}.
+\textbf{Monday, February~28}.
 This test will be closed book.
 I will hold a review session before the test.
 \textbf{You will need to bring a calculator, number two pencils, and erasers
@@ -377,13 +421,20 @@ books and notes.
 You will submit your take-home final electronically on Brightspace.
 The final exam is due by the end of the scheduled
 \ifAltFinal alternate \fi final examination,
-\ifAltFinal \AltFinalExamEndTime\ \AltFinalExamDay\ \AltFinalExamMonth~\AltFinalExamDate \else
-\FinalExamEndTime\ \FinalExamDay\ \FinalExamMonth~\FinalExamDate \fi.
+\ifAltFinal
+  \AltFinalExamEndTime\ \AltFinalExamDay\ \AltFinalExamMonth~\AltFinalExamDate
+\else
+  \FinalExamEndTime\ \FinalExamDay\ \FinalExamMonth~\FinalExamDate
+\fi.
 %
-%You may take either the regular or the alternate final exam (but not both). You must tell me in advance which exam you will take. I will pass a sign-up sheet in class during the last week of classes to sign up for which exam you will take. If you do not choose on the sign-up sheet, you must take the regular exam on \FinalExamDay, \FinalExamMonth.~\FinalExamDate.
-%\else
-%There will not be an alternate final exam.
-%\fi
+% You may take either the regular or the alternate final exam (but not both).
+% You must tell me in advance which exam you will take. I will pass a sign-up
+% sheet in class during the last week of classes to sign up for which exam you
+% will take. If you do not choose on the sign-up sheet, you must take the
+% regular exam on \FinalExamDay, \FinalExamMonth.~\FinalExamDate.
+% \else
+% There will not be an alternate final exam.
+% \fi
 
 The final exam will be cumulative over all the material covered during the term.
 
@@ -391,33 +442,35 @@ The final exam will be cumulative over all the material covered during the term.
 \section{Honor Code:}
 This course, like all courses at Vanderbilt, is conducted under the Honor Code.
 \begin{description}
-\item[Studying:] As you study for this class, I encourage you to to seek help from me%
-\ifTA
-, from \TaTitle,
-\else
-\
-\fi
-or from other classmates or friends.
+  \item[Studying:] As you study for this class,
+    I encourage you to to seek help from me%
+    \ifTA
+      , from \TaTitle,
+    \else
+      \
+    \fi
+    or from other classmates or friends.
 %
-\item[Homework and Lab Assignments:] I encourage working together.
-% In most lab assignments you will be explicitly told to work with a partner.
-I also encourage you to talk with other classmates, as well as friends and
-acquaintances outside of class. You may discuss assignments, compare notes on
-how you are working a problem, and you may look at your classmates' work on
-homework assignments.
-But you must work through the problems yourself in the work you turn in:
-\textbf{Even if you have discussed the solution with others you must
-work through the steps yourself and express the answers in your own words.
-You may not simply copy someone else's answer.}
+  \item[Homework and Lab Assignments:] I encourage working together.
+    In most lab assignments you will be explicitly told to work with a partner.
+    I also encourage you to talk with other classmates, as well as friends and
+    acquaintances outside of class. You may discuss assignments, compare notes
+    on how you are working a problem, and you may look at your
+    classmates' work on %'
+    homework assignments.
+    But you must work through the problems yourself in the work you turn in:
+    \textbf{Even if you have discussed the solution with others you must
+    work through the steps yourself and express the answers in your own words.
+    You may not simply copy someone else's answer.} %'
 %
-\item[Tests and Exams:] Tests and exams are different from homework and labs:
-\textbf{all work on tests and exams must be entirely your own}.
-\textbf{You may not work together with anyone or receive any help from anyone
-but me%
-\ifTA
-or \TaTitle
-\fi
-\ on exams and tests (this includes the take-home final exam)}.
+  \item[Tests and Exams:] Tests and exams are different from homework and labs:
+    \textbf{all work on tests and exams must be entirely your own}.
+    \textbf{You may not work together with anyone or receive any help from
+    anyone but me%
+    \ifTA
+    or \TaTitle
+    \fi
+    \ on exams and tests (this includes the take-home final exam)}.
 \end{description}
 
 If you ever
@@ -441,10 +494,10 @@ context of a scientific community and the integrity of this community is
 critical. The ethical principles of research
 integrity have grown over the centuries to protect the integrity of the
 scientific community. Indeed, the mathematician and poet Jacob Bronowski wrote,
-in his book, \emph{Science and Human Values\/} (Harper \& Row, 1956) that what makes
-science work and makes it great is much less about the intellectual brilliance
-and skills of individual scientists than about the ethical commitment to truth
-and human dignity by the community of scientists.
+in his book, \emph{Science and Human Values\/} (Harper \& Row, 1956) that what
+makes science work and makes it great is much less about the intellectual
+brilliance and skills of individual scientists than about the ethical commitment
+to truth and human dignity by the community of scientists.
 
 Science does not proceed only by making leaps of discovery
 but also by making useful mistakes and then discovering and correcting the
@@ -459,20 +512,21 @@ correct the error and actively inform other scientists about it.
 When a scientist discovers an error in their past work and does not promptly
 and actively correct it, other scientists may continue to rely on the truth of
 that result and thus waste time, effort, and money.
-Thus, both making one's own work available to others so they can have the
+Thus, both making one's own work available to others so they can have the %'
 opportunity to find errors, and also to promptly and publicly report any
-errors that one finds in one's own work are two critical pieces of research
+errors that one finds in one's own work are two critical pieces of research %'
 integrity.
 
 Another aspect also involves the communal nature of science: None of us works
-in isolation, and every scientist's work builds on work by others.
-There are two reasons why it is critical to acknowledge the role of others' work
-in our own research reports: First, it is important to give others the credit
-for their contributions to our shared body of scientific knowledge. Secondly,
-it is important for others to know where the data and methods we use come from.
-If I use someone else's data or methods for an analysis and it later turns out
-that there were problems with their data or methods, then it is important for
-people reading my work to be able to examine my work and evaluate how those
+in isolation, and every scientist's work builds on work by others. %'
+There are two reasons why it is critical to acknowledge the role of others' %'
+work in our own research reports: First, it is important to give others the
+credit for their contributions to our shared body of scientific knowledge.
+Secondly, it is important for others to know where the data and methods we use
+come from.
+If I use someone else's data or methods for an analysis and it later turns %'
+out that there were problems with their data or methods, then it is important
+for people reading my work to be able to examine my work and evaluate how those
 errors might affect my own results.
 
 I want to emphasize that these considerations about research integrity are not
@@ -544,14 +598,15 @@ and developing new directions for climate policy in the US.
 Professor Gilligan and Professor Michael Vandenbergh won
 the 2017 Morrison Prize for the highest-impact paper of the year
 on sustainability law and policy.
-Gilligan and Vandenbergh's book,
+Gilligan and Vandenbergh's book, %'
 \emph{Beyond Politics: The Private Governance Approach to Climate Change\/}
 (Cambridge University Press, 2017),
 was named by \emph{Environmental Forum\/} as one of the most
 important books on the environment of the last 50 years.
 
 Apart from his academic work, Professor Gilligan dabbles in writing for the
-theater. His stage adaptation of Nathaniel Hawthorne's \emph{The Scarlet Letter},
+theater. His stage adaptation of Nathaniel Hawthorne's %'
+\emph{The Scarlet Letter},
 co-written with his mother Carol Gilligan, has been staged at The Culture
 Project in New York City, starring
 Marisa Tomei, Ron Cephas Jones, and Bobby Cannavale, and was later performed
@@ -565,7 +620,7 @@ for its 2019--2020 repertory season.
 Prof.\ Gilligan and Carol Gilligan also wrote the libretto for an opera,
 \emph{Pearl}, in collaboration composer Amy Scurria, and producer/conductor
 Sara Jobin, which was performed at Shakespeare \& Company in Lenox MA,
-starring Maureen O'Flynn, John Bellemer, Marnie Breckenridge, John Cheek,
+starring Maureen O'Flynn, John Bellemer, Marnie Breckenridge, John Cheek, %'
 and Michael Corvino, and in Shanghai China,
 % as part of a cultural exchange,
 starring Li Xin, Wang Yang, John Bellemer, and Lin Shu.
@@ -600,106 +655,112 @@ detailed daily assignments.
 \setlength{\heavyrulewidth}{0.5pt}
 \setlength{\lightrulewidth}{0.05pt}
 \begin{center}
-% latex table generated in R 4.0.3 by xtable 1.8-4 package
-% Mon Jan 25 17:27:55 2021
+% latex table generated in R 4.1.2 by xtable 1.8-4 package
+% Tue Jan 18 03:21:33 2022
 \begin{tabular}{l@{~}c@{~}r>{\raggedright}m{2.6in}>{\centering}m{2in}c}
   \toprule
   \multicolumn{3}{c}{\bfseries Date} & \multicolumn{1}{c}{\bfseries Topic} &\multicolumn{1}{c}{\bfseries Reading} &\\
  \midrule
-Mon., & Jan. &  25 & Introduction & No reading &  \\ 
+Mon., & Jan. &  17 & \multicolumn{2}{l}{\bfseries\scshape\large Martin Luther King, Jr. Day} & \\% & No reading &  \\ 
    \midrule
-Wed., & Jan. &  27 & What is Climate Change? & \emph{\ShortArcher\/} Ch.~1, \emph{\ShortNordhaus\/} Ch.~1--2 &  \\ 
+Wed., & Jan. &  19 & Introduction & No reading &  \\ 
    \midrule
-Fri., & Jan. &  29 & Energy Balance and Climate & \emph{\ShortArcher\/} Ch.~2--3 pp.~9--23 &  \\ 
+Fri., & Jan. &  21 & What is Climate Change? & \emph{\ShortArcher\/} Ch.~1, \emph{\ShortNordhaus\/} Ch.~1--2 &  \\ 
    \midrule
-Mon., & Feb. &   1 & Greenhouse Effect & \emph{\ShortArcher\/} Ch.~3 pp.~23--26 &  \\ 
+Mon., & Jan. &  24 & Energy Balance and Climate & \emph{\ShortArcher\/} Ch.~2--3 pp.~9--23 &  \\ 
    \midrule
-Wed., & Feb. &   3 & Greenhouse Gases & \emph{\ShortArcher\/} Ch.~4 &  \\ 
+Wed., & Jan. &  26 & Greenhouse Effect & \emph{\ShortArcher\/} Ch.~3 pp.~23--26 &  \\ 
    \midrule
-Fri., & Feb. &   5 & Vertical Structure of the Atmosphere & \emph{\ShortArcher\/} Ch.~5 &  \\ 
+Fri., & Jan. &  28 & Greenhouse Gases & \emph{\ShortArcher\/} Ch.~4 &  \\ 
    \midrule
-Mon., & Feb. &   8 & Review of Greenhouse Effect & No reading &  \\ 
+Mon., & Jan. &  31 & Vertical Structure of the Atmosphere & \emph{\ShortArcher\/} Ch.~5 &  \\ 
    \midrule
-Wed., & Feb. &  10 & Feedbacks & \emph{\ShortArcher\/} Ch.~7 pp.~73--81 &  \\ 
+Wed., & Feb. &   2 & Review of Greenhouse Effect & No reading &  \\ 
    \midrule
-Fri., & Feb. &  12 & Ocean and Biosphere Feedbacks & \emph{\ShortArcher\/} Ch.~7 pp.~81--84, Handouts (on Brightspace) &  \\ 
+Fri., & Feb. &   4 & Feedbacks & \emph{\ShortArcher\/} Ch.~7 pp.~73--81 &  \\ 
    \midrule
-Mon., & Feb. &  15 & The Carbon Cycle: Ocean and Biosphere & \emph{\ShortArcher\/} Ch.~8 pp.~89--97 &  \\ 
+Mon., & Feb. &   7 & Ocean and Biosphere Feedbacks & \emph{\ShortArcher\/} Ch.~7 pp.~81--84, Handouts (on Brightspace) &  \\ 
    \midrule
-Wed., & Feb. &  17 & The Carbon Cycle: Mineral Weathering & \emph{\ShortArcher\/} Ch.~8 pp.~95--101 &  \\ 
+Wed., & Feb. &   9 & The Carbon Cycle: Ocean and Biosphere & \emph{\ShortArcher\/} Ch.~8 pp.~89--97 &  \\ 
    \midrule
-Fri., & Feb. &  19 & Perturbing the Carbon Cycle & \emph{\ShortArcher\/} Ch.~10 &  \\ 
+Fri., & Feb. &  11 & The Carbon Cycle: Mineral Weathering & \emph{\ShortArcher\/} Ch.~8 pp.~95--101 &  \\ 
    \midrule
-Mon., & Feb. &  22 & Climates of the Past & \emph{\ShortArcher\/} Ch.~11 pp.~135--145 &  \\ 
+Mon., & Feb. &  14 & Perturbing the Carbon Cycle & \emph{\ShortArcher\/} Ch.~10 &  \\ 
    \midrule
-Wed., & Feb. &  24 & The Pleistocene Ice Ages & \emph{\ShortArcher\/} Ch.~7 p.~84, \emph{\ShortArcher\/} Ch.~8 pp.~93--97, \emph{\ShortArcher\/} Ch.~11 pp.~147--149, Handouts (on Brightspace) &  \\ 
+Wed., & Feb. &  16 & Climates of the Past & \emph{\ShortArcher\/} Ch.~11 pp.~135--145, Handouts (on Brightspace) &  \\ 
    \midrule
-Fri., & Feb. &  26 & Review & No reading &  \\ 
+Fri., & Feb. &  18 & Review & No reading &  \\ 
    \midrule
-Mon., & Mar. &   1 & Climate Models & \emph{\ShortNordhaus\/} Ch.~3--4 &  \\ 
+Mon., & Feb. &  21 & The Pleistocene Ice Ages & \emph{\ShortArcher\/} Ch.~7 p.~84, \emph{\ShortArcher\/} Ch.~8 pp.~93--97, \emph{\ShortArcher\/} Ch.~11 pp.~147--149 &  \\ 
    \midrule
-Wed., & Mar. &   3 & Future Climate Change & \emph{\ShortNordhaus\/} Ch.~5, \emph{\ShortArcher\/} Ch.~12 pp.~153--164 &  \\ 
+Wed., & Feb. &  23 & Climate Models & \emph{\ShortNordhaus\/} Ch.~3--4 &  \\ 
    \midrule
-Fri., & Mar. &   5 & Identifying Fallacies about Climate Change & TBA &  \\ 
+Fri., & Feb. &  25 & Future Climate Change & \emph{\ShortNordhaus\/} Ch.~5, \emph{\ShortArcher\/} Ch.~12 pp.~153--164 &  \\ 
    \midrule
-Mon., & Mar. &   8 & Climate Fallacies Game & No reading &  \\ 
+Mon., & Feb. &  28 & Identifying Fallacies about Climate Change & ``23 Ways to Mislead'' &  \\ 
    \midrule
-Wed., & Mar. &  10 & Uncertainty about Future Climates & \emph{\ShortArcher\/} Ch.~12 pp.~164--166, \emph{\ShortNordhaus\/} Ch.~24, \emph{\ShortPielke\/} Ch.~1 pp.~1--24 &  \\ 
+Wed., & Mar. &   2 & Climate Fallacies Game & ``A History of FLICC'' &  \\ 
    \midrule
-Fri., & Mar. &  12 & How Will Climate Change Affect Our Lives? (Part 1) & \emph{\ShortNordhaus\/} 6--9 &  \\ 
+Fri., & Mar. &   4 & Uncertainty about Future Climates & \emph{\ShortArcher\/} Ch.~12 pp.~164--166, \emph{\ShortNordhaus\/} Ch.~24, \emph{\ShortPielke\/} Ch.~1 pp.~1--24 &  \\ 
    \midrule
-Mon., & Mar. &  15 & How Will Climate Change Affect Our Lives? (Part 2) & \emph{\ShortNordhaus\/} 10--12 &  \\ 
+Mon., & Mar. &   7 & \multicolumn{2}{l}{\multirow{3}{*}{\bfseries\scshape\Large Spring Break}} & \\% &  &  \\ 
+  Wed., & Mar. &   9 &  &  &  \\ 
+  Fri., & Mar. &  11 &  &  &  \\ 
    \bottomrule
 \end{tabular}
 
 \end{center}
 
 \begin{center}
-% latex table generated in R 4.0.3 by xtable 1.8-4 package
-% Mon Jan 25 17:27:55 2021
+% latex table generated in R 4.1.2 by xtable 1.8-4 package
+% Tue Jan 18 03:21:33 2022
 \begin{tabular}{l@{~}c@{~}r>{\raggedright}m{2.6in}>{\centering}m{2in}c}
   \toprule
   \multicolumn{3}{c}{\bfseries Date} & \multicolumn{1}{c}{\bfseries Topic} &\multicolumn{1}{c}{\bfseries Reading} &\\
  \midrule
-Wed., & Mar. &  17 & Policy Myths & \emph{\ShortPielke\/} Ch.~2, \emph{\ShortNordhaus\/} Ch.~25 &  \\ 
+Mon., & Mar. &  14 & How Will Climate Change Affect Our Lives? (Part 1) & \emph{\ShortNordhaus\/} 6--9 &  \\ 
    \midrule
-Fri., & Mar. &  19 & The Kaya Identity: Energy Use, Efficiency, and Conservation & \emph{\ShortPielke\/} Ch.~3, \emph{\ShortNordhaus\/} Ch.~14 &  \\ 
+Wed., & Mar. &  16 & How Will Climate Change Affect Our Lives? (Part 2) & \emph{\ShortNordhaus\/} 10--12 &  \\ 
    \midrule
-Mon., & Mar. &  22 & Reducing Carbon Emissions: Bottom-Up Approaches & \emph{\ShortPielke\/} Ch.~4, Handouts (on Brightspace) &  \\ 
+Fri., & Mar. &  18 & Policy Myths & \emph{\ShortPielke\/} Ch.~2, \emph{\ShortNordhaus\/} Ch.~25 &  \\ 
    \midrule
-Wed., & Mar. &  24 & Reducing Carbon Emissions: Top-Down Approaches & \emph{\ShortPielke\/} Ch.~4, Handouts (on Brightspace) &  \\ 
+Mon., & Mar. &  21 & The Kaya Identity: Energy Use, Efficiency, and Conservation & \emph{\ShortPielke\/} Ch.~3, \emph{\ShortNordhaus\/} Ch.~14 &  \\ 
    \midrule
-Fri., & Mar. &  26 & The Cost of Reducing Emissions & \emph{\ShortNordhaus\/} Ch.~14 pp.~157--165, \emph{\ShortNordhaus\/} Ch.~15 &  \\ 
+Wed., & Mar. &  23 & Reducing Carbon Emissions: Bottom-Up Approaches & \emph{\ShortPielke\/} Ch.~4, Handouts (on Brightspace) &  \\ 
    \midrule
-Mon., & Mar. &  29 & Goals of Climate Policy & \emph{\ShortNordhaus\/} Ch.~17, \emph{\ShortPielke\/} Ch.~6 &  \\ 
+Fri., & Mar. &  25 & Reducing Carbon Emissions: Top-Down Approaches & \emph{\ShortPielke\/} Ch.~4, Handouts (on Brightspace) &  \\ 
    \midrule
-Wed., & Mar. &  31 & Costs and Benefits & \emph{\ShortNordhaus\/} Ch.~18 &  \\ 
+Mon., & Mar. &  28 & The Cost of Reducing Emissions & \emph{\ShortNordhaus\/} Ch.~14 pp.~157--165, \emph{\ShortNordhaus\/} Ch.~15 &  \\ 
    \midrule
-Fri., & Apr. &   2 & Pricing Carbon & \emph{\ShortNordhaus\/} Ch.~19 &  \\ 
+Wed., & Mar. &  30 & Goals of Climate Policy & \emph{\ShortNordhaus\/} Ch.~17, \emph{\ShortPielke\/} Ch.~6 &  \\ 
    \midrule
-Mon., & Apr. &   5 & Carbon Pricing Instruments & Handouts (on Brightspace) &  \\ 
+Fri., & Apr. &   1 & Costs and Benefits & \emph{\ShortNordhaus\/} Ch.~18 &  \\ 
    \midrule
-Wed., & Apr. &   7 & Discounting and the Value of Time & \emph{\ShortNordhaus\/} Ch.~16, Handouts (on Brightspace) &  \\ 
+Mon., & Apr. &   4 & Pricing Carbon & \emph{\ShortNordhaus\/} Ch.~19 &  \\ 
    \midrule
-Fri., & Apr. &   9 & The Limits of Economic Approaches & Handouts (on Brightspace) &  \\ 
+Wed., & Apr. &   6 & Carbon Pricing Instruments & Handouts (on Brightspace) &  \\ 
    \midrule
-Mon., & Apr. &  12 & The Case for Renewable Energy & Handouts (on Brightspace) &  \\ 
+Fri., & Apr. &   8 & Discounting and the Value of Time & \emph{\ShortNordhaus\/} Ch.~16, Handouts (on Brightspace) &  \\ 
    \midrule
-Wed., & Apr. &  14 & The Case for Nuclear Energy & Handouts (on Brightspace) &  \\ 
+Mon., & Apr. &  11 & Climate Justice & Handouts (on Brightspace) &  \\ 
    \midrule
-Fri., & Apr. &  16 & Geoengineering: Solar Radiation Management & \emph{\ShortPielke\/} Ch.~5 pp.~117--132, \emph{\ShortNordhaus\/} Ch.~13 Read the whole chapter, but focus especially on pp.~152--156, Handouts (on Brightspace) &  \\ 
+Wed., & Apr. &  13 & Renewable Energy & Handouts (on Brightspace) &  \\ 
    \midrule
-Mon., & Apr. &  19 & Geoengineering: Carbon Dioxide Management & \emph{\ShortPielke\/} Ch.~5 pp.~132--142, \emph{\ShortNordhaus\/} Ch.~14 pp.~165--168, Handouts (on Brightspace) &  \\ 
+Fri., & Apr. &  15 & Nuclear Energy & Handouts (on Brightspace) &  \\ 
    \midrule
-Wed., & Apr. &  21 & Pragmatism and Climate Policy & \emph{\ShortNordhaus\/} Ch.~23, \emph{\ShortPielke\/} Ch.~9 &  \\ 
+Mon., & Apr. &  18 & Geoengineering & \emph{\ShortPielke\/} 5, Handouts (on Brightspace) &  \\ 
    \midrule
-Fri., & Apr. &  23 & Global Warming Gridlock & Handouts (on Brightspace) &  \\ 
+Wed., & Apr. &  20 & Pragmatism and Climate Policy & \emph{\ShortNordhaus\/} Ch.~23, \emph{\ShortPielke\/} Ch.~9 &  \\ 
    \midrule
-Mon., & Apr. &  26 & Beyond Gridlock: Second-Best Policies & Handouts (on Brightspace) &  \\ 
+Fri., & Apr. &  22 & Global Warming Gridlock & Handouts (on Brightspace) &  \\ 
    \midrule
-Wed., & Apr. &  28 & Obstacles and Perspectives & \emph{\ShortNordhaus\/} Ch.~26, Handouts (on Brightspace) &  \\ 
+Mon., & Apr. &  25 & Beyond Gridlock: Second-Best Policies & Handouts (on Brightspace) &  \\ 
    \midrule
-Fri., & Apr. &  30 & Review & No reading &  \\ 
+Wed., & Apr. &  27 & Obstacles and Perspectives & \emph{\ShortNordhaus\/} Ch.~26, Handouts (on Brightspace) &  \\ 
+   \midrule
+Fri., & Apr. &  29 & Review & No reading &  \\ 
+   \midrule
+Tue., & May. &   3 & \multicolumn{2}{l}{\bfseries\scshape\large Take-Home Final Exam Due} & \\% & No reading &  \\ 
    \bottomrule
 \end{tabular}
 

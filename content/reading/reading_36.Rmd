@@ -1,5 +1,5 @@
 ---
-title: 'Geoengineering: Solar Radiation Management'
+title: Geoengineering
 class_date: '2022-04-18'
 class_number: 36
 weight: 36
@@ -14,9 +14,16 @@ output:
 
 ### Required Reading (everyone):
 
-* The Climate Fix, Ch. 5, pp. 117--132.
-* Climate Casino, Ch. 13, Read the whole chapter, but focus especially on pp. 152--156.
-* Handout: [G.C. Hegerl and S. Solomon, "Risks of Climate Engineering," Science **325**, 955 (2009)](http://science.sciencemag.org.proxy.library.vanderbilt.edu/content/325/5943/955){target="_blank"}.
+* Handout: [L. Burns _et al._, _Solar Geoengineering_, Harvard Belfer Center Technology Factsheet (2019)](/files/reading_handouts/burns_2019_geoengineering_factsheet.pdf){target="_blank"}.
+* Handout: [D.G. MacMartin, K.L. Ricke, &  D.W. Keith, "Solar geoengineering as part of an overall strategy for meeting the 1.5&deg;C Paris target," Phil. Trans. Roy. Soc A **376**, 2016054 (2018)](/files/reading_handouts/macmartin_2018_geoengineering_strategy.pdf){target="_blank"}.
+
+### Required for Grad Students (optional for undergrads):
+
+* Handout: [P.J. Irvine _et al._, "Towards a comprehensive climate impacts assessment of solar geoengineering," _Earth's Future_ **5**, 93--106 (2017)](/files/reading_handouts/irvine_2017_geoengineering_climate.pdf){target="_blank"}.
+
+### Optional Extra Reading:
+
+* The Climate Fix, 5.
 
 ### Reading Notes:
 

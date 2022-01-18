@@ -108,15 +108,15 @@ get_event <- function(class, exam, holiday) {
 }
 
 schedule <- prepare_schedule(semester)
-if (! tibble::has_name(schedule, "key_holiday"))
+if (! tibble::has_name(schedule, "key_holiday")) {
   schedule <- schedule %>% mutate(key_holiday = NA_character_)
+}
 
 calendar <- schedule %>%
-  filter(! is.na(id_class)) %>%
-
+  filter(! is.na(id_class) || ! is.na(id_holiday) || ! is.na(id_exam)) %>%
   left_join(select(semester$class_topics, id_class = cal_id, rd_grp_key,
                    by = "cal_id")) %>%
-  left_join(reading, by = c(key_class = "rd_grp_key")) %>%
+  left_join(reading, by = "rd_grp_key") %>%
   arrange(date, id_class) %>%
   mutate(cal_id = seq_along(date),
          date = ymd(date), weekday = wday(date, label = TRUE),
@@ -515,75 +515,92 @@ Laboratory: \LabMeetings
 \medskip
 
 \noindent
-\TaTitle\ will be grading labs and homework, so address questions about your homework and lab grades
-to \TaAccusative.
+\TaTitle\ will be grading labs and homework, so address questions about your
+homework and lab grades to \TaAccusative.
 
 \subsection{Email}
-If you want to communicate with Professor Gilligan or \TaTitle\ be sure to begin the
-subject line of your email with ``{\scshape EES~3310}'' or ``{\scshape EES~5310}''. This helps assure
+If you want to communicate with Professor Gilligan or \TaTitle\ be sure to
+begin the subject line of your email with ``{\scshape EES~3310}'' or
+``{\scshape EES~5310}''. This helps assure
 that we will see your message quickly and respond to it.
 
-I have set my email reader to flag all messages like this as important, so I will read
-them first. This also assures that I do not mistake your email for spam. I typically
-receive over 100 emails per day, so if you do not follow these instructions I may not
-notice your email.
+I have set my email reader to flag all messages like this as important, so I
+will read them first.
+This also assures that I do not mistake your email for spam. I typically
+receive over 100 emails per day, so if you do not follow these instructions,
+I may not notice your email.
 
 \medskip
 \clearpage
 \section[Description]{Course Description}
 \subsection{Catalog Description}
-Scientific principles and policy applications. Earth's past; evidence of human impact; future climate change; and economic, social, and ecological consequences. Economic, technological, and public policy responses. Repeat credit for 2110. Students who have earned credit for 2110 will earn only one credit hour for this course. Prerequisite: one of 1030, 1080, 1510, BSCI 1510, CHEM 1601, ECON 1010, ES 1401 or PHYS 1501, 1601, 1901. [4] (MNS)
+Scientific principles and policy applications. Earth's past; evidence of human
+impact; future climate change; and economic, social, and ecological consequences.
+Economic, technological, and public policy responses. Repeat credit for 2110.
+Students who have earned credit for 2110 will earn only one credit hour for
+this course. Prerequisite: one of 1030, 1080, 1510, BSCI 1510, CHEM 1601,
+ECON 1010, ES 1401 or PHYS 1501, 1601, 1901. [4] (MNS)
 \subsection{Narrative Description}
-This course will study earth's climate and the way it has changed throughout our planet's
-history. We will study:
+This course will study earth's climate and the way it has changed throughout
+our planet's history. We will study:
 \begin{itemize}
-	\item Determinants of climate: What factors affect climate, how do we know this, and
-    how certain are we?
-    \item Scientific evidence about past climates: What do we know, how do we know it,
-    and how certain are we?
+	\item Determinants of climate: What factors affect climate, how do we know
+	  this, and how certain are we?
+    \item Scientific evidence about past climates: What do we know, how do we
+    know it, and how certain are we?
 	\item Natural climate change in earth's history.
 	\item Effects of human activity on global climate in the last 200 years.
-	\item What do we know about future climate change and how will it affect the quality
-	of people's lives?
-	\item How do economists and political scientists assess the costs of climate change
-	and the value of policies to limit it?
-	\item What can we do to mitigate future global climate change or adapt to life in a
-	different climate?
-	\item What is happening politically, both in the U.S. and internationally, to respond
-	to climate change?
+	\item What do we know about future climate change and how will it affect the
+	quality of people's lives?
+	\item How do economists and political scientists assess the costs of climate
+	change and the value of policies to limit it?
+	\item What can we do to mitigate future global climate change or adapt to life
+	in a different climate?
+	\item What is happening politically, both in the U.S. and internationally, to
+	respond to climate change?
 \end{itemize}
 
 \section[Goals]{Goals for the Course}
 My goals for this course are that at the end of the semester:
 \begin{itemize}
-\item You will have a solid quantitative understanding of the basic physical and chemical principles
-that control the system and be able to apply that knowledge to reasoning about the climate system and its response to disturbances.
-\item You will have working familiarity with a variety of computer models that simulate various aspects of the climate system
-and be able to use those models to explore the implications of scientific principles that are too complex to calculate with pencil and paper.
-\item You will have a solid scientific understanding of what scientists know, what they don't know,
-and how they know what they know about how climate works, how and why it has changed in the past,
-and how it may change in the future.
-\item You will be able to evaluate the evidence for and against the idea that human
-activity is warming the planet and assess for yourself whether the evidence is persuasive.
-\item You will be familiar with the ways economists and policy analysts
-approach the problem of climate change and public policies that respond to it.
-\item You will understand the history of scientific and political concern and activity
-around global warming, the principal policy measures being considered to address
-climate change, and their major strengths and weaknesses.
-\item You will have the tools and knowledge to make informed decisions about what
-climate policies you support or oppose.
+  \item You will have a solid quantitative understanding of the basic physical
+    and chemical principles that control the system and be able to apply that
+    knowledge to reasoning about the climate system and its response to
+    disturbances.
+  \item You will have working familiarity with a variety of computer models that
+    simulate various aspects of the climate system and be able to use those
+    models to explore the implications of scientific principles that are too
+    complex to calculate with pencil and paper.
+  \item You will have a solid scientific understanding of what scientists know,
+    what they don't know, and how they know what they know about how climate
+    works, how and why it has changed in the past, and how it may change in the
+    future.
+  \item You will be able to evaluate the evidence for and against the idea that
+    human activity is warming the planet and assess for yourself whether the
+    evidence is persuasive.
+  \item You will be familiar with the ways economists and policy analysts
+    approach the problem of climate change and public policies that respond to
+    it.
+  \item You will understand the history of scientific and political concern and
+    activity around global warming, the principal policy measures being
+    considered to address climate change, and their major strengths and
+    weaknesses.
+  \item You will have the tools and knowledge to make informed decisions about
+    what climate policies you support or oppose.
 \item In the laboratory, you will learn to:
-\begin{itemize}
-\item Use simple climate models to explore the dynamics of the climate system.
-\item Use open-source statistical tools to download and analyze real climate data.
-\item Follow established reproducible research practices.
-\end{itemize}
+  \begin{itemize}
+    \item Use simple climate models to explore the dynamics of the climate
+      system.
+    \item Use open-source statistical tools to download and analyze real climate
+      data.
+    \item Follow established reproducible research practices.
+  \end{itemize}
 \end{itemize}
 
-When you leave this course, you will not be qualified to work as a climate scientist, but
-you will be able to follow and critically evaluate news
-reporting about climate change and climate policy, debate intelligently and knowledgeably,
-and be an informed voter.
+When you leave this course, you will not be qualified to work as a climate
+scientist, but you will be able to follow and critically evaluate news
+reporting about climate change and climate policy, debate intelligently and
+knowledgeably, and be an informed voter.
 
 I do not care whether you agree with me politically.
 I respect people who think for themselves.
@@ -593,31 +610,42 @@ and support it with solid evidence and reasoned argument.}
 %
 %
 %\clearpage
-\iffalse
+\iftrue
 \section{Important Dates:}
-Many of you have athletic and other commitments during the term and may travel for
-personal reasons. As you plan for your semester, particularly if you are purchasing
-nonrefundable airplane tickets, consult the syllabus.
+Many of you have athletic and other commitments during the term and may travel
+for personal reasons. As you plan for your semester, particularly if you are
+purchasing nonrefundable airplane tickets, consult the syllabus.
 
-If you have away games that require you to miss a scheduled test or group laboratory activity, let me know well in advance.
+If you have away games that require you to miss a scheduled test or group
+laboratory activity, let me know well in advance.
 \begin{itemize}
-%
-\item The mid-term test is on
-\textbf{\Sexpr{format_day_date_range_by_event_id(calendar,
-c("MIDTERM_EXAM","MIDTERM_TEST"),abbr_month = FALSE, abbr_wday = FALSE)}}.
-\item On
-\textbf{\Sexpr{format_day_date_by_key(semester$calendar, "ENERGY_GAME", "lab")}}
-we will be playing a game in lab to simulate the challenge of converting
-New York City to using clean energy and on
-\textbf{\Sexpr{format_day_date_by_key(semester$calendar, "ROLE_PLAY", "lab")}}
-we will be doing a participatory role-playing
-exercise in lab, where you will play out different kinds of policies
-for reducing greenhouse gas emissions. It is especially important for you to be
-present for these labs.
+  \iffalse
+    \item The mid-term test is on
+      \textbf{\Sexpr{format_day_date_range_by_event_id(calendar,
+         c("MIDTERM_EXAM","MIDTERM_TEST"),abbr_month = FALSE,
+           abbr_wday = FALSE)}}.
+  \fi
+  \item On
+    %
+    \textbf{\Sexpr{format_day_date_by_key(semester$calendar, "ROLE_PLAY", "lab")}}
+    we will be doing a participatory role-playing
+    exercise in lab, where you will play out different kinds of policies
+    for reducing greenhouse gas emissions.
+    %
+    and on
+    %
+    \textbf{\Sexpr{format_day_date_by_key(semester$calendar, "ENERGY_GAME", "lab")}}
+    we will be playing a game in lab to simulate the challenge of converting
+    New York City to using clean energy
+    %
+    It is especially important for you to  be present for these labs.
+\item The midterm exam will be a take-home test of your knowledge about the
+    basic science of the climate system and climate change.
 \item The final exam will be in a take-home essay format and it is due at
-\textbf{\TakeHomeExamEndTime~\TakeHomeExamDay, \TakeHomeExamMonth~\TakeHomeExamDate}%
-. You submit the final exam electronically, so you do not need to be on campus
-for this.
+  \textbf{\TakeHomeExamEndTime~\TakeHomeExamDay,
+    \TakeHomeExamMonth~\TakeHomeExamDate}%
+  . You submit the final exam electronically, so you do not need to be on campus
+  for this.
 \end{itemize}
 \fi
 %
@@ -631,7 +659,7 @@ I divide the semester into two parts:
 \begin{enumerate}
     \item \textbf{Scientific Principles of Climate}: For the first half of the
     semester, we will focus on the scientific principles of climate and natural
-    climate change in earth's past. This will be very mathematical, using basic
+    climate change in earth's past. This will be very mathematical, using basic %'
     algebra. We do not use calculus or other advanced math in this class, but
     you should be comfortable with simple algebraic equations.
     We will then look at climate change in the last two centuries and what might
@@ -691,13 +719,14 @@ during the term and posted on Brightspace.
 	\item \LongPielke
 \end{itemize}
 There is a companion web site to \emph{\Archer\/} at \ArcherURL, which includes
-%videos of the author's own lectures on the material and
+%videos of the author's own lectures on the material and %
 interactive on-line computer models that we will use for some exercises in the
 book.
 
 \subsubsection[Recommended Reading]{Recommended Reading Materials}
 \begin{itemize}
-  \item \LongWickham. This book is also available as a free online edition at \WickhamURL.
+  \item \LongWickham. This book is also available as a free online edition at
+    \WickhamURL.
 \end{itemize}
 
 \subsubsection{Overview of Reading Materials}
@@ -706,7 +735,7 @@ class and notes on important things you should understand.
 \textbf{I expect you to complete the reading before you come to class or watch
   the recorded class session on the day for which the reading is assigned},
 so you can participate in discussions of the assigned material and ask
-questions if there are things you don't understand.
+questions if there are things you don't understand.  %'
 
 While science aims to give correct answers to scientific questions, there are
 not right or wrong answers to questions of what is the best economic model with
@@ -716,8 +745,8 @@ that present different points of view on the political and economic aspects.
 \iffalse
 
 \subsubsection[Optional Reading]{Optional Supplementary Reading Materials}
-See the ``External Links'' page on the course Brightspace site for links to optional
-supplementary materials that you can read on-line or download free.
+See the ``External Links'' page on the course Brightspace site for links to
+optional supplementary materials that you can read on-line or download free.
 \fi
 
 %\clearpage
@@ -727,42 +756,46 @@ supplementary materials that you can read on-line or download free.
 %
 \subsubsection[Grading]{Basis for Grading}
 <<r grading, include=F>>=
-grade_weights <- c(participation = 15, homework = 0, midterm = 0, lab = 55, final = 30)
+grade_weights <- c(participation = 5, homework = 0, midterm = 10, lab = 55, final = 30)
 assert_that(sum(grade_weights) == 100)
 @
 \begin{center}
 	\begin{tabular}[t]{cr}
 		Class participation & \Sexpr{grade_weights["participation"]}\%\\
 %		Homework & \Sexpr{grade_weights["homework"]}\%\\
-%		Mid-term exam & \Sexpr{grade_weights["midterm"]}\%\\
+		Mid-term exam & \Sexpr{grade_weights["midterm"]}\%\\
 		Laboratory \& Homework & \Sexpr{grade_weights["lab"]}\%\\
 		Final exam   & \Sexpr{grade_weights["final"]}\%\\
 	\end{tabular}
 \end{center}
 %
+\iffalse
 \subsubsection[Participation]{Participation}
 To make sure that people who are taking the course asynchronously have lots of
 opportunity to participate in discussions, I will be putting discussion
 questions on the Brightspace discussion board each week and you will get
 participation credit for posting on the discussion boards and responding to
-other students' posts.
+other students' posts. %'
 
 I am also setting up discussion boards for questions about the readings and
 lectures and labs. I encourage you to ask on those boards about anything that
-you didn't understand or thought was unclear, or would like to see me cover
-in greater detail in future classes.'
-
+you didn't understand or thought was unclear, or would like to see me cover %'
+in greater detail in future classes.
+\fi
 %
 %
 %
 \iffalse
 \subsubsection{Homework}
 Homework is due at the beginning of class on the day it is assigned.
-Late homework will be accepted for half-credit if I receive it before I post the answer key on Brightspace (usually a week after the assignment is due).
+Late homework will be accepted for half-credit if I receive it before I post
+the answer key on Brightspace (usually a week after the assignment is due).
 \fi
-%
-%\subsubsection{Projects}
-% You will do a few extended projects, which constitute policy analyses of possible measures to reduce greenhouse gas emissions.
+\iffalse
+  \subsubsection{Projects}
+  You will do a few extended projects, which constitute policy analyses of
+  possible measures to reduce greenhouse gas emissions.
+\fi
 
 \subsubsection{Tests and Examinations}
 \iffalse
@@ -780,13 +813,20 @@ books and notes.
 You will submit your take-home final electronically on Brightspace.
 The final exam is due by the end of the scheduled
 \ifAltFinal alternate \fi final examination,
-\ifAltFinal \AltFinalExamEndTime\ \AltFinalExamDay\ \AltFinalExamMonth~\AltFinalExamDate \else
-\FinalExamEndTime\ \FinalExamDay\ \FinalExamMonth~\FinalExamDate \fi.
+\ifAltFinal
+  \AltFinalExamEndTime\ \AltFinalExamDay\ \AltFinalExamMonth~\AltFinalExamDate
+\else
+  \FinalExamEndTime\ \FinalExamDay\ \FinalExamMonth~\FinalExamDate
+\fi.
 %
-%You may take either the regular or the alternate final exam (but not both). You must tell me in advance which exam you will take. I will pass a sign-up sheet in class during the last week of classes to sign up for which exam you will take. If you do not choose on the sign-up sheet, you must take the regular exam on \FinalExamDay, \FinalExamMonth.~\FinalExamDate.
-%\else
-%There will not be an alternate final exam.
-%\fi
+% You may take either the regular or the alternate final exam (but not both).
+% You must tell me in advance which exam you will take. I will pass a sign-up
+% sheet in class during the last week of classes to sign up for which exam you
+% will take. If you do not choose on the sign-up sheet, you must take the
+% regular exam on \FinalExamDay, \FinalExamMonth.~\FinalExamDate.
+% \else
+% There will not be an alternate final exam.
+% \fi
 
 The final exam will be cumulative over all the material covered during the term.
 
@@ -794,33 +834,35 @@ The final exam will be cumulative over all the material covered during the term.
 \section{Honor Code:}
 This course, like all courses at Vanderbilt, is conducted under the Honor Code.
 \begin{description}
-\item[Studying:] As you study for this class, I encourage you to to seek help from me%
-\ifTA
-, from \TaTitle,
-\else
-\
-\fi
-or from other classmates or friends.
+  \item[Studying:] As you study for this class,
+    I encourage you to to seek help from me%
+    \ifTA
+      , from \TaTitle,
+    \else
+      \
+    \fi
+    or from other classmates or friends.
 %
-\item[Homework and Lab Assignments:] I encourage working together.
-% In most lab assignments you will be explicitly told to work with a partner.
-I also encourage you to talk with other classmates, as well as friends and
-acquaintances outside of class. You may discuss assignments, compare notes on
-how you are working a problem, and you may look at your classmates' work on
-homework assignments.
-But you must work through the problems yourself in the work you turn in:
-\textbf{Even if you have discussed the solution with others you must
-work through the steps yourself and express the answers in your own words.
-You may not simply copy someone else's answer.}
+  \item[Homework and Lab Assignments:] I encourage working together.
+    In most lab assignments you will be explicitly told to work with a partner.
+    I also encourage you to talk with other classmates, as well as friends and
+    acquaintances outside of class. You may discuss assignments, compare notes
+    on how you are working a problem, and you may look at your
+    classmates' work on %'
+    homework assignments.
+    But you must work through the problems yourself in the work you turn in:
+    \textbf{Even if you have discussed the solution with others you must
+    work through the steps yourself and express the answers in your own words.
+    You may not simply copy someone else's answer.} %'
 %
-\item[Tests and Exams:] Tests and exams are different from homework and labs:
-\textbf{all work on tests and exams must be entirely your own}.
-\textbf{You may not work together with anyone or receive any help from anyone
-but me%
-\ifTA
-or \TaTitle
-\fi
-\ on exams and tests (this includes the take-home final exam)}.
+  \item[Tests and Exams:] Tests and exams are different from homework and labs:
+    \textbf{all work on tests and exams must be entirely your own}.
+    \textbf{You may not work together with anyone or receive any help from
+    anyone but me%
+    \ifTA
+    or \TaTitle
+    \fi
+    \ on exams and tests (this includes the take-home final exam)}.
 \end{description}
 
 If you ever
@@ -844,10 +886,10 @@ context of a scientific community and the integrity of this community is
 critical. The ethical principles of research
 integrity have grown over the centuries to protect the integrity of the
 scientific community. Indeed, the mathematician and poet Jacob Bronowski wrote,
-in his book, \emph{Science and Human Values\/} (Harper \& Row, 1956) that what makes
-science work and makes it great is much less about the intellectual brilliance
-and skills of individual scientists than about the ethical commitment to truth
-and human dignity by the community of scientists.
+in his book, \emph{Science and Human Values\/} (Harper \& Row, 1956) that what
+makes science work and makes it great is much less about the intellectual
+brilliance and skills of individual scientists than about the ethical commitment
+to truth and human dignity by the community of scientists.
 
 Science does not proceed only by making leaps of discovery
 but also by making useful mistakes and then discovering and correcting the
@@ -862,20 +904,21 @@ correct the error and actively inform other scientists about it.
 When a scientist discovers an error in their past work and does not promptly
 and actively correct it, other scientists may continue to rely on the truth of
 that result and thus waste time, effort, and money.
-Thus, both making one's own work available to others so they can have the
+Thus, both making one's own work available to others so they can have the %'
 opportunity to find errors, and also to promptly and publicly report any
-errors that one finds in one's own work are two critical pieces of research
+errors that one finds in one's own work are two critical pieces of research %'
 integrity.
 
 Another aspect also involves the communal nature of science: None of us works
-in isolation, and every scientist's work builds on work by others.
-There are two reasons why it is critical to acknowledge the role of others' work
-in our own research reports: First, it is important to give others the credit
-for their contributions to our shared body of scientific knowledge. Secondly,
-it is important for others to know where the data and methods we use come from.
-If I use someone else's data or methods for an analysis and it later turns out
-that there were problems with their data or methods, then it is important for
-people reading my work to be able to examine my work and evaluate how those
+in isolation, and every scientist's work builds on work by others. %'
+There are two reasons why it is critical to acknowledge the role of others' %'
+work in our own research reports: First, it is important to give others the
+credit for their contributions to our shared body of scientific knowledge.
+Secondly, it is important for others to know where the data and methods we use
+come from.
+If I use someone else's data or methods for an analysis and it later turns %'
+out that there were problems with their data or methods, then it is important
+for people reading my work to be able to examine my work and evaluate how those
 errors might affect my own results.
 
 I want to emphasize that these considerations about research integrity are not
@@ -947,14 +990,15 @@ and developing new directions for climate policy in the US.
 Professor Gilligan and Professor Michael Vandenbergh won
 the 2017 Morrison Prize for the highest-impact paper of the year
 on sustainability law and policy.
-Gilligan and Vandenbergh's book,
+Gilligan and Vandenbergh's book, %'
 \emph{Beyond Politics: The Private Governance Approach to Climate Change\/}
 (Cambridge University Press, 2017),
 was named by \emph{Environmental Forum\/} as one of the most
 important books on the environment of the last 50 years.
 
 Apart from his academic work, Professor Gilligan dabbles in writing for the
-theater. His stage adaptation of Nathaniel Hawthorne's \emph{The Scarlet Letter},
+theater. His stage adaptation of Nathaniel Hawthorne's %'
+\emph{The Scarlet Letter},
 co-written with his mother Carol Gilligan, has been staged at The Culture
 Project in New York City, starring
 Marisa Tomei, Ron Cephas Jones, and Bobby Cannavale, and was later performed
@@ -968,7 +1012,7 @@ for its 2019--2020 repertory season.
 Prof.\ Gilligan and Carol Gilligan also wrote the libretto for an opera,
 \emph{Pearl}, in collaboration composer Amy Scurria, and producer/conductor
 Sara Jobin, which was performed at Shakespeare \& Company in Lenox MA,
-starring Maureen O'Flynn, John Bellemer, Marnie Breckenridge, John Cheek,
+starring Maureen O'Flynn, John Bellemer, Marnie Breckenridge, John Cheek, %'
 and Michael Corvino, and in Shanghai China,
 % as part of a cultural exchange,
 starring Li Xin, Wang Yang, John Bellemer, and Lin Shu.
@@ -1004,7 +1048,8 @@ detailed daily assignments.
 \setlength{\lightrulewidth}{0.05pt}
 \begin{center}
 <<r class_schedule, echo=F, results="asis">>=
-one_line_events <- c("MIDTERM_TEST","MIDTERM_EXAM", short_holiday_keys)
+# one_line_events <- c("MIDTERM_TEST","MIDTERM_EXAM", short_holiday_keys)
+one_line_events <- c("MLK_DAY")
 
 finals <- bind_rows(final_exam, alt_final_exam, take_home_final_exam) %>% arrange(date)
 which_final <- tail(finals, 1)$event
@@ -1027,7 +1072,9 @@ if (is_fall_semester) {
 special_rows <- which(events %in% one_line_events)
 
 # schedule_break_row <- fall_break_row
-schedule_break_row <- with(schedule, which(month == "Mar." & day == 15))
+#
+# schedule_break_row <- with(schedule, which(month == "Mar." & day == 15))
+schedule_break_row <- max(long_holiday_rows)
 message("Break row = ", schedule_break_row)
 # schedule_break_row <- 30
 
@@ -1044,20 +1091,26 @@ if (has_long_holiday) {
 
 schedule_1 <- schedule[1:schedule_break_row,]
 schedule_1[special_rows_1,] <- schedule_1[special_rows_1,] %>%
-  mutate(topic = str_c("\\multicolumn{2}{l}{\\bfseries\\scshape\\large ", topic, "} & \\\\%"))
+  mutate(topic = str_c("\\multicolumn{2}{l}{\\bfseries\\scshape\\large ",
+                       topic, "} & \\\\%"))
 if (has_long_holiday && long_vac_on_first_page) {
   schedule_1$topic[long_holiday_rows] <- ""
+  schedule_1$reading[long_holiday_rows] <- ""
   schedule_1$topic[min(long_holiday_rows)] <-
     str_c("\\multicolumn{2}{l}{\\multirow{3}{*}{\\bfseries\\scshape\\Large ",
           long_holiday_name, "}} & \\\\%")
 }
 schedule_1 <- schedule_1 %>% select(-event)
 
-schedule_1 %>% xtable(align = c("","l@{~}","c@{~}","r",">{\\raggedright}m{2.6in}",">{\\centering}m{2in}", "c")) %>%
+schedule_1 %>%
+  xtable(align = c("", "l@{~}", "c@{~}", "r", ">{\\raggedright}m{2.6in}",
+                   ">{\\centering}m{2in}", "c")) %>%
   print(booktabs = TRUE, floating = FALSE, latex.environment="center",
         sanitize.text.function = identity,
         include.colnames = F, include.rownames = F,
-        hline.after = discard(seq(-1,nrow(schedule_1)), ~ long_vac_on_first_page & .x %in% head(long_holiday_rows,-1)),
+        hline.after = discard(seq(-1,nrow(schedule_1)),
+                              ~ long_vac_on_first_page &
+                                .x %in% head(long_holiday_rows,-1)),
         add.to.row = list(pos = list(0),
                           command = "\\multicolumn{3}{c}{\\bfseries Date} & \\multicolumn{1}{c}{\\bfseries Topic} &\\multicolumn{1}{c}{\\bfseries Reading} &\\\\\n"))
 @
@@ -1067,13 +1120,15 @@ schedule_1 %>% xtable(align = c("","l@{~}","c@{~}","r",">{\\raggedright}m{2.6in}
 <<r class_schedule_2, echo=F, results="asis">>=
 schedule_2 <- schedule[-(1:schedule_break_row),]
 schedule_2[special_rows_2,] <- schedule_2[special_rows_2,] %>%
-  mutate(topic = str_c("\\multicolumn{2}{l}{\\bfseries\\scshape\\large ", topic, "} & \\\\%"))
+  mutate(topic = str_c("\\multicolumn{2}{l}{\\bfseries\\scshape\\large ",
+                       topic, "} & \\\\%"))
 in_class_ex_line <- which(schedule_2$event %in% c("IN_CLASS_EXERCISE"))
 schedule_2[in_class_ex_line,] <- schedule_2[in_class_ex_line,] %>%
   mutate(topic = str_c("\\bfseries\\scshape ", topic))
 if ( has_long_holiday && ! long_vac_on_first_page) {
   long_holiday_rows <- long_holiday_rows - schedule_break_row
   schedule_2$topic[long_holiday_rows] <- ""
+  schedule_1$reading[long_holiday_rows] <- ""
   schedule_2$topic[min(long_holiday_rows)] <-
     str_c("\\multicolumn{2}{l}{\\multirow{3}{*}{\\bfseries\\scshape\\Large ",
           long_holiday_name, "}} & \\\\%")
@@ -1082,10 +1137,15 @@ final_exam_row <- which(schedule_2$event == which_final)
 schedule_2$topic[final_exam_row] <- "\\multicolumn{2}{l}{\\bfseries\\scshape\\large Take-Home Final Exam Due} & \\\\%"
 schedule_2 <- schedule_2 %>% filter(! event %in% delete_final) %>% select(-event)
 
-schedule_2 %>% xtable(align = c("","l@{~}","c@{~}","r",">{\\raggedright}m{2.6in}",">{\\centering}m{2in}", "c")) %>%
+schedule_2 %>%
+  xtable(align = c("", "l@{~}", "c@{~}", "r", ">{\\raggedright}m{2.6in}",
+                   ">{\\centering}m{2in}", "c")) %>%
   print(booktabs = TRUE, floating = FALSE,  latex.environment="center",
-        sanitize.text.function = identity, include.colnames = F, include.rownames = F,
-        hline.after = discard(seq(-1,nrow(schedule_2)), ~ ! long_vac_on_first_page & .x %in% head(long_holiday_rows,-1)),
+        sanitize.text.function = identity,
+        include.colnames = F,  include.rownames = F,
+        hline.after = discard(seq(-1,nrow(schedule_2)),
+                              ~ ! long_vac_on_first_page &
+                                .x %in% head(long_holiday_rows,-1)),
         add.to.row = list(pos = list(0),
                           command = "\\multicolumn{3}{c}{\\bfseries Date} & \\multicolumn{1}{c}{\\bfseries Topic} &\\multicolumn{1}{c}{\\bfseries Reading} &\\\\\n"))
 @
