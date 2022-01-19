@@ -8,17 +8,17 @@ title: Tools
 
 * [Web-based tools](#web-tools "Web-Based tools")
 * [Installing tools](#installing "Tools to install on your computer")
-    * [Installing {{< R_LOGO >}}](#installing-r "Installing R")
-    * [Installing {{< GIT_LOGO >}}](#installing-git "Installing git")
-       * [Configuring {{< GIT_LOGO >}}](#configuring-git "Configuring git")
-       * [Getting a GitHUB {{< GITHUB_LOGO >}} account](#github-account "Getting an account on GitHub")
-    * [Installing {{< RSTUDIO_LOGO >}}](#installing-rstudio "Installing RStudio")
+  * [Installing {{< R_LOGO >}}](#installing-r "Installing R")
+  * [Installing {{< GIT_LOGO >}}](#installing-git "Installing git")
+    * [Configuring {{< GIT_LOGO >}}](#configuring-git "Configuring git")
+    * [Getting a GitHUB {{< GITHUB_LOGO >}} account](#github-account "Getting an account on GitHub")
+  * [Installing {{< RSTUDIO_LOGO >}}](#installing-rstudio "Installing RStudio")
 * [Optional tools](#optional-tools "Optional tools you may want to install")
-    * [Installing the tinytex package](#installing-latex "Installing the tinytex package for making PDFs from RMarkdown")
-    * [Installing {{< GIT_AHEAD >}}](#installing-gitahead "Installing the GitAhead graphical interface for git")
+  * [Installing the tinytex package](#installing-latex "Installing the tinytex package for making PDFs from RMarkdown")
+  * [Installing {{< GIT_AHEAD >}}](#installing-gitahead "Installing the GitAhead graphical interface for git")
 * [Resources for learning more](#resources "Free online reading and videos about using R, RStudio, Git, etc.")
-    * [{{< R_LOGO >}} and {{< RSTUDIO_LOGO >}}](#r-resources "Learning more about R and RStudio")
-    * [{{< GIT_LOGO >}} and GitHUB {{< GITHUB_LOGO >}}](#git-resources "Learning more about git")
+  * [{{< R_LOGO >}} and {{< RSTUDIO_LOGO >}}](#r-resources "Learning more about R and RStudio")
+  * [{{< GIT_LOGO >}} and GitHUB {{< GITHUB_LOGO >}}](#git-resources "Learning more about git")
 
 
 ## Web-Based Tools for Lab {#web-tools}
@@ -31,15 +31,15 @@ title: Tools
 ### Installing {{< R_LOGO >}} {#installing-r}
 
 * Download R from [https://cran.rstudio.com/](https://cran.rstudio.com/)
-    * **Windows:** 
-        * Download and install the ["base distribution" of R 4.0.3](https://cran.rstudio.com/bin/windows/base/).
-    * **MacOS:**
-        * Download and install [R version 4.0.3](https://cran.rstudio.com/bin/macosx/)
-    * **Linux:**
-        * You should be able to install R from your Linux distribution's package manager:
-            * `sudo apt-get install r-base r-base-dev` for Debian or Ubuntu
-            * `sudo yum install R` or `sudo dnf install git` for Fedora, 
-              Red Hat, and related distributions.
+  * **Windows:** 
+    * Download and install the ["base distribution" of R 4.0.3](https://cran.rstudio.com/bin/windows/base/).
+  * **MacOS:**
+    * Download and install [R version 4.0.3](https://cran.rstudio.com/bin/macosx/)
+  * **Linux:**
+    * You should be able to install R from your Linux distribution's package manager:
+      * `sudo apt-get install r-base r-base-dev` for Debian or Ubuntu
+      * `sudo yum install R` or `sudo dnf install git` for Fedora, 
+        Red Hat, and related distributions.
 
 ### Installing {{<GIT_LOGO>}} {#installing-git}
 
@@ -49,21 +49,21 @@ like `/usr/bin/git` then it's installed. If there is no response, then you
 need to install git.
   
 * **Windows:**
-    * Download and install git from [https://git-scm.com](https://git-scm.com)
-        * Choose the default options for the installer.
-    * Optionally, you might want to also install Tortoise Git, which integrates
-      git into the Windows explorer, so you can execute git commands from the 
-      context menu when you right-click on files or directories in the explorer.
-      You can download Tortoise Git from [https://tortoisegit.org/](https://tortoisegit.org/)
+  * Download and install git from [https://git-scm.com](https://git-scm.com)
+    * Choose the default options for the installer.
+  * Optionally, you might want to also install Tortoise Git, which integrates
+    git into the Windows explorer, so you can execute git commands from the 
+    context menu when you right-click on files or directories in the explorer.
+    You can download Tortoise Git from [https://tortoisegit.org/](https://tortoisegit.org/)
 * **MacOS:**
     * If git is not already installed on your computer, you can download and
       install it from [https://git-scm.com](https://git-scm.com)
 * **Linux:**
     * If git is not already installed, you can install it from your 
       distribution's package manager:
-            * `sudo apt-get install git` for Debian or Ubuntu
-            * `sudo yum install git` or `sudo dnf install git` for Fedora, 
-              Red Hat, and related distributions.
+      * `sudo apt-get install git` for Debian or Ubuntu
+      * `sudo yum install git` or `sudo dnf install git` for Fedora, 
+        Red Hat, and related distributions.
 
 #### Introducing Youself to {{< GIT_LOGO >}} {#configuring-git}
               
@@ -81,12 +81,12 @@ so it gives you credit for the files you have authored and edited.
      find the terminal in the "applications" with Finder)
 2. Type the following at the terminal prompt:
 
-     ```
-     git config --global user.name "Your Name"
-     git config --global user.email your.name@vanderbilt.edu
-     ```
+   ```
+   git config --global user.name "Your Name"
+   git config --global user.email your.name@vanderbilt.edu
+   ```
      
-     using your real name and email.
+   using your real name and email.
        
 You only need to introduce yourself to git one time after you install it.
 Then it will remember who you are every time you use it.
@@ -112,46 +112,44 @@ Then it will remember who you are every time you use it.
   and the Debian, Ubuntu, Fedora, RedHat, and openSUSE editions of
   Linux are all supported.
   
-    There are other versions of {{< RSTUDIO >}} (an expensive professional edition and a server edition). You
-    want the **free desktop edition**.
-    Be sure you get versoin 1.4 (the latest version, as of January 2021).
-    Version 1.4 has important new features that previous versions did not have.
+  There are other versions of {{< RSTUDIO >}} (an expensive professional edition and a server edition). You
+  want the **free desktop edition**.
+  Be sure you get versoin 1.4 (the latest version, as of January 2021).
+  Version 1.4 has important new features that previous versions did not have.
 * Run the installer. 
 * After the installer finishes running, run {{< RSTUDIO >}}.
-    * When {{< RSTUDIO >}} starts up, the lower left part of the screen should have
-      a window that displays the R version, saying something like this:
+  * When {{< RSTUDIO >}} starts up, the lower left part of the screen should have
+    a window that displays the R version, saying something like this:
       
-      ```
-      R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
-      Copyright (C) 2020 The R Foundation for Statistical Computing
-      Platform: x86_64-w64-mingw32/x64 (64-bit)
-      
-      R is free software and comes with ABSOLUTELY NO WARRANTY.
-      You are welcome to redistribute it under certain conditions.
-      Type 'license()' or 'licence()' for distribution details.
-      
-        Natural language support but running in an English locale
-      
-      R is a collaborative project with many contributors.
-      Type 'contributors()' for more information and
-      'citation()' on how to cite R or R packages in publications.
-      
-      Type 'demo()' for some demos, 'help()' for on-line help, or
-      'help.start()' for an HTML browser interface to help.
-      Type 'q()' to quit R.
-      ```
-      The details will be different depending on your operating system, but
-      if you see something like this, {{< RSTUDIO >}} correctly found R on your 
-      computer.
-    * Open the "Tools" menu,   and click on the "Global Options" choice.
-        * Go to the "Git/SVN" tab and click "enable version control interface 
-          for {{< RSTUDIO >}} projects". If {{< RSTUDIO >}} can find the git program on your
-          computer, it will appear in the "git executable" field. If {{< RSTUDIO >}}
-          can't find it, you can help it by browsing to the git program.
-        * If you have installed {{< LATEX_LOGO >}} on your computer (remember that this is
-          optional), click on the SWeave tab, and select "knitr" for weaving
-          `.Rnw` files, and choose `pdfLaTeX` for typesetting {{< LATEX_LOGO >}} files into
-          PDF.
+    ```
+    R version 4.1.2 (2021-11-01) -- "Bird Hippie"
+    Copyright (C) 2021 The R Foundation for Statistical Computing
+    Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+    R is free software and comes with ABSOLUTELY NO WARRANTY.
+    You are welcome to redistribute it under certain conditions.
+    Type 'license()' or 'licence()' for distribution details.
+
+    R is a collaborative project with many contributors.
+    Type 'contributors()' for more information and
+    'citation()' on how to cite R or R packages in publications.
+
+    Type 'demo()' for some demos, 'help()' for on-line help, or
+    'help.start()' for an HTML browser interface to help.
+    Type 'q()' to quit R.
+    ```
+    The details will be different depending on your operating system, but
+    if you see something like this, {{< RSTUDIO >}} correctly found R on your 
+    computer.
+  * Open the "Tools" menu,   and click on the "Global Options" choice.
+    * Go to the "Git/SVN" tab and click "enable version control interface 
+      for {{< RSTUDIO >}} projects". If {{< RSTUDIO >}} can find the git program on your
+      computer, it will appear in the "git executable" field. If {{< RSTUDIO >}}
+      can't find it, you can help it by browsing to the git program.
+    * If you have installed {{< LATEX_LOGO >}} on your computer (remember that this is
+      optional), click on the SWeave tab, and select "knitr" for weaving
+      `.Rnw` files, and choose `pdfLaTeX` for typesetting {{< LATEX_LOGO >}} files into
+      PDF.
 
 ## Optional Tools: {#optional-tools}
   

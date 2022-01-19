@@ -3,6 +3,7 @@ lessons:
   title: Martin Luther King, Jr. Day
 - date: '2022-01-19'
   title: Introduction
+  lecture: /slides/class_01
 - date: '2022-01-21'
   title: What is Climate Change?
   reading: /reading/reading_02
