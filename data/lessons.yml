@@ -63,6 +63,8 @@ lessons:
 - date: '2022-03-02'
   title: Climate Fallacies Game
   reading: /reading/reading_19
+- date: '2022-03-03'
+  title: Take-home Midterm Exam due
 - date: '2022-03-04'
   title: Uncertainty about Future Climates
   reading: /reading/reading_20
@@ -115,7 +117,7 @@ lessons:
 - date: '2022-04-11'
   title: Climate Justice
   reading: /reading/reading_33
-  lab: lab_12
+  lab: lab_11
 - date: '2022-04-13'
   title: Renewable Energy
   reading: /reading/reading_34
@@ -125,7 +127,7 @@ lessons:
 - date: '2022-04-18'
   title: Geoengineering
   reading: /reading/reading_36
-  lab: lab_11
+  lab: lab_12
 - date: '2022-04-20'
   title: Pragmatism and Climate Policy
   reading: /reading/reading_37
@@ -142,5 +144,5 @@ lessons:
 - date: '2022-04-29'
   title: Review
   reading: /reading/reading_41
-- date: '2022-05-03'
+- date: '2022-05-07'
   title: Take-home final exam due

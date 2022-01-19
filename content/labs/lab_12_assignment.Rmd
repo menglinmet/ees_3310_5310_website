@@ -1,11 +1,10 @@
 ---
 title: 'Project: Decarbonization Policy for a Country'
-lab_date: '2022-04-11'
+lab_date: '2022-04-18'
 report_due_date: '2022-04-11'
 lab_number: 12
-github_classroom_assignment_url: https://classroom.github.com/a/WHOnbUnz
 pubdate: '2021-12-31'
-date: '2022-04-11'
+date: '2022-04-18'
 slug: lab_12
 output:
   blogdown::html_page:
@@ -22,4 +21,5 @@ Either individually or with a partner, you will pick a country and begin working
 * [Project: Decarbonization Policy for One Country](/lab_docs/lab_12_instructions){target="_blank"}
 
 ## Assignment
-Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/WHOnbUnz>.
+
+The GitHub Classroom has not been posted yet.

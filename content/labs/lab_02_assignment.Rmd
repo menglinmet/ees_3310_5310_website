@@ -3,7 +3,6 @@ title: Working with climate data
 lab_date: '2022-01-31'
 report_due_date: '2022-02-07'
 lab_number: 2
-github_classroom_assignment_url: https://classroom.github.com/a/JdVW2eeC
 pubdate: '2021-12-31'
 date: '2022-01-31'
 slug: lab_02
@@ -22,4 +21,5 @@ This lab will introduce working with climate data using R and RMarkdown. We will
 * [Instructions for Lab #2: Data Wrangling with R](/lab_docs/lab_02_overview){target="_blank"}
 
 ## Assignment
-Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/JdVW2eeC>.
+
+The GitHub Classroom has not been posted yet.

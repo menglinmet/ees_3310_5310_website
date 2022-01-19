@@ -2,9 +2,9 @@
 title: Preparation for Lab on Regulating Greenhouse Gas Emissions
 author: Jonathan Gilligan
 lab_number: 11
-lab_date: '2022-04-18'
+lab_date: '2022-04-11'
 pubdate: '2021-12-31'
-date: '2022-04-18'
+date: '2022-04-11'
 pdf_url: /files/lab_docs/regulation_lab/preparation_for_regulation_lab.pdf
 slug: lab_11_preparation
 output:
