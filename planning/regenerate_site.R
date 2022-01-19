@@ -37,8 +37,14 @@ init_git_tokens <- function(keyring = "git_access") {
       return(invisible(NULL))
     }
   }
-  Sys.setenv(GITHUB_PAT = keyring::key_get("GITHUB_PAT", keyring = keyring))
-  Sys.setenv(GITLAB_PAT = keyring::key_get("GITLAB_PAT", username = "jonathan",
+  keys <- key_list(keyring = keyring)
+  gh_pat <- keys %>% filter(service == "GITHUB_PAT")
+  gl_pat <- keys %>% filter(service == "GITLAB_PAT")
+  Sys.setenv(GITHUB_PAT = keyring::key_get(gh_pat$service,
+                                           username = gh_pat$username,
+                                           keyring = keyring))
+  Sys.setenv(GITLAB_PAT = keyring::key_get(gl_pat$service,
+                                           username = gl_pat$username,
                                            keyring = keyring))
 }
 
