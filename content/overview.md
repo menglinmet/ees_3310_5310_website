@@ -86,7 +86,7 @@ My goals for this course are that at the end of the semester:
   models to explore the implications of scientific principles that are too
   complex to calculate with pencil and paper.
 * You will have a solid scientific understanding of what scientists know, what
-  they don’t know, and how they know what they know about how climate works,
+  they don't know, and how they know what they know about how climate works,
   how and why it has changed in the past, and how it may change in the future.
 * You will be able to evaluate the evidence for and against the idea that human
   activity is warming the planet and assess for yourself whether the evidence
@@ -120,7 +120,7 @@ I divide the semester into two parts:
 
 1. **Scientific Principles of Climate:** For the first half of the semester, we
    will focus on the scientific principles of climate and natural climate
-   change in earth’s past. This will be very mathematical, using basic algebra.
+   change in earth's past. This will be very mathematical, using basic algebra.
    We do not use calculus or other advanced math in this class, but you should
    be comfortable with simple algebraic equations. We will then look at climate
    change in the last two centuries and what might happen over the next several
@@ -146,20 +146,17 @@ quantitative economic analyses of different kinds of climate policies, and
 engage in role-playing exercises to simulate the way different climate policies
 work in practice.
 
-I recommend that you attend the scheduled laboratory meetings on Zoom if you
-can, but to accommodate students who will be taking the course asynchronously,
-we will be recording the laboratory sessions so you can watch presentations
-on your own schedule.
+To make the laboratory sessions effective, it is essential that you show up on
+time and prepared for the labs.
 
 {{< TA_TITLE >}} and {{< PROF_TITLE >}} will both have office hours
-when you can drop in and discuss the laboratories, and if you are not able to
-attend the scheduled lab times, I highly  recommend that you take advantage of
-our office hours.
+when you can drop in and discuss the laboratories, and I recommend that you
+take advantage of our office hours to get help if you have difficulty with any
+part of the lab.
 
-Whether you are taking the lab synchronously or asynchronously, I highly
-recommend that you read all of the reading material for the lab before you
-show up to the Zoom session or start watching the recording. You will get much
-more out of the labs if you are prepared.
+**I recommend that you read all of the reading material for the lab
+before you come to lab.**
+You will get much more out of the labs if you are prepared.
 
 
 # Reading Material
@@ -198,7 +195,7 @@ I will give out detailed reading that give specific pages to read for each class
 and notes on important things you should understand. **I expect you to complete
 the reading before you come to class on the day for which the reading is
 assigned**, so you can participate in discussions of the assigned material and
-ask questions if there are things you don’t understand.
+ask questions if there are things you don't understand.
 
 While science aims to give correct answers to scientific questions, there are
 not right or wrong answers to questions of what is the best economic model with
@@ -278,24 +275,19 @@ you what to do and provides an RMarkdown template for your write-up.
 
 |                       |       |      |
 |:---------------------:|------:|-----:|
-| Class participation   | 15%   |      |
+| Class participation   |  5%   |      |
+| Midterm exam          | 10%   |      |
 | Laboratory            | 55%   |      |
 | Final Exam            | 30%   |      |
 
 
-### **Participation**
-To make sure that people who are taking the course asynchronously have lots of
-opportunity to participate in discussions, I will be putting discussion
-questions on the Brightspace discussion board each week and you will get
-participation credit for posting on the discussion boards and responding to
-other students' posts.
-
-I am also setting up discussion boards for questions about the readings and
-lectures and labs. I encourage you to ask on those boards about anything that
-you didn't understand or thought was unclear, or would like to see me cover
-in greater detail in future classes.'
-
 ### **Tests and Examinations**
+
+The midterm exam will be a take-home test. You will submit it on 
+{{< BRIGHTSPACE >}} and it will be due on
+{{< MIDTERM_DATE >}}. 
+The midterm will cover your knowledge of the basic science of the 
+climate system and climate change.
 
 The final exam will be an open-book take-home essay exam, 
 for which you may use your books and notes.
@@ -328,7 +320,7 @@ This course, like all courses at Vanderbilt, is conducted under the Honor Code.
   **all work on tests and exams must be entirely your own**.
   **You may not work together with anyone or receive any help from anyone
   but me{{< IF_TA >}} or from {{% TA_FORMAL_NAME %}}{{< /IF_TA >}}
-  on exams and tests (this includes the take-home final exam)}.
+  on exams and tests (this includes the take-home final exam)**.
 
 If you ever have questions about how the Honor Code applies to your work
 in this course, please ask me{{< IF_TA >}} or {{% TA_FORMAL_NAME %}}{{< /IF_TA >}}.
