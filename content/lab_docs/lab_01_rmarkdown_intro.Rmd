@@ -88,7 +88,7 @@ Here is an example:
 title: "Your document's title"
 subtitle: "Your document's subtitle"
 author: "Your name goes here"
-date: "Aug 28, 2017"
+date: "Jan 24, 2022"
 output:
     pdf_document: default
     html_document: default
@@ -108,7 +108,7 @@ options for RStudio to use in creating PDF, HTML, or Word output documents:
 title: "Your document's title"
 subtitle: "Your document's subtitle"
 author: "Your name goes here"
-date: "Aug 28, 2017"
+date: "Jan 24, 2022"
 output:
     pdf_document:
       toc: "true" 

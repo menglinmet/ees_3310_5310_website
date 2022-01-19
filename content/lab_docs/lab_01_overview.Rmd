@@ -45,7 +45,7 @@ The laboratories in this course are computational. My goals for the laboratory s
       come to lab, but that's not strictly necessary. If you will be using one of the computers in the lab classroom,
       you can clone the assignment when you log in at the beginning of class.
       
-* In the first lab, on January 25, Mr. de Wet will explain all of the different software we will be using and will
+* In the first lab, on January 24, Mr. Belanger will explain all of the different software we will be using and will
   walk you through all the steps of using Git to work with your assignments.
    
 ## Schedule for the Semester
@@ -60,12 +60,12 @@ affect the climate.
 
 The weekly labs during the first half of the semester will initiially focus on exercises from the book 
 _Global Warming: Understanding the Forecast_ 
-and then from March 15-28 you will work on using the reproducible research methods to write up a polished
-report from one of the previous labs, and this report will be due before you come to lab on March 29.
+and then from March 14--28 you will work on using the reproducible research methods to write up a polished
+report from one of the previous labs, and this report will be due before you come to lab on April 4.
 
 ### Second Half of the Semester
 
-Starting on March 29, you will shift gears and apply the tools you have learned to analyzing policy. 
+Starting on April 4, you will shift gears and apply the tools you have learned to analyzing policy. 
 Specifically, you will analyze data on the economies and energy use of different countries around
 the world and use these to compare different policy options for reducing greenhouse gas emissions. 
 The labs will begin with exercises that follow the analyses you will be reading about in the book, _The Climate Fix_, and then 
@@ -73,18 +73,14 @@ you will perform a detailed analysis of policy options for a country of your cho
 to a cleaner energy supply.
 
 You will write up a formal report on the country you choose, which will be due on May 1. The last two lab sessions on Apri. 19 and 26 
-will be informal times for you to work on this report and ask questions from Prof. Gilligan and Mr. de Wet.
+will be informal times for you to work on this report and ask questions from Prof. Gilligan and Mr. Belanger.
 
-# Online Laboratory
+# Computer Laboratory
 
-In previous semesters, the lab met in a computer classroom in Stevenson Center or Wilson Hall. However, it is impossible to maintain 
-safe distancing in those classrooms during the COVID pandemic, so the lab will be online. We will hold a synchronous lab session on 
-Monday afternoons from 2:10--5:00, via Zoom. The links are posted on Brightspace. 
+The lab will met in the computer classroom in Wilson Hall. The software we will need has been installed in the computers in that classroom, 
+and you are also encouraged to bring your own laptop if you wish to work on it instead during the lab periods.
 
-We will also record the lab sessions so that you can watch them asynchronously, and all the instructions for the labs are posted to the
-course web site at <https://ees3310.jgilligan.org>.
-
-You will need a computer for the labs. All of the software we will be using is free and open source, and it runs on Windows, MacOS, and Linux,
+All of the software we will be using is free and open source, and it runs on Windows, MacOS, and Linux,
 so no matter what kind of computer you have, you will be able to do the lab work.
 
 # Software Tools
