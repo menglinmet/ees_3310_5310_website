@@ -37,7 +37,7 @@ init_git_tokens <- function(keyring = "git_access") {
       return(invisible(NULL))
     }
   }
-  keys <- key_list(keyring = keyring)
+  keys <- keyring::key_list(keyring = keyring)
   gh_pat <- keys %>% filter(service == "GITHUB_PAT")
   gl_pat <- keys %>% filter(service == "GITLAB_PAT")
   Sys.setenv(GITHUB_PAT = keyring::key_get(gh_pat$service,
