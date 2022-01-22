@@ -3,6 +3,7 @@ title: Introduction to Reproducible Research
 lab_date: '2022-01-24'
 report_due_date: '2022-01-31'
 lab_number: 1
+github_classroom_assignment_url: https://classroom.github.com/a/5vrnN29K
 pubdate: '2021-12-31'
 date: '2022-01-24'
 slug: lab_01
@@ -27,5 +28,4 @@ Before you come to class Monday, please set up a free account on GitHub, as desc
 * [No more excuses for non-reproducible methods (optional)](/lab_docs/lab_01_no_more_excuses){target="_blank"}
 
 ## Assignment
-
-The GitHub Classroom has not been posted yet.
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/5vrnN29K>.
