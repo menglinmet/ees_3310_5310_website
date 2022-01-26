@@ -1,0 +1,485 @@
+---
+title: 'Worked examples for Lab #2: CO2 data'
+author: Jonathan Gilligan
+lab_number: 2
+lab_date: '2022-01-31'
+pubdate: '2021-12-31'
+date: '2022-01-31'
+pdf_url: /files/lab_docs/lab_02/lab_02_worked_examples.pdf
+slug: lab_02_worked_examples
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#instructions">Instructions</a></li>
+<li><a href="#worked-example">Worked Example</a>
+<ul>
+<li><a href="#downloading-co2-data-from-mauna-loa-observatory">Downloading CO<sub>2</sub> Data from Mauna Loa Observatory</a></li>
+</ul></li>
+<li><a href="#exercises">Exercises</a>
+<ul>
+<li><a href="#pivoting-data-frames">Pivoting Data Frames</a>
+<ul>
+<li><a href="#u.s.-presidential-approval-ratings-19451974">U.S. Presidential approval ratings 1945–1974</a></li>
+<li><a href="#grouping-and-summarizing">Grouping and Summarizing</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="instructions" class="section level1">
+<h1>Instructions</h1>
+<p>This document has worked examples: The first example show how to download
+measurements of carbon dioxide from the laboratory on Mauna Loa, Hawaii,
+that was started by C. David Keeling in 1958, analyze the data, and
+make plots and tables to show the results of your analysis.</p>
+<p>After studying the worked example, you will do further analysis and plotting
+using both the CO<sub>2</sub> data from Mauna Loa and also global temperature
+measurements that you will download from NASA’s Goddard Institute for Space
+Studies.</p>
+<p>The second example shows how to use <code>pivot_longer</code> and <code>pivot_wider</code>
+functions to manipulate a <code>data.frame</code> or <code>tibble</code>, and how to use
+grouping and summarizing functions.</p>
+</div>
+<div id="worked-example" class="section level1">
+<h1>Worked Example</h1>
+<div id="downloading-co2-data-from-mauna-loa-observatory" class="section level2">
+<h2>Downloading CO<sub>2</sub> Data from Mauna Loa Observatory</h2>
+<p>In 1957, Charles David Keeling established a permanent observatory on Mauna Loa,
+Hawaii to make continuous measurements of atmospheric carbon dioxide. The
+observatory has been running ever since, and has the longest record of direct
+measurements of atmospheric carbon dioxide levels. The location was chosen
+because the winds blow over thousands of miles of open ocean before reaching
+Mauna Loa, and this means the CO<sub>2</sub> measurements are very pure and
+uncontaminated by any local sources of pollution.</p>
+<p>We can download the data from <a href="https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/monthly/monthly_in_situ_co2_mlo.csv" class="uri">https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/monthly/monthly_in_situ_co2_mlo.csv</a>. We can download the file and save
+it to the local computer using the R function <code>download.file</code></p>
+<p>Here, I use the <code>file.exists</code> function so I only download the file if it
+doesn’t already exist. That avoids having to download it again if you
+already have it.</p>
+<pre class="r"><code>if (!file.exists(&#39;_data/mlo_data.csv&#39;)) {
+  download.file(mlo_url, &#39;_data/mlo_data.csv&#39;)
+}</code></pre>
+<p>Try opening the data file in Excel or a text editor.</p>
+<p>The first 54 lines of the data file are comments describing the data.
+These comments describe the contents of each column of data
+and explain that this data file uses the special value <code>-99.99</code> to
+indicate a missing value. The Mauna Loa Observatory started recording data
+in March 1958, so the monthly averages for January and February are missing.
+Other months are missing for some months in the record when the instruments
+that monitor CO<sub>2</sub> concentrations were not working properly.</p>
+<p>The <code>read_csv</code> function from the <code>tidyverse</code> package can read the data into R
+and convert it into a data structure that we call a <code>tibble</code> or a
+<code>data.frame</code> (it’s kind table of data, similar to the way data is organized in
+an Excel spreadsheet).</p>
+<p>When R reads in <code>.csv</code> files, it expects column names to be on a
+single row,
+and lines 55–57 of the data file are column headings that are split across
+multiple rows, so R will get confused if we tell it to use those rows as column
+names.</p>
+<p>To avoid problems, we will tell <code>read_csv</code> to read this data file,
+but skip the first 57 lines.
+We will also tell it not to look for column names in the data file,
+so we will supply the column names, and we will tell it that whenever it sees
+<code>-99.99</code>, it should interpret that as indicating a missing value, rather than
+a measurement.</p>
+<p>Finally, R can guess what kinds of data each column contains, but for this file,
+things work a bit more smoothly if we provide this information explicitly.</p>
+<p><code>read_csv</code> lets us specify the data type for each column by providing a string
+with one letter for each column. The letters are <code>i</code> for integer numbers,
+<code>d</code> for real numbers (i.e., numbers with a decimal point and
+fractional parts), <code>n</code> for an unspecified number,
+<code>c</code> for character (text) data, <code>l</code> for logical (<code>TRUE</code> or <code>FALSE</code>),
+<code>D</code> for calendar dates, <code>t</code> for time of day, and <code>T</code> for combined date and time.</p>
+<pre class="r"><code>mlo_data = read_csv(&#39;_data/mlo_data.csv&#39;, 
+                    skip = 57,  # skip the first 57 rows
+                    col_names = c(&#39;year&#39;, &#39;month&#39;, &#39;date_excel&#39;, &#39;date&#39;,
+                                  &#39;co2_raw&#39;, &#39;co2_raw_seas&#39;, 
+                                  &#39;co2_fit&#39;, &#39;co2_fit_seas&#39;,
+                                  &#39;co2_filled&#39;, &#39;co2_filled_seas&#39;),
+                    col_types = &#39;iiiddddddd&#39;, 
+                    # ^^^ the first three columns are integers and the  next 
+                    # 7 are real numbers
+                    na = &#39;-99.99&#39; 
+                    # ^^^ interpret -99.99 as a missing value
+)</code></pre>
+<p>Let’s look at the first few rows of the data:</p>
+<p>Here is how it looks in R:</p>
+<pre class="r"><code>head(mlo_data)</code></pre>
+<pre><code>## # A tibble: 6 x 10
+##    year month date_excel  date co2_raw co2_raw_seas co2_fit co2_fit_seas
+##   &lt;int&gt; &lt;int&gt;      &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
+## 1  1958     1      21200 1958.     NA           NA      NA           NA 
+## 2  1958     2      21231 1958.     NA           NA      NA           NA 
+## 3  1958     3      21259 1958.    316.         314.    316.         315.
+## 4  1958     4      21290 1958.    317.         315.    317.         315.
+## 5  1958     5      21320 1958.    318.         315.    318.         315.
+## 6  1958     6      21351 1958.     NA           NA     317.         315.
+## # ... with 2 more variables: co2_filled &lt;dbl&gt;, co2_filled_seas &lt;dbl&gt;</code></pre>
+<p>There are six different columns for the CO<sub>2</sub> measurements:</p>
+<ul>
+<li><p><code>co2_raw</code> is the
+raw measurement from the instrument. The measurements began in March 1958, so
+there are <code>NA</code> values for January and February. In addition, there are missing
+values for some months when the instrument was not working well.</p></li>
+<li><p><code>co2_fit</code> is a smoothed version of the data, which we will not use in this
+lab.</p></li>
+<li><p><code>co2_filled</code> is the same as <code>co2_raw</code>, except that where there are missing
+values in the middle of the data, they have been filled in with interpolated
+estimates based on measurements before and after the gap.</p></li>
+</ul>
+<p>For each of these three data series, there is also a <em>seasonally adjusted</em>
+version, which attempts to remove the effects of seasonal variation in order
+to make it easier to observe the trends.</p>
+<p>For this lab, we will focus on the <code>co2_filled</code> data series. To keep things
+simple, we can use the <code>select</code> function from <code>tidyverse</code> to keep only certain
+columns in the tibble and get rid of the ones we don’t want.</p>
+<pre class="r"><code>mlo_simple = mlo_data %&gt;% select(year, month, date, co2 = co2_filled)
+
+head(mlo_simple)</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##    year month  date   co2
+##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  1958     1 1958.   NA 
+## 2  1958     2 1958.   NA 
+## 3  1958     3 1958.  316.
+## 4  1958     4 1958.  317.
+## 5  1958     5 1958.  318.
+## 6  1958     6 1958.  317.</code></pre>
+<p>Note how we renamed the <code>co2_filled</code> column to just plain <code>co2</code> in the select
+function. There are some missing measurements from months where the laboratory
+instruments were not working properly. These are indicated by <code>NA</code>, meaning
+“not available.”</p>
+<p>We can also use the <code>kable()</code> function from the <code>knitr</code> package to format the
+data nicely as a table in an RMarkdown document.
+Notice how I can use RMarkdown formatting in the column names and
+caption to make the “2” in CO<sub>2</sub> appear as a subscript.</p>
+<pre class="r"><code>head(mlo_simple) %&gt;% 
+  kable(col.names = c(year = &quot;Year&quot;, month = &quot;Month&quot;, date = &quot;Date&quot;,
+                      co2 = &quot;CO~2~ (ppm)&quot;),
+        caption = &quot;A table of monthly CO~2~ measurements from Mauna Loa.&quot;)</code></pre>
+<table>
+<caption>(#tab:show_data)A table of monthly CO<sub>2</sub> measurements from Mauna Loa.</caption>
+<thead>
+<tr class="header">
+<th align="right">Year</th>
+<th align="right">Month</th>
+<th align="right">Date</th>
+<th align="right">CO<sub>2</sub> (ppm)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1958</td>
+<td align="right">1</td>
+<td align="right">1958.041</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">1958</td>
+<td align="right">2</td>
+<td align="right">1958.126</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">1958</td>
+<td align="right">3</td>
+<td align="right">1958.203</td>
+<td align="right">315.70</td>
+</tr>
+<tr class="even">
+<td align="right">1958</td>
+<td align="right">4</td>
+<td align="right">1958.288</td>
+<td align="right">317.45</td>
+</tr>
+<tr class="odd">
+<td align="right">1958</td>
+<td align="right">5</td>
+<td align="right">1958.370</td>
+<td align="right">317.51</td>
+</tr>
+<tr class="even">
+<td align="right">1958</td>
+<td align="right">6</td>
+<td align="right">1958.455</td>
+<td align="right">317.25</td>
+</tr>
+</tbody>
+</table>
+<p>Now, let’s plot this data:</p>
+<pre class="r"><code>ggplot(mlo_simple, aes(x = date, y = co2)) + 
+  # ^^^ The ggplot command specifies which data to plot and the aesthetics that 
+  # define which variables to  use for the x and y axes.
+  geom_line() +   
+  # ^^^ The geom_line() command says to plot lines connnecting the data points
+  labs(x = &quot;Year&quot;, y = &quot;CO2 concentration (ppm)&quot;,
+       title = &quot;Measured CO2 from Mauna Loa Observatory&quot;)
+  # ^^^ The labs() command tells ggplot what names to use in labeling the axes 
+  # and the title for the plot.
+
+  # Earlier in this .Rmd file, I called set_theme(theme_bw(base_size = 15)) 
+  # to set the default plot style. If you call ggplot() without this,
+  # you will get a different style, but you can either call theme_set
+  # or you can add a theme specification (such as 
+  # &quot;+ theme_bw(base_size = 15)&quot;)
+  # to the end of the sequence of plotting commands in order to 
+  # apply a specific style to an individual plot.</code></pre>
+<div class="figure">
+<img src="/lab_docs/lab_02_worked_examples_files/figure-html/plot_mlo-1.png" alt="Monthly CO~2~ measurements from Mauna Loa." width="672" />
+<p class="caption">
+(#fig:plot_mlo)Monthly CO<sub>2</sub> measurements from Mauna Loa.
+</p>
+</div>
+<p>I created a caption for the figure caption by adding
+the following specification to the header of the R code chunk in the RMarkdown
+document:</p>
+<pre class="r"><code>fig.cap=&quot;Monthly CO~2~ measurements from Mauna Loa.&quot;</code></pre>
+<p>Notice the seasonal variation in CO<sub>2</sub>. Every year, there is a large cycle of
+CO<sub>2</sub>, but underneath is a gradual and steady increase from year to year.
+If we wanted to look at the trend without the seasonal variation, we could use
+the <code>co2_filled_seas</code> column of the original tibble, but instead, let’s look at
+how we might estimate this ourselves.</p>
+<p>The seasonal cycle is 12 months long and it repeats every year. This means that
+if we average the values in our table over a whole year, this cycle should
+average out. We can do this by creating a new column <code>annual</code> where every row
+represents the average over a year centered at that row (technically, all the
+months from 5 months before through six months after that date).</p>
+<p>To do this, we use the function <code>slide_vec</code> from the <code>slider</code> package, as shown
+below. The <code>slide_vec</code> function allows you to take a series
+of data (such as monthly CO<sub>2</sub> measurements) and at each point, apply a function
+to the data within a “window” that includes a certain number of points
+before and after the point in question.</p>
+<p>Here, we apply the <code>mean</code> function to take the average, and we
+define the “window” to be the 12 points roughly centered on the point in
+question, so for each month in our data series, <code>slide_vec</code> takes the average
+of the 12 measurements roughly centered on that month (technically, the month,
+the five months before, and the six months after). You could also specify
+<code>.before = 0, .after = 11</code> to take the 12 months starting with the given month,
+or <code>.before = 11, .after = 0</code> to take the 12 months ending with the given month.</p>
+<p>There will be months at the beginning of the series that don’t have five months
+of data before them and points at the end of the series that don’t have six
+months after them. By default <code>slide_vec</code> sets those points to <code>NA</code>, which is a
+special value R uses to indicate missing values (<code>NA</code> means “not available”).</p>
+<pre class="r"><code>mlo_simple %&gt;% 
+  mutate(annual = slide_vec(co2, mean, .before = 5, .after = 6)) %&gt;%
+  ggplot(aes(x = date)) + 
+  geom_line(aes(y = co2), color = &quot;darkblue&quot;, size = 0.1) +
+  geom_line(aes(y = annual), color = &quot;black&quot;, size = 0.5) +
+  labs(x = &quot;Year&quot;, y = &quot;CO2 concentration (ppm)&quot;, 
+       title = &quot;Measured and Seasonally Adjusted CO2&quot;)</code></pre>
+<div class="figure">
+<img src="/lab_docs/lab_02_worked_examples_files/figure-html/plot_mlo_annual-1.png" alt="Raw and seasonally adjusted measurements of atmospheric CO~2~, from Mauna Loa." width="672" />
+<p class="caption">
+(#fig:plot_mlo_annual)Raw and seasonally adjusted measurements of atmospheric CO<sub>2</sub>, from Mauna Loa.
+</p>
+</div>
+<p>But wait: we might want a legend to tell the reader what each colored line
+represents. We can create new aesthetics for the graph mapping to do this:</p>
+<pre class="r"><code>mlo_simple %&gt;% 
+  mutate(annual = slide_vec(co2, mean, .before = 5, .after = 6)) %&gt;%
+  ggplot(aes(x = date)) + 
+  geom_line(aes(y = co2, color = &quot;Raw&quot;), size = 0.1) +
+  geom_line(aes(y = annual, color = &quot;12-month average&quot;), size = 0.5) +
+  scale_color_manual(values = c(&quot;Raw&quot; = &quot;darkblue&quot;, 
+                                &quot;12-month average&quot; = &quot;black&quot;),
+                     name = &quot;Smoothing&quot;) +
+  labs(x = &quot;Year&quot;, y = &quot;CO2 concentration (ppm)&quot;, 
+       title = &quot;Measured and Seasonally Adjusted CO2&quot;)</code></pre>
+<div class="figure">
+<img src="/lab_docs/lab_02_worked_examples_files/figure-html/plot_mlo_annual_2-1.png" alt="Raw and seasonally adjusted measurements of atmospheric CO~2~, from Mauna Loa, with a legend identifying the different lines." width="672" />
+<p class="caption">
+(#fig:plot_mlo_annual_2)Raw and seasonally adjusted measurements of atmospheric CO<sub>2</sub>, from Mauna Loa, with a legend identifying the different lines.
+</p>
+</div>
+<p>We can also anlyze this data to estimate the average trend in CO<sub>2</sub>.
+We use the <code>lm</code> function in R to fit a straight line to the data,
+and we use the <code>tidy</code> function from the <code>broom</code> package to
+print the results of the fit nicely.</p>
+<p>R has many powerful functions to analyze data, but here we will just use a very
+simple one. We specify the linear relationship to fit using R’s formula
+language. If we want to tell R that we think <code>co2</code> is related to <code>date</code>
+by the linear relationship <span class="math inline">\(co2 = a + b \times \text{date}\)</span>, then we write
+the formula <code>co2 ~ date</code>. The intercept is implicit, so we don’t have to spell
+it out.</p>
+<pre class="r"><code>co2_fit = lm(co2 ~ date, data = mlo_simple)
+
+library(broom)
+
+tidy(co2_fit)</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##   term        estimate std.error statistic p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+## 1 (Intercept) -2819.    18.1         -156.       0
+## 2 date            1.60   0.00907      176.       0</code></pre>
+<p>This shows us that the trend is for CO<sub>2</sub> to rise by
+1.6 ppm per year,
+with an uncertainty of plus or minus
+0.009.</p>
+<p>If we want to assign the value of the trend to a variable, we do it like this:</p>
+<pre class="r"><code>co2_trend = coef(co2_fit)[&#39;date&#39;]
+
+print(co2_trend)</code></pre>
+<pre><code>##     date 
+## 1.595783</code></pre>
+<p>We can also plot a linear trend together with the data:</p>
+<pre class="r"><code>mlo_simple %&gt;% 
+  ggplot(aes(x = date, y = co2)) + 
+  geom_line() +
+  geom_smooth(method = &#39;lm&#39;) +
+  labs(x = &quot;Year&quot;, y = &quot;CO2 concentration (ppm)&quot;, 
+       title = &quot;Measured CO2 and Linear Fit&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<div class="figure">
+<img src="/lab_docs/lab_02_worked_examples_files/figure-html/plot_mlo_with_fitted_trend-1.png" alt="Trend in atmospheric CO~2~." width="672" />
+<p class="caption">
+(#fig:plot_mlo_with_fitted_trend)Trend in atmospheric CO<sub>2</sub>.
+</p>
+</div>
+</div>
+</div>
+<div id="exercises" class="section level1">
+<h1>Exercises</h1>
+<p>In the file <code>lab-02-report.Rmd</code>, complete the exercises, filling in the code
+and explanatory text and answering the questions in the exercises.</p>
+<p>You can copy code from these worked examples and edit it to apply it to the
+exercises in the lab report file.</p>
+<div id="pivoting-data-frames" class="section level2">
+<h2>Pivoting Data Frames</h2>
+<p>If you have data in a <code>tibble</code> or <code>data.frame</code>, you can re-organize it to make
+it easier to analyze. We use the functions <code>pivot_longer</code> and <code>pivot_wider</code>
+for this.</p>
+<div id="u.s.-presidential-approval-ratings-19451974" class="section level3">
+<h3>U.S. Presidential approval ratings 1945–1974</h3>
+<p>Here is an example of using <code>pivot_longer</code>, using a data set of quarterly
+approval ratings for U.S. presidents from 1945–2021:</p>
+<pre class="r"><code>df = read_rds(file.path(data_dir, &quot;presidential_approval.Rds&quot;))
+
+print(&quot;First 10 rows of df are&quot;)</code></pre>
+<pre><code>## [1] &quot;First 10 rows of df are&quot;</code></pre>
+<pre class="r"><code>print(head(df, 10))</code></pre>
+<pre><code>## # A tibble: 10 x 6
+##    president             year    Q1     Q2     Q3    Q4
+##    &lt;chr&gt;                &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+##  1 Harry S. Truman       1945  NA    84     NA     67  
+##  2 Harry S. Truman       1946  23.3   0.5  -19    -15.5
+##  3 Harry S. Truman       1947  29.3  32.3   29.5   21  
+##  4 Harry S. Truman       1948  21    -8.67  NA     NA  
+##  5 Harry S. Truman       1949  42.5  24.5   14     NA  
+##  6 Harry S. Truman       1950  -1    -3.5   -0.25  -8  
+##  7 Harry S. Truman       1951 -27   -34.3  -24.3  -32  
+##  8 Harry S. Truman       1952 -41   -29.5  -30    -23.8
+##  9 Dwight D. Eisenhower  1953  62    63.5   53.8   40.5
+## 10 Dwight D. Eisenhower  1954  48.8  40     46.2   38.3</code></pre>
+<p>For each year, the table has a column for the president, a column for the year,
+and four columns (Q1 … Q4)
+that hold the quarterly net-approval ratings for the president in that quarter.
+Now we want to organize these data into four columns:
+one column for the president, one column for the year,
+one column to indicate the quarter,
+and one column to indicate the net approval rating.</p>
+<p>We do this with the <code>pivot_longer</code> function.
+the pivot_longer command organizes the data into tidy columns:</p>
+<ul>
+<li><code>names_to = "quarter"</code> tells pivot_longer to create a column called
+“<code>quarter</code>”
+and store the names of the original columns there.</li>
+<li><code>values_to = "approval"</code> tells pivot_longer to create a column called
+“<code>approval</code>”
+and store the values from the columns there.</li>
+<li><code>cols = -c(president, year)</code> tells pivot_longer NOT to change the columns
+“<code>president</code>” and “<code>year</code>”.</li>
+</ul>
+<p>So the approval ratings from the second quarter of 1960 will be stored in
+a row where the column <code>president</code> contains “Dwight D. Eisenhower”,
+<code>year</code> contains 1960, <code>quarter</code> contains “Q2”, and
+<code>net_approval</code> contains the net approval rating.</p>
+<p>I also use the <code>arrange()</code> command to sorts the rows of the resulting
+data frame to put the years in ascending order, from
+1945 to 2021,
+and within each year, sort the quarters in alphabetical order from Q1 to Q4</p>
+<pre class="r"><code>df_long = df %&gt;% 
+  pivot_longer(cols = -c(president, year), 
+               names_to = &quot;quarter&quot;, values_to = &quot;net_approval&quot;) %&gt;%
+  arrange(year, quarter) 
+
+head(df_long) # print the first few rows of the tibble.</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##   president        year quarter net_approval
+##   &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;          &lt;dbl&gt;
+## 1 Harry S. Truman  1945 Q1              NA  
+## 2 Harry S. Truman  1945 Q2              84  
+## 3 Harry S. Truman  1945 Q3              NA  
+## 4 Harry S. Truman  1945 Q4              67  
+## 5 Harry S. Truman  1946 Q1              23.3
+## 6 Harry S. Truman  1946 Q2               0.5</code></pre>
+<p>We can use the <code>pivot_wider</code> function to do the opposite and pivot our new
+data frame back to the original format:</p>
+<pre class="r"><code>df_wide = df_long %&gt;% 
+  pivot_wider(names_from = &quot;quarter&quot;, values_from = &quot;net_approval&quot;) %&gt;%
+  arrange(year) 
+
+head(df_wide) # print the first few rows of the tibble.</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##   president        year    Q1    Q2     Q3    Q4
+##   &lt;chr&gt;           &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+## 1 Harry S. Truman  1945  NA   84     NA     67  
+## 2 Harry S. Truman  1946  23.3  0.5  -19    -15.5
+## 3 Harry S. Truman  1947  29.3 32.3   29.5   21  
+## 4 Harry S. Truman  1948  21   -8.67  NA     NA  
+## 5 Harry S. Truman  1949  42.5 24.5   14     NA  
+## 6 Harry S. Truman  1950  -1   -3.5   -0.25  -8</code></pre>
+</div>
+<div id="grouping-and-summarizing" class="section level3">
+<h3>Grouping and Summarizing</h3>
+<p>Now suppose we want to find the average approval for each year?
+We can use the functions <code>group_by</code> and <code>summarize</code> with <code>df_long</code>.
+<code>group_by(df, year)</code> or <code>df %&gt;% group_by(year)</code> group the rows of the data frame
+into groups that have the same year (so there is a group for each year,
+each of which contains the rows for the four quarters of that year), and then
+<code>summarize(net_approval = mean(net_approval))</code> replaces those four
+rows in each group with the average over all four quarters.</p>
+<p>After you call <code>summarize</code> you usually want to ungroup your data, because
+it’s generally easier to work with ungrouped data unless you have a reason to
+group it. You do this with <code>ungroup(df)</code> or <code>df %&gt;% ungroup()</code>.</p>
+<pre class="r"><code>df_annual = df_long %&gt;% group_by(year) %&gt;%
+  summarize(net_approval = mean(net_approval, na.rm = TRUE)) %&gt;%
+  ungroup()
+
+head(df_annual)</code></pre>
+<pre><code>## # A tibble: 6 x 2
+##    year net_approval
+##   &lt;int&gt;        &lt;dbl&gt;
+## 1  1945        75.5 
+## 2  1946        -2.67
+## 3  1947        28.0 
+## 4  1948         6.17
+## 5  1949        27   
+## 6  1950        -3.19</code></pre>
+<p>The <code>na.rm = TRUE</code> argument to <code>mean</code> in the code above tells R to ignore
+rows where <code>net_approval</code> has a missing (<code>NA</code>, or “not available”) value.
+Normally, if there is a missing value in a function like <code>mean</code> or <code>max</code> or
+<code>min</code>, or <code>sum</code>, the result is <code>NA</code> because you’re trying to take the average
+(or maximum, minumum, sum, etc.) of a bunch of numbers where some are missing,
+so you don’t know what the average is.
+Functions like these often have an option to call them with <code>na.rm = TRUE</code>,
+that calculates the mean, minimum, maximum, sum, or whatever for the values
+that are known, and ignore any missing values.</p>
+<p>You can also group by multiple variables at once, so if you had weather data
+for every day over ten years, you could group by <code>year</code> and <code>month</code> to calculate
+the monthly average conditions:</p>
+<pre class="r"><code># suppose the variable df_daily has daily temperatures for many years,
+# with columns year, month, day, and temperature
+#
+df_monthly = df_daily %&gt;% group_by(year, month) %&gt;%
+  summarize(temperature = mean(temperature, na.rm = TRUE)) %&gt;%
+  ungroup()</code></pre>
+</div>
+</div>
+</div>

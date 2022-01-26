@@ -29,19 +29,19 @@ output:
 <ul>
 <li><a href="#vectors">Vectors</a></li>
 <li><a href="#lists">Lists</a></li>
-<li><a href="#data-frames-and-tibbles">Data frames and tibbles</a></li>
+<li><a href="#data-frames-and-tibbles">Data frames and <em>tibbles</em></a></li>
 </ul></li>
 </ul></li>
 <li><a href="#the-tidyverse">The Tidyverse</a>
 <ul>
-<li><a href="#manipulating-tibbles">Manipulating <code>tibbles</code></a>
+<li><a href="#manipulating-data-frames">Manipulating Data Frames</a>
 <ul>
 <li><a href="#manipulating-columns">Manipulating Columns</a></li>
 <li><a href="#selecting-rows">Selecting Rows</a></li>
 <li><a href="#summarizing-rows">Summarizing rows</a></li>
 <li><a href="#combining-rows">Combining Rows</a></li>
 </ul></li>
-<li><a href="#tidy-data-and-pivoting-tibbles">Tidy Data and Pivoting tibbles</a></li>
+<li><a href="#tidy-data-and-pivoting-data-frames">Tidy Data and Pivoting Data Frames</a></li>
 </ul></li>
 <li><a href="#graphing-data">Graphing Data</a></li>
 </ul>
@@ -71,7 +71,8 @@ which presents a brief overview of R and
 how to program with it;
 <a href="https://r4ds.had.co.nz/transform.html">Chapter 5: “Data Transformation,”</a>
 which explains the
-functions I discuss in the first part of this handout about tibbles and the
+functions I discuss in the first part of this handout about data frames
+(also called tibbles) and the
 manipulating them with functions like <code>select</code>, <code>filter</code>, <code>mutate</code>, and
 <code>summarize</code>; and
 <a href="https://r4ds.had.co.nz/data-visualisation.html">Chapter 3: “Data Visualization,”</a>
@@ -81,8 +82,10 @@ the <code>ggplot2</code> package to make graphs and charts of your data.
 describes using the <code>pivot</code> functions to organize
 your data in ways that make it easier to analyze.</p>
 <p>If you are interested in learning more about R, Section II of the book
-discusses the different data types that R uses in detail (tibbles,
-character data (or strings), factors, dates, and times). Section III discusses
+discusses the different data types that R uses in detail
+(<em>data frames</em>, also called <em>tibbles</em>;
+character data, also called <em>strings</em>; factors; and dates and times).
+Section III discusses
 programming, and section IV discusses statistical modeling (i.e., fitting
 functions to data). Section V discusses RMarkdown and all the different ways
 you can use it to communicate about your analysis with other people.</p>
@@ -93,11 +96,12 @@ and user-friendly introduction.</p>
 </div>
 <div id="online-documentation-for-the-tidyverse" class="section level2">
 <h2>Online documentation for the tidyverse</h2>
-<p><em>R for Data Science</em> is a great introduction to the concepts behind the
-<code>tidyverse</code> collection of packages and functions for R, but what should you do
-when you already understand that big picture and just want to know how to do
-a specific task? For that, the online documentation for the <code>tidyverse</code> is
-very useful and you can find it at <a href="http://www.tidyverse.org/packages/" class="uri">http://www.tidyverse.org/packages/</a>.</p>
+<p><a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a> is a great introduction to the
+concepts behind the <code>tidyverse</code> collection of packages and functions for R,
+but what should you do when you already understand that big picture and just
+want to know how to do a specific task? For that, the online documentation for
+the <code>tidyverse</code> is very useful and you can find it at
+<a href="http://www.tidyverse.org/packages/" class="uri">http://www.tidyverse.org/packages/</a>.</p>
 <p>This page has links to the documentation for all the major tidyverse packages:
 <a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a> for making graphics,
 <a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> and
@@ -106,8 +110,8 @@ very useful and you can find it at <a href="http://www.tidyverse.org/packages/" 
 <a href="https://readr.tidyverse.org/"><code>reader</code></a> for reading in data from text files and
 <a href="https://readxl.tidyverse.org/"><code>readxl</code></a> for reading data from Excel
 spreadsheets, and many more packages that we will not be using in these labs.</p>
-<p>The documents give lots of examples showing what the functions do and explanations
-of how to do many common tasks. Especially for
+<p>The documents give lots of examples showing what the functions do and
+explanations of how to do many common tasks. Especially for
 <a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a>, it can be very useful
 to look at the graphs in the examples to find something that looks like what
 you’re trying to do and then seeing the code that made that happen.</p>
@@ -122,7 +126,8 @@ important kinds of data that we may work with are:</p>
 <ul>
 <li><p><strong>Integer data</strong>, which represents discrete quantities, such as counting
 events or objects.</p></li>
-<li><p><strong>Real number data</strong>, which represents quantities that can have fractional values.
+<li><p><strong>Real number data</strong>, which represents quantities that can have fractional
+values.
 Most of the data we will work with in this course, such as temperatures,
 altitudes, amounts of rainfall, and so forth, will be real-number data.
 This kind of data is also referred to frequently as “floating point” data
@@ -135,16 +140,16 @@ also referred to as “string data”.</p></li>
 certain discrete values. R treats factor data as a kind of augmented character
 data.</p>
 <p>The difference between character data and factor data is that factor
-data has an explicit set of allowed values and has an integer number associated
-with each of those values.</p>
+data has an explicit set of allowed values and has an integer number
+associated with each of those values.</p>
 <p>For instance, if I have a factor variable with the allowed values “up” and
 “down”, then I could not assign it a value “left” or “right”, whereas a
 character variable can be assigned any arbitrary text, such as
 “second star to the right and straight on til morning.”</p>
 <p>There are two kinds of factors: ordered and unordered. The difference is that
 the legal values for ordered factors have a specific order, so you can say
-that one comes before or after another (or is greater than or less than another),
-whereas unordered factors don’t have any natural ordering.</p>
+that one comes before or after another (or is greater than or less than
+another), whereas unordered factors don’t have any natural ordering.</p>
 <p>Examples of ordered variables might be the months of the year, or the days
 of the week, or a grouping like “small”, “medium”, “large”, or
 “bad”, “fair”, “good”.</p>
@@ -156,8 +161,8 @@ a combination, such as 9:37 PM on January 17, 1984.</p></li>
 </ul>
 <p>For the most part, R handles different data types sensibly so you don’t need to
 worry about them, but sometimes when R is reading data in from files, or when
-you want to convert one kind of variable to another, you will need to think about
-these.</p>
+you want to convert one kind of variable to another, you will need to think
+about these.</p>
 <p>The most common cases where you will need to think about this is when you are
 reading data in from files. Sometimes it is ambiguous whether to treat something
 from a file as character data, numerical data, or a date. In such cases, you may
@@ -180,12 +185,13 @@ an ordered factor <code>f</code> with legal values corresponding to the months o
 <div id="vectors-lists-data-frames-and-tibbles." class="section level2">
 <h2>Vectors, Lists, Data Frames, and Tibbles.</h2>
 <p>In statistics, you generally don’t just work with one number at a time, but with
-collections of numbers. R provides many ways to work with collections of numbers.</p>
+collections of numbers. R provides many ways to work with collections of
+numbers.</p>
 <div id="vectors" class="section level3">
 <h3>Vectors</h3>
 <p>The simplest is a <strong>vector</strong>. A vector is a collection of values that are all
-of the same kind: a collection of integers, a collection of floating point values,
-a collection of character values, a collection of factor values, etc.</p>
+of the same kind: a collection of integers, a collection of floating point
+values, a collection of character values, a collection of factor values, etc.</p>
 <p>You specify vectors like this: <code>x = c(1, 2, 5, 9, 3, 4, 2, 7, 5)</code>.
 You can access elements of vectors by indexing their position within the
 vector, so <code>x[3]</code> will be 5 and <code>x[4]</code> will be 9.</p>
@@ -212,28 +218,30 @@ There is a nice shortcut to getting the elements of a named list, using a
 dollar sign: <code>ages$Sam</code> is 27.</p>
 </div>
 <div id="data-frames-and-tibbles" class="section level3">
-<h3>Data frames and tibbles</h3>
+<h3>Data frames and <em>tibbles</em></h3>
 <p>We will not use lists very much in this class. We will use vectors a little bit,
 but what we will use <em>a lot</em> are tables of data. You have probably worked a
 lot with spreadsheets and other data analysis tools that organize data in a
 table with rows and columns. This is a very natural and common way to work.</p>
 <p>R provides a structure called a <code>data.frame</code> for working with tabular data, but
 the package <code>tidyverse</code> introduces an improved version of the <code>data.frame</code>
-called a <code>tibble</code> (think of it as a kind of data table).</p>
+called a <code>tibble</code> (think of it as a kind of data table).
+Since <code>data.frames</code> and <code>tibbles</code> are so similar, I will mostly use the two
+terms interchangeably.</p>
 <p><code>data.frames</code> and <code>tibbles</code> have rows and columns. A row represents a set of
 quantities, such as measurements or observations, that go together in some way.
 Different rows in a tibble represent different sets of these quantities.</p>
-<p>For instance, if I am measuring the height and weight of a number of people, then
-I would have a row for each person and each row would have a column for the
+<p>For instance, if I am measuring the height and weight of a number of people,
+then I would have a row for each person and each row would have a column for the
 person’s name or identity code, a column for their height, and a column for
 their weight.</p>
 <p>If I am measuring the average temperature and average precipitation
-for a number of cities, then I would have a column for the city, a column for the
-temperature, and a column for the precipitation.</p>
-<p>Each column of a <code>data.frame</code> or <code>tibble</code> should correspond to a specific kind of
-data (integer, floating point, character, factor, date, etc.). A column is
+for a number of cities, then I would have a column for the city, a column for
+the temperature, and a column for the precipitation.</p>
+<p>Each column of a <code>data.frame</code> or <code>tibble</code> should correspond to a specific kind
+of data (integer, floating point, character, factor, date, etc.). A column is
 a kind of vector, so it has to obey the restrictions that apply to vectors.</p>
-<p>To get some experience with tibbles, let’s load a couple of data sets that
+<p>To get some experience with data frames, let’s load a couple of data sets that
 I have prepared. If you have cloned the directory for this document
 (from <a href="https://github.com/gilligan-ees-3310/lab_02_documentation" class="uri">https://github.com/gilligan-ees-3310/lab_02_documentation</a>),
 you can load the datasets, which contain daily weather summaries for
@@ -261,10 +269,12 @@ location.</p>
 <p>The tibble also shows the kind of variable that each column represents:
 <code>id</code> and <code>location</code> are character data, <code>date</code> is Date data, and
 <code>prcp</code>, <code>tmin</code>, and <code>tmax</code> are double-precision floating point data
-(i.e., real numbers).</p>
-<p>In some ways, a tibble or <code>data.frame</code> is like a names list of vectors, where each
-vector is a column and its name is the name of the column. We can access individual
-columns using the dollar sign, just as with regular named lists:</p>
+(i.e., real numbers).<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>In some ways, a tibble or <code>data.frame</code> is like a named list of vectors,
+where each vector in the list is a column and its name is the name of the
+column.
+We can access individual columns using the dollar sign, just as with regular
+named lists:</p>
 <pre class="r"><code>precipitation = nashville_weather$prcp</code></pre>
 <p>And we can see what the result is:</p>
 <pre class="r"><code>head(precipitation)</code></pre>
@@ -272,7 +282,8 @@ columns using the dollar sign, just as with regular named lists:</p>
 <p>RStudio has a nice feature that lets you examine a tibble or <code>data.frame</code>
 as though it were a spreadsheet. To examine one of R’s built-in data sets,
 which has data on hurricanes in the Atlantic from 1975–2015:
-<code>View(dplyr::storms)</code></p>
+<code>View(dplyr::storms)</code>
+(note that <code>View</code> has a capital “V”).</p>
 <p>Some other useful functions:</p>
 <ul>
 <li><p>You can get a list of the names of
@@ -331,8 +342,8 @@ library(lubridate)
 # alternately, I could do the following:
 # library(pacman)
 # p_load(tidyverse, lubridate)</code></pre>
-<div id="manipulating-tibbles" class="section level2">
-<h2>Manipulating <code>tibbles</code></h2>
+<div id="manipulating-data-frames" class="section level2">
+<h2>Manipulating Data Frames</h2>
 <p>One part of the <code>tidyverse</code> is the package <code>dplyr</code>, which has many useful
 tools for modifying and manipulating tibbles:</p>
 <ul>
@@ -352,7 +363,8 @@ by stacking one above the other.</li>
 <p>There is a lot more, but these functions will be enough to keep us busy for now
 and they will allow us to do some powerful analysis.</p>
 <p>If you want to learn more about these functions, they are explained in detail in
-<a href="https://r4ds.had.co.nz/transform.html">Chapter 5</a> of <em>R for Data Science</em>.</p>
+<a href="https://r4ds.had.co.nz/transform.html">Chapter 5</a> of
+<a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a>.</p>
 <div id="manipulating-columns" class="section level3">
 <h3>Manipulating Columns</h3>
 <p>Let’s start with <code>select</code>: You can select columns to keep or columns to delete.</p>
@@ -549,14 +561,17 @@ head(x)</code></pre>
 ## 4         1953      478    10502
 ## 5         1954      732    10862
 ## 6         1955      831    11539</code></pre>
-<p>This provides the maximum one-day precipitation and the total annual precipitation for each year</p>
-<p>Note how difficult it is to read that grouped summary expression: the <code>group_by</code> function is inside
-<code>summarize</code>, which is inside <code>ungroup</code>.</p>
-<p>The <code>tidyverse</code> offers us a much nicer way to put these kind of complicated expressions together
-using what it calls the “pipe” operator, <code>%&gt;%</code>. The pipe operator chains operations together,
-taking the result of the one on the left and inserting it into the one on the right.</p>
+<p>This provides the maximum one-day precipitation and the total annual
+precipitation for each year</p>
+<p>Note how difficult it is to read that grouped summary expression: the
+<code>group_by</code> function is inside <code>summarize</code>, which is inside <code>ungroup</code>.</p>
+<p>The <code>tidyverse</code> offers us a much nicer way to put these kind of complicated
+expressions together using what it calls the “pipe” operator, <code>%&gt;%</code>.<br />
+The pipe operator chains operations together, taking the result of the one on
+the left and inserting it into the one on the right.</p>
 <p>We can use the pipe operator to rewrite the expression above as</p>
-<pre class="r"><code>x = nashville_weather %&gt;% group_by(year(date)) %&gt;% summarize(prcp_max = max(prcp), prcp_tot = sum(prcp)) %&gt;%
+<pre class="r"><code>x = nashville_weather %&gt;% group_by(year(date)) %&gt;% 
+  summarize(prcp_max = max(prcp), prcp_tot = sum(prcp)) %&gt;%
   ungroup()
 head(x)</code></pre>
 <pre><code>## # A tibble: 6 x 3
@@ -568,24 +583,29 @@ head(x)</code></pre>
 ## 4         1953      478    10502
 ## 5         1954      732    10862
 ## 6         1955      831    11539</code></pre>
-<p>Now the expression is easier to read: First we group <code>nashville_weather</code> by year, then we summarize it by calculating the
-maximum daily precipitation and the yearly total for each year, and finally, after we summarize we ungroup.</p>
-<p>You can combine any set of the <code>tidyverse</code> functions using the pipe operator, so you could <code>select</code> columns,
-<code>filter</code> rows, <code>mutate</code> the values of columns, and <code>summarize</code>, using the <code>%&gt;%</code> pipe operator to connect
-all of the different operations in sequence.</p>
+<p>Now the expression is easier to read:
+First we group <code>nashville_weather</code> by year;
+then we summarize it by calculating the maximum daily precipitation
+and the yearly total for each year;
+and finally, after we summarize we ungroup.</p>
+<p>You can combine any set of the <code>tidyverse</code> functions using the pipe operator,
+so you could <code>select</code> columns, <code>filter</code> rows, <code>mutate</code> the values of columns,
+and <code>summarize</code>, using the <code>%&gt;%</code> pipe operator to connect all of the different
+operations in sequence.</p>
 </div>
 <div id="combining-rows" class="section level3">
 <h3>Combining Rows</h3>
 <p>Another useful command is <code>bind_rows</code>, which lets us combine tibbles:</p>
 <pre class="r"><code>weather = bind_rows(nashville_weather, chicago_weather)</code></pre>
-<p>This creates a single tibble that has all of the rows from <code>nashville_weather</code> on
-top and all the rows from <code>chicago_weather</code> on the bottom. Because the two tibbles
-have the same columns, the columns are matched up.</p>
+<p>This creates a single tibble that has all of the rows from <code>nashville_weather</code>
+on top and all the rows from <code>chicago_weather</code> on the bottom.
+Because the two tibbles have the same columns, the columns are matched up.</p>
 <p>We can operate on this combined tibble:</p>
 <pre class="r"><code>weather_summary = weather %&gt;% 
   mutate(year = year(date), t_range = tmax - tmin) %&gt;%
   group_by(year, location) %&gt;%   
-  summarize(prcp_max = max(prcp), prcp_tot = sum(prcp), t_range.max = max(t_range)) %&gt;%
+  summarize(prcp_max = max(prcp), prcp_tot = sum(prcp), 
+            t_range.max = max(t_range)) %&gt;%
   ungroup() %&gt;%
   arrange(year, location)
 tail(weather_summary)</code></pre>
@@ -600,10 +620,10 @@ tail(weather_summary)</code></pre>
 ## 6  2020 Nashville, TN      831    13323         222</code></pre>
 </div>
 </div>
-<div id="tidy-data-and-pivoting-tibbles" class="section level2">
-<h2>Tidy Data and Pivoting tibbles</h2>
-<p>The <code>tidyr</code> package in the tidyverse is used to make data <code>tidy</code>: re-organizing
-the columns and rows of a <code>tibble</code> to make it easier to analyze.</p>
+<div id="tidy-data-and-pivoting-data-frames" class="section level2">
+<h2>Tidy Data and Pivoting Data Frames</h2>
+<p>The <code>tidyr</code> package in the tidyverse is used to make data <code>tidy</code>:
+re-organizing the columns and rows of a <code>tibble</code> to make it easier to analyze.</p>
 <p>Sometimes you want to re-organize a data frame or tibble to collect many
 columns into a single column, or we may want to separate one column of data
 into many columns. These operations, which change the shape of the data frame,
@@ -611,7 +631,7 @@ are called “pivots”. Here, we will explore two powerful functions in the
 tidyverse, <code>pivot_longer</code> and <code>pivot_wider</code>, and they are explained in detail in
 <a href="https://r4ds.had.co.nz/tidy-data.html#pivoting">the section on “Pivoting”</a>
 in <a href="https://r4ds.had.co.nz/tidy-data.html">chapter 12</a>
-of <em>R for Data Science</em>.</p>
+of <a href="https://r4ds.had.co.nz"><em>R for Data Science</em></a>.</p>
 <p>Consider this data frame, which was
 read in from a spreadsheet of global temperatures produced at NASA:</p>
 <pre class="r"><code>giss_zonal &lt;- readRDS(&#39;_data/giss_zonal.Rds&#39;)
@@ -742,15 +762,18 @@ of data called, “The Grammar of Graphics” (that’s where the “gg” comes
 <ul>
 <li>One or more <em>layers</em> of graphics. A layer consists of the following:
 <ul>
-<li>A <em>data table</em> with one or more columns, each corresponding to a different variable,</li>
+<li>A <em>data table</em> with one or more columns, each corresponding to a different
+variable,</li>
 <li>A <em>mapping</em> of different variables (columns) in the data table to different,
 <em>aesthetics</em> of the plot. Aesthetics are things like
 <ul>
 <li>the <em>x</em> coordinate,</li>
 <li>the <em>y</em> coordinate,</li>
 <li>the <em>color</em> of the point or line,</li>
-<li>the <em>fill</em> color that is used to fill in areas, like the interior of a rectangle or circle.</li>
-<li>the <em>shape</em> of points (e.g., circle, square, triangle, cross, diamond, …)</li>
+<li>the <em>fill</em> color that is used to fill in areas, like the interior of a
+rectangle or circle.</li>
+<li>the <em>shape</em> of points (e.g., circle, square, triangle, cross, diamond,
+…)</li>
 <li>the <em>size</em> of points and lines</li>
 <li>the <em>linetype</em> (e.g., solid, dashed, dotted, …)</li>
 <li>and so forth …</li>
@@ -763,7 +786,7 @@ of data called, “The Grammar of Graphics” (that’s where the “gg” comes
 for what we’re going to do.</p>
 <p>These graphics functions are explained in detail in
 <a href="https://r4ds.had.co.nz/data-visualisation.html">Chapter 3</a> of
-<em>R for Data Science</em>.</p>
+<a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a>.</p>
 <p>A simple graph has just one layer:</p>
 <pre class="r"><code>ggplot(data = tidy_zonal, # the data
        # the mapping of variables to aesthetics
@@ -861,4 +884,12 @@ ggplot(data = annual_extremes_tidy,                   # the data
   # The Brewer palettes are very good for people with color-blindness.
   labs(x = &quot;Year&quot;, y = &quot;Temperature Anomaly&quot;) # labels for the coordinates</code></pre>
 <p><img src="/lab_docs/lab_02_overview_files/figure-html/sixth_plot-1.png" width="672" /></p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This is one difference between a <code>data.frame</code> and a
+<code>tibble</code>: <code>tibble</code>s show the data type of each column when you print them,
+but <code>data.frame</code>s don’t.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>

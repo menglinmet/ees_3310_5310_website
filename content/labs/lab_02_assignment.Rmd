@@ -1,7 +1,7 @@
 ---
 title: Working with climate data
 lab_date: '2022-01-31'
-report_due_date: '2022-02-07'
+report_due_date: 2022-02-09 09:00:00
 lab_number: 2
 pubdate: '2021-12-31'
 date: '2022-01-31'
@@ -16,9 +16,10 @@ This lab will introduce working with climate data using R and RMarkdown. We will
 
 ## Reading
 
-**Before you come to lab**, please read the following document:
+**Before you come to lab**, please read the following documents:
 
 * [Instructions for Lab #2: Data Wrangling with R](/lab_docs/lab_02_overview){target="_blank"}
+* [Worked examples for Lab #2: CO2 data](/lab_docs/lab_02_worked_examples){target="_blank"}
 
 ## Assignment
 

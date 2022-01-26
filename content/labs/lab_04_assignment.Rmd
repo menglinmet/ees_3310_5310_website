@@ -1,7 +1,7 @@
 ---
 title: Convection and Clouds
 lab_date: '2022-02-14'
-report_due_date: '2022-02-21'
+report_due_date: 2022-02-23 09:00:00
 lab_number: 4
 pubdate: '2021-12-31'
 date: '2022-02-14'
