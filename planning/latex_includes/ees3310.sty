@@ -2,6 +2,21 @@
 \usepackage{float}
 \usepackage{booktabs}
 \usepackage[version=4]{mhchem}
+% \usepackage{longtable}
+\usepackage{caption}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+% \usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+% \usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{makecmds}
 
 \newcommand{\COO}{\ce{CO2}}
 \newcommand{\methane}{\ce{CH4}}
@@ -20,3 +35,20 @@
 \newcommand{\CaSi}{\ce{CaSiO3}}
 \newcommand{\pH}{p\ce{H}}
 \newcommand{\permil}{\permille}
+
+\newcommand{\MODTRAN}{\textsc{modtran}}
+\newcommand{\RRTM}{\textsc{rrtm}}
+\newcommand{\GEOCARB}{\textsc{geocarb}}
+\newcommand{\SLUGULATOR}{\textsc{slugulator}}
+
+\newcommand{\alintertext}[1]{%
+  \noalign{%
+    \vskip\belowdisplayshortskip
+    \vtop{\hsize=\linewidth#1\par
+      \expandafter}%
+    \expandafter\prevdepth\the\prevdepth
+  }%
+}
+
+\makeenvironment{Shaded}{\begin{snugshade}\small}{\end{snugshade}}
+\makecommand{\AttributeTok}[1]{\textcolor[rgb]{0.42,0.37,0.12}{#1}}
