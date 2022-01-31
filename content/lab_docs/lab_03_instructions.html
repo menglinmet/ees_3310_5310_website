@@ -115,7 +115,7 @@ Possible values are</p>
 <li><code>"nimbostratus"</code>,</li>
 <li><code>"drizzle"</code>,</li>
 <li><code>"light rain"</code>,</li>
-<li><code>"moderatre rain"</code>,</li>
+<li><code>"medium rain"</code>,</li>
 <li><code>"heavy rain"</code>,</li>
 <li><code>"extreme rain"</code>,</li>
 <li><code>"standard cirrus"</code>,</li>
@@ -556,10 +556,7 @@ ggplot(tbl, aes(x = x, y = y)) + geom_line() +
 </div>
 <div id="exercises-for-lab-3" class="section level1">
 <h1>Exercises for Lab #3</h1>
-<p>You should accept the GitHub Classroom assignment for Lab #3, create a new
-RStudio project for the lab, choosing Version Control and the link to the
-GitHub repository for your Lab 3 project, and then open the file
-<code>lab-03-exercises.Rmd</code> in RStudio to do these exercises.</p>
+<p>You should open the file <code>lab-03-report.Rmd</code> to do these exercises.</p>
 </div>
 <div id="chapter-4-exercises" class="section level1">
 <h1>Chapter 4 Exercises</h1>
@@ -606,7 +603,29 @@ use the <code>plot</code> or <code>print</code> function.</p>
   strat_o3_scale = 0, h2o_scale = 0, freon_scale = 0)
   p = plot_modtran(mod_data)
   plot(p) # you could also say print(p) here.
-}</code></pre></li>
+}</code></pre>
+<p>This will take some time to run because it needs to run MODTRAN for each
+different value of <code>ch4</code>, so you might want to tell R to save the output
+from the model in a file, and tell R to check whether that file exists
+and if it does, read from the file instead of running the model again:</p>
+<pre class="r"><code>for (ch4 in ch4_list) {
+  # make a name for the model-output file: &quot;_data/modtran_ch4_0_ppm.txt&quot;,
+  # &quot;_data/modtran_ch4_1.7_ppm.txt&quot;, etc.
+  mod_file = str_c(&quot;_data/modtran_ch4_&quot;, ch4, &quot;_ppm.txt&quot;)
+  if (! file.exists(mod_file)) {
+    mod_data = run_modtran(filename = mod_file, co2_ppm = 0, ch4_ppm = ch4, 
+                           trop_o3_ppb = 0, strat_o3_scale = 0, 
+                           h2o_scale = 0, freon_scale = 0)
+  } else {
+    mod_data = read_modtran(mod_file)
+  }
+  p = plot_modtran(mod_data)
+  plot(p) # you could also say print(p) here.
+}</code></pre>
+<p>But if you do this, then if you change the way you run the model
+(e.g., change some of the parameters to <code>run_modtran</code>, such as the
+altitude or the atmosphere), you will need to manually delete the files
+in the <code>_data</code> directory to make R run the model with the new parameters.</p></li>
 <li><p><strong>Would a doubling of methane have as great an impact on the heat balance as a
 doubling of CO<sub>2</sub>?</strong></p>
 <p><strong>Suggestion:</strong></p>

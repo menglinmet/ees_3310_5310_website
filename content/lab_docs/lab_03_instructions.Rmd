@@ -14,19 +14,17 @@ output:
 ---
 ```{r setup, include=FALSE}
 knitr::knit_hooks$set(inline = function(x) { knitr:::format_sci(x, 'md')})
-knitr::opts_chunk$set(echo = TRUE, include = TRUE, cache = FALSE)
+knitr::opts_chunk$set(echo = TRUE, cache=TRUE)
 
 if (knitr::is_latex_output()) {
   message("Setting PDF plot hook.")
   new_plot_hook <- function(x, options)
     paste("\n", knitr::hook_plot_tex(x, options), "\n")
-
+  
   knitr::knit_hooks$set(plot = new_plot_hook)
-  knitr::opts_chunk$set(fig.width = 6, fig.height = 4)
 } else {
   message("Not using PDF output.")
 }
-
 
 options(dplyr.summarise.inform = FALSE)
 
@@ -36,9 +34,8 @@ options(dplyr.summarise.inform = FALSE)
 data_dir = "_data"
 script_dir = "_scripts"
 
-library(knitr)
-library(xml2)
-library(tidyverse)
+library(pacman)
+p_load(knitr, xml2, tidyverse)
 
 theme_set(theme_bw(base_size = 15))
 
@@ -128,7 +125,7 @@ which loads a script with the following functions:
     * `"nimbostratus"`,
     * `"drizzle"`, 
     * `"light rain"`, 
-    * `"moderatre rain"`, 
+    * `"medium rain"`, 
     * `"heavy rain"`, 
     * `"extreme rain"`,
     * `"standard cirrus"`, 
@@ -472,10 +469,7 @@ ggplot(tbl, aes(x = x, y = y)) + geom_line() +
 
 # Exercises for Lab #3
 
-You should accept the GitHub Classroom assignment for Lab #3, create a new
-RStudio project for the lab, choosing Version Control and the link to the 
-GitHub repository for your Lab 3 project, and then open the file 
-`lab-03-exercises.Rmd` in RStudio to do these exercises.
+You should open the file `lab-03-report.Rmd` to do these exercises.
 
 # Chapter 4 Exercises
 
@@ -533,6 +527,31 @@ b) **Where in the spectrum does methane absorb? What concentration does it take
      plot(p) # you could also say print(p) here.
    }
    ```
+   
+   This will take some time to run because it needs to run MODTRAN for each 
+   different value of `ch4`, so you might want to tell R to save the output
+   from the model in a file, and tell R to check whether that file exists
+   and if it does, read from the file instead of running the model again:
+   ``` r
+   for (ch4 in ch4_list) {
+     # make a name for the model-output file: "_data/modtran_ch4_0_ppm.txt",
+     # "_data/modtran_ch4_1.7_ppm.txt", etc.
+     mod_file = str_c("_data/modtran_ch4_", ch4, "_ppm.txt")
+     if (! file.exists(mod_file)) {
+       mod_data = run_modtran(filename = mod_file, co2_ppm = 0, ch4_ppm = ch4, 
+                              trop_o3_ppb = 0, strat_o3_scale = 0, 
+                              h2o_scale = 0, freon_scale = 0)
+     } else {
+       mod_data = read_modtran(mod_file)
+     }
+     p = plot_modtran(mod_data)
+     plot(p) # you could also say print(p) here.
+   }
+   ```
+   But if you do this, then if you change the way you run the model 
+   (e.g., change some of the parameters to `run_modtran`, such as the 
+   altitude or the atmosphere), you will need to manually delete the files
+   in the `_data` directory to make R run the model with the new parameters.
 
 c) **Would a doubling of methane have as great an impact on the heat balance as a 
    doubling of CO~2~?**
