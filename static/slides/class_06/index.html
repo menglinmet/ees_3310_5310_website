@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<!-- JG Reveal.js Template --><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="pandoc">
+<meta name="author" content="Jonathan Gilligan">
+<title>Temperature Structure of the Atmosphere</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+<link rel="stylesheet" href="../../lecture_lib/library/reveal.js-3.8.0/css/reset.css">
+<link rel="stylesheet" href="../../lecture_lib/library/reveal.js-3.8.0/css/reveal.min.css">
+<style type="text/css">
+      code{white-space: pre-wrap;}
+      .smallcaps{font-variant: small-caps;}
+      .line-block{white-space: pre-line;}
+      .column{display: inline-block;}  </style>
+<style type="text/css">
+    div.qrbox,
+    aside.qrbox {
+     text-align: left;
+     vertical-align: bottom;
+     width: 95%;
+     position: fixed;
+     left: 2.5%;
+     bottom: 1rem;
+     display: block;
+    }
+  </style>
+<!-- theme = solarized_jg --><link rel="stylesheet" href="../../lecture_lib/library/assets/css/theme/solarized_jg.css" id="theme">
+<!-- Printing and PDF exports --><script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../lecture_lib/library/reveal.js-3.8.0/css/print/pdf.css' : '../../lecture_lib/library/reveal.js-3.8.0/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script><!--[if lt IE 9]>
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/lib/js/html5shiv.js"></script>
+  <![endif]--><script src="../../lecture_lib/library/header-attrs-2.11.3/header-attrs.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+            <!-- start title slide -->
+<section class="center" id="title"><h1 class="title">Temperature Structure of the Atmosphere</h1>
+    <h3 class="author">EES 3310/5310</h3>
+        <h3 class="author">Global Climate Change</h3>
+    <h3 class="author">Jonathan Gilligan</h3>
+    <h3 class="date">
+      Class #6:
+       Monday, January 31
+      2022
+    </h3>
+	<!-- end title slide -->
+</section><section id="ghg_review_questions" class="slide level2"><h2>Review Question</h2>
+<h3 id="what-is-the-atmospheric-window">What is the “atmospheric window”?</h3>
+<ol type="1">
+<li>Regions where there are few clouds to block radiation.</li>
+<li>Desert regions with very little water vapor.</li>
+<li>Tropical regions with low CO<sub>2</sub> concentrations.</li>
+<li><span class="fragment highlight-blue">A range of wavelengths where no greenhouse gases absorb much.</span></li>
+</ol></section><section><section id="greenhouse_effect_sec" class="title-slide slide level1 center"><h1 class="center">Measuring Greenhouse Effect:</h1>
+
+</section><section id="greenhouse_effect" class="slide level2" data-transition="fade-out"><h2 data-transition="fade-out">Measuring Greenhouse Effect:</h2>
+<ul>
+<li>Go to MODTRAN, set CO<sub>2</sub> to 0 ppm, and set all other gases to zero.</li>
+<li class="fragment">Set altitude to 70 km and location to “Tropical Atmosphere”.</li>
+<li class="fragment">Press “Save this run to background”</li>
+<li class="fragment">Note <em>I</em><sub>out</sub>
+</li>
+<li class="fragment">Set CO<sub>2</sub> to 400 ppm and note the change in <em>I</em><sub>out</sub>
+</li>
+<li class="fragment">Adjust the temperature offset to make the difference in <br><span class="math inline">\(I_{\text{out}} (\text{New} - \text{BG})\)</span> equal zero.</li>
+</ul></section><section id="greenhouse_effect_00" class="slide level2" data-transition="fade"><h2 data-transition="fade">No Greenhouse Gases</h2>
+<p><img data-src="assets/fig/warming.000-1.png"></p>
+</section><section id="greenhouse_effect_400" class="slide level2" data-transition="fade"><h2 data-transition="fade">400 ppm</h2>
+<p><img data-src="assets/fig/warming.400-1.png"></p>
+</section><section id="greenhouse_effect_400_warm" class="slide level2" data-transition="fade"><h2 data-transition="fade">Adjust temperature</h2>
+<p><img data-src="assets/fig/warming.400.warm-1.png"></p>
+</section></section><section><section id="band_saturation_intro_sec" class="title-slide slide level1 center"><h1 class="center">Band Saturation</h1>
+
+</section><section id="setup_modtran" class="slide level2 eighty"><h2 class="eighty">Set up MODTRAN:</h2>
+<ul>
+<li>Set “Location” to “1976 U.S. Standard Atmosphere”</li>
+<li>Set All greenhouse gases to zero</li>
+<li>Set altitude to 20 km</li>
+</ul>
+<iframe src="https://climatemodels.jgilligan.org/modtran/" style="height:800px;width:1500px;">
+</iframe>
+</section><section id="co2_00000" class="slide level2" data-transition="fade-out"><h2 data-transition="fade-out">No CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/no.ghg-1.png"></p>
+</section><section id="co2_00000_125" class="slide level2" data-transition="fade"><h2 data-transition="fade">0.125 ppm CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/co2.00000_125-1.png"></p>
+</section><section id="co2_00000_25" class="slide level2" data-transition="fade"><h2 data-transition="fade">0.25 ppm CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/co2.00000_25-1.png"></p>
+</section><section id="co2_00000_50" class="slide level2" data-transition="fade"><h2 data-transition="fade">0.5 ppm CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/co2.00000_50-1.png"></p>
+</section><section id="co2_00001" class="slide level2" data-transition="fade"><h2 data-transition="fade">1 ppm CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/co2.00001-1.png"></p>
+</section><section id="co2_00003_125" class="slide level2" data-transition="fade"><h2 data-transition="fade">2 ppm CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/co2.00002-1.png"></p>
+</section><section id="co2_00004" class="slide level2" data-transition="fade"><h2 data-transition="fade">4 ppm CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/co2.00004-1.png"></p>
+</section><section id="co2_00008" class="slide level2" data-transition="fade"><h2 data-transition="fade">8 ppm CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/co2.00008-1.png"></p>
+</section><section id="co2_00016" class="slide level2" data-transition="fade"><h2 data-transition="fade">16 ppm CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/co2.00016-1.png"></p>
+</section><section id="co2_00032" class="slide level2" data-transition="fade"><h2 data-transition="fade">32 ppm CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/co2.00032-1.png"></p>
+</section><section id="co2_00064" class="slide level2" data-transition="fade"><h2 data-transition="fade">64 ppm CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/co2.00064-1.png"></p>
+</section><section id="co2_00128" class="slide level2" data-transition="fade"><h2 data-transition="fade">128 ppm CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/co2.00128-1.png"></p>
+</section><section id="co2_00256" class="slide level2" data-transition="fade"><h2 data-transition="fade">256 ppm CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/co2.00256-1.png"></p>
+</section><section id="co2_00512" class="slide level2" data-transition="fade"><h2 data-transition="fade">512 ppm CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/co2.00512-1.png"></p>
+</section><section id="co2_01024" class="slide level2" data-transition="fade"><h2 data-transition="fade">1024 ppm CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/co2.01024-1.png"></p>
+</section><section id="co2_02048" class="slide level2" data-transition="fade-in"><h2 data-transition="fade-in">2048 ppm CO<sub>2</sub>
+</h2>
+<p><img data-src="assets/fig/co2.02048-1.png"></p>
+</section><section id="band_sat_i" class="slide level2" data-transition="fade-out"><h2 data-transition="fade-out">Band Saturation (I<sub>out</sub>)</h2>
+<p><img data-src="assets/fig/band.sat.i.out-1.png"></p>
+</section><section id="band_sat_i" class="slide level2" data-transition="fade"><h2 data-transition="fade">I<sub>out</sub> (CO<sub>2</sub> on log scale)</h2>
+<p><img data-src="assets/fig/band.sat.i.out.log-1.png"></p>
+</section></section><section><section id="calc_warming_sec" class="title-slide slide level1 center" data-transition="fade"><h1 class="center" data-transition="fade">Calculating Global Warming</h1>
+
+</section><section id="calc_warming" class="slide level2" data-transition="fade"><h2 data-transition="fade">Calculating Global Warming</h2>
+<ul>
+<li>
+<p>“Climate sensitivity” = <span class="math inline">\(\Delta T_{2x}\)</span></p>
+<ul>
+<li>Temperature rise for doubled CO<sub>2</sub>.</li>
+<li>Uncertain (because of feedbacks)</li>
+<li>Best estimate: <span class="math inline">\(\Delta T_{2x} \sim\)</span> 3.2K (range 2.0–4.5 K)</li>
+</ul>
+</li>
+<li class="fragment"><p>Every time you double CO<sub>2</sub>, <span class="math inline">\(T\)</span> rises by <span class="math inline">\(\Delta T_{2x}\)</span>.</p></li>
+<li class="fragment">
+<p>For arbitrary change in CO<sub>2</sub>:</p>
+<div style="background-color:ghostwhite;margin:20px;border:10px;color:darkblue;">
+<p><span class="math display">\[\Delta T = \Delta T_{2x} \times 
+\frac{\ln\left(\frac{\text{new}~p\COO}{\text{old}~p\COO}\right)}{\ln 2}\]</span></p>
+</div>
+</li>
+</ul></section><section id="gwp" class="slide level2"><h2>Global Warming Potential</h2>
+<ul>
+<li>Absorption by CO<sub>2</sub> and water vapor are very saturated</li>
+<li class="fragment">Absorption in the atmospheric window is not saturated</li>
+<li class="fragment">Therefore, molecule-for-molecule, gases that absorb in the window have a much bigger effect on the climate than adding more CO<sub>2</sub>.
+<ul>
+<li class="fragment">One chlorofluorocarbon molecule = thousands of CO<sub>2</sub> molecules</li>
+</ul>
+</li>
+<li class="fragment">Global Warming Potential (GWP) of <em>x</em> = how many CO<sub>2</sub> molecules cause the same warming as one molecule of <em>x</em>
+</li>
+</ul></section></section><section><section id="evolving_theory_sec" class="title-slide slide level1 center"><h1 class="center">Evolving theory of greenhouse effect</h1>
+
+</section><section id="evolving_theory" class="slide level2 eighty"><h2 class="eighty">Greenhouse effect</h2>
+<ol type="1">
+<li>Purely radiative (no convection)
+<ul>
+<li>Each layer has uniform temperature
+<ol type="a">
+<li class="fragment">Single-layer, uniform spectrum <span style="color:blue;">(Wed. 1/26)</span>
+<ul>
+<li>Absorbs 100% longwave light</li>
+</ul>
+</li>
+<li class="fragment">Multi-layer, uniform spectrum <span style="color:blue;">(Lab #3)</span>
+<ul>
+<li>More layers <span class="math inline">\(\Rightarrow\)</span> greater greenhouse effect.</li>
+</ul>
+</li>
+<li class="fragment">Realistic spectrum <span style="color:blue;">(Fri. 1/28 &amp; today)</span>
+<ul>
+<li>More realistic</li>
+<li>Harder to do calculations (need computer)</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li class="fragment">Introduce convection <span style="color:blue;">(Today &amp; Wed. 2/2)</span>
+<ul>
+<li>Temperature changes with height</li>
+<li>Convection moves heat up and down</li>
+<li>Radiative-convective models are very accurate
+<ul>
+<li>But require computers</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol></section></section><section><section id="vertical_structure_sec" class="title-slide slide level1 center"><h1 class="center">The Vertical Structure of the Atmosphere</h1>
+
+</section><section id="evolving_theory_2" class="slide level2 eighty"><h2 class="eighty">Greenhouse effect</h2>
+<div style="color:#a8a8c0;">
+<ol type="1">
+<li>Purely radiative (no convection)
+<ul>
+<li>Each layer has uniform temperature
+<ol type="a">
+<li>Single-layer, uniform spectrum
+<ul>
+<li>Absorbs 100% longwave light</li>
+</ul>
+</li>
+<li>Multi-layer, uniform spectrum
+<ul>
+<li>More layers <span class="math inline">\(\Rightarrow\)</span> greater greenhouse effect.</li>
+</ul>
+</li>
+<li>Realistic spectrum
+<ul>
+<li>More realistic</li>
+<li>Harder to do calculations (need computer)</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</div>
+<div style="color:#006080;">
+<ol start="2" type="1">
+<li>Convection:
+<ul>
+<li>Temperature changes with height</li>
+<li>Convection moves heat up and down</li>
+<li>Radiative-convective models are very accurate
+<ul>
+<li>But require computers</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</div>
+</section><section id="radiative_convective" class="slide level2 center"><h2 class="center">Radiative-Convective Equilibrium</h2>
+<p><img data-src="assets/images/ar05f10.png" style="height:850px;" alt="Radiative-Convective Equilibrium"></p>
+</section><section id="normal_atmosphere" class="slide level2 center"><h2 class="center">Normal Atmosphere:</h2>
+<p><img data-src="assets/fig/temp.profile-1.png"></p>
+</section><section id="lapse-rate" class="slide level2 center" data-transition="fade"><h2 class="center" data-transition="fade">Vertical Structure</h2>
+<p><span class="math display">\[ \text{Lapse rate} = \frac{- \Delta T}{\Delta \text{height}} \]</span></p>
+<ul>
+<li><p>Positive lapse rate: Air overhead is cooler<br> (normal for troposphere)</p></li>
+<li><p>Negative lapse rate: Air overhead is warmer<br> (abnormal, “inversion”)</p></li>
+</ul></section><section id="air_water" class="slide level2 center"><h2 class="center">Air vs. Water</h2>
+<div class="columns">
+<div class="column rightcol">
+<p><img data-src="assets/fig/air.pressure-1.png"></p>
+</div>
+<div class="column leftcol">
+<p><img data-src="assets/fig/water.pressure-1.png"></p>
+</div>
+</div>
+</section><section id="air_water_2" class="slide level2"><h2>Air vs. Water</h2>
+<div class="columns">
+<div class="column" style="padding-top:3rem;">
+<ul>
+<li class="fragment">Pressure = weight of everything overhead.</li>
+<li class="fragment">Air is compressible, water isn’t.</li>
+<li class="fragment">1 cubic meter of water weighs 1000 kg</li>
+<li class="fragment">1 cubic meter of dry air at sea-level density weighs 1.3 kg</li>
+<li class="fragment">1 cubic meter of dry air 10 km above sea level weighs 0.4 kg</li>
+</ul>
+</div>
+<div class="column">
+<p><img data-src="assets/images/ar05f04.png" style="height:900px;" alt="bricks"></p>
+</div>
+</div>
+</section><section id="air_pressure" class="slide level2"><h2>Air Pressure</h2>
+<div class="columns">
+<div class="column ninety">
+<ul>
+<li class="fragment">
+<p>Pressure at height <span class="math inline">\(h\)</span>: <span class="math display">\[
+\begin{aligned}
+P(h) &amp; = P_0\: e^{-h/8.0 \text{km}} \\
+&amp;= P_0\: 2^{-h / 5.5 \text{km}} \\
+&amp;= P_0 \left(\frac{1}{2}\right)^{h / 5.5 \text{km}}
+\end{aligned}
+\]</span></p>
+<ul>
+<li class="fragment">Half the air in the atmosphere is below 5.5 km.</li>
+<li class="fragment">3/4 is below 11 km</li>
+<li class="fragment">7/8 is below 16.5 km</li>
+</ul>
+</li>
+<li class="fragment"><p><strong>NOTE:</strong> The number 5.5 km is not exact, <br> but it’s consistent with the textbook.</p></li>
+</ul>
+</div>
+<div class="column">
+<p><img data-src="assets/fig/air.pressure.2-1.png"></p>
+</div>
+</div>
+</section><section id="review_q_lapse" class="slide level2 ninety"><h2 class="ninety">Why is the air cooler higher up?</h2>
+<p><img data-src="assets/images/adiabatic_lapse.jpg" style="height:900px;" alt="adiabatic lapse"></p>
+</section><section id="terminology" class="slide level2"><h2>Terminology</h2>
+<ul>
+<li>
+<strong>Environmental Lapse</strong>
+<ul>
+<li>Measured temperature of actual atmosphere</li>
+<li>Compares one bit of air at one height with another bit at another height.</li>
+<li>Changes from one time and place to another.</li>
+</ul>
+</li>
+<li class="fragment"><strong>Adiabatic Lapse</strong>
+<ul>
+<li>Change in a single parcel of air as it moves up or down</li>
+<li>“<strong>Adiabatic</strong>” means no heat flowing in or out
+<ul>
+<li><strong>Adiabatic changes are reversible</strong></li>
+<li>
+<strong>Heat flow</strong> is irreversible</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></section></section><section><section id="convection_overview_sec" class="title-slide slide level1 center"><h1 class="center">Overview of Convection</h1>
+
+</section><section id="convection_overview" class="slide level2" data-transition="fade-out"><h2 data-transition="fade-out">Overview of convection</h2>
+<p><img data-src="assets/images/adiabatic_lapse_1.png" style="height:700px;margin-top:1em;" alt="Adiabatic Lapse"></p>
+<ul>
+<li>Closer to vertical = smaller lapse rate (vertical = zero)</li>
+<li>Closer to horizontal = larger lapse rate</li>
+</ul></section><section id="stable_atm_1" class="slide level2" data-transition="fade"><h2 data-transition="fade">Stable Atmosphere</h2>
+<h3 id="initial-state">Initial State</h3>
+<p><img data-src="assets/images/stable_lapse_2.png" style="height:700px;" alt="Initial state in stable atmosphere"></p>
+<ul>
+<li><span style="color:darkgreen;">green = adiabatic lapse</span></li>
+<li>
+<span style="color:darkblue;">blue = environmental lapse</span> &lt; <span style="color:darkgreen;">adiabatic</span>
+</li>
+</ul></section><section id="stable_atm_heated" class="slide level2" data-transition="fade"><h2 data-transition="fade">Stable Atmosphere</h2>
+<h3 id="parcel-is-heated">Parcel is heated</h3>
+<p><img data-src="assets/images/stable_heated_2.png" style="height:700px;" alt="Heated parcel in stable atmosphere"></p>
+</section><section id="stable_atm_rise" class="slide level2" data-transition="fade"><h2 data-transition="fade">Stable Atmosphere</h2>
+<h3 id="rises-to-new-equilibrium">Rises to new equilibrium</h3>
+<p><img data-src="assets/images/stable_rise_2.png" style="height:700px;" alt="Rising in stable atmosphere"></p>
+</section><section id="stable_atm_cool" class="slide level2" data-transition="fade"><h2 data-transition="fade">Stable Atmosphere</h2>
+<h3 id="parcel-is-cooled">Parcel is cooled</h3>
+<p><img data-src="assets/images/stable_cool_2.png" style="height:700px;" alt="Cooled parcel in stable atmosphere"></p>
+</section><section id="stable_atm_sink" class="slide level2" data-transition="fade-in"><h2 data-transition="fade-in">Stable Atmosphere</h2>
+<h3 id="sinks-to-new-equilibrium">Sinks to new equilibrium</h3>
+<p><img data-src="assets/images/stable_fall_2.png" style="height:700px;" alt="Falling in stable atmosphere"></p>
+</section></section><section><section id="unstable_atm_sec" class="title-slide slide level1 center"><h1 class="center">Unstable Atmosphere</h1>
+
+</section><section id="unstable_atm" class="slide level2" data-transition="fade-out"><h2 data-transition="fade-out">Unstable Atmosphere</h2>
+<h3 id="initial-state-1">Initial State</h3>
+<p><img data-src="assets/images/unstable_lapse_2.png" style="height:700px;" alt="Initial state in unstable atmosphere"></p>
+<ul>
+<li><span style="color:darkgreen;">green = adiabatic lapse</span></li>
+<li>
+<span style="color:darkblue;">blue = environmental lapse</span> &gt; <span style="color:darkgreen;">adiabatic</span>
+</li>
+</ul></section><section id="unstable_atm_heat" class="slide level2" data-transition="fade"><h2 data-transition="fade">Unstable Atmosphere</h2>
+<h3 id="parcel-is-heated-1">Parcel is heated</h3>
+<p><img data-src="assets/images/unstable_heat_2.png" style="height:700px;" alt="Heated parcel in unstable atmosphere"></p>
+</section><section id="unstable_atm_rise" class="slide level2" data-transition="fade"><h2 data-transition="fade">Unstable Atmosphere</h2>
+<h3 id="rises-without-stopping">Rises without stopping</h3>
+<p><img data-src="assets/images/unstable_rise_2.png" style="height:700px;" alt="Rising in unstable atmosphere"></p>
+</section></section><section><section id="summary_stability_sec" class="title-slide slide level1 center"><h1 class="center">Summary of Stability</h1>
+
+</section><section id="summary_stability" class="slide level2"><h2>Summary of stability:</h2>
+<ul>
+<li>Stable conditions:
+<ul>
+<li>Adiabatic Lapse &gt; Environmental Lapse</li>
+</ul>
+</li>
+<li>Unstable conditions:
+<ul>
+<li>Adiabatic Lapse &lt; Environmental Lapse</li>
+</ul>
+</li>
+</ul>
+<!--- ---><ul>
+<li>Why is stability important?
+<ul>
+<li class="fragment">A stable atmosphere does not move heat around</li>
+<li class="fragment">An unstable atmosphere undergoes <strong>convection</strong>:
+<ul>
+<li>Hot air rises, cold air sinks</li>
+<li>Redistributes heat</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></section></section><section><section id="moist_convection_sec" class="title-slide slide level1 center"><h1 class="center">Moist Convection</h1>
+
+</section><section id="moist_convection" class="slide level2" data-transition="fade-out"><h2 data-transition="fade-out">Moist Convection</h2>
+<p><img data-src="assets/images/ar05f09.png" style="height:550px;" alt="Moist Convection"></p>
+<ul>
+<li class="fragment">Dry air rises and cools</li>
+<li class="fragment">Cooling <span class="math inline">\(\Rightarrow\)</span> water vapor condenses to liquid</li>
+<li class="fragment">Condensation releases latent heat</li>
+<li class="fragment">Latent heat warms air</li>
+</ul></section><section id="moist_stability" class="slide level2" data-transition="fade"><h2 data-transition="fade">Moist Convection</h2>
+<p><img data-src="assets/images/ar05f09.png" style="height:550px;" alt="Moist Convection"></p>
+<ul>
+<li class="fragment">Latent heat warms air</li>
+<li class="fragment">Heat reduces adiabatic cooling</li>
+<li class="fragment">Moist adiabatic lapse &lt; Dry adiabatic lapse</li>
+<li class="fragment">Smaller lapse = less stable</li>
+<li class="fragment"><strong>Humid air is less stable than dry air</strong>
+</li>
+</ul></section><section id="stability" class="slide level2"><h2>Perspective</h2>
+<ul>
+<li class="fragment">Stable:<ul>
+<li>Environmental lapse <span class="math inline">\(\le\)</span> adiabatic lapse</li>
+</ul>
+</li>
+<li class="fragment">Unstable:<ul>
+<li>Environmental lapse &gt; adiabatic lapse</li>
+</ul>
+</li>
+<li class="fragment">Adiabatic lapse:<ul>
+<li>Dry: 10 K/km</li>
+<li>Moist: 4-8 K/km (depends on humidity)</li>
+</ul>
+</li>
+<li class="fragment">Pure radiative equilibrium:<ul>
+<li>Would produce lapse of <strong>16 K/km</strong>: unstable</li>
+</ul>
+</li>
+<li class="fragment">Radiative-Convective equilibrium:<ul>
+<li>Convection modifies environmental lapse</li>
+<li>Normal environmental lapse is roughly <strong>6 K/km</strong> <br>(typical <em>moist adiabatic lapse rate</em>)</li>
+</ul>
+</li>
+</ul></section></section><section><section id="convective_greenhouse_sec" class="title-slide slide level1 center"><h1 class="center">Greenhouse effect</h1>
+
+</section><section id="gw-baseline" class="slide level2 ninety" data-transition="fade"><h2 class="ninety" data-transition="fade">Greenhouse effect</h2>
+<p><img data-src="assets/fig/baseline.conv.gh-1.png"></p>
+<ul>
+<li>Skin temp: <span class="math inline">\(T_{\text{skin}} = T_{\text{bare rock}} = 254~\text{K}\)</span>.</li>
+<li>Ground temp: <span class="math inline">\(T_{\text{ground}} = T_{\text{skin}} + h_{\text{skin}} \times \text{ELR}\)</span>
+<ul>
+<li>ELR = Environmental Lapse Rate</li>
+</ul>
+</li>
+</ul></section><section id="gw-convect" class="slide level2 ninety" data-transition="fade"><h2 class="ninety" data-transition="fade">Global warming</h2>
+<p><img data-src="assets/fig/warm.conv.gh-1.png"></p>
+<ul>
+<li>Greater CO<sub>2</sub><span class="math inline">\(\rightarrow\)</span> greater skin height.</li>
+<li>Warming: <span class="math inline">\(\Delta T_{\text{ground}} = \Delta h_{\text{skin}} \times \text{env. lapse}\)</span>
+</li>
+</ul></section></section>
+</div>
+  </div>
+  <!--
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/js/reveal.js"></script>
+  <!-- -->
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/js/reveal.min.js"></script><!-- --><script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: false,
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+        // Display the page number of the current slide
+        showSlideNumber: 'speaker',
+        // Push each slide change to the browser history
+        history: true,
+        //  Enable hashing slide content to URL
+        hash: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: false,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // Loop the presentation
+        loop: false,
+        // Change the presentation direction to be RTL
+        rtl: false,
+        // Turns fragments on and off globally
+        fragments: true,
+        // Don't separate fragments in PDF rendering
+        pdfSeparateFragments: false,
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1920,
+        height: 1080,
+      
+        // Optional reveal.js plugins
+        dependencies: [
+                    { src: '../../lecture_lib/library/assets/plugin/chalkboard/chalkboard.js', async: true },
+                                        { src: '../../lecture_lib/library/assets/plugin/reveal-skip-fragments/skip-fragments.js', async: true },
+                    { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/notes/notes.js', async: true }
+        ],
+        shift_keyboard: {
+    	    67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'C' is pressed
+    	    66: function() { RevealChalkboard.toggleChalkboard() },	  // toggle chalkboard when 'B' is pressed
+    	    88: function() { RevealChalkboard.clear() },	            // clear chalkboard when 'X' is pressed
+    	    82: function() { RevealChalkboard.reset() },	            // reset chalkboard data on current slide when 'R' is pressed
+    	    68: function() { RevealChalkboard.download() },	          // downlad recorded chalkboard drawing when 'D' is pressed
+        },
+              	// Shortcut for showing all fragments
+      	skipFragmentsShowShortcut: 'S',
+
+      	// Shortcut for hiding all fragments
+      	skipFragmentsHideShortcut: 'H',
+      	      });
+    </script><script>
+  	function createSingletonNodejg( container, tagname, classname, innerHTML ) {
+
+		// Find all nodes matching the description
+		var nodes = container.querySelectorAll( '.' + classname );
+
+		// Check all matches to find one which is a direct child of
+		// the specified container
+		for( var i = 0; i < nodes.length; i++ ) {
+			var testNode = nodes[i];
+			if( testNode.parentNode === container ) {
+				return testNode;
+			}
+		}
+
+		// If no node was found, create it now
+		var node = document.createElement( tagname );
+		node.className = classname;
+		if( typeof innerHTML === 'string' ) {
+			node.innerHTML = innerHTML;
+		}
+		container.appendChild( node );
+
+		return node;
+
+	}
+
+  var dom_wrapper = document.querySelector('.reveal');
+  createSingletonNodejg(dom_wrapper, 'div', 'qrbox',
+  '<div class="qrbox" id="qrbox" style="font-size:90%;">' + '\n' +
+  '<div style="font-size:30%;width:100%;">' + '\n' +
+      '<a href="https://ees3310.jgilligan.org/slides/class_06">' +
+  	'<img src="qrcode.png" alt="https://ees3310.jgilligan.org/slides/class_06"/>' +
+  	'</a>' + '\n' +
+	  '</div>' + '\n' +
+  '<div style="font-size:30%;width:100%;vertical-align:top;">' + '\n' +
+    '<span style="display:inline-block;text-align:left;margin-left:0">' + '\n' +
+        'Live web page: <a href="https://ees3310.jgilligan.org/slides/class_06">https://ees3310.jgilligan.org/slides/class_06</a>' + '\n' +
+              '<br/>' + '\n' +
+        'PDF: <a href="https://ees3310.jgilligan.org/slides/class_06/ees_3310_5310_class_06_slides.pdf" target="_blank">https://ees3310.jgilligan.org/slides/class_06/ees_3310_5310_class_06_slides.pdf</a>' + '\n' +
+          	'</span>' + '\n' +
+  	'<span style="display:inline-block;text-align:right;vertical-align:top;position:absolute;right:0;bottom:0;">' + '\n' +
+  	  'Navigate slides: next: N or &lt;space&gt;; previous: P or &lt;backspace&gt;<br/>' + '\n' +
+  	  'Also: up, down, left, right arrows; overview: o; help: ?' + '\n' +
+  	'</span>' + '\n' +
+	'</div>' + '\n' +
+  '</div>' + '\n'
+  );
+</script><script>
+var MathJax = { jax: ["input/TeX", "output/HTML-CSS"],
+                TeX: {extensions: ["color.js", "mhchem.js"],
+                Macros: {
+                  COO: "\\ce{CO2}",
+                  methane: "\\ce{CH4}",
+                  degC: "^\\circ \\mathrm{C}",
+                  degF: "^\\circ \\mathrm{F}",
+                  water: "\\mathrm{H_2O}",
+                  carb: "\\ce{CO3^2-}",
+                  bicarb: "\\ce{HCO3-}",
+                  carbonic: "\\ce{H2CO3}",
+                  Hplus: "\\ce{H+}",
+                  OH: "\\ce{OH-}",
+                  silica: "\\ce{SiO2}",
+                  calcite: "\\ce{CaCO3}",
+                  Caplus: "\\ce{Ca^2+}",
+                  silicate: "\\ce{SiO3^2-}",
+                  CaSi: "\\ce{CaSiO3}",
+                  pH: "p\\ce{H}",
+                  permil: "\\unicode{x2030}"
+                },
+                  },
+                "HTML-CSS" : {scale: 100 }};
+</script><!-- dynamically load mathjax for compatibility with self-contained --><script type="text/x-mathjax-config">
+MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["HTML-CSS"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+	  VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+	  VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+	});
+MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["SVG"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+	  VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+	  VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+	});
+  </script><script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script><script>
+  var qrbox = document.querySelector("#qrbox");
+  var advance_fragment = 0;
+
+	function isPrintingPDF() {
+	  let printing = ( /print-pdf/gi ).test( window.location.search );
+	  console.log("printing test: " + printing);
+	  return printing;
+	}
+
+
+  if ( qrbox.hasAttribute('qr-box-hide') || Reveal.isOverview() ||
+      ! Reveal.isFirstSlide() || isPrintingPDF()) {
+    console.log("Initializing");
+    console.log("Hiding QR box");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+  }
+
+  Reveal.addEventListener('overviewshown', function() {
+      console.log("Overview shown");
+    console.log("Hiding QR box");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+  }, false);
+
+  Reveal.addEventListener('overviewhidden', function() {
+    if (Reveal.isFirstSlide() && ! qrbox.hasAttribute('qr-box-hide') &&
+        ! isPrintingPDF()) {
+      console.log("Overview hidden");
+      console.log("Showing QR box");
+      qrbox.style.visibility="visible";
+      qrbox.style.display="block";
+    }
+  }, false);
+
+  Reveal.addEventListener('slidechanged', function() {
+    console.log("Slide changed...");
+    if (Reveal.isFirstSlide() && ! Reveal.isOverview() &&
+        ! qrbox.hasAttribute('qr-box-hide') &&
+        ! isPrintingPDF()) {
+      console.log("Showing QR box");
+      qrbox.style.visibility="visible";
+      qrbox.style.display="block";
+    } else {
+      console.log("Hiding QR box");
+      qrbox.style.visibility="hidden";
+      qrbox.style.display="none";
+    }
+  }, false);
+
+  Reveal.addEventListener('pdf-ready', function() {
+    console.log("hiding qrbox for printing");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+    qrbox.setAttribute('qr-box-hide', 'true');
+  });
+
+  </script><script>
+  Reveal.addEventListener('slidechanged', function() {
+    while (advance_fragment > 0) {
+      // console.log('advancing fragment');
+      Reveal.nextFragment();
+      advance_fragment--;
+    }
+  }, false);
+
+  Reveal.addEventListener('slidechanged', function() {
+    if ( Reveal.getCurrentSlide().hasAttribute('data-skip')) {
+      // console.log("going to next slide...");
+      Reveal.next();
+    }
+  }, false);
+
+  Reveal.addEventListener('skip_slide', function() {
+    Reveal.next();
+  }, false);
+
+  Reveal.addEventListener('advance_fragment', function() {
+    // console.log("setting advance fragment");
+    advance_fragment++;
+    }, false);
+  </script>
+</body>
+</html>

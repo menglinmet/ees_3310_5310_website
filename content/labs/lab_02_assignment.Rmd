@@ -3,6 +3,7 @@ title: Working with climate data
 lab_date: '2022-01-31'
 report_due_date: 2022-02-09 09:00:00
 lab_number: 2
+github_classroom_assignment_url: https://classroom.github.com/a/NsjFVVXN
 pubdate: '2021-12-31'
 date: '2022-01-31'
 slug: lab_02
@@ -22,5 +23,4 @@ This lab will introduce working with climate data using R and RMarkdown. We will
 * [Worked examples for Lab #2: CO2 data](/lab_docs/lab_02_worked_examples){target="_blank"}
 
 ## Assignment
-
-The GitHub Classroom has not been posted yet.
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/NsjFVVXN>.

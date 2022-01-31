@@ -24,6 +24,7 @@ lessons:
 - date: '2022-01-31'
   title: Vertical Structure of the Atmosphere
   reading: /reading/reading_06
+  lecture: /slides/class_06
   lab: lab_02
 - date: '2022-02-02'
   title: Review of Greenhouse Effect
