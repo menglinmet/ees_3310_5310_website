@@ -4,7 +4,7 @@ pacman::p_load_gh("jonathan-g/blogdownDigest")
 pacman::p_load_gh("jonathan-g/semestr")
 # library(git2r)
 
-regenerate_site <- function(root = NULL, force = FALSE) {
+regenerate_site <- function(root = NULL, force = FALSE, keep_tex = FALSE) {
   if (is.null(root)) {
     root = find_root(criterion = has_file(".semestr.here"))
   }
@@ -13,10 +13,10 @@ regenerate_site <- function(root = NULL, force = FALSE) {
   message("Setting working directory to ", getwd())
   semester <- load_semester_db("planning/EES-3310-5310.sqlite3")
   generate_assignments(semester)
-  new_update_site(root = getwd(), force = force)
+  new_update_site(root = getwd(), force = force, keep_tex = keep_tex)
 }
 
-new_update_site <- function(root = NULL, force = FALSE) {
+new_update_site <- function(root = NULL, force = FALSE, keep_tex = FALSE) {
   if (is.null(root)) {
     root = find_root(criterion = has_file(".semestr.here"))
   }
@@ -25,7 +25,8 @@ new_update_site <- function(root = NULL, force = FALSE) {
   message("Setting working directory to ", getwd())
   update_site(force = force)
   out_opts = list(md_extensions = semestr:::get_md_extensions(), toc = TRUE,
-                  includes = list(in_header = "ees3310.sty"))
+                  includes = list(in_header = "ees3310.sty"),
+                  keep_tex = keep_tex)
   update_pdfs(force_dest = TRUE, force = force, output_options = out_opts)
 }
 
