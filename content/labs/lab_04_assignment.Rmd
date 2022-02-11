@@ -3,6 +3,7 @@ title: Convection and Clouds
 lab_date: '2022-02-14'
 report_due_date: 2022-02-23 09:00:00
 lab_number: 4
+github_classroom_assignment_url: https://classroom.github.com/a/kALyEIGJ
 pubdate: '2021-12-31'
 date: '2022-02-14'
 slug: lab_04
@@ -31,5 +32,4 @@ Something too note:
 * [Instructions for Lab #4: Convection and Clouds](/lab_docs/lab_04_instructions){target="_blank"}
 
 ## Assignment
-
-The GitHub Classroom has not been posted yet.
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/kALyEIGJ>.
