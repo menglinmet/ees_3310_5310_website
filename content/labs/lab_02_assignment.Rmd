@@ -24,3 +24,9 @@ This lab will introduce working with climate data using R and RMarkdown. We will
 
 ## Assignment
 Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/NsjFVVXN>.
+
+## Solutions
+
+**Solutions for Lab Exercises**:
+
+* [Lab #2 Answers](/lab_solutions/lab_02_answers){target="_blank"}

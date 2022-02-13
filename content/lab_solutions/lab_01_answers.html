@@ -1,0 +1,326 @@
+---
+title: 'Lab #1 Answers'
+author: Jonathan Gilligan
+lab_number: 1
+lab_date: '2022-01-24'
+sol_date: '2022-02-13'
+pubdate: '2022-02-13'
+date: '2022-02-02'
+pdf_url: /files/lab_solutions/lab_01/lab_01_answers.pdf
+slug: lab_01_answers
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#exercises-on-units-energy-and-power">Exercises on Units, Energy, and Power</a>
+<ul>
+<li><a href="#exercise-1">Exercise 1</a>
+<ul>
+<li><a href="#part-1a">Part 1(a)</a></li>
+<li><a href="#part-1b">Part 1(b)</a></li>
+<li><a href="#part-1c">Part 1(c)</a></li>
+<li><a href="#part-1d">Part 1(d)</a></li>
+<li><a href="#part-1e">Part 1(e)</a></li>
+<li><a href="#part-1f">Part 1(f)</a></li>
+</ul></li>
+<li><a href="#exercise-2">Exercise 2</a>
+<ul>
+<li><a href="#part-2a">Part 2(a)</a></li>
+<li><a href="#part-2b">Part 2(b)</a></li>
+</ul></li>
+<li><a href="#exercise-3">Exercise 3</a></li>
+<li><a href="#exercise-4-grad-students-only">Exercise 4 (Grad students only)</a>
+<ul>
+<li><a href="#part-4a">Part 4(a)</a></li>
+<li><a href="#part-4b">Part 4(b)</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="exercises-on-units-energy-and-power" class="section level1">
+<h1>Exercises on Units, Energy, and Power</h1>
+<div id="exercise-1" class="section level2">
+<h2>Exercise 1</h2>
+<blockquote>
+<p>This exercise asks you to calculate how many Joules of energy you
+can get for a dollar from different sources of energy.</p>
+</blockquote>
+<div id="part-1a" class="section level3">
+<h3>Part 1(a)</h3>
+<blockquote>
+<ol style="list-style-type: lower-alpha">
+<li>A gallon of gasoline carries with it about 1.3 × 10<sup>8</sup> J of energy.
+Given a price of $3 per callon, how many Joules can you get for a dollar?</li>
+</ol>
+</blockquote>
+<p><em>Put your own text and R code here to answer Exercise 1(a). Do the calculation
+using R and also explain what you are doing with your text, following the
+model of the worked example above.</em></p>
+<pre class="r"><code>joules_per_gal_gasoline = 1.3E8
+dollars_per_gal_gasoline = 3
+joules_per_dollar_gasoline = joules_per_gal_gasoline / dollars_per_gal_gasoline</code></pre>
+<p><strong>Answer:</strong> You can get
+43,000,000
+Joules per dollar from gasoline.</p>
+</div>
+<div id="part-1b" class="section level3">
+<h3>Part 1(b)</h3>
+<blockquote>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Electricity goes for about $0.05 per kilowatt hour. A kilowatt hour is
+just a weird way to write Joules because a watt is a Joule per second, and a
+kilowatt hour is the number of Joules one would get from running 1000 W for
+one hour (3,600 seconds).
+How many Joules of electricity can you get for a dollar?</li>
+</ol>
+</blockquote>
+<p>A kilowatt hour is the energy from using 1000 Watts for 1 hour, or 3,600
+seconds. A Watt is 1 Joule per second, so
+1 kWh = 1000 Watts × 3600 seconds.</p>
+<pre class="r"><code>joules_per_kwh = 1000 * 3600
+dollars_per_kwh = 0.05
+joules_per_dollar_elec = joules_per_kwh / dollars_per_kwh</code></pre>
+<p><strong>Answer:</strong> You can get
+72,000,000
+Joules per dollar from electricity.</p>
+</div>
+<div id="part-1c" class="section level3">
+<h3>Part 1(c)</h3>
+<blockquote>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>A standard cubic foot of natural gas carries with it about
+1.1 × 10<sup>6</sup> Joules of energy.
+You can get about 5 × 10<sup>5</sup> British Thermal Units (BTUs) of gas
+for a dollar, and there are about 1,030 BTUs in a standard cubic foot.
+How many Joules of energy in the form of natural gas can you get for a dollar?</li>
+</ol>
+</blockquote>
+<pre class="r"><code>joules_per_scf_gas = 1.1E6
+btu_per_dollar = 5E5
+btu_per_scf = 1030
+scf_per_dollar = btu_per_dollar / btu_per_scf
+joules_per_dollar_nat_gas = joules_per_scf_gas * scf_per_dollar</code></pre>
+<p><strong>Answer:</strong> You can get
+530,000,000
+Joules per dollar from natural gas.</p>
+</div>
+<div id="part-1d" class="section level3">
+<h3>Part 1(d)</h3>
+<blockquote>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>A ton of coal holds about 3.2 × 10<sup>10</sup> J of energy and costs
+about $40.
+How many Joules of energy in the form of coal can you get for a dollar?</li>
+</ol>
+</blockquote>
+<pre class="r"><code>joules_per_ton_coal = 3.2E10
+dollars_per_ton_coal = 40
+joules_per_dollar_coal = joules_per_ton_coal / dollars_per_ton_coal</code></pre>
+<p><strong>Answer:</strong> You can get
+800,000,000
+Joules per dollar from coal.</p>
+</div>
+<div id="part-1e" class="section level3">
+<h3>Part 1(e)</h3>
+<blockquote>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>Corn oil costs about $0.10 per fluid ounce wholesale. A fluid ounce
+carries about 240 dietary Calories (which a scientist would call</li>
+</ol>
+</blockquote>
+<pre><code>                                  &gt; kilocalories). </code></pre>
+<blockquote>
+<p>A dietary Calorie is about 4200 J.
+How many Joules of energy in the form of corn oil can you get for a dollar?</p>
+</blockquote>
+<pre class="r"><code>calories_per_oz_oil = 240
+joules_per_calorie = 4200
+dollars_per_oz_oil = 0.10
+joules_per_oz_oil = calories_per_oz_oil * joules_per_calorie
+joules_per_dollar_oil = joules_per_oz_oil / dollars_per_oz_oil</code></pre>
+<p><strong>Answer:</strong> You can get
+10,000,000
+Joules per dollar from corn oil.</p>
+</div>
+<div id="part-1f" class="section level3">
+<h3>Part 1(f)</h3>
+<blockquote>
+<ol start="6" style="list-style-type: lower-alpha">
+<li>Now we compare the different energy sources.
+Rank these five energy sources from cheap to expensive.
+What is the range of prices per Joule?</li>
+</ol>
+</blockquote>
+<pre class="r"><code>dollars_per_joule_coal = 1 / joules_per_dollar_coal
+dollars_per_joule_nat_gas = 1 / joules_per_dollar_nat_gas
+dollars_per_joule_gasoline = 1 / joules_per_dollar_gasoline
+dollars_per_joule_oil = 1 / joules_per_dollar_oil
+dollars_per_joule_elec = 1 / joules_per_dollar_elec</code></pre>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>Coal =
+$1.25×10<sup>-9</sup>
+per joule</li>
+<li>Natural gas =
+$1.87×10<sup>-9</sup>
+per joule</li>
+<li>Electricity =
+$1.39×10<sup>-8</sup>
+per joule</li>
+<li>Gasoline =
+$2.31×10<sup>-8</sup>
+per joule</li>
+<li>Corn oil =
+$9.92×10<sup>-8</sup>
+per joule</li>
+</ul>
+</div>
+</div>
+<div id="exercise-2" class="section level2">
+<h2>Exercise 2</h2>
+<blockquote>
+<p>In this exercise, we compare the energy it took to produce the concrete in the
+Hoover Dam (outside Las Vegas) to the energy the dam produces from
+hydroelectric generation.</p>
+</blockquote>
+<div id="part-2a" class="section level3">
+<h3>Part 2(a)</h3>
+<blockquote>
+<p>The Hoover Dam produces 2 × 10<sup>9</sup> W of electricity.
+It is composed of 7 × 10<sup>9</sup> kg of concrete.
+It requires 1 MJ of energy (1 megajoule, 1,000,000 Joules) to produce
+each kilogram of concrete.
+How much energy did it take to produce the concrete for the dam?</p>
+</blockquote>
+<pre class="r"><code>kg_concrete = 7E9
+joules_per_kg_concrete = 1E6
+hoover_concrete_joules = kg_concrete * joules_per_kg_concrete</code></pre>
+<p><strong>Answer:</strong> It took
+7.0×10<sup>15</sup> Joules
+to produce the concrete for the Hoover dam.</p>
+</div>
+<div id="part-2b" class="section level3">
+<h3>Part 2(b)</h3>
+<blockquote>
+<p>How long is the payback time for the dam to generate as much energy in
+electricity as it took to produce the concrete?</p>
+</blockquote>
+<p>The electric power the dam generates is measured in Watts, which are Joules per
+second. If we divide the energy to produce the concrete by the power the dam
+produces, the result will be the number of seconds for the dam’s electric
+generation to pay back the energy it took to produce the concrete.</p>
+<pre class="r"><code>hoover_power_watts = 2E9
+hoover_payback_seconds = hoover_concrete_joules / hoover_power_watts
+seconds_per_day = 24 * 3600
+hoover_payback_days = hoover_payback_seconds / seconds_per_day</code></pre>
+<p><strong>Answer:</strong> It takes
+3,500,000 seconds,
+or 41 days, for the
+electricity generated by the Hoover dam to repay the energy it took to produce
+the concrete in the dam.</p>
+</div>
+</div>
+<div id="exercise-3" class="section level2">
+<h2>Exercise 3</h2>
+<blockquote>
+<p>It takes approximately 2.0 × 10<sup>9</sup> J of energy
+to manufacture 1 m<sup>2</sup> of crystalline-silicon photovoltaic cell.
+An average of 250 W/m<sup>2</sup> falls on the Earth.
+Assume that the solar cell is 18% efficient (that is, it converts 18% of
+the energy from sunlight into electricity).
+Calculate how long it would take for the solar cell to repay the
+energy it took to manufacture it.</p>
+</blockquote>
+<pre class="r"><code>joule_per_sq_m_pv = 2E9
+i_sun = 250
+efficiency = 0.18
+pv_power_watts = i_sun * efficiency
+pv_payback_sec = joule_per_sq_m_pv / pv_power_watts
+pv_payback_days = pv_payback_sec / seconds_per_day
+days_per_year = 365
+pv_payback_years = pv_payback_days / days_per_year</code></pre>
+<p><strong>Answer:</strong> It takes
+4.4×10<sup>7</sup> seconds,
+or 510. days, or
+1.41 years.</p>
+</div>
+<div id="exercise-4-grad-students-only" class="section level2">
+<h2>Exercise 4 (Grad students only)</h2>
+<p>Only graduate students are required to do this exercise.</p>
+<blockquote>
+<p>This is one of those job-interview questions to see how creative you are,
+analogous to, “How many airplanes are over Chicago at any given time?”
+You need to make stuff up to get a rough estimate and demonstrate your
+ability to think creatively.
+The question is:
+<em>What is the efficiency of energy production from growing corn?</em></p>
+</blockquote>
+<div id="part-4a" class="section level3">
+<h3>Part 4(a)</h3>
+<blockquote>
+<ol style="list-style-type: lower-alpha">
+<li>Assume that sunlight deposits 250 W/m<sup>2</sup> of energy on a corn field,
+averaging over the day-night cycle.
+There are approximately 4,200 J per dietary Calorie.
+How many Calories of energy are deposited on a square
+meter of field over the growing season?</li>
+</ol>
+<p>(Note: the word “calorie” has two different meanings. Physicists and chemists,
+use “calorie” (with a lower-case “c”) to refer to a thermodynamic unit of heat,
+but nutritionists use the word Calorie (with a capital ‘C’)
+to mean 1 kilocalorie (1000 thermodynamic calories). When you see “Calories”
+on a food label, it means kilocalories.
+To keep this exercise simple, I have written it so you only need to think in
+terms of dietary Calories.)</p>
+</blockquote>
+<p>We have to guess at what a growing season is. From my experience growing
+sweet corn in a home garden, I’d estimate around 90 days.</p>
+<pre class="r"><code>i_sun = 250
+joules_per_calorie = 4200
+seconds_per_day = 24 * 3600
+growing_season_days = 90
+growing_season_seconds = growing_season_days * seconds_per_day
+joules_sun_per_season = i_sun * growing_season_seconds
+calories_sun_per_season = joules_sun_per_season / joules_per_calorie</code></pre>
+<p><strong>Answer:</strong> Around
+4.6×10<sup>5</sup>
+Calories of sunlight fall on each square meter of farmland over a typical growing
+season.</p>
+</div>
+<div id="part-4b" class="section level3">
+<h3>Part 4(b)</h3>
+<blockquote>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Now guess how many ears of corn grow per square
+meter, and guess what the number of dietary Calories is that you get for eating
+an ear of corn. Compare the sunlight energy with the corn energy to get the
+efficiency.</li>
+</ol>
+</blockquote>
+<p>I estimate that a corn plant is roughly circular, with a diameter of about one
+foot (30 centimeters) and that its leaves fill about half the area of the
+circle.</p>
+<p>I estimate that a corn plant produces about 2 ears of corn on average, and
+that each ear has about 100 Calories of nutritional energy.</p>
+<pre class="r"><code>r_corn = 0.15 # convert cm to meters
+area_corn = pi * r_corn^2 * 0.5 # this is in square meters
+ears_per_plant = 2
+calories_per_ear = 100
+dietary_calories_per_plant =  calories_per_ear * ears_per_plant
+calories_sun_per_plant = area_corn * calories_sun_per_season
+efficiency = dietary_calories_per_plant / calories_sun_per_plant</code></pre>
+<p><strong>Answer:</strong> Based on this estimate, corn plants are about
+1.22% efficient at
+in converting solar energy into nutritional energy.</p>
+<p>This is much smaller than the 18% efficiency of photovoltaic solar cells at
+converting solar energy to electricity.</p>
+</div>
+</div>
+</div>

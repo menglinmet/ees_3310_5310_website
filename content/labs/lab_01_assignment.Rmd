@@ -29,3 +29,9 @@ Before you come to class Monday, please set up a free account on GitHub, as desc
 
 ## Assignment
 Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/5vrnN29K>.
+
+## Solutions
+
+**Solutions for Lab Exercises**:
+
+* [Lab #1 Answers](/lab_solutions/lab_01_answers){target="_blank"}

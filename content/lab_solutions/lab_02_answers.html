@@ -1,0 +1,537 @@
+---
+title: 'Lab #2 Answers'
+lab_number: 2
+lab_date: '2022-01-31'
+sol_date: '2022-02-13'
+pubdate: '2022-02-13'
+date: '2022-02-09'
+pdf_url: /files/lab_solutions/lab_02/lab_02_answers.pdf
+slug: lab_02_answers
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a>
+<ul>
+<li><a href="#downloading-co2-data-from-mauna-loa-observatory">Downloading CO<sub>2</sub> Data from Mauna Loa Observatory</a></li>
+</ul></li>
+<li><a href="#exercises-for-part-1">Exercises for Part 1</a>
+<ul>
+<li><a href="#exercises-with-co2-data-from-the-mauna-loa-observatory">Exercises with CO<sub>2</sub> Data from the Mauna Loa Observatory</a></li>
+<li><a href="#exercises-with-global-temperature-data-from-nasa">Exercises with Global Temperature Data from NASA</a>
+<ul>
+<li><a href="#did-global-warming-stop-after-1998">Did Global Warming Stop after 1998?</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#exercises-for-part-2">Exercises for Part 2</a>
+<ul>
+<li><a href="#exercise-3.1-grad.-students-only">Exercise 3.1 (Grad. students only)</a></li>
+<li><a href="#exercise-3.2">Exercise 3.2</a></li>
+<li><a href="#exercise-3.3">Exercise 3.3</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This exercise uses
+measurements of carbon dioxide from the laboratory on Mauna Loa, Hawaii,
+that was started by C. David Keeling in 1958.</p>
+<div id="downloading-co2-data-from-mauna-loa-observatory" class="section level2">
+<h2>Downloading CO<sub>2</sub> Data from Mauna Loa Observatory</h2>
+<p>We start by downloading the data from <a href="https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/monthly/monthly_in_situ_co2_mlo.csv" class="uri">https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/monthly/monthly_in_situ_co2_mlo.csv</a>. The code here checks to
+see if the file already exists, so we don’t download it again every time we
+build this report.</p>
+<pre class="r"><code>if (!file.exists(&#39;_data/mlo_data.csv&#39;)) {
+  download.file(mlo_url, &#39;_data/mlo_data.csv&#39;)
+}</code></pre>
+<p>After downloading the data, we process it, following the worked example in the
+instructions:</p>
+<pre class="r"><code>mlo_data = read_csv(&#39;_data/mlo_data.csv&#39;, 
+                    skip = 57,  # skip the first 57 rows
+                    col_names = c(&#39;year&#39;, &#39;month&#39;, &#39;date.excel&#39;, &#39;date&#39;,
+                                  &#39;co2_raw&#39;, &#39;co2_raw_seas&#39;, 
+                                  &#39;co2_fit&#39;, &#39;co2_fit_seas&#39;,
+                                  &#39;co2_filled&#39;, &#39;co2_filled_seas&#39;),
+                    col_types = &#39;iiiddddddd&#39;, 
+                    # ^^^ the first three columns are integers and the  next 
+                    # 7 are real numbers
+                    na = &#39;-99.99&#39; 
+                    # ^^^ interpret -99.99 as a missing value
+) %&gt;% clean_names()</code></pre>
+<pre class="r"><code>mlo_simple = mlo_data %&gt;% select(year, month, date, co2 = co2_filled)</code></pre>
+<pre class="r"><code>mlo_data_adjusted = mlo_simple %&gt;% 
+  mutate(co2_annual = slide_vec(co2, mean, .before = 5, .after = 6))</code></pre>
+<pre class="r"><code>library(broom)
+co2_fit = lm(co2 ~ date, data = mlo_simple)
+co2_trend = coef(co2_fit)[&#39;date&#39;]</code></pre>
+</div>
+</div>
+<div id="exercises-for-part-1" class="section level1">
+<h1>Exercises for Part 1</h1>
+<div id="exercises-with-co2-data-from-the-mauna-loa-observatory" class="section level2">
+<h2>Exercises with CO<sub>2</sub> Data from the Mauna Loa Observatory</h2>
+<p>Using the <code>select</code> function, make a new data tibble called <code>mlo_seas</code>, from
+the original <code>mlo_data</code>, which only has two columns: <code>date</code> and
+<code>co2_seas</code>, where <code>co2_seas</code> is a renamed version of <code>co2_filled_seas</code> from the
+original tibble.</p>
+<pre class="r"><code>mlo_seas = mlo_data %&gt;% select(date, co2_seas = co2_filled_seas)</code></pre>
+<p>Now plot this with <code>co2_seas</code> on the <em>y</em> axis and <code>date</code> on the <em>x</em> axis,
+and a linear fit:</p>
+<pre class="r"><code>mlo_seas %&gt;% ggplot(aes(x = date, y = co2_seas)) + 
+  geom_line(size = 1) +
+  geom_smooth(method = &quot;lm&quot;) +
+  labs(x = &quot;Year&quot;, y = &quot;CO2 (seasonally adjusted)&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_02_answers_files/figure-html/plot_mlo_seas-1.png" width="672" /></p>
+<p>Now fit a linear function to find the annual trend of <code>co2_seas</code>. Save
+the results of your fit in a variable called <code>fit_seas</code>, and extract the
+trend in CO<sub>2</sub> concentration to a variable called <code>trend_seas</code>.</p>
+<pre class="r"><code>fit_seas = lm(co2_seas ~ date, data = mlo_seas)
+trend_seas = coef(fit_seas)[&#39;date&#39;]</code></pre>
+<p>Compare the trend you fit to the seasonally adjusted data to the trend of the
+raw <code>co2_filled</code> data, from the workecd exampled.
+You can get the trend for the worked example from the variable <code>co2_fit</code>,
+which was defined above, in the code chunk <code>calc_mlo_trend</code>.</p>
+<p><strong>Answer:</strong>
+The trend in the seasonally adjusted data (<code>trend_seas</code>) is
+1.60 ppm CO2 per year, which is very
+close to the trend we fit to the raw data
+(<code>co2_trend</code> = 1.60).</p>
+</div>
+<div id="exercises-with-global-temperature-data-from-nasa" class="section level2">
+<h2>Exercises with Global Temperature Data from NASA</h2>
+<p>We can also download a data set from NASA’s Goddard Institute for Space Studies
+(GISS), which contains the average global temperature from 1880 through the
+present.</p>
+<p>The URL for the data file is stored in the variable <code>giss_url</code> so you
+don’t have to type it in here.</p>
+<p>Download this file and save it in the directory
+<code>_data/global_temp_land_sea.csv</code>.
+You may want to use <code>if (! file.exists(...))</code>, as in the example above of
+downloading the CO<sub>2</sub> data, to avoid downloading the
+file again if it already exists in your <code>_data</code> directory.</p>
+<pre class="r"><code>if (!file.exists(&#39;_data/global_temp_land_sea.csv&#39;)) {
+  download.file(giss_url, &#39;_data/global_temp_land_sea.csv&#39;)
+}</code></pre>
+<p>Now read the file into R, using the <code>read_csv</code> function, and assign
+the resulting tibble to a variable <code>giss_temp</code></p>
+<pre class="r"><code>giss_temp = read_csv(&quot;_data/global_temp_land_sea.csv&quot;, skip = 1,
+                     col_names = TRUE, na = &#39;***&#39;)</code></pre>
+<p>The code below shows the first 5 lines of the resulting tibble, so you
+can see what it looks like:</p>
+<pre class="r"><code>head(giss_temp, 5)</code></pre>
+<pre><code>## # A tibble: 5 x 19
+##    Year   Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  1880 -0.17 -0.24 -0.08 -0.15 -0.09 -0.2  -0.17 -0.09 -0.14 -0.23 -0.21 -0.17
+## 2  1881 -0.19 -0.13  0.04  0.06  0.07 -0.18  0.01 -0.03 -0.15 -0.21 -0.18 -0.06
+## 3  1882  0.17  0.14  0.05 -0.15 -0.13 -0.22 -0.16 -0.07 -0.15 -0.23 -0.16 -0.36
+## 4  1883 -0.29 -0.36 -0.12 -0.18 -0.17 -0.06 -0.07 -0.13 -0.22 -0.11 -0.24 -0.11
+## 5  1884 -0.13 -0.08 -0.36 -0.4  -0.33 -0.34 -0.32 -0.27 -0.27 -0.25 -0.33 -0.3 
+## # ... with 6 more variables: `J-D` &lt;dbl&gt;, `D-N` &lt;dbl&gt;, DJF &lt;dbl&gt;, MAM &lt;dbl&gt;,
+## #   JJA &lt;dbl&gt;, SON &lt;dbl&gt;</code></pre>
+<p>Let’s focus on the months only. Use <code>select</code> to select just the columns for
+“Year” and January through December (if you are selecting a consecutive range
+of columns between “Foo” and “Bar” in the tibble <code>df</code>, you can call
+<code>select(df, Foo:Bar)</code> or <code>df %&gt;% select(Foo:Bar)</code>).
+Save the result in a variable called <code>giss_monthly</code></p>
+<pre class="r"><code>giss_monthly = giss_temp %&gt;% select(Year:Dec)</code></pre>
+<p>Use <code>pivot_longer</code> to organize the data to have three columns:
+one for the year, one for the name of the month, and one for the
+temperature anomaly in that month.
+Store the result in a new variable called <code>giss_g</code></p>
+<pre class="r"><code>  giss_g = pivot_longer(giss_monthly, cols = -Year, names_to = &quot;month&quot;, 
+                        values_to = &quot;anomaly&quot;)</code></pre>
+<p>The following command will convert the <code>month</code> column in <code>giss_g</code> into an
+ordered factor that uses the integer values 1, 2, …, 12 to stand for
+“Jan”, “Feb”, …, “Dec”, and then uses those integer values to create a new
+column, <code>date</code> that holds the fractional year, just as the <code>date</code> column in
+<code>mlo_data</code> did:</p>
+<pre class="r"><code>giss_g = giss_g %&gt;% 
+  mutate(month = factor(month, levels = month.abb, ordered = TRUE),
+         date = Year + (as.integer(month) - 0.5) / 12) %&gt;% 
+  arrange(date)`</code></pre>
+<p>Then we create a new column called <code>date</code> to get the fractional year
+corresponding to that month. We have to explicitly convert the ordered factor
+into a number using the function <code>as.integer()</code>, and we subtract 0.5 because
+the time that corresponds to the average temperature for the month is the
+middle of the month.</p>
+<p>Below, use code similar to what I put above to add a new <code>date</code> column to
+<code>giss_g</code>.</p>
+<pre class="r"><code>giss_g = giss_g %&gt;%
+  mutate(month = factor(month, levels = month.abb, ordered = TRUE),
+         date = Year + (as.integer(month) - 0.5) / 12) %&gt;%
+  arrange(date)</code></pre>
+<p>Now plot the monthly temperature anomalies versus date:</p>
+<pre class="r"><code>ggplot(giss_g, aes(x = date, y = anomaly) ) + 
+  geom_line(size = 1) + 
+  labs(x = &quot;Year&quot;, y = &quot;Temperature anomaly (C)&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_02_answers_files/figure-html/plot_giss-1.png" width="672" /></p>
+<p>Make a new plot in which you plot a thin blue line for the monthly anomaly
+(use <code>geom_line(aes(y = anomaly), color = "blue", alpha = 0.3, size = 0.1)</code>;
+alpha is an optional specification for transparency where 0 means invisible
+(completely transparent) and 1 means opaque),
+a medium dark green line for the one-year sliding average,
+and a thick dark blue line for the ten-year sliding average.</p>
+<pre class="r"><code>giss_g %&gt;%
+  mutate(smooth_1 = slide_vec(anomaly, mean, .before = 5, .after = 6),
+         smooth_10 = slide_vec(anomaly, mean, .before = 59, .after = 60)) %&gt;%
+  ggplot(aes(x = date)) +
+  geom_line(aes(y = anomaly), alpha = 0.3, size = 0.1, color = &quot;blue&quot;) +
+  geom_line(aes(y = smooth_1), alpha = 0.6, size = 0.6, color = &#39;darkgreen&#39;) +
+  geom_line(aes(y = smooth_10), alpha = 1, size = 1, color = &quot;darkblue&quot;) +
+  labs(x = &quot;Year&quot;, y = &quot;Temperature anomaly (C)&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_02_answers_files/figure-html/plot_giss_with_smoothing-1.png" width="672" /></p>
+<p>The graph shows that temperature didn’t show a steady trend until starting
+around 1970, so we want to isolate the data starting in 1970 and fit a linear
+trend to it.</p>
+<p>Below, create a new variable <code>giss_recent</code> and assign it a subset of <code>giss_g</code>
+that has all the data from January 1970 through the present. Fit a linear trend
+to the monthly anomaly and report it.</p>
+<p><strong>What is the average change in temperature from one year to the next?</strong></p>
+<pre class="r"><code>giss_recent = giss_g %&gt;% filter(Year &gt;= 1970)
+temp_fit = lm(anomaly ~ date, data = giss_recent)
+temp_trend = coef(temp_fit)[&quot;date&quot;]</code></pre>
+<p><strong>Answer:</strong> On average, the temperature rose by
+0.019 degree Celsius per year.</p>
+<div id="did-global-warming-stop-after-1998" class="section level3">
+<h3>Did Global Warming Stop after 1998?</h3>
+<p>It is a common skeptic talking point that global warming stopped in 1998.
+In years with strong El Niños, global temperatures tend to be higher
+and in years with strong La Niñas, global temperatures tend to be lower.
+We will discuss why later in the semester.</p>
+<p>The year 1998 had a particularly strong El Niño, and the year set a
+record for global temperature that was not exceeded for several years. Indeed,
+compared to 1998, it might look as though global warming paused for many years.</p>
+<p>We will examine whether this apparent pause has scientific validity.</p>
+<p>To begin with, we will take the monthly GISS temperature data and convert it to
+annual average temperatures, so we can deal with discrete years, rather than
+separate temperatures for each month.</p>
+<p>We do this with the <code>group_by</code> and <code>summarize</code> functions (see the
+examples and explanation in the worked examples document).</p>
+<p>We also want to select only recent data, so we arbitrarily say we will look at
+temperatures starting in 1979, which gives us 19 years before the 1998
+El Ni˜o.</p>
+<p>If we go back to the original <code>giss_g</code> data tibble, run the following code:</p>
+<pre class="r"><code>giss_annual = giss_g %&gt;%
+  filter(Year &gt;= 1979) %&gt;%
+  group_by(Year) %&gt;%
+  summarize(anomaly = mean(anomaly)) %&gt;%
+  ungroup() %&gt;%
+  mutate(date = Year + 0.5, before = Year &lt; 1998)</code></pre>
+<p>Now plot the data and color the points for 1998 and afterward dark red to
+help us compare before and after 1998.</p>
+<pre class="r"><code>ggplot(giss_annual, aes(x = date, y = anomaly)) +
+  geom_line(size = 1) +
+  geom_point(aes(color = before), size = 3) +
+  scale_color_manual(values = c(&quot;TRUE&quot; = &quot;darkblue&quot;, &quot;FALSE&quot; = &quot;darkred&quot;),
+                     guide = &quot;none&quot;) +
+  # ^^^ color &quot;before&quot; points dark blue, &quot;after&quot; points dark red.
+  # guide = &quot;none&quot; tells ggplot not to show a legend explaining the colors.
+  labs(x = &quot;Year&quot;, y = &quot;Temperature Anomaly&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_02_answers_files/figure-html/plot_recent_giss-1.png" width="672" /></p>
+<p>Does it look as though the red points are not rising as fast as the blue points?</p>
+<p>Let’s just plot the data from the years 1998–2011. Use the <code>filter</code> function
+to select just the date from the years 1998–2011 and pass that to <code>ggplot</code>.</p>
+<pre class="r"><code>  giss_annual %&gt;% filter(Year &gt;= 1998, Year &lt;= 2011) %&gt;%
+  ggplot(aes(x = date, y = anomaly)) +
+  geom_line(size = 1) +
+  geom_point(aes(color = before), size = 3) +
+  scale_color_manual(values = c(&quot;TRUE&quot; = &quot;darkblue&quot;, &quot;FALSE&quot; = &quot;darkred&quot;),
+                     guide = &quot;none&quot;) +
+  # ^^^ color &quot;before&quot; points dark blue, &quot;after&quot; points dark red.
+  # guide = &quot;none&quot; tells ggplot not to show a legend explaining the colors.
+  labs(x = &quot;Year&quot;, y = &quot;Temperature Anomaly&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_02_answers_files/figure-html/plot_pause-1.png" width="672" /></p>
+<p>Now how does it look?</p>
+<p>Let’s use the <code>filter</code> function to break the data into two different data sets,
+which we will store in tibbles called <code>giss_before</code> and <code>giss_after</code>:
+<code>giss_before</code> will have the data from 1979–1998 and the other,
+<code>giss_after</code> will have the data from 1998 onward
+(note that the year 1998 appears in both data sets).</p>
+<p>Also, use the <code>mutate</code> function to add a column called <code>timing</code> to each of the
+split data sets and set the value of this column to “Before” for <code>giss_before</code>
+and “After” for <code>giss_after</code>.</p>
+<pre class="r"><code>giss_before = giss_annual %&gt;% filter(Year &lt;= 1998) %&gt;%
+  mutate(timing = &quot;Before&quot;)
+giss_after = giss_annual %&gt;% filter(Year &gt;= 1998) %&gt;%
+  mutate(timing = &quot;After&quot;)</code></pre>
+<p>Now use <code>lm</code> to find the trend in temperature data in <code>giss_before</code>
+(from 1979–1998) and assign it to a variable <code>giss_trend</code>.</p>
+<pre class="r"><code>fit_before = lm(anomaly ~ Year, data = giss_before)
+fit_after = lm(anomaly ~ Year, data = giss_after)
+trend_before = coef(fit_before)[&#39;Year&#39;]
+trend_after = coef(fit_after)[&#39;Year&#39;]</code></pre>
+<p>Next, combine the two data frames (or tibbles) into one,
+using the <code>bind_rows</code> function.
+If you have created the data frames <code>giss_before</code> and <code>giss_after</code>, then you
+can un-comment the code below to combine them.</p>
+<pre class="r"><code>giss_combined = bind_rows(giss_before, giss_after)</code></pre>
+<p>Now let’s use ggplot to plot <code>giss_combined</code>:</p>
+<ul>
+<li>Aesthetic mapping:
+<ul>
+<li>Use the <code>date</code> column for the <em>x</em> variable.</li>
+<li>Use the <code>anomaly</code> column for the <em>y</em> variable.</li>
+<li>Use the <code>timing</code> column to set the color of plot elements</li>
+</ul></li>
+<li>Plot both lines and points.
+<ul>
+<li>Set the <code>size</code> of the lines to 1</li>
+<li>Set the <code>size</code> of the points to 2</li>
+</ul></li>
+<li>Use the <code>scale_color_manual</code> function to set the color of
+“Before” to “darkblue” and “After” to “darkred”</li>
+<li>Use <code>geom_smooth(data = giss_before, method="lm",    color = "blue", fill = "blue", alpha = 0.2, fullrange = TRUE)</code>
+to show a linear trend that is fit just to the <code>giss_before</code> data.</li>
+</ul>
+<pre class="r"><code>ggplot(giss_combined, aes(x = date, y = anomaly, color = timing)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  geom_smooth(data = giss_before, method = &quot;lm&quot;, color = &quot;blue&quot;,
+              fill = &quot;blue&quot;, alpha = 0.2, fullrange = TRUE) +
+  scale_color_manual(values = c(Before = &quot;darkblue&quot;, After = &quot;darkred&quot;)) +
+  labs(x = &quot;Year&quot;, y = &quot;Temperature anomaly&quot;)</code></pre>
+<p><img src="/lab_solutions/lab_02_answers_files/figure-html/plot_combined-1.png" width="672" /></p>
+<p>If the temperature trend changed after 1998 (e.g., if the warming paused, or if
+it reversed and started cooling) then we would expect the temperature
+measurements after 1998 to fall predominantly below the extrapolated trend line,
+and our confidence that the trend had changed would depend on the number of
+points that fall below the shaded uncertainty range.</p>
+<p>How many of the red points fall below the trend line?</p>
+<p><strong>Answer:</strong> Out of 24 red points (the years 1998–2021), four fall below the
+trend line</p>
+<p>How many of the red points fall above the trend line?</p>
+<p><strong>Answer:</strong> 20 of the 24 red points fall above the trend line.</p>
+<p>If we just look at the years 1998–2012, how many of the red points
+fall above vs. below the trend line?</p>
+<p><strong>Answer:</strong> In the 15 years from 1998–2012, 4 points fall below the trend line
+and 11 fall above it.</p>
+<p>What do you conclude about whether global warming paused or stopped for several
+years after 1998?</p>
+<p><strong>Answer:</strong> Even if we just look at the years 1998–2012, it is clear that most
+years were warmer than we would have expected if the warming had followed its
+historical trend from 1979–1998. This means that if anything, the earth was
+warming faster than before—the opposite of pausing or stopping. After
+2012, all of the points are above the trend line. Most of them are far above it.
+So there is no reasonable way to look at this data and conclude that it stopped
+warming, or even paused temporarily, after 1998.</p>
+</div>
+</div>
+</div>
+<div id="exercises-for-part-2" class="section level1">
+<h1>Exercises for Part 2</h1>
+<ul>
+<li><strong>All students</strong> do Chapter 3, exercises 2–3.</li>
+<li><strong>Graduate students</strong> should also do Chapter 3, exercise 1.</li>
+</ul>
+<p>For the exercises, use the following numbers:</p>
+<ul>
+<li>I<sub>solar</sub> = 1350 W/m<sup>2</sup></li>
+<li><span class="math inline">\(\sigma = 5.67 \times 10^{-8}\)</span></li>
+<li><span class="math inline">\(\alpha = 0.30\)</span></li>
+<li><span class="math inline">\(\varepsilon = 1.0\)</span></li>
+</ul>
+<pre class="r"><code>I_solar = 1350
+sigma = 5.67E-8
+alpha = 0.30
+epsilon = 1.0</code></pre>
+<div id="exercise-3.1-grad.-students-only" class="section level2">
+<h2>Exercise 3.1 (Grad. students only)</h2>
+<blockquote>
+<p><strong>The moon with no heat transport.</strong> The Layer Model assumes that the
+temperature of the body in space is all the same. This is not really very
+accurate, as you know that it is colder at the poles than it is at the equator.
+For a bare rock with no atmosphere or ocean, like the moon, the situation is
+even worse because fluids like air and water are how heat is carried around on
+the planet. So let us make the other extreme assumption, that there is no heat
+transport on a bare rock like the moon. Assume for comparability that the
+albedo of this world is 0.30, same as Earth’s.</p>
+<p>What is the equilibrium temperature of the surface of the moon, on the equator,
+at local noon, when the sun is directly overhead? (Hint: First figure out the
+intensity of the local solar radiation I<sub>solar</sub>)</p>
+</blockquote>
+<p>At the equator of the moon at noon, the intensity is just
+<span class="math inline">\((1 - \alpha_{\text{moon}} I_{\text{solar}}\)</span>.
+The factor of <span class="math inline">\(1/4\)</span> that we use for the earth’s average temperature is
+to account for the fact that we’re averaging the intensity over the whole
+planet, including the polar regions and the night-time side. But for the
+equator at noon, we are only looking at the place where the sun is
+directly overhead, so we don’t need a geometrical factor.</p>
+<pre class="r"><code>albedo_moon = 0.3
+epsilon_moon = 1
+I_moon = I_solar * (1 - albedo_moon)
+T_moon = (I_moon / (epsilon_moon * sigma))^0.25</code></pre>
+<p><strong>Answer:</strong> The temperature of the equator of the moon at noon is
+359.3 K.</p>
+<blockquote>
+<p>What is the equilibrium temperature on the dark side of the moon?</p>
+</blockquote>
+<p><strong>Answer:</strong> The intensity of sunlight on the dark side of the moon is zero, so
+the temperature would be zero Kelvin.</p>
+</div>
+<div id="exercise-3.2" class="section level2">
+<h2>Exercise 3.2</h2>
+<blockquote>
+<p><strong>A Two-Layer Model.</strong> Insert another atmospheric layer into the model, just
+like the first one. The layer is transparent to visible light but a blackbody
+for infrared.</p>
+</blockquote>
+<pre class="r"><code>make_layer_diagram(2)</code></pre>
+<div class="figure">
+<img src="/lab_solutions/lab_02_answers_files/figure-html/two_layer_figure-1.png" alt="An energy diagram for a planet with two panes of glass for an atmosphere. The intensity of absorbed visible light is $(1 - \alpha) I_{solar} / 4$." width="672" />
+<p class="caption">
+(#fig:two_layer_figure)An energy diagram for a planet with two panes of glass for an atmosphere. The intensity of absorbed visible light is <span class="math inline">\((1 - \alpha) I_{solar} / 4\)</span>.
+</p>
+</div>
+<blockquote>
+<ol style="list-style-type: lower-alpha">
+<li>Write the energy budgets for both atmospheric layers, for the ground, and
+for the Earth as a whole, like we did for the One-Layer Model.</li>
+</ol>
+</blockquote>
+<p><strong>Answer:</strong></p>
+<p>At each layer, calculate the heat in (in the diagram, this is the sum of
+all the intensities with arrows that end at the atmospheric layer) and the
+heat out (the sum of all the intensities that start at the atmospheric
+layer and have arrows pointing away from it).</p>
+<ul>
+<li>Top of the atmosphere:
+<span class="math inline">\(I_{2,\text{up}} = I_{\text{visible}} = (1 - \alpha) I_{\text{solar}} / 4\)</span></li>
+<li>Layer 2:
+<span class="math inline">\(I_{1,\text{up}} = I_{2,\text{up}} + I_{2,\text{down}}\)</span></li>
+<li>Layer 1:
+<span class="math inline">\(I_{\text{ground,up}} + I_{2,\text{down}} = I_{1,\text{up}} + I_{1,\text{down}}\)</span></li>
+<li>Ground:
+<span class="math inline">\(I_{\text{ground,up}} = I_{\text{visible}} + I_{1,\text{down}}\)</span></li>
+</ul>
+<blockquote>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Manipulate the budget for the Earth as a whole to obtain the temperature
+T<sub>2</sub> of the top atmospheric layer, labeled Atmospheric Layer 2 in the figure
+above. Does this part of the exercise seem familiar in any way? Does the term
+ring any bells?</li>
+</ol>
+</blockquote>
+<p>Top of the atmosphere:</p>
+<p><span class="math display">\[\begin{align*}
+I_{2,\text{up}} &amp;= I_{\text{visible}} = (1 - \alpha) I_{\text{solar}} / 4\\
+I_{2,\text{up}} &amp;= \varepsilon \sigma T_2^4\\
+T_2 &amp;= \sqrt[4]{\frac{(I_{2,\text{up}}}{\varepsilon \sigma}} \\
+    &amp;= \sqrt[4]{\frac{(1 - \alpha) I_{\text{solar}}}{4 \varepsilon \sigma}}
+\end{align*}\]</span></p>
+<p>This is the same as the bare-rock temperature.</p>
+<pre class="r"><code>I_visible = (1 - alpha) * I_solar / 4
+I_2_up = I_visible
+T_2 = (I_2_up / (epsilon * sigma))^0.25</code></pre>
+<p><strong>Answer:</strong> The temperature of layer 2 is 254.1 K,
+which is the same as the bare-rock temperature. In layer models, the top layer
+of the atmosphere is <em>always</em> the bare-rock temperature.</p>
+<blockquote>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Insert the value you found for T<sub>2</sub> into the energy budget for layer 2, and
+solve for the temperature of layer 1 in terms of layer 2. How much bigger is
+T<sub>1</sub> than T<sub>2</sub>?</li>
+</ol>
+</blockquote>
+<p>From the energy budget for Layer 2,
+I<sub>1,up</sub> = I<sub>2,up</sub> + I<sub>2,down</sub>.
+The temperature of the bottom of the layer is the same as the temperature for
+the top of the layer, so I<sub>2,down</sub> = I<sub>2,up</sub></p>
+<pre class="r"><code>I_1_up = 2 * I_2_up
+T_1 = (I_1_up / (epsilon * sigma))^0.25</code></pre>
+<p>You could also let R do more of the work for you by writing</p>
+<pre class="r"><code>I_2_down = I_2_up
+I_1_up = I_2_up + I_2_down
+T_1 = (I_1_up / (epsilon * sigma))^0.25</code></pre>
+<p><strong>Answer:</strong> The temperature of layer 1 is 302.1 K.
+This is the same as the ground temperature in a 1-layer model.</p>
+<blockquote>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Now insert the value you found for T<sub>1</sub> into the budget for atmospheric
+layer 1 to obtain the temperature of the ground, T<sub>ground</sub>. Is the greenhouse
+effect stronger or weaker because of the second layer?</li>
+</ol>
+</blockquote>
+<p>From the energy budget for layer 1,</p>
+<ul>
+<li>I<sub>ground,up</sub> + I<sub>2,down</sub> = I<sub>1,up</sub> + I<sub>1,down</sub></li>
+<li>I<sub>ground,up</sub> = I<sub>1,up</sub> + I<sub>1,down</sub> - I<sub>2,down</sub></li>
+<li>I<sub>1,down</sub> = I<sub>1,up</sub> and I<sub>2,down</sub> = I<sub>2,up</sub></li>
+<li>so I<sub>ground,up</sub> = 2 * I<sub>1,up</sub> - I<sub>2,up</sub></li>
+</ul>
+<pre class="r"><code>I_ground_up = 2 * I_1_up - I_2_up
+T_ground = (I_ground_up / (epsilon * sigma))^0.25</code></pre>
+<p>Again, you could let R do more of the work for you by writing</p>
+<pre class="r"><code>I_1_down = I_1_up
+I_ground_up = I_1_down + I_1_up - I_2_down
+T_ground = (I_ground_up / (epsilon * sigma))^0.25</code></pre>
+<p><strong>Answer:</strong> T<sub>ground</sub> = 334.4 K.</p>
+<p>We can also use algebra to observe that</p>
+<p><span class="math display">\[\begin{align*}
+I_{\text{ground,up}} &amp;= 2 * I_{1,\text{up}} - I_{2,\text{up}} \\
+I_{2,\text{up}} &amp;= 2 I_{2,\text{up}} \\
+\intertext{so} 
+I_{\text{ground,up}} &amp;= 4 I_{2,\text{up}} - I_{2,\text{up}} \\
+                     &amp;= 3 I_{2,\text{up}} \\
+T_{\text{ground}} &amp;= \sqrt[4]{\frac{3 I_{2,\text{up}}}{\varepsilon \sigma}} \\
+                  &amp;= \sqrt[4]{3} T_{\text{bare rock}}.
+\end{align*}\]</span></p>
+<p>In a 1-layer model, the ground temperature was 2<sup>0.25</sup> times the bare-rock
+temperature, and in a 2-layer model, the bround temperature is 3<sup>0.25</sup> times
+the bare-rock temperature.</p>
+</div>
+<div id="exercise-3.3" class="section level2">
+<h2>Exercise 3.3</h2>
+<pre class="r"><code>make_nuclear_winter_diagram()</code></pre>
+<div class="figure">
+<img src="/lab_solutions/lab_02_answers_files/figure-html/nuclear_winter_diagram-1.png" alt="An energy diagram for a planet with an opaque pane of glass for an atmosphere. The intensity of absorbed visible light is $(1 - \alpha) I_{solar} / 4$." width="672" />
+<p class="caption">
+(#fig:nuclear_winter_diagram)An energy diagram for a planet with an opaque pane of glass for an atmosphere. The intensity of absorbed visible light is <span class="math inline">\((1 - \alpha) I_{solar} / 4\)</span>.
+</p>
+</div>
+<blockquote>
+<p><strong>Nuclear Winter.</strong> Let us go back to the One-Layer Model but change it so
+that the atmospheric layer absorbs visible light rather than allowing it to
+pass through (See the figure above). This could happen if the upper atmosphere
+were filled with dust. For simplicity, assume that the albedo of the Earth
+remains the same, even though in the real world it might change with a dusty
+atmosphere.&gt; What is the temperature of the ground in this case?</p>
+</blockquote>
+<p><strong>Answer:</strong>
+Here, the key difference is that the heat from the sun is absorbed by the
+atmosphere instead of passing through the atmosphere to the ground.</p>
+<p>The equation for the atmosphere is the same as in the 1-layer model because
+we use the energy balance at the boundary to space:
+<span class="math inline">\(I_{\text{atm, up}} = I_{\text{visible}} = (1 - \alpha) I_{\text{solar}} / 4\)</span>
+and the temperature of the atmosphere is the bare-rock temperature, just as
+the top layer of the atmosphere is for every layer model.</p>
+<p>However, things are different at the ground. The energy balance at the
+dusty atmosphere is</p>
+<ul>
+<li>I<sub>visible</sub> + I<sub>ground,up</sub> = I<sub>atm,up</sub> + I<sub>atm,down</sub></li>
+<li>I<sub>ground,up</sub> = I<sub>atm,up</sub> + I<sub>atm,down</sub> - I<sub>visible</sub></li>
+<li>But I<sub>atm,up</sub> = I<sub>atm,down</sub> = I<sub>visible</sub></li>
+<li>So I<sub>ground,up</sub> = I<sub>atm,up</sub>.</li>
+<li>This means that T<sub>ground</sub> = T<sub>atmosphere</sub> = T<sub>bare-rock</sub>.</li>
+</ul>
+<pre class="r"><code>I_visible = (1 - alpha) * I_solar / 4
+I_atm_up = I_visible
+I_atm_down = I_visible
+I_ground_up = I_atm_up + I_atm_down - I_visible
+T_ground = (I_ground_up / (epsilon * sigma))^0.25</code></pre>
+<p>T_ground = 254.1 K. This is the same as the
+bare-rock temperature.</p>
+<p>The effect of the dust in the atmosphere is to cancel out the greenhouse effect
+and cool off the surface to the bare-rock temperature.
+The greenhouse effect works because the atmosphere is transparent to shortwave
+light and opaque to longwave light. If the atmosphere becomes opaque to
+shortwave light, then the greenhouse effect doesn’t work.</p>
+</div>
+</div>

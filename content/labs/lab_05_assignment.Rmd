@@ -3,6 +3,7 @@ title: Clouds and Climate Feedbacks
 lab_date: '2022-02-21'
 report_due_date: 2022-03-02 09:00:00
 lab_number: 5
+github_classroom_assignment_url: https://classroom.github.com/a/uihEGvG5
 pubdate: '2021-12-31'
 date: '2022-02-21'
 slug: lab_05
@@ -21,5 +22,4 @@ This lab will explore clouds and feedbacks in the climate system.
 * [Instructions for Lab #5: Clouds and Feedbacks](/lab_docs/lab_05_instructions){target="_blank"}
 
 ## Assignment
-
-The GitHub Classroom has not been posted yet.
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/uihEGvG5>.
