@@ -174,62 +174,7 @@
 </ul>
 </li>
 </ul></section></section><section id="q-carbon-cycle" class="title-slide slide level1 center"><h1 class="center">Questions about Carbon Cycle?</h1>
-<!--
-# Questions about MODTRAN? {#q-modtran .center}
 
-
-## MODTRAN: {.ninetyfive}
-
-* MODTRAN calculates _emissions_ and _absorption_ of longwave light in the 
-  atmosphere.
-* {+} Things that don't change during a run:
-  * Heat from the sun
-    * Set by "locality" of the atmosphere
-  * Temperature of the ground and every layer of the atmosphere.
-    * Set by "locality" of the atmosphere and "temperature offset"
-    
-      ::: {.eighty .mtop-1 .leftslide}
-      | Locale | I~out~ (W/m^2^) | T~ground~ (K) |
-      |:------:|----------------:|--------------:|
-      | U.S. Standard Atmosphere | 267.98 | 288.2 |
-      | Tropical | 298.67 | 299.7 |
-      | Midlatitude winter | 235.34 | 272.2 |
-      :::
-
-* {+} For every wavenumber, MODTRAN calculates heat emission and absorption up and 
-  down at each layer.
-
-## MODTRAN: {.ninetyfive}
-
-:::::: {.columns .ninety}
-::: {.column}
-* Emissivity ($\varepsilon$) = absorption
-  * {+} Fraction absorbed by layer $= \varepsilon$
-  * {+} Radiation emitted by layer $= \varepsilon \sigma T^4$
-* {+} $\varepsilon$ small (near zero): 
-  * Little absorption or emission.
-* {+} $\varepsilon$ large (near one): 
-  * Almost all incoming radiation is absorbed
-  * Emission close to black body at temperature _T_.
-* {+} $\varepsilon$ is large for wavenumbers where greenhouse gases absorb
-  strongly.
-  * Greater concentration $\rightarrow$ larger $\varepsilon$
-* {+} $\varepsilon$ is small where there is little absorption
-  * Atmospheric window
-:::
-::: {.column}
-* {+} **Looking down from space:**
-  * You see emission at the temperature of the **_highest layer_ with large $\varepsilon$**.
-  * {+} In atmospheric window, that layer is near the ground
-  * {+} With clouds, it's the top of the highest cloud
-* {+} **Looking up from ground:**
-  * You see emission at the temperature of the **_lowest layer_ with large $\varepsilon$**.
-  * {+} In atmospheric window, there's no such layer, so you see very little emission
-    * You're seeing emission from outer space, which is very cold.
-  * {+} With clouds, it's the bottom of the lowest cloud
-:::
-::::::
--->
 </section><section><section id="abrupt-sec" class="title-slide slide level1 center"><h1 class="center">Abrupt Climate Change</h1>
 
 </section><section id="abrupt-1" class="slide level2" data-transition="fade-out"><h2 data-transition="fade-out">Abrupt Climate Change</h2>
@@ -325,6 +270,111 @@
 </ul>
 </li>
 </ul>
+</div>
+</section></section><section><section id="q-modtran" class="title-slide slide level1 center"><h1 class="center">Questions about MODTRAN?</h1>
+
+</section><section id="modtran" class="slide level2 ninetyfive"><h2 class="ninetyfive">MODTRAN:</h2>
+<ul>
+<li>MODTRAN calculates <em>emissions</em> and <em>absorption</em> of longwave light in the atmosphere.</li>
+<li class="fragment">Things that don’t change during a run:<ul>
+<li>Heat from the sun
+<ul>
+<li>Set by “locality” of the atmosphere</li>
+</ul>
+</li>
+<li>Temperature of the ground and every layer of the atmosphere.
+<ul>
+<li>
+<p>Set by “locality” of the atmosphere and “temperature offset”</p>
+<div class="eighty mtop-1 leftslide">
+<table>
+<thead><tr class="header">
+<th style="text-align: center;">Locale</th>
+<th style="text-align: right;">I<sub>out</sub> (W/m<sup>2</sup>)</th>
+<th style="text-align: right;">T<sub>ground</sub> (K)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">U.S. Standard Atmosphere</td>
+<td style="text-align: right;">267.98</td>
+<td style="text-align: right;">288.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Tropical</td>
+<td style="text-align: right;">298.67</td>
+<td style="text-align: right;">299.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Midlatitude winter</td>
+<td style="text-align: right;">235.34</td>
+<td style="text-align: right;">272.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="fragment">For every wavenumber, MODTRAN calculates heat emission and absorption up and down at each layer.</li>
+</ul></section><section id="modtran-1" class="slide level2 ninetyfive"><h2 class="ninetyfive">MODTRAN:</h2>
+<div class="columns ninety">
+<div class="column">
+<ul>
+<li>Emissivity (<span class="math inline">\(\varepsilon\)</span>) = absorption
+<ul>
+<li class="fragment">Fraction absorbed by layer <span class="math inline">\(= \varepsilon\)</span>
+</li>
+<li class="fragment">Radiation emitted by layer <span class="math inline">\(= \varepsilon \sigma T^4\)</span>
+</li>
+</ul>
+</li>
+<li class="fragment"><span class="math inline">\(\varepsilon\)</span> small (near zero):
+<ul>
+<li>Little absorption or emission.</li>
+</ul>
+</li>
+<li class="fragment"><span class="math inline">\(\varepsilon\)</span> large (near one):
+<ul>
+<li>Almost all incoming radiation is absorbed</li>
+<li>Emission close to black body at temperature <em>T</em>.</li>
+</ul>
+</li>
+<li class="fragment"><span class="math inline">\(\varepsilon\)</span> is large for wavenumbers where greenhouse gases absorb strongly.
+<ul>
+<li>Greater concentration <span class="math inline">\(\rightarrow\)</span> larger <span class="math inline">\(\varepsilon\)</span>
+</li>
+</ul>
+</li>
+<li class="fragment"><span class="math inline">\(\varepsilon\)</span> is small where there is little absorption
+<ul>
+<li>Atmospheric window</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column">
+<ul>
+<li class="fragment"><strong>Looking down from space:</strong>
+<ul>
+<li>You see emission at the temperature of the <strong><em>highest layer</em> with large <span class="math inline">\(\varepsilon\)</span></strong>.</li>
+<li class="fragment">In atmospheric window, that layer is near the ground</li>
+<li class="fragment">With clouds, it’s the top of the highest cloud</li>
+</ul>
+</li>
+<li class="fragment"><strong>Looking up from ground:</strong>
+<ul>
+<li>You see emission at the temperature of the <strong><em>lowest layer</em> with large <span class="math inline">\(\varepsilon\)</span></strong>.</li>
+<li class="fragment">In atmospheric window, there’s no such layer, so you see very little emission<ul>
+<li>You’re seeing emission from outer space, which is very cold.</li>
+</ul>
+</li>
+<li class="fragment">With clouds, it’s the bottom of the lowest cloud</li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 </section></section>
 </div>
