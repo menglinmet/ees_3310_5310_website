@@ -63,6 +63,7 @@ lessons:
 - date: '2022-02-21'
   title: The Pleistocene Ice Ages
   reading: /reading/reading_15
+  lecture: /slides/class_15
   lab: lab_05
 - date: '2022-02-23'
   title: Climate Models
