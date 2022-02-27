@@ -33,3 +33,9 @@ Something too note:
 
 ## Assignment
 Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/kALyEIGJ>.
+
+## Solutions
+
+**Solutions for Lab Exercises**:
+
+* [Lab #4 Answers](/lab_solutions/lab_04_answers){target="_blank"}

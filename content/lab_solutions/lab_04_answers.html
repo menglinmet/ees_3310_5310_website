@@ -1,0 +1,646 @@
+---
+title: 'Lab #4 Answers'
+lab_number: 4
+lab_date: '2022-02-14'
+sol_date: '2022-02-27'
+pubdate: '2022-02-27'
+date: '2022-02-23'
+pdf_url: /files/lab_solutions/lab_04/lab_04_answers.pdf
+slug: lab_04_answers
+output:
+  blogdown::html_page:
+    md_extensions: +tex_math_single_backslash+compact_definition_lists
+    toc: yes
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#general-instructions">General Instructions</a>
+<ul>
+<li><a href="#exercise-1-lapse-rate">Exercise 1: Lapse Rate</a>
+<ul>
+<li><a href="#exercise-1-report">Exercise 1 Report:</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#exercises-on-albedo-and-clouds">Exercises on Albedo and Clouds</a>
+<ul>
+<li><a href="#exercise-2-the-urban-heat-island">Exercise 2: The urban heat island</a>
+<ul>
+<li><a href="#exercise-2-report">Exercise 2 Report:</a></li>
+</ul></li>
+<li><a href="#exercise-3-clouds">Exercise 3: Clouds</a>
+<ul>
+<li><a href="#exercise-3-report">Exercise 3 Report:</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="general-instructions" class="section level1">
+<h1>General Instructions</h1>
+<p>In the past three weeks, we focused on mastering many of the basics of using
+R and RMarkdown. For this week’s lab, when you write up the answers, I would
+like you to think about integrating your R code chunks with your text.</p>
+<p>For instance, you can describe what you’re going to do to answer the question,
+and then for each step, after you describe what you’re going to do in that
+step, you can include an R code chunk to do what you just described, and then
+the subsequent text can either discuss the results of what you just did
+or describe what the next step of the analysis will do.</p>
+<p>This way, your answer can have several small chunks of R code that build on
+each other and follow the flow of your text.</p>
+<p>For this lab, you will use the RRTM model, which includes both radiation and
+convection.</p>
+<div id="exercise-1-lapse-rate" class="section level2">
+<h2>Exercise 1: Lapse Rate</h2>
+<p>Run the RRTM model in its default configuration and then vary the lapse rate
+from 0 to 10 K/km. For each value of the lapse rate, adjust the surface
+temperature until the earth loses as much heat as it gains (i.e., the value of
+<em>Q</em> in the <code>run_rrtm</code> model output is zero.)</p>
+<p>It will probably be easier to do this with the interactive version of the RRTM
+model at <a href="http://climatemodels.uchicago.edu/rrtm/" class="uri">http://climatemodels.uchicago.edu/rrtm/</a> than with the R interface
+<code>run_rrtm</code>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Make a tibble containing the values of the lapse rate and the corresponding
+equilibrium surface temperature, and make a plot with lapse rate on the
+horizontal axis and surface temperature on the vertical axis.</p></li>
+<li><p>Describe how the equilibrium surface temperature varies as the lapse rate
+varies.</p></li>
+</ol>
+<div id="exercise-1-report" class="section level3">
+<h3>Exercise 1 Report:</h3>
+<p>I varied the lapse rate from 0 to 10 Kelvin/km in steps of 1 K/km.
+At each value of the lapse rate, I manually adjusted the surface temperature in
+the interactive RRTM model until the heat budget was balanced (the model
+reported that “If the Earth has these properties … then it loses as much
+energy as it gains.”).</p>
+<pre class="r"><code>lapse_vs_t = tibble( lapse = seq(0, 10),
+                     t_surf = c(256.05, 264.66, 271.65, 276.95, 280.75, 283.15,
+                                284.40, 285.00, 285.25, 285.30, 285.30))
+kable(lapse_vs_t, col.names = c(&quot;Lapse rate&quot;, &quot;Surface temperature&quot;))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Lapse rate</th>
+<th align="right">Surface temperature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">256.05</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">264.66</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">271.65</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">276.95</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="right">280.75</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="right">283.15</td>
+</tr>
+<tr class="odd">
+<td align="right">6</td>
+<td align="right">284.40</td>
+</tr>
+<tr class="even">
+<td align="right">7</td>
+<td align="right">285.00</td>
+</tr>
+<tr class="odd">
+<td align="right">8</td>
+<td align="right">285.25</td>
+</tr>
+<tr class="even">
+<td align="right">9</td>
+<td align="right">285.30</td>
+</tr>
+<tr class="odd">
+<td align="right">10</td>
+<td align="right">285.30</td>
+</tr>
+</tbody>
+</table>
+<p>The figure below shows the results. As the lapse rate increases, the change in
+surface temperature becomes smaller and smaller. At the last step,
+from 9 to 10 K/km, the surface temperature did not change at all.</p>
+<pre class="r"><code>ggplot(lapse_vs_t, aes(x = lapse, y = t_surf)) +
+   geom_line(size = 1, color = &quot;darkblue&quot;) +
+   geom_point(size = 3, color = &quot;darkblue&quot;) +
+   labs(x = &quot;Lapse rate (K/km)&quot;, y = &quot;Ground temperature (K)&quot;)</code></pre>
+<div class="figure"><span style="display:block;" id="fig:ex-1-a-plot"></span>
+<img src="/lab_solutions/lab_04_answers_files/figure-html/ex-1-a-plot-1.png" alt="Equilibrium surface temperature versus lapse rate." width="672" />
+<p class="caption">
+Figure 1: Equilibrium surface temperature versus lapse rate.
+</p>
+</div>
+<div id="explanation" class="section level4">
+<h4><strong>Explanation:</strong></h4>
+<p>Students don’t need to have this detail in their reports, but the reason this
+is happening is that the closer the basic environmental lapse rate gets to the
+dry adiabatic lapse rate, the less stable the atmosphere is and the easier it
+is for solar heating of the surface to set off convection that redistributes
+heat (basically bringing heat from the surface to the upper troposphere).</p>
+<p>When the environmental lapse rate (ELR) is less than the moist adiabatic lapse
+rate, the surface temperature is close to
+<span class="math inline">\(T_{\text{surface}} = T_{\text{skin}} + h_{\text{skin}} \text{ELR}\)</span>,
+but when the ELR becomes greater than the moist adiabatic lapse rate, there
+is so much convection that it disrupts the simple picture I presented in class.</p>
+<p>The picture I presented in class works well for an atmosphere like ours, which
+is marginally stable (i.e., the environmental lapse rate is roughly equal to the
+average moist adiabatic lapse rate).
+When the atmosphere is undergoing a large amount of constant convection, then
+heat flow behaves differently.</p>
+<p>All of that convection transports lots of heat from the surface to the upper
+troposphere and brings lots of cold air down from the upper troposphere to the
+surface, which makes it hard for the surface to get warmer. This is why the
+ground temperature flattens out and stops changing very much after the lapse
+rate reaches about 6 K/km.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="exercises-on-albedo-and-clouds" class="section level1">
+<h1>Exercises on Albedo and Clouds</h1>
+<p>For the following exercises, start off with the RRTM model in its default
+configuration.
+Record the ground temperature.
+For each part of this exercise you will do the following:</p>
+<ol style="list-style-type: decimal">
+<li><p>You will adjust the albedo or the clouds.</p></li>
+<li><p>You will compare the visible and longwave radiation going down through the
+atmosphere to the surface and also the visible and longwave radiation
+going up from the surface, through the atmosphere, to space.</p>
+<p>The results of an RRTM model run have a tibble called <code>fluxes</code> with columns
+for <code>altitude</code>, <code>sw_down</code>, <code>sw_up</code>, <code>lw_down</code>, <code>lw_up</code>, <code>total_down</code>, and
+<code>total_up</code>, where <code>sw</code> means shortwave, <code>lw</code> means longwave, and <code>total</code>
+is the sum of shortwave plus longwave.</p>
+<p>The first row of this tibble is at ground-level and the last row
+is at the top of the atmosphere.</p>
+<pre class="r"><code>default_data = run_rrtm()
+fluxes = default_data$fluxes
+surface_fluxes = head(fluxes, 1) # get the first row
+space_fluxes = tail(fluxes, 1)   # get the last row</code></pre></li>
+<li><p>You will adjust the ground temperature until the heat coming in balances
+the heat going out (the model will say,
+“If the Earth has these properties … then it loses as much energy as it
+gains.”</p></li>
+</ol>
+<div id="exercise-2-the-urban-heat-island" class="section level2">
+<h2>Exercise 2: The urban heat island</h2>
+<p>First, run the RRTM model in its default configuration and note the surface
+temperature and the albedo.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Change the surface type from “Earth’s average” to “Asphalt” (don’t change
+the surface temperature until the instructions tell you to) and describe
+the changes in the local climate:</p>
+<ul>
+<li>What is the albedo?</li>
+<li>Report the changes in shortwave and longwave light absorbed by
+the surface and going out to space.</li>
+<li>How much does the total balance of heat change (i.e., how many W/m<sup>2</sup> does
+the Earth lose or gain)?</li>
+<li>Now, adjust the ground temperature until the Earth loses as much energy as
+it gains.</li>
+<li>What is the new surface temperature?
+How does it compare to the surface temperature in the default
+configuration?</li>
+</ul></li>
+<li><p>Change the surface albedo to “Concrete”. Answer the same questions as in part
+(a).</p></li>
+<li><p>In cities, streets and parking lots are usually paved with asphalt.
+Roofs of houses and other buildings are often covered with asphalt shingles
+or black rubber-like compounds.</p>
+<p>The results you got in this exercise represent covering <em>the entire planet</em>
+with asphalt or concrete, so they are far more extreme than you would get
+from only covering <em>part of a city</em> with one material or the other, but
+the general principle holds and in a city you would have much smaller
+changes, but they would be in the same direction as you found here.</p>
+<p>How would the choice of using asphalt for roads, parking lots, and roofs in
+a large city affect the local climate in the city?
+Would using low-albedo materials, such as concrete for streets and parking
+lots and light-colored polymers for the roofs of buildings have a benefit
+for the people living in the city?</p></li>
+</ol>
+<div id="exercise-2-report" class="section level3">
+<h3>Exercise 2 Report:</h3>
+<div id="preliminaries" class="section level4">
+<h4><strong>Preliminaries</strong></h4>
+<p>Because I will be doing a lot of comparisons here, I want to automate some of
+the text using a <code>compare</code> function:</p>
+<pre class="r"><code>compare = function(x, y) {
+   ifelse(x &gt; y, &quot;greater than&quot;, 
+          ifelse(x &lt; y, &quot;less than&quot;, &quot;the same as&quot;))
+}
+
+# This function compares two values and prints the absolute value of 
+# the difference followed by optional units (e.g., W/m^2^), and then the
+# comparison string, so something like &quot;3.2 W/m^2^ less than&quot;.
+#
+# If the two values are the same, we don&#39;t want to print 
+# &quot;0 W/m^2^ the same as&quot;, so we suppress printing the number and the units 
+# in that case.
+compare_val = function(x, y, digits, units = NULL) {
+   delta = format_md(abs(x - y), digits = digits)
+   comp_str = compare(x, y)
+   ifelse(x == y, comp_str, str_c(delta, units, comp_str, sep = &quot; &quot;))
+}</code></pre>
+<p>First, I recorded the albedo, surface temperature, and heat fluxes in and out
+of the earth under the default conditions of the earth’s average albedo.</p>
+<pre class="r"><code>default = run_rrtm()
+albedo_default = default$albedo
+T_surface_default = default$T_surface
+
+I_in_default = default$i_in
+I_out_default = default$i_out
+
+flux_surf_default = default$fluxes %&gt;% filter(altitude == 0)
+flux_space_default = tail(default$fluxes, 1)
+
+I_surf_long_default = flux_surf_default$lw_down
+I_surf_short_default = flux_surf_default$sw_down
+I_space_long_default = flux_space_default$lw_up
+I_space_short_default = flux_space_default$sw_up</code></pre>
+<p>The albedo was
+0.30,
+I<sub>in</sub> = 244.8 W/m<sup>2</sup>, and
+I<sub>out</sub> = 244.8 W/m<sup>2</sup>, so the heat
+budget is balanced.</p>
+<p>Breaking down the heat flow into shortwave and longwave components, the
+heat absorbed by the ground consisted of
+280.9 W/m<sup>2</sup> of longwave radiation and
+266.3 W/m<sup>2</sup> of shortwwave radiation.
+The heat radiated out to space consisted of
+244.8 W/m<sup>2</sup> of longwave radiation and
+95.20 W/m<sup>2</sup> of shortwwave radiation.</p>
+</div>
+<div id="a-asphalt-surface" class="section level4">
+<h4>2(a) <strong>Asphalt Surface</strong></h4>
+<p>Next, I changed the surface type to “Asphalt” and recorded the changes in
+albedo, I<sub>in</sub>, I<sub>out</sub>, and heat balance.</p>
+<pre class="r"><code>asphalt = run_rrtm(surface_type = &quot;Asphalt&quot;)
+albedo_asphalt = asphalt$albedo
+
+I_in_asphalt = asphalt$i_in
+I_out_asphalt = asphalt$i_out
+
+# This is the net heat flow into the earth.
+# It should be zero when heat in = heat out
+Q_asphalt = asphalt$Q
+
+flux_surf_asphalt = asphalt$fluxes %&gt;% filter(altitude == 0)
+flux_space_asphalt = tail(asphalt$fluxes, 1)
+
+I_surf_long_asphalt = flux_surf_asphalt$lw_down
+I_surf_short_asphalt = flux_surf_asphalt$sw_down
+I_space_long_asphalt = flux_space_asphalt$lw_up
+I_space_short_asphalt = flux_space_asphalt$sw_up
+
+Delta_I_in_asphalt = I_in_asphalt - I_in_default
+Delta_I_out_asphalt = I_out_asphalt - I_out_default
+
+Delta_I_surf_long_asphalt = I_surf_long_asphalt - I_surf_long_default
+Delta_I_surf_short_asphalt = I_surf_short_asphalt - I_surf_short_default
+Delta_I_space_long_asphalt = I_space_long_asphalt - I_space_long_default
+Delta_I_space_short_asphalt = I_space_short_asphalt - I_space_short_default</code></pre>
+<p>The albedo for asphalt is 0.08,
+which is a good deal less than the default
+albedo.
+This caused I<sub>in</sub> to increase from
+244.8 W/m<sup>2</sup> to
+296.8 W/m<sup>2</sup>.
+I<sub>out</sub> did not change and remained at
+244.8 W/m<sup>2</sup>.</p>
+<p>Breaking down the heat flow into shortwave and longwave components, the
+heat absorbed by the ground consisted of
+280.9 W/m<sup>2</sup> of longwave radiation,
+which was
+the same as
+in the default case, and
+262.4 W/m<sup>2</sup> of shortwwave radiation,
+which was
+3.9 W/m<sup>2</sup> less than
+in the default case.</p>
+<p>The heat radiated out to space consisted of
+244.8 W/m<sup>2</sup> of longwave radiation,
+which was
+the same as
+in the default case, and
+43.2 W/m<sup>2</sup> of shortwwave radiation,
+which was
+52.0 W/m<sup>2</sup> less than
+in the default case.</p>
+<p>Then I opened the interactive RRTM model, set the surface type to “Asphalt,”
+and manually adjusted the surface temperature until the heat budget was
+balanced.</p>
+<pre class="r"><code>T_surface_asphalt = 325.6
+
+# Check that the heat really does balance
+asphalt_warming = run_rrtm(surface_type = &quot;Asphalt&quot;, 
+                           T_surface = T_surface_asphalt)
+Q_asphalt_warmed = asphalt_warming$Q
+Delta_T_asphalt = T_surface_asphalt - T_surface_default</code></pre>
+<p>The change in I<sub>in</sub> caused a heat-budget imbalance of
+52.0 W/m<sup>2</sup> going
+into the Earth.
+To put the heat budget back into balance,
+I had to raise the surface temperature
+from 284.4 K to
+325.6 K, a change of
+41.2 K.</p>
+</div>
+<div id="b-concrete-surface" class="section level4">
+<h4>2(b) <strong>Concrete Surface</strong></h4>
+<p>Next, I did the same for a concrete surface:</p>
+<pre class="r"><code>concrete = run_rrtm(surface_type = &quot;Concrete&quot;)
+albedo_concrete = concrete$albedo
+
+I_in_concrete = concrete$i_in
+I_out_concrete = concrete$i_out
+
+Q_concrete = concrete$Q
+
+flux_surf_concrete = concrete$fluxes %&gt;% filter(altitude == 0)
+flux_space_concrete = tail(concrete$fluxes, 1)
+
+I_surf_long_concrete = flux_surf_concrete$lw_down
+I_surf_short_concrete = flux_surf_concrete$sw_down
+I_space_long_concrete = flux_space_concrete$lw_up
+I_space_short_concrete = flux_space_concrete$sw_up
+
+Delta_I_in_concrete = I_in_concrete - I_in_default
+Delta_I_out_concrete = I_out_concrete - I_out_default
+
+Delta_I_surf_long_concrete = I_surf_long_concrete - I_surf_long_default
+Delta_I_surf_short_concrete = I_surf_short_concrete - I_surf_short_default
+Delta_I_space_long_concrete = I_space_long_concrete - I_space_long_default
+Delta_I_space_short_concrete = I_space_short_concrete - I_space_short_default</code></pre>
+<p>Where asphalt had a much higher albedo albedo for concrete is
+0.55 and this
+caused I<sub>in</sub> to decrease to
+183.8 W/m<sup>2</sup>.
+I<sub>out</sub> did not change and remained at
+244.8 W/m<sup>2</sup>.</p>
+<p>Breaking down the heat flow into shortwave and longwave components, the
+heat absorbed by the ground consisted of
+280.9 W/m<sup>2</sup> of longwave radiation,
+which was
+the same as
+in the default case, and
+271.2 W/m<sup>2</sup> of shortwwave radiation,
+which was
+4.9 W/m<sup>2</sup> greater than
+in the default case.</p>
+<p>The heat radiated out to space consisted of
+244.8 W/m<sup>2</sup> of longwave radiation,
+which was
+the same as
+in the default case, and
+156.2 W/m<sup>2</sup> of shortwwave radiation,
+which was
+61.0 W/m<sup>2</sup> greater than
+in the default case.</p>
+<p>Then I manually adjusted the surface temperature in the interactive RRTM model
+until the heat out balanced the heat in.</p>
+<pre class="r"><code>T_surface_concrete = 247.0
+
+# Check that the heat really does balance
+concrete_warming = run_rrtm(surface_type = &quot;Concrete&quot;, 
+                           T_surface = T_surface_concrete)
+Q_concrete_warmed = concrete_warming$Q
+Delta_T_concrete = T_surface_concrete - T_surface_default</code></pre>
+<p>The change in I<sub>in</sub> caused a heat-budget imbalance of
+-61.0 W/m<sup>2</sup> going
+out of the Earth.
+To put the heat budget back into balance,
+I had to lower the surface temperature to
+247.0 K, a change of
+-37.4 K.</p>
+</div>
+<div id="c-discussion" class="section level4">
+<h4>2(c) <strong>Discussion</strong></h4>
+<p>Covering the earth in asphalt caused the planet to warm up by
+41.2 K,
+so we could expect that covering
+a large part of a city in asphalt or similarly dark-colored material would
+cause the city’s temperature to rise.
+Conversely, covering the planet in concrete caused it to cool off by
+37.4 K, so replacing asphalt with
+concrete in a city would cool the city off a good deal.
+This would provide cooler temperature for the people living in the city and
+would reduce the impact of global climate change.</p>
+</div>
+</div>
+</div>
+<div id="exercise-3-clouds" class="section level2">
+<h2>Exercise 3: Clouds</h2>
+<p>First, run the RRTM model in its default configuration and note the surface
+temperature and the albedo.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Change the low cloud fraction to 0.70 (70%)</p>
+<ul>
+<li>Report the changes in shortwave and longwave light absorbed by the
+surface and going out to space.</li>
+<li>How much does the total balance of heat change
+(i.e., how many W/m<sup>2</sup> does the Earth lose or gain)?</li>
+<li>Adjust the temperature to bring the heat flows back into balance.</li>
+<li>How much did the temperature change?</li>
+</ul></li>
+<li><p>Repeat part (a), but with the low cloud fraction set to 0 and the high-cloud
+fraction set to 0.20 (20%).</p></li>
+<li><p>Use the <code>plot_heat_flows()</code> function to plot the heat flows for the
+low clouds and the high clouds. Describe the changes you see in the upward
+and downward heat flows (shortwave, longwave, and total) for the two cases.
+Which kind of cloud had the biggest effect on the outgoing radiation?</p></li>
+</ol>
+<div id="exercise-3-report" class="section level3">
+<h3>Exercise 3 Report:</h3>
+<div id="a-low-clouds" class="section level4">
+<h4>3(a) <strong>Low Clouds</strong></h4>
+<p>First, I changed the low-cloud fraction to 0.70.</p>
+<pre class="r"><code>low_clouds = run_rrtm(low_cloud_frac = 0.70)
+
+I_in_low = low_clouds$i_in
+I_out_low = low_clouds$i_out
+
+flux_surf_low = low_clouds$fluxes %&gt;% filter(altitude == 0)
+flux_space_low = tail(low_clouds$fluxes, 1)
+
+I_surf_long_low = flux_surf_low$lw_down
+I_surf_short_low = flux_surf_low$sw_down
+I_space_long_low = flux_space_low$lw_up
+I_space_short_low = flux_space_low$sw_up
+
+Delta_I_in_low = I_in_low - I_in_default
+Delta_I_out_low = I_out_low - I_out_default
+
+Delta_I_surf_long_low = I_surf_long_low - I_surf_long_default
+Delta_I_surf_short_low = I_surf_short_low - I_surf_short_default
+Delta_I_space_long_low = I_space_long_low - I_space_long_default
+Delta_I_space_short_low = I_space_short_low - I_space_short_default
+
+Q_low = low_clouds$Q</code></pre>
+<p>Adding low clouds caused I<sub>in</sub> to decrease from
+244.8 W/m<sup>2</sup> to
+233.1 W/m<sup>2</sup>, a change of
+-11.7 W/m<sup>2</sup>.
+I<sub>out</sub> increased from
+244.8 W/m<sup>2</sup> to
+240.2 W/m<sup>2</sup>, a change of
+-4.6 W/m<sup>2</sup>.</p>
+<p>Breaking down the heat flow into shortwave and longwave components, the
+heat absorbed by the ground consisted of
+320.8 W/m<sup>2</sup> of longwave radiation,
+which was
+39.90 W/m<sup>2</sup> greater than
+in the default case, and
+244.7 W/m<sup>2</sup> of shortwwave radiation,
+which was
+21.60 W/m<sup>2</sup> less than
+in the default case.</p>
+<p>The heat radiated out to space consisted of
+240.2 W/m<sup>2</sup> of longwave radiation,
+which was
+4.600 W/m<sup>2</sup> less than
+in the default case, and
+106.9 W/m<sup>2</sup> of shortwwave radiation,
+which was
+11.70 W/m<sup>2</sup> greater than
+in the default case.</p>
+<p>Nwxt, I opened the interactive RRTM model, set the surface type to “low,”
+and manually adjusted the surface temperature until the heat budget was
+balanced.</p>
+<pre class="r"><code>T_surface_low = 280.45
+
+# Check that the new temperature really does balance the heat flow.
+low_warming = run_rrtm(low_cloud_frac = 0.70, T_surface = T_surface_low)
+Q_low_warmed = low_warming$Q
+Delta_T_low = T_surface_low - T_surface_default</code></pre>
+<p>The change in I<sub>in</sub> caused a heat-budget imbalance of
+-7.1 W/m<sup>2</sup> going
+out of the Earth.
+To put the heat budget back into balance,
+I had to lower the surface temperature
+from 284.4 K to
+280.4 K, a change of
+-4.0 K.</p>
+</div>
+<div id="b-high-clouds" class="section level4">
+<h4>3(b) <strong>High Clouds</strong></h4>
+<p>Next, I changed the high-cloud fraction to 0.70.</p>
+<pre class="r"><code>high_clouds = run_rrtm(high_cloud_frac = 0.20)
+albedo_high = high_clouds$albedo
+
+I_in_high = high_clouds$i_in
+I_out_high = high_clouds$i_out
+
+flux_surf_high = high_clouds$fluxes %&gt;% filter(altitude == 0)
+flux_space_high = tail(high_clouds$fluxes, 1)
+
+I_surf_long_high = flux_surf_high$lw_down
+I_surf_short_high = flux_surf_high$sw_down
+I_space_long_high = flux_space_high$lw_up
+I_space_short_high = flux_space_high$sw_up
+
+Delta_I_in_high = I_in_high - I_in_default
+Delta_I_out_high = I_out_high - I_out_default
+
+Delta_I_surf_long_high = I_surf_long_high - I_surf_long_default
+Delta_I_surf_short_high = I_surf_short_high - I_surf_short_default
+Delta_I_space_long_high = I_space_long_high - I_space_long_default
+Delta_I_space_short_high = I_space_short_high - I_space_short_default
+
+Q_high = high_clouds$Q</code></pre>
+<p>Adding high clouds caused I<sub>in</sub> to decrease from
+244.8 W/m<sup>2</sup> to
+234.7 W/m<sup>2</sup>, a change of
+-10.1 W/m<sup>2</sup>.
+I<sub>out</sub> increased from
+244.8 W/m<sup>2</sup> to
+212.0 W/m<sup>2</sup>, a change of
+-32.8 W/m<sup>2</sup>.</p>
+<p>Breaking down the heat flow into shortwave and longwave components, the
+heat absorbed by the ground consisted of
+283.9 W/m<sup>2</sup> of longwave radiation,
+which was
+3.000 W/m<sup>2</sup> greater than
+in the default case, and
+255.4 W/m<sup>2</sup> of shortwwave radiation,
+which was
+10.90 W/m<sup>2</sup> less than
+in the default case.</p>
+<p>The heat radiated out to space consisted of
+212.0 W/m<sup>2</sup> of longwave radiation,
+which was
+32.80 W/m<sup>2</sup> less than
+in the default case, and
+105.3 W/m<sup>2</sup> of shortwwave radiation,
+which was
+10.10 W/m<sup>2</sup> greater than
+in the default case.</p>
+<p>Next, I opened the interactive RRTM model, set the surface type to “high,”
+and manually adjusted the surface temperature until the heat budget was
+balanced.</p>
+<pre class="r"><code>T_surface_high = 298.05
+
+# Check that the new temperature really does balance the heat flow.
+high_warming = run_rrtm(high_cloud_frac = 0.20, T_surface = T_surface_high)
+Q_high_warmed = high_warming$Q
+Delta_T_high = T_surface_high - T_surface_default</code></pre>
+<p>The change in I<sub>in</sub> caused a heat-budget imbalance of
+22.7 W/m<sup>2</sup> going
+into the Earth.
+To put the heat budget back into balance,
+I had to raise the surface temperature
+from 284.4 K to
+298.0 K, a change of
+13.6 K.</p>
+</div>
+<div id="c-heat-flow" class="section level4">
+<h4>3(c) <strong>Heat Flow</strong></h4>
+<p>In the figure below, we can see how the upward and downward heat flows change
+with altitude for the case of low clouds.</p>
+<pre class="r"><code>plot_heat_flows(low_clouds)</code></pre>
+<div class="figure"><span style="display:block;" id="fig:ex-3-a-figure"></span>
+<img src="/lab_solutions/lab_04_answers_files/figure-html/ex-3-a-figure-1.png" alt="Upward and downward fluxes of longwave and shortwave radiation with low clouds." width="672" />
+<p class="caption">
+Figure 2: Upward and downward fluxes of longwave and shortwave radiation with low clouds.
+</p>
+</div>
+<p>We can see that for the low clouds, the biggest changes are in the downward
+flow of radiation. Downward longwave radiation is a lot greater below the clouds
+and downward shortwave is smaller. Above the clouds, there is a small increase
+in upward longwave and shortwave, but the changes are much smaller than for the
+downward radiation.</p>
+<pre class="r"><code>plot_heat_flows(high_clouds)</code></pre>
+<div class="figure"><span style="display:block;" id="fig:ex-3-b-figure"></span>
+<img src="/lab_solutions/lab_04_answers_files/figure-html/ex-3-b-figure-1.png" alt="Upward and downward fluxes of longwave and shortwave radiation with high clouds." width="672" />
+<p class="caption">
+Figure 3: Upward and downward fluxes of longwave and shortwave radiation with high clouds.
+</p>
+</div>
+<p>At the height of the clouds we can see big changes in the upward radiation:
+Outgoing longwave radiation is considerably smaller above the clouds and
+outgoing shortwave is larger. There are changes to the downward radiation
+at the height of the clouds, but these changes are much smaller than for the
+upward radiation.</p>
+<p>As these figures show, the low clouds had the greatest effect on
+downward radiation and the high clouds had the greatest effect on upward
+radiation. In both cases, the clouds affected the longwave radiation much more
+than the shortwave.</p>
+</div>
+</div>
+</div>
+</div>
