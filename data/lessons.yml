@@ -82,8 +82,6 @@ lessons:
   title: Climate Fallacies Game
   reading: /reading/reading_19
   lecture: /slides/class_19
-- date: '2022-03-03'
-  title: Take-home Midterm Exam due
 - date: '2022-03-04'
   title: Uncertainty about Future Climates
   reading: /reading/reading_20
@@ -97,6 +95,7 @@ lessons:
 - date: '2022-03-14'
   title: How Will Climate Change Affect Our Lives? (Part 1)
   reading: /reading/reading_21
+  lecture: /slides/class_21
   lab: lab_07
 - date: '2022-03-16'
   title: How Will Climate Change Affect Our Lives? (Part 2)

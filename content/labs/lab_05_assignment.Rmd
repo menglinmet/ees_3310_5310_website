@@ -23,3 +23,9 @@ This lab will explore clouds and feedbacks in the climate system.
 
 ## Assignment
 Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/uihEGvG5>.
+
+## Solutions
+
+**Solutions for Lab Exercises**:
+
+* [Lab #5 Answers](/lab_solutions/lab_05_answers){target="_blank"}
