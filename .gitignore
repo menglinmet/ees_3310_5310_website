@@ -26,6 +26,7 @@ Corel Auto-Preserve/
 *.bak
 tmp*.tex
 *.knit.md
+*.lock~
 .Rproj.user
 /temp.R
 old_lectures/
