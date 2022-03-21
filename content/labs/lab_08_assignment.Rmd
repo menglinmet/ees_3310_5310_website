@@ -1,6 +1,8 @@
 ---
 title: Using RMarkdown for Formal Reports
 lab_date: '2022-03-21'
+presentation_date: 2022-04-04 13:25:00
+report_due_date: 2022-04-08 17:00:00
 lab_number: 8
 pubdate: '2021-12-31'
 date: '2022-03-21'

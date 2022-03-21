@@ -1,6 +1,7 @@
 ---
-title: Role-Playing Emissions Regulations
+title: 'Decarbonizing the World''s Energy Supply: Bottom-Up Approaches'
 lab_date: '2022-04-11'
+report_due_date: 2022-04-20 09:00:00
 lab_number: 11
 pubdate: '2021-12-31'
 date: '2022-04-11'
@@ -11,21 +12,15 @@ output:
 ---
 # Overview:
 
-This week, we will do something very different. We will role-play different kinds of greenhouse gas emissions regulations: 
-
-* "**Command-and-Control**," in which the EPA mandates the maximum emissions for each company, 
-* "**Cap and Trade**," in which the EPA mandates the total emissions, and gives each company a certain number of permits, but the companies can buy and sell permits,
-* "**Emissions Tax**," in which the EPA imposes a tax on each ton of emissions, and then reduces other taxes to keep the total government revenue constant.
-
-Students will play different roles: some will act as government regulators at the Environmental Protection Agency and others will act as managers of different companies that must balance their desire to make money against the environmental damage from the pollution they emit.
-
-There is no report to complete for this lab.  Full credit will be given for showing up and participating in the lab exercise. For people who cannot come to lab, there will be a short homework assignment you can complete to get credit for this lab.
+You will use the Kaya identity to analyze challenges to decarbonizing the world's energy supply, following the "bottom-up" approach that we read about in The Climate Fix.
 
 ## Reading
 
-**Before you come to lab**, please read the following document:
+**Before you come to lab**, please read the following documents:
 
-* [Preparation for Lab on Regulating Greenhouse Gas Emissions](/lab_docs/lab_11_preparation){target="_blank"}
+* [New Tools for Data Analysis](/lab_docs/lab_11_new_tools){target="_blank"}
+* [Instructions for Bottom-Up Decarbonization Policy Analysis](/lab_docs/lab_11_instructions){target="_blank"}
 
 ## Assignment
-This lab does not use GitHub Classroom.
+
+The GitHub Classroom has not been posted yet.

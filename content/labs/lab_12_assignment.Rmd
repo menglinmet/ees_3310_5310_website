@@ -1,7 +1,6 @@
 ---
-title: 'Project: Decarbonization Policy for a Country'
+title: Role-Playing Emissions Regulations
 lab_date: '2022-04-18'
-report_due_date: 2022-04-29 23:59:00
 lab_number: 12
 pubdate: '2021-12-31'
 date: '2022-04-18'
@@ -12,14 +11,21 @@ output:
 ---
 # Overview:
 
-Either individually or with a partner, you will pick a country and begin working on a policy analysis for reducing its greenhouse gas emissions.
+This week, we will do something very different. We will role-play different kinds of greenhouse gas emissions regulations: 
+
+* "**Command-and-Control**," in which the EPA mandates the maximum emissions for each company, 
+* "**Cap and Trade**," in which the EPA mandates the total emissions, and gives each company a certain number of permits, but the companies can buy and sell permits,
+* "**Emissions Tax**," in which the EPA imposes a tax on each ton of emissions, and then reduces other taxes to keep the total government revenue constant.
+
+Students will play different roles: some will act as government regulators at the Environmental Protection Agency and others will act as managers of different companies that must balance their desire to make money against the environmental damage from the pollution they emit.
+
+There is no report to complete for this lab.  Full credit will be given for showing up and participating in the lab exercise. For people who cannot come to lab, there will be a short homework assignment you can complete to get credit for this lab.
 
 ## Reading
 
 **Before you come to lab**, please read the following document:
 
-* [Project: Decarbonization Policy for One Country](/lab_docs/lab_12_instructions){target="_blank"}
+* [Preparation for Lab on Regulating Greenhouse Gas Emissions](/lab_docs/lab_12_preparation){target="_blank"}
 
 ## Assignment
-
-The GitHub Classroom has not been posted yet.
+This lab does not use GitHub Classroom.

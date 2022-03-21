@@ -19,8 +19,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(lubridate)
 
-topic_approval_date = ymd("2021-03-12")
-due_date = ymd_hms("2021-04-01 23:59:00", tz="America/Chicago")
+topic_approval_date = ymd("2021-03-21")
+due_date = ymd_hms("2021-04-08 23:59:00", tz="America/Chicago")
 
 date_fmt = function(d) {
   strftime(d, format = "%b. %e") %>% str_trim() %>% str_replace_all(" +", " ")

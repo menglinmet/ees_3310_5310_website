@@ -1,6 +1,8 @@
 ---
-title: Group Project Presentations
+title: Continuing to Work on Formal Report
 lab_date: '2022-03-28'
+presentation_date: 2022-04-04 13:25:00
+report_due_date: 2022-04-08 17:00:00
 lab_number: 9
 pubdate: '2021-12-31'
 date: '2022-03-28'
@@ -11,16 +13,7 @@ output:
 ---
 # Overview:
 
-You and your partners will give a presentation about your project in lab
-today. 
-
-You should upload your presentation slides (powerpoint or PDF) to 
-the "Lab Project Presentations" assignment on Brightspace
-before lab on Monday.
-
-The final report will be due Wednesday, March 30. Turn in your final report
-by committing and pushing your RMarkdown project to GitHub, including a final 
-version of the report knitted to a PDF or Word document.
+You and your partner will continue to work on your group projects. Lab attendance is optional today, but Mr. Belanger and I will be available in the lab classroom to answer questions and discuss your projects.
 
 ## Reading
 No reading has been posted yet for this lab.
