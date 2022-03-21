@@ -17,9 +17,15 @@ Corel Auto-Preserve/
 *.out
 *.log
 *.aux
-*.synctex.gz
+*.toc
+*.idx
+*.ilg
+*.blg
+*.bbl
 *-concordance.tex
 *.bak
+tmp*.tex
+*.knit.md
 .Rproj.user
 /temp.R
 old_lectures/

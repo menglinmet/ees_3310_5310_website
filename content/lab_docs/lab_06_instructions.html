@@ -58,37 +58,44 @@ carbon cycle adjust to the new parameters and the CO<sub>2</sub> spike.</p></li>
 <p>The quantities that are graphed in the online version of the model include:</p>
 <dl>
 <dt><code>pCO2</code></dt>
-<dd>is the concentration of CO<sub>2</sub> in the atmosphere, in parts per million.
+<dd>
+is the concentration of CO<sub>2</sub> in the atmosphere, in parts per million.
 </dd>
 <dt><code>WeatC</code></dt>
-<dd>is the rate of CO<sub>2</sub> being weathered from carbonate rocks and moved to the
+<dd>
+is the rate of CO<sub>2</sub> being weathered from carbonate rocks and moved to the
 </dd>
 </dl>
 <p>oceans.</p>
 <dl>
 <dt><code>BurC</code></dt>
-<dd>is the rate of carbonate being converted into limestone and buried on the
+<dd>
+is the rate of carbonate being converted into limestone and buried on the
 </dd>
 </dl>
 <p>ocean floor.</p>
 <dl>
 <dt><code>WeatS</code></dt>
-<dd>is the rate of SiO<sub>2</sub> being weathered from silicate rocks and moved to the
+<dd>
+is the rate of SiO<sub>2</sub> being weathered from silicate rocks and moved to the
 </dd>
 </dl>
 <p>oceans.</p>
 <dl>
 <dt><code>Degas</code></dt>
-<dd><p>is the rate at which CO<sub>2</sub> is released to the atmosphere by volcanic activity</p>
+<dd>
+<p>is the rate at which CO<sub>2</sub> is released to the atmosphere by volcanic activity</p>
 </dd>
 <dt><code>tCO2</code></dt>
-<dd>is the total amount of CO<sub>2</sub> dissolved in the ocean, adding all of its forms:
+<dd>
+is the total amount of CO<sub>2</sub> dissolved in the ocean, adding all of its forms:
 </dd>
 </dl>
 <p><span class="math display">\[ \ce{\text{tco2} = [CO2] + [H2CO3] + [HCO3-] + [CO3^{2-}]}. \]</span></p>
 <dl>
 <dt><code>alk</code></dt>
-<dd>is the ocean alkalinity: the total amount of acid (<span class="math inline">\(\ce{H+}\)</span>) necessary to
+<dd>
+is the ocean alkalinity: the total amount of acid (<span class="math inline">\(\ce{H+}\)</span>) necessary to
 </dd>
 </dl>
 <p>neutralize the carbonate and bicarbonate in the ocean. The detailed definition
@@ -97,29 +104,34 @@ is complicated, but to a good approximation,
 This is not crucial for this lab.</p>
 <dl>
 <dt><code>CO3</code></dt>
-<dd>is the concentration of dissolved carbonate (<span class="math inline">\(\ce{CO3^{2-}}\)</span>) in the ocean,
+<dd>
+is the concentration of dissolved carbonate (<span class="math inline">\(\ce{CO3^{2-}}\)</span>) in the ocean,
 </dd>
 </dl>
 <p>in moles per cubic meter.</p>
 <dl>
 <dt><code>d13Cocn</code></dt>
-<dd>is the change in the fraction of the carbon-13 (<span class="math inline">\(\ce{^{13}C}\)</span>) isotope,
+<dd>
+is the change in the fraction of the carbon-13 (<span class="math inline">\(\ce{^{13}C}\)</span>) isotope,
 </dd>
 </dl>
 <p>relative to the more common carbon-12 (<span class="math inline">\(\ce{^{12}C}\)</span>) isotope, in the
 various forms of carbon dissolved in the ocean water.</p>
 <dl>
 <dt><code>d13Catm</code></dt>
-<dd>is the change in the fraction of <span class="math inline">\(\ce{^{13}C}\)</span>,
+<dd>
+is the change in the fraction of <span class="math inline">\(\ce{^{13}C}\)</span>,
 </dd>
 </dl>
 <p>relative to <span class="math inline">\(\ce{^{12}C}\)</span> in atmospheric CO<sub>2</sub>.</p>
 <dl>
 <dt><code>Tatm</code></dt>
-<dd><p>is the average air temperature.</p>
+<dd>
+<p>is the average air temperature.</p>
 </dd>
 <dt><code>Tocn</code></dt>
-<dd>is the average temperature of ocean water.
+<dd>
+is the average temperature of ocean water.
 </dd>
 </dl>
 <div id="running-the-geocarb-model-from-r" class="section level2">
@@ -136,20 +148,23 @@ but you can override those defaults by giving the parameters a value.</p>
 <p>The arguments to the function are:</p>
 <dl>
 <dt><code>filename</code></dt>
-<dd>an optional file to save the results of the run to. You can read them back
+<dd>
+an optional file to save the results of the run to. You can read them back
 </dd>
 </dl>
 <p>in using the <code>read_geocarb()</code> function:
 <code>r   run_geocarb(spike = 1000, filename = "test_run.txt")   data = read_geocarb("test_run.txt")</code></p>
 <dl>
 <dt><code>degas_spinup</code> and <code>degas_sim</code></dt>
-<dd>the rates of CO<sub>2</sub> degassing from volcanoes for the spinup and simulation
+<dd>
+the rates of CO<sub>2</sub> degassing from volcanoes for the spinup and simulation
 </dd>
 </dl>
 <p>phases, in trillions of molecules per year.</p>
 <dl>
 <dt><code>plants_spinup</code> and <code>plants_sim</code></dt>
-<dd><code>TRUE</code> or <code>FALSE</code> values for whether to include the role of plants in
+<dd>
+<code>TRUE</code> or <code>FALSE</code> values for whether to include the role of plants in
 </dd>
 </dl>
 <p>weathering (their roots speed up weathering by making soil more permeable
@@ -157,19 +172,22 @@ and by releasing CO<sub>2</sub> into the soil), and <code>land_area</code> is th
 dry land, relative to today.</p>
 <dl>
 <dt><code>land_area_spinup</code> and <code>land_area_sim</code></dt>
-<dd>The amount of land area, compared to today (1.0 means the same amount of
+<dd>
+The amount of land area, compared to today (1.0 means the same amount of
 </dd>
 </dl>
 <p>land as today).</p>
 <dl>
 <dt><code>delta_t2x</code></dt>
-<dd>The climate sensitivity (the amount warming for each time CO<sub>2</sub> is
+<dd>
+The climate sensitivity (the amount warming for each time CO<sub>2</sub> is
 </dd>
 </dl>
 <p>doubled), in degrees Celsius.</p>
 <dl>
 <dt><code>million_years_ago</code></dt>
-<dd>Simulate past climates when the sun was not as bright as today.
+<dd>
+Simulate past climates when the sun was not as bright as today.
 </dd>
 </dl>
 <p>The value of this variable is how many million years ago the year zero of
@@ -178,7 +196,8 @@ This is not currently working because of a bug in the web version of
 GEOCARB.</p>
 <dl>
 <dt><code>mean_latitude_continents</code></dt>
-<dd>The mean latitude, in degrees, of the continents.
+<dd>
+The mean latitude, in degrees, of the continents.
 </dd>
 </dl>
 <p>The default values are: <code>degas</code> = 7.5, <code>plants</code> = <code>TRUE</code>, and <code>land_area</code> = 1
