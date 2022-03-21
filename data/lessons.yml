@@ -108,6 +108,7 @@ lessons:
 - date: '2022-03-21'
   title: 'The Kaya Identity: Energy Use, Efficiency, and Conservation'
   reading: /reading/reading_24
+  lecture: /slides/class_24
   lab: lab_08
 - date: '2022-03-23'
   title: 'Reducing Carbon Emissions: Bottom-Up Approaches'
