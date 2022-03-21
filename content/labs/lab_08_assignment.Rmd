@@ -4,6 +4,7 @@ lab_date: '2022-03-21'
 presentation_date: 2022-04-04 13:25:00
 report_due_date: 2022-04-08 17:00:00
 lab_number: 8
+github_classroom_assignment_url: https://classroom.github.com/a/Nx-Z1izV
 pubdate: '2021-12-31'
 date: '2022-03-21'
 slug: lab_08
@@ -15,6 +16,8 @@ output:
 
 In this lab, you and a partner will begin to develop your own projects. During the lab session, we will discuss more details about using RMarkdown to write formal lab reports.
 
+I recommend you wait until you get to lab to accept the assignment. When you accept the assignment, you will need to create or join a team. Get together with your teammates to decide on the name for a team. When you accept the assignment, GitHub classroom will ask you to create or join a team. I suggest that you give your team a name that combines the surnames of the people on the team. One of you should create the new team and the others should then join that team when they accept the assignment.
+
 ## Reading
 
 **Before you come to lab**, please read the following documents:
@@ -23,5 +26,4 @@ In this lab, you and a partner will begin to develop your own projects. During t
 * [Citations and Bibliographies](/lab_docs/lab_08_citations_bibliographies){target="_blank"}
 
 ## Assignment
-
-The GitHub Classroom has not been posted yet.
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/Nx-Z1izV>.
