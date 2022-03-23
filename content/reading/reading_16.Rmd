@@ -21,7 +21,7 @@ pdf_url: /files/reading_asgts/reading_16.pdf
 
 Chapter 3 treats global warming as a scientific consequence of an economic problem. As you read, consider the following questions. Some have clear answers
 while others are beyond the knowledge of experts and I ask them to challenge you to think about hard problems.
-On p. 30, Nordhaus describes three components that drive CO~2~ emissions: population, per-capita GDP, and the carbon intensity of the economy. A mathematical expression for this relationship is known as the **Kaya identity**, and we will study this in great depth on Mar. 21--25 and in the lab project on decarbonizing the energy supply.
+On p. 30, Nordhaus describes three components that drive CO~2~ emissions: population, per-capita GDP, and the carbon intensity of the economy. A mathematical expression for this relationship is known as the **Kaya identity**, and we will study this in great depth on Mar. 21--28 and in the lab project on decarbonizing the energy supply.
 
 * Why don't free markets manage greenhouse gas emissions well?
 * Are CO~2~ emissions going up or down? Why?

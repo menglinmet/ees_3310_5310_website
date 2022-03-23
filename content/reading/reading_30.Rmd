@@ -1,5 +1,5 @@
 ---
-title: Pricing Carbon
+title: Costs and Benefits
 class_date: '2022-04-04'
 class_number: 30
 weight: 30
@@ -15,5 +15,5 @@ pdf_url: /files/reading_asgts/reading_30.pdf
 
 ### Required Reading (everyone):
 
-* Climate Casino, Ch. 19.
+* Climate Casino, Ch. 18.
 
