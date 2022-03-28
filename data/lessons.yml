@@ -118,16 +118,21 @@ lessons:
   title: Class cancelled
 - date: '2022-03-28'
   title: 'Reducing Carbon Emissions: Top-Down Approaches'
-  reading: /reading/reading_27
+  reading: /reading/reading_26
+  lecture: /slides/class_26
   lab: lab_09
 - date: '2022-03-30'
   title: The Cost of Reducing Emissions
+  reading: /reading/reading_27
+- date: '2022-03-31'
+  title: Goals of Climate Policy (Makeup class)
   reading: /reading/reading_28
+  lecture: /slides/class_28
 - date: '2022-04-01'
-  title: Goals of Climate Policy
+  title: Costs and Benefits
   reading: /reading/reading_29
 - date: '2022-04-04'
-  title: Costs and Benefits
+  title: Pricing Carbon
   reading: /reading/reading_30
   lab: lab_10
 - date: '2022-04-06'
