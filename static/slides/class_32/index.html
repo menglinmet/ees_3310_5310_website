@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<!-- JG Reveal.js Template --><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="pandoc">
+<meta name="author" content="Jonathan Gilligan">
+<title>Discounting and the Value of Time</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+<link rel="stylesheet" href="../../lecture_lib/library/reveal.js-3.8.0/css/reset.css">
+<link rel="stylesheet" href="../../lecture_lib/library/reveal.js-3.8.0/css/reveal.min.css">
+<style type="text/css">
+      code{white-space: pre-wrap;}
+      .smallcaps{font-variant: small-caps;}
+      .line-block{white-space: pre-line;}
+      .column{display: inline-block;}  </style>
+<style type="text/css">
+    div.qrbox,
+    aside.qrbox {
+     text-align: left;
+     vertical-align: bottom;
+     width: 95%;
+     position: fixed;
+     left: 2.5%;
+     bottom: 1rem;
+     display: block;
+    }
+  </style>
+<!-- theme = solarized_jg --><link rel="stylesheet" href="../../lecture_lib/library/assets/css/theme/solarized_jg.css" id="theme">
+<!-- Printing and PDF exports --><script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../lecture_lib/library/reveal.js-3.8.0/css/print/pdf.css' : '../../lecture_lib/library/reveal.js-3.8.0/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script><!--[if lt IE 9]>
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/lib/js/html5shiv.js"></script>
+  <![endif]--><script src="../../lecture_lib/library/header-attrs-2.13.1.90000/header-attrs.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+            <!-- start title slide -->
+<section class="center" id="title"><h1 class="title">Discounting and the<br>Value of Time</h1>
+    <h3 class="author">EES 3310/5310</h3>
+        <h3 class="author">Global Climate Change</h3>
+    <h3 class="author">Jonathan Gilligan</h3>
+    <h3 class="date">
+      Class #32:
+       Friday, April 8
+      2022
+    </h3>
+	<!-- end title slide -->
+</section><section><section id="review-of-market-based-regulations" class="title-slide slide level1 center"><h1 class="center">Review of Market-Based Regulations</h1>
+
+</section><section id="marginal-and-cumulative-costs-benefits" class="slide level2" data-transition="fade-in"><h2 data-transition="fade-in">Marginal and Cumulative Costs &amp;
+Benefits</h2>
+<div class="mtop-3">
+<table>
+<colgroup>
+<col style="width: 19%">
+<col style="width: 16%">
+<col style="width: 20%">
+<col style="width: 13%">
+<col style="width: 16%">
+<col style="width: 14%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;">CO<sub>2</sub> emissions</th>
+<th style="text-align: right;">Marginal cost</th>
+<th style="text-align: right;">Marginal benefit</th>
+<th style="text-align: right;">Gross cost</th>
+<th style="text-align: right;">Gross benefit</th>
+<th style="text-align: right;">Net benefit</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">210</td>
+<td style="text-align: right;">150</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">270</td>
+<td style="text-align: right;">150</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>Gross (cumulative) costs and benefits are the sum of marginal costs
+and benefits from zero to the current level.</li>
+<li>Net benefit is the gross benefit minus the gross cost.</li>
+<li class="fragment">What is the optimal number of permits to issue?</li>
+<li class="fragment">What is the optimal emissions tax?</li>
+</ul></section><section id="two-companies" class="slide level2 eighty"><h2 class="eighty">Two Companies</h2>
+<div class="columns ptop-3">
+<div class="column" style="width:25%;">
+<table>
+<thead><tr class="header">
+<th style="text-align: right;">Emissions</th>
+<th style="text-align: right;">MB</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">120</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">80</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">60</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">40</td>
+</tr>
+</tbody>
+</table>
+<div class="mtop-1">
+<table>
+<thead><tr class="header">
+<th style="text-align: right;">Emissions</th>
+<th style="text-align: right;">MB</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">130</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">104</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">78</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">26</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="column" style="width:25%;">
+<table>
+<thead><tr class="header">
+<th style="text-align: right;">Emissions</th>
+<th style="text-align: right;">MC</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">63</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">84</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">105</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">126</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">147</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">168</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">189</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">210</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section><section id="two-companies-1" class="slide level2 eighty"><h2 class="eighty">Two Companies</h2>
+<div class="mtop-3">
+<table>
+<colgroup>
+<col style="width: 15%">
+<col style="width: 12%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 22%">
+<col style="width: 18%">
+<col style="width: 19%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;">Emissions</th>
+<th style="text-align: left;">Company</th>
+<th style="text-align: right;">MB</th>
+<th style="text-align: right;">MC</th>
+<th style="text-align: right;">Gross Benefits</th>
+<th style="text-align: right;">Gross Costs</th>
+<th style="text-align: right;">Net Benefits</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">130</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">130</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">109</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">250</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">187</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">104</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">354</td>
+<td style="text-align: right;">126</td>
+<td style="text-align: right;">228</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">84</td>
+<td style="text-align: right;">454</td>
+<td style="text-align: right;">210</td>
+<td style="text-align: right;">244</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">105</td>
+<td style="text-align: right;">534</td>
+<td style="text-align: right;">315</td>
+<td style="text-align: right;">219</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">78</td>
+<td style="text-align: right;">126</td>
+<td style="text-align: right;">612</td>
+<td style="text-align: right;">441</td>
+<td style="text-align: right;">171</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">147</td>
+<td style="text-align: right;">672</td>
+<td style="text-align: right;">588</td>
+<td style="text-align: right;">84</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">168</td>
+<td style="text-align: right;">724</td>
+<td style="text-align: right;">756</td>
+<td style="text-align: right;">-32</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">189</td>
+<td style="text-align: right;">764</td>
+<td style="text-align: right;">945</td>
+<td style="text-align: right;">-181</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">210</td>
+<td style="text-align: right;">790</td>
+<td style="text-align: right;">1155</td>
+<td style="text-align: right;">-365</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li class="fragment">Benefits depend on which company produces the emissions</li>
+<li class="fragment">Costs only depend on the total emissions</li>
+<li class="fragment">Put emissions in descending order of marginal benefit.</li>
+<li class="fragment">What is the optimum emissions level?</li>
+<li class="fragment">What is the optimum emissions tax?</li>
+</ul></section></section><section><section id="Introduction" class="title-slide slide level1 center eighty"><h1 class="center eighty">Discounting:<br>Should we spend more
+today<br>to offset damages in the future?</h1>
+
+</section><section id="net-present-value-1" class="slide level2 eighty" data-transition="fade-out"><h2 class="eighty" data-transition="fade-out">Should we pay \$100 for a
+bond today<br>that will pay \$1000 in 50 years?</h2>
+<ul>
+<li>What would you expect to earn if you invested \$100 today in
+something else?
+<ul>
+<li>“<em><strong>Opportunity cost</strong></em>”</li>
+</ul>
+</li>
+<li class="fragment">Compounding interest: <span class="math display">\[
+V_{\text{future}} = V_{\text{present}} \times (1 + r)^n,
+\]</span> where:
+<ul>
+<li>
+<em>V</em> is value</li>
+<li>
+<em>r</em> is interest rate (4% → <em>r</em> = 0.04)</li>
+<li>
+<em>n</em> is number of years</li>
+</ul>
+</li>
+<li class="fragment">Rule of 72:
+<ul>
+<li>The number of years to double your investment is roughly<br> 72 /
+(percent interest rate)</li>
+</ul>
+</li>
+</ul></section><section id="net-present-value-2" class="slide level2 eighty" data-transition="fade-out"><h2 class="eighty" data-transition="fade-out">Should we pay \$100 for a
+bond today<br>that will pay \$1000 in 50 years?</h2>
+<ul>
+<li>What would you expect to earn if you invested \$100 today in
+something else?</li>
+<li>Assume real interest rate is 4%
+<ul>
+<li>
+<p>Compounding interest: <span class="math display">\[
+V_{\text{future}} = V_{\text{present}} \times (1 + r)^n,
+\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{align}
+V_{\text{present}} &amp;= \$100\\
+V_{\text{future}} &amp;= V_{\text{present}} \times (1 + r)^n\\
+&amp;= \$100 \times 1.04^{50}\\
+&amp;= \$711.
+\end{align}
+\]</span></p>
+</div>
+</li>
+</ul>
+</li>
+<li class="fragment"><span class="math inline">\(\color{darkgreen}{\$1000 &gt;
+\$711}\)</span>, so it’s a good deal.</li>
+</ul></section><section id="net-present-value-3" class="slide level2 eighty" data-transition="fade-out"><h2 class="eighty" data-transition="fade-out">Should we pay \$100 for a
+bond today<br>that will pay \$1000 in 50 years?</h2>
+<ul>
+<li>Formula for net present value (NPV) is the inverse of the interest
+formula:</li>
+</ul>
+<p><span class="math display">\[
+\begin{align}
+V_{\text{future}} &amp;= V_{\text{present}} \times (1 + r)^n\\
+V_{\text{present}} &amp;= \frac{V_{\text{future}}}{(1 + r)^n}
+\end{align}
+\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{align}
+V_{\text{future}} &amp;= \$1000\\
+V_{\text{present}} &amp;= \frac{\$1000}{1.04^{50}}\\
+&amp;= \frac{\$1000}{7.11}\\
+&amp;= \color{darkgreen}{\$141 &gt; \$100}.
+\end{align}
+\]</span></p>
+</div>
+</section><section id="different-discount-rates" class="slide level2"><h2>Different Discount Rates</h2>
+<ul>
+<li>
+<p>Higher rate (10%)</p>
+<p><span class="math display">\[
+V_{\text{present}} = \frac{V_{\text{future}}}{(1 + {\color{red}{r}})^n}
+= \frac{1000}{1.{\color{red}{10}}^{50}}
+= \color{red}{\$9 &lt; \$100}
+\]</span></p>
+</li>
+<li>
+<p>Lower rate (1%)</p>
+<p><span class="math display">\[
+V_{\text{present}} = \frac{V_{\text{future}}}{(1 +
+{\color{darkgreen}{r}})^n}
+= \frac{1000}{1.{\color{darkgreen}{01}}^{50}}
+= \color{darkgreen}{\$608 &gt; \$100}
+\]</span></p>
+</li>
+</ul></section></section><section><section id="future-generations" class="title-slide slide level1 center"><h1 class="center">Future Generations</h1>
+
+</section><section id="today-vs-future" class="slide level2"><h2>Should we spend money today to offset damages in the future?</h2>
+<div class="fragment" style="margin-top:25px;margin-bottpm:25px;">
+<p>How much is it worth to us <strong>today</strong> to avoid climate
+disruption <strong>in 100 years</strong>?</p>
+</div>
+<p><img data-src="assets/images/present_cost_future_benefit.jpg" style="width:1400px;"></p>
+</section><section id="future-generations-1" class="slide level2"><h2>Future Generations</h2>
+<ul>
+<li class="fragment">How much is the welfare of your children worth, relative to your
+own welfare?</li>
+<li class="fragment">Your grandchildren?</li>
+<li class="fragment">Your great-grandchildren?</li>
+<li class="fragment">Your great-great grandchildren?</li>
+<li class="fragment">Your great<sup>3</sup> grandchildren?</li>
+<li class="fragment">At what great<sup>n</sup> do we stop?</li>
+</ul></section><section id="assume-each-future-generation-is-worth-half-of-the-previous-generation" class="slide level2"><h2>Assume each future generation is worth half of the previous
+generation</h2>
+<div style="margin-top:50px;">
+<p><span class="math display">\[ 1 + \frac{1}{2} + \frac{1}{2^2} +
+\frac{1}{2^3} + \cdots = 2 \]</span></p>
+</div>
+<div class="fragment" style="vertical-align:middle;text-align:center;margin-top:50px;font-size:200%;">
+<p><img data-src="assets/images/pete-davidson-cropped.jpg" style="height:600px;vertical-align:middle;" alt="Pete Davidson"> =
+<img data-src="assets/images/nuclear-bomb.jpg" style="height:600px;vertical-align:middle" alt="Armageddon"></p>
+</div>
+</section><section id="assume-each-generation-is-equal" class="slide level2"><h2>Assume each generation is equal</h2>
+<div style="margin-top:300px;">
+<p><span class="math display">\[ 1 + 1 + 1 + 1 + \cdots = {\Huge \infty}
+\]</span></p>
+</div>
+</section><section id="valuing-the-present-high-discount-rate" class="slide level2"><h2>Valuing the present (high discount rate)</h2>
+<div style="margin-top:100px;">
+<ul>
+<li class="fragment">We’re poor relative to the future!</li>
+<li class="fragment">Don’t take from the <strong>poor</strong> (<em>that’s us</em>)
+to give to the <strong>rich</strong> (<em>future generations</em>)</li>
+<li class="fragment">But if we apply this to <strong>spatial</strong> inequalities
+that exist <strong>now</strong> … justifies massive wasteful transfers
+from rich to poor</li>
+</ul>
+</div>
+</section></section><section><section id="rates-matter" class="title-slide slide level1 center"><h1 class="center">Rates Matter!</h1>
+
+</section><section id="stern-nordhaus-1" class="slide level2" data-transition="fade-out"><h2 data-transition="fade-out">Stern vs. Nordhaus</h2>
+<p><img data-src="assets/images/stern_v_nordhaus_1.jpg" style="width:1400px;margin-top:162px;border:none;box-shadow:none" alt="Stern vs. Nordhaus"></p>
+</section><section id="stern-nordhaus-2" class="slide level2" data-transition="fade-in"><h2 data-transition="fade-in">Stern vs. Nordhaus</h2>
+<p><img data-src="assets/images/stern_v_nordhaus_2.jpg" style="width:1400px;margin-top:50px;border:none;box-shadow:none" alt="Stern vs. Nordhaus"></p>
+</section><section id="consumption-elasticity-eta" class="slide level2"><h2>Consumption elasticity <span class="math inline">\(\eta\)</span>
+</h2>
+<div class="columns">
+<div class="column eighty">
+<ul>
+<li class="fragment">Proportional rate at which marginal utility of consumption is
+reduced as consumption increases <span class="fragment">(<em><strong>What</strong>?</em>)</span>
+</li>
+<li class="fragment">Giving \$100 to someone in poverty adds more to total well-being
+than giving \$100 to Jeff Bezos</li>
+<li class="fragment">High <span class="math inline">\(\eta\)</span>:
+<ul>
+<li>Value <em>current consumption</em>,</li>
+<li>
+<em>Strong</em> benefits for redistribution from rich to poor</li>
+</ul>
+</li>
+<li class="fragment">Low <span class="math inline">\(\eta\)</span>:
+<ul>
+<li>Value <em>future consumption</em>,</li>
+<li>
+<em>Weak</em> benefits for redistribution from rich to poor</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="column fragment">
+<p><img data-src="assets/fig/utility-1.png"></p>
+<ul>
+<li>
+<span style="color:#6495ED;">Stern:</span> <span class="math inline">\(\eta = 1\)</span>
+</li>
+<li>
+<span style="color:#EE2C2C;">Nordhaus:</span> <span class="math inline">\(\eta = 2\)</span>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="time-discount-rate-rho" class="slide level2"><h2>Time discount rate <span class="math inline">\(\rho\)</span>
+</h2>
+<div style="text-align:left;">
+<ul>
+<li class="fragment">How do we value future welfare, relative to our
+own?</li>
+<li class="fragment">
+<span class="math inline">\(\rho = 0\)</span>: All
+generations equal</li>
+<li class="fragment">
+<span class="math inline">\(\rho &gt; 0\)</span>:
+Future generations count less than our own</li>
+<li class="fragment">
+<span class="math inline">\(\rho &lt; 0\)</span>:
+Future generations count more than our own</li>
+</ul>
+<div class="fragment" style="margin-top:50px;">
+<ul>
+<li>
+<span style="color:#6495ED;">Stern:</span> <span class="math inline">\(\rho = 0.1\%\)</span>
+</li>
+<li>
+<span style="color:#EE2C2C;">Nordhaus:</span> <span class="math inline">\(\rho = 1.5\%\)</span>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="per-capita-consumption-growth-rate-g" class="slide level2"><h2>Per-capita consumption growth rate, <span class="math inline">\(g\)</span>
+</h2>
+<div class="columns">
+<div class="column" style="width:49%;vertical-align:middle">
+<ul>
+<li>
+<span style="color:#6495ED;">Stern:</span> <span class="math inline">\(g = 1.3\%\)</span>
+</li>
+<li>
+<span style="color:#EE2C2C;">Nordhaus:</span> <span class="math inline">\(g = 1.3\%\)</span>
+</li>
+</ul>
+</div>
+<div class="column" style="width:49%;vertical-align:middle">
+<p><img data-src="assets/fig/yoghurt-1.png"></p>
+</div>
+</div>
+</section><section id="real-return-on-capital-r" class="slide level2"><h2>Real return on capital <span class="math inline">\(r\)</span>
+</h2>
+<ul>
+<li>Potential of capital to create value</li>
+<li>High <span class="math inline">\(r\)</span> → Wait and reduce
+emissions in the <strong>future</strong> (capital yield is higher in
+future)</li>
+<li>Low <span class="math inline">\(r\)</span> → Reduce emissions in the
+<strong>present</strong> (future damages likely to exceed future
+output)</li>
+</ul></section><section id="stern-nordhaus-3" class="slide level2" data-transition="fade-in" data-background="assets/images/stern_v_nordhaus_2.jpg" data-background-size="1400px" data-background-position="center"><h2 data-transition="fade-in" data-background="assets/images/stern_v_nordhaus_2.jpg" data-background-size="1400px" data-background-position="center">Stern
+vs. Nordhaus</h2>
+<div class="columns fragment" style="margin-top:600px;margin-left:0px;margin-right:0px;padding:0px;padding-left:100px;padding-right:100px;margin-top:700px;">
+<div class="column" style="width:35%;text-align:center;vertical-align:bottom;">
+<p><span class="math display">\[
+\begin{aligned}
+r &amp;= 0.1 + 1 \times 1.3\\
+  &amp;= 1.4
+\end{aligned}
+\]</span></p>
+</div>
+<div class="column" style="width:28%;">
+
+</div>
+<div class="column" style="width:35%;text-align:center;vertical-align:bottom;">
+<p><span class="math display">\[
+\begin{aligned}
+r &amp;= 1.5 + 2 \times 1.3\\
+  &amp;= 4.1
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</section></section><section><section id="discount-rates-and-decarbonization" class="title-slide slide level1 center"><h1 class="center">Discount Rates and Decarbonization</h1>
+
+</section><section id="discount-rates-and-decarbonization-1" class="slide level2 eighty"><h2 class="eighty">Discount Rates and Decarbonization</h2>
+<ul>
+<li class="fragment">Investing \$10 million in wind today produces<br>\$100 million
+in real value 50 years from now
+<ul>
+<li class="fragment"><p>Rate of 1%: <span class="math inline">\(V_{\text{present}} =
+\frac{\$100 \text{M}}{1.01^{50}} = \$61 \text{M} &gt; \$10
+\text{M}\)</span> <img data-src="assets/images/thumb_up.jpg" style="height:50px;vertical-align:middle;border:none;" alt="thumbs up"></p></li>
+<li class="fragment"><p>Rate of 4%: <span class="math inline">\(V_{\text{present}} =
+\frac{\$100 \text{M}}{1.04^{50}} = \$14 \text{M} &gt; \$10
+\text{M}\)</span> <img data-src="assets/images/thumb_up.jpg" style="height:50px;vertical-align:middle;border:none;" alt="thumbs up"></p></li>
+<li class="fragment"><p>Rate of 7%: <span class="math inline">\(V_{\text{present}} =
+\frac{\$100 \text{M}}{1.07^{50}} = \$3 \text{M} &lt; \$10
+\text{M}\)</span> <img data-src="assets/images/thumb_down.jpg" style="height:100px;vertical-align:middle;border:none;" alt="thumbs down"></p></li>
+</ul>
+</li>
+</ul></section></section><section><section id="stern-vs.-nordhaus-on-implications-of-discount-rate" class="title-slide slide level1 center"><h1 class="center">Stern vs. Nordhaus on Implications of Discount
+Rate</h1>
+
+</section><section id="nordhaus" class="slide level2 eighty"><h2 class="eighty">Nordhaus</h2>
+<div class="columns">
+<div class="column" style="width:60%">
+<blockquote>
+<p>… we need to use a discount rate that reflects the actual market
+opportunities that societies face, not an abstract definition of equity
+taken out of the context of market realities.</p>
+</blockquote>
+</div>
+<div class="column" style="width:39%;vertical-align:top;">
+<p><img data-src="assets/images/Nordhaus.jpg" style="height:550px;vertical-align:top" alt="William Nordhaus"></p>
+</div>
+</div>
+</section><section id="stern" class="slide level2 eighty" data-transition="fade-out"><h2 class="eighty" data-transition="fade-out">Stern</h2>
+<div class="columns">
+<div class="column" style="width:39%;vertical-align:top;">
+<p><img data-src="assets/images/Stern.jpg" style="height:550px;" alt="Sir Nicholas Stern"></p>
+</div>
+<div class="column" style="width:60%">
+<blockquote>
+<p>… the benefits of strong early action far outweigh the economic costs
+of not acting.</p>
+</blockquote>
+<blockquote>
+<p>… even at moderate levels of warming, all the evidence … shows that
+climate change will have serious impacts on world output, on human life,
+and on the environment.</p>
+</blockquote>
+<p><span style="font-size:60%;color:darkgray;">Stern Review,
+pp. xv–xvi</span></p>
+</div>
+</div>
+</section><section id="stern-1" class="slide level2 eighty" data-transition="fade-in"><h2 class="eighty" data-transition="fade-in">Stern</h2>
+<div class="columns">
+<div class="column" style="width:39%;vertical-align:top;">
+<p><img data-src="assets/images/Stern.jpg" style="height:550px;" alt="Sir Nicholas Stern"></p>
+</div>
+<div class="column" style="width:60%">
+<blockquote>
+<p>… we should go beyond the narrow framework of social welfare
+functions to consider other ethical approaches, including those
+involving rights and sustainability.</p>
+</blockquote>
+<blockquote>
+<p>… disaggregated approach to consequences — looking at different
+dimensions, places, and times — and a broad ethical approach.</p>
+</blockquote>
+</div>
+</div>
+</section></section><section><section id="trump-vs.-obama-and-biden" class="title-slide slide level1 center"><h1 class="center">Trump vs. Obama and Biden</h1>
+
+</section><section id="social-cost-of-carbon" class="slide level2"><h2>Social Cost of Carbon</h2>
+<div class="columns">
+<div class="column">
+<p><strong>Obama, Biden</strong></p>
+<ul>
+<li>Count global damages</li>
+<li>Use 3% discount rate</li>
+<li>Social cost: $51 per ton</li>
+</ul>
+</div>
+<div class="column">
+<p><strong>Trump</strong></p>
+<ul>
+<li>Count only domestic damages</li>
+<li>Use 7% discount rate</li>
+<li>Social cost: $1–7 per ton.</li>
+</ul>
+</div>
+</div>
+</section></section>
+</div>
+  </div>
+  <!--
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/js/reveal.js"></script>
+  <!-- -->
+  <script src="../../lecture_lib/library/reveal.js-3.8.0/js/reveal.min.js"></script><!-- --><script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: false,
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+        // Display the page number of the current slide
+        showSlideNumber: 'speaker',
+        // Push each slide change to the browser history
+        history: true,
+        //  Enable hashing slide content to URL
+        hash: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: false,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // Turns fragments on and off globally
+        fragments: true,
+        // Don't separate fragments in PDF rendering
+        pdfSeparateFragments: false,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1920,
+        height: 1080,
+      
+        // Optional reveal.js plugins
+        dependencies: [
+                    { src: '../../lecture_lib/library/assets/plugin/chalkboard/chalkboard.js', async: true },
+                                        { src: '../../lecture_lib/library/assets/plugin/reveal-skip-fragments/skip-fragments.js', async: true },
+                    { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/notes/notes.js', async: true },
+          { src: '../../lecture_lib/library/reveal.js-3.8.0/plugin/math/math.js', async: true }
+        ],
+        shift_keyboard: {
+    	    67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'C' is pressed
+    	    66: function() { RevealChalkboard.toggleChalkboard() },	  // toggle chalkboard when 'B' is pressed
+    	    88: function() { RevealChalkboard.clear() },	            // clear chalkboard when 'X' is pressed
+    	    82: function() { RevealChalkboard.reset() },	            // reset chalkboard data on current slide when 'R' is pressed
+    	    68: function() { RevealChalkboard.download() },	          // downlad recorded chalkboard drawing when 'D' is pressed
+        },
+              	// Shortcut for showing all fragments
+      	skipFragmentsShowShortcut: 'S',
+
+      	// Shortcut for hiding all fragments
+      	skipFragmentsHideShortcut: 'H',
+      	      });
+    </script><script>
+  	function createSingletonNodejg( container, tagname, classname, innerHTML ) {
+
+		// Find all nodes matching the description
+		var nodes = container.querySelectorAll( '.' + classname );
+
+		// Check all matches to find one which is a direct child of
+		// the specified container
+		for( var i = 0; i < nodes.length; i++ ) {
+			var testNode = nodes[i];
+			if( testNode.parentNode === container ) {
+				return testNode;
+			}
+		}
+
+		// If no node was found, create it now
+		var node = document.createElement( tagname );
+		node.className = classname;
+		if( typeof innerHTML === 'string' ) {
+			node.innerHTML = innerHTML;
+		}
+		container.appendChild( node );
+
+		return node;
+
+	}
+
+  var dom_wrapper = document.querySelector('.reveal');
+  createSingletonNodejg(dom_wrapper, 'div', 'qrbox',
+  '<div class="qrbox" id="qrbox" style="font-size:90%;">' + '\n' +
+  '<div style="font-size:30%;width:100%;">' + '\n' +
+      '<a href="https://ees3310.jgilligan.org/slides/class_32">' +
+  	'<img src="qrcode.png" alt="https://ees3310.jgilligan.org/slides/class_32"/>' +
+  	'</a>' + '\n' +
+	  '</div>' + '\n' +
+  '<div style="font-size:30%;width:100%;vertical-align:top;">' + '\n' +
+    '<span style="display:inline-block;text-align:left;margin-left:0">' + '\n' +
+        'Live web page: <a href="https://ees3310.jgilligan.org/slides/class_32">https://ees3310.jgilligan.org/slides/class_32</a>' + '\n' +
+              '<br/>' + '\n' +
+        'PDF: <a href="https://ees3310.jgilligan.org/slides/class_32/ees_3310_5310_class_32_slides.pdf" target="_blank">https://ees3310.jgilligan.org/slides/class_32/ees_3310_5310_class_32_slides.pdf</a>' + '\n' +
+          	'</span>' + '\n' +
+  	'<span style="display:inline-block;text-align:right;vertical-align:top;position:absolute;right:0;bottom:0;">' + '\n' +
+  	  'Navigate slides: next: N or &lt;space&gt;; previous: P or &lt;backspace&gt;<br/>' + '\n' +
+  	  'Also: up, down, left, right arrows; overview: o; help: ?' + '\n' +
+  	'</span>' + '\n' +
+	'</div>' + '\n' +
+  '</div>' + '\n'
+  );
+</script><script>
+var MathJax = { jax: ["input/TeX", "output/HTML-CSS"],
+                TeX: {extensions: ["color.js", "mhchem.js"],
+                Macros: {
+                  COO: "\\ce{CO2}",
+                  methane: "\\ce{CH4}",
+                  degC: "^\\circ \\mathrm{C}",
+                  degF: "^\\circ \\mathrm{F}",
+                  water: "\\mathrm{H_2O}",
+                  carb: "\\ce{CO3^2-}",
+                  bicarb: "\\ce{HCO3-}",
+                  carbonic: "\\ce{H2CO3}",
+                  Hplus: "\\ce{H+}",
+                  OH: "\\ce{OH-}",
+                  silica: "\\ce{SiO2}",
+                  calcite: "\\ce{CaCO3}",
+                  Caplus: "\\ce{Ca^2+}",
+                  silicate: "\\ce{SiO3^2-}",
+                  CaSi: "\\ce{CaSiO3}",
+                  pH: "p\\ce{H}",
+                  permil: "\\unicode{x2030}"
+                },
+                  },
+                "HTML-CSS" : {scale: 100 }};
+</script><!-- dynamically load mathjax for compatibility with self-contained --><script type="text/x-mathjax-config">
+MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["HTML-CSS"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+	  VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+	  VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+	});
+MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["SVG"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+	  VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+	  VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+	});
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+    displayMath: [ ['$$', '$$'], ['\\[', '\\]'] ],
+    processEscapes: true
+  }
+})
+  </script><script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script><script>
+  var qrbox = document.querySelector("#qrbox");
+  var advance_fragment = 0;
+
+	function isPrintingPDF() {
+	  let printing = ( /print-pdf/gi ).test( window.location.search );
+	  console.log("printing test: " + printing);
+	  return printing;
+	}
+
+
+  if ( qrbox.hasAttribute('qr-box-hide') || Reveal.isOverview() ||
+      ! Reveal.isFirstSlide() || isPrintingPDF()) {
+    console.log("Initializing");
+    console.log("Hiding QR box");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+  }
+
+  Reveal.addEventListener('overviewshown', function() {
+      console.log("Overview shown");
+    console.log("Hiding QR box");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+  }, false);
+
+  Reveal.addEventListener('overviewhidden', function() {
+    if (Reveal.isFirstSlide() && ! qrbox.hasAttribute('qr-box-hide') &&
+        ! isPrintingPDF()) {
+      console.log("Overview hidden");
+      console.log("Showing QR box");
+      qrbox.style.visibility="visible";
+      qrbox.style.display="block";
+    }
+  }, false);
+
+  Reveal.addEventListener('slidechanged', function() {
+    console.log("Slide changed...");
+    if (Reveal.isFirstSlide() && ! Reveal.isOverview() &&
+        ! qrbox.hasAttribute('qr-box-hide') &&
+        ! isPrintingPDF()) {
+      console.log("Showing QR box");
+      qrbox.style.visibility="visible";
+      qrbox.style.display="block";
+    } else {
+      console.log("Hiding QR box");
+      qrbox.style.visibility="hidden";
+      qrbox.style.display="none";
+    }
+  }, false);
+
+  Reveal.addEventListener('pdf-ready', function() {
+    console.log("hiding qrbox for printing");
+    qrbox.style.visibility="hidden";
+    qrbox.style.display="none";
+    qrbox.setAttribute('qr-box-hide', 'true');
+  });
+
+  </script><script>
+  Reveal.addEventListener('slidechanged', function() {
+    while (advance_fragment > 0) {
+      // console.log('advancing fragment');
+      Reveal.nextFragment();
+      advance_fragment--;
+    }
+  }, false);
+
+  Reveal.addEventListener('slidechanged', function() {
+    if ( Reveal.getCurrentSlide().hasAttribute('data-skip')) {
+      // console.log("going to next slide...");
+      Reveal.next();
+    }
+  }, false);
+
+  Reveal.addEventListener('skip_slide', function() {
+    Reveal.next();
+  }, false);
+
+  Reveal.addEventListener('advance_fragment', function() {
+    // console.log("setting advance fragment");
+    advance_fragment++;
+    }, false);
+  </script>
+</body>
+</html>
