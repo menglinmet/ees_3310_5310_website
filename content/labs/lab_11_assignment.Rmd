@@ -3,6 +3,7 @@ title: 'Decarbonizing the World''s Energy Supply: Bottom-Up Approaches'
 lab_date: '2022-04-11'
 report_due_date: 2022-04-20 09:00:00
 lab_number: 11
+github_classroom_assignment_url: https://classroom.github.com/a/tRgi2itx
 pubdate: '2021-12-31'
 date: '2022-04-11'
 slug: lab_11
@@ -22,5 +23,4 @@ You will use the Kaya identity to analyze challenges to decarbonizing the world'
 * [Instructions for Bottom-Up Decarbonization Policy Analysis](/lab_docs/lab_11_instructions){target="_blank"}
 
 ## Assignment
-
-The GitHub Classroom has not been posted yet.
+Accept the assignment at GitHub Classroom at <https://classroom.github.com/a/tRgi2itx>.
