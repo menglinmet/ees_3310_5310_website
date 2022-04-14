@@ -23,24 +23,20 @@ library(knitr)
 library(kableExtra)
 p_load_gh("jonathan-g/cmarkjg")
 
-game_day = ymd("2021-04-12")
+game_day = ymd("2021-04-18")
 long_game_day = format(game_day, "%A %B %e")
 short_game_day = format(game_day, "%b.\ %e")
-
-class_reading_day = ymd("2021-04-05")
-long_reading_day = format(class_reading_day, "%A %B %e")
-short_reading_day = format(class_reading_day, "%b.\ %e")
 
 output_format <- ifelse(is_html_output(), "html", "latex")
 message("Output format = ", output_format)
 
 md_render = if (output_format == "latex") {
-   function(x) {
-      markdown_latex(x, smart = TRUE, max_strikethrough = FALSE,
-                     normalize = TRUE, extensions = TRUE)
-   }
+  function(x) {
+    markdown_latex(x, smart = TRUE, max_strikethrough = FALSE,
+                   normalize = TRUE, extensions = TRUE)
+  }
 } else {
-   function(x) { x }
+  function(x) { x }
 }
 ```
 # Introduction
@@ -82,21 +78,18 @@ into three groups:
 
 1. One group will play The Environmental Protections Agency (EPA) and will 
    decide how much to reduce pollution, how many permits to issue, or how 
-   much to charge as a pollution tax. 
-   
+   much to charge as a pollution tax.
    The EPA's motivation is to produce the best net benefit for society by 
    balancing the costs of reducing greenhouse gas emissions against the 
    benefits of limiting global warming.
 2. A second group will play Alpha Electricity: a large power company with a 
    varied portfolio of generating plants including coal, natural gas, and 
    nuclear. 
-   
    Alpha's motives are purely to produce the greatest profit for its 
    shareholders regardless of the cost to society of greenhouse gas emissions.
 3. A third group will play Beta Industries: a large heavy-industrial 
    conglomerate with many large factories producing steel, aluminum, and 
    petrochemicals such as plastics, paints, and pharmaceuticals. 
-   
    Beta's motives are purely to produce the greatest profit for its 
    shareholders regardless of the cost to society of greenhouse gas 
    emissions.
@@ -136,6 +129,7 @@ The game will have six stages:
    (**I recommend asking questions about the marginal profit for the 
    $n^{\text{th}}$ million tons of pollution:
    "what is your marginal profit for the 6th million tons you emit?"**). 
+
    A representative of each company will answer the question. 
    The representatives may answer strategically, meaning they may exaggerate the 
    costs. The EPA may take this into account in deciding how to use the answers 
@@ -163,9 +157,9 @@ The game will have six stages:
       Again, to keep things simple, issue an even number of permits.
       The EPA will give each company an equal number of permits (if the EPA 
       issues 10 permits, it gives 5 to each company).
-	c) An emissions-tax program. Under this program, the EPA determines the tax 
-		a firm must pay for every million tons of CO~2~ it emits. The firms will 
-		then decide on their own how much CO~2~ they want to emit.
+   c) An emissions-tax program. Under this program, the EPA determines the tax 
+      a firm must pay for every million tons of CO~2~ it emits. The firms will 
+      then decide on their own how much CO~2~ they want to emit.
 3. Third, the firms determine how much CO~2~ they will emit under the 
    command-and-control program (this is easy, because it's the amount the EPA
    allows). 
@@ -194,7 +188,7 @@ _The Journal of Economic Education_ **42**, 70--78 (2011)
 
 To prepare for the lab, please do the following exercises, which refer to 
 tables 1 & 2, below. 
-**You do not need to turn it in**:
+These are only for practice and **you do not need to turn them in**:
 
 1. Table 1 lists the marginal profit a company earns by emitting CO~2~. 
    Fill in the blanks in the table to show the total profits it earns at each 
@@ -236,9 +230,9 @@ tables 1 & 2, below.
    CO~2~. If the number is positive, society benefits. If it is negative, society 
    suffers.
 
-    Fill in the marginal and total economic impacts, using the information on 
-    environmental harm from Table 2 and the information 
-    on marginal profits from Table 1.
+   Fill in the marginal and total economic impacts, using the information on 
+   environmental harm from Table 2 and the information 
+   on marginal profits from Table 1.
 
 9. What is the optimum amount of CO~2~ to emit if we consider the net benefit to 
    society (i.e., the net economic impact).
