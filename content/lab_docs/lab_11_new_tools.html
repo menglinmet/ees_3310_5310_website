@@ -13,18 +13,17 @@ output:
     toc: yes
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#some-new-tools-for-working-with-data">Some New Tools for Working with Data</a>
+<li><a href="#some-new-tools-for-working-with-data" id="toc-some-new-tools-for-working-with-data">Some New Tools for Working with Data</a>
 <ul>
-<li><a href="#getting-fancy-with-the-pipe-operator">Getting fancy with the pipe operator (<code>%&gt;%</code>)</a></li>
-<li><a href="#extracting-columns-from-a-data-frame-in-a-pipeline">Extracting columns from a data frame in a pipeline</a></li>
-<li><a href="#tidying-up-results-of-statistical-modeling">Tidying up results of statistical modeling</a></li>
+<li><a href="#getting-fancy-with-the-pipe-operator" id="toc-getting-fancy-with-the-pipe-operator">Getting fancy with the pipe operator (<code>%&gt;%</code>)</a></li>
+<li><a href="#extracting-columns-from-a-data-frame-in-a-pipeline" id="toc-extracting-columns-from-a-data-frame-in-a-pipeline">Extracting columns from a data frame in a pipeline</a></li>
+<li><a href="#tidying-up-results-of-statistical-modeling" id="toc-tidying-up-results-of-statistical-modeling">Tidying up results of statistical modeling</a></li>
 </ul></li>
-<li><a href="#writing-functions">Writing functions</a></li>
-<li><a href="#kayadata-an-r-package-for-analyzing-kaya-identity-data"><code>kayadata</code>: an R package for analyzing Kaya-identity data</a></li>
+<li><a href="#writing-functions" id="toc-writing-functions">Writing functions</a></li>
+<li><a href="#kayadata-an-r-package-for-analyzing-kaya-identity-data" id="toc-kayadata-an-r-package-for-analyzing-kaya-identity-data"><code>kayadata</code>: an R package for analyzing Kaya-identity data</a></li>
 </ul>
 </div>
 
@@ -181,7 +180,7 @@ into a nice data frame:</p>
 <pre class="r"><code>lin_fit = storms %&gt;% filter(status == &quot;hurricane&quot;, year == 2005) %&gt;%
            lm(wind ~ pressure, data = .)
 tidy(lin_fit)</code></pre>
-<pre><code>## # A tibble: 2 x 5
+<pre><code>## # A tibble: 2 × 5
 ##   term        estimate std.error statistic  p.value
 ##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 ## 1 (Intercept)  947.      25.3         37.4 5.07e-86

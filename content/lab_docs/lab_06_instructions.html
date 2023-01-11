@@ -13,29 +13,28 @@ output:
     toc: yes
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#carbon-cycle">Carbon Cycle</a>
+<li><a href="#carbon-cycle" id="toc-carbon-cycle">Carbon Cycle</a>
 <ul>
-<li><a href="#running-the-geocarb-model-from-r">Running the GEOCARB model from R</a></li>
-<li><a href="#refresher-on-plotting-several-variables">Refresher on Plotting Several Variables</a></li>
-<li><a href="#modifying-the-axes-of-a-plot">Modifying the Axes of a Plot</a></li>
+<li><a href="#running-the-geocarb-model-from-r" id="toc-running-the-geocarb-model-from-r">Running the GEOCARB model from R</a></li>
+<li><a href="#refresher-on-plotting-several-variables" id="toc-refresher-on-plotting-several-variables">Refresher on Plotting Several Variables</a></li>
+<li><a href="#modifying-the-axes-of-a-plot" id="toc-modifying-the-axes-of-a-plot">Modifying the Axes of a Plot</a></li>
 </ul></li>
-<li><a href="#exercises-for-lab-6">Exercises for Lab #6</a>
+<li><a href="#exercises-for-lab-6" id="toc-exercises-for-lab-6">Exercises for Lab #6</a>
 <ul>
-<li><a href="#exercise-1-weathering-as-a-function-of-co2">Exercise 1: Weathering as a Function of CO<sub>2</sub></a>
+<li><a href="#exercise-1-weathering-as-a-function-of-co2" id="toc-exercise-1-weathering-as-a-function-of-co2">Exercise 1: Weathering as a Function of CO<sub>2</sub></a>
 <ul>
-<li><a href="#details">Details:</a></li>
+<li><a href="#details" id="toc-details">Details:</a></li>
 </ul></li>
-<li><a href="#exercise-2-the-long-term-fate-of-fossil-fuel-co2">Exercise 2: The long-term fate of fossil fuel CO<sub>2</sub></a>
+<li><a href="#exercise-2-the-long-term-fate-of-fossil-fuel-co2" id="toc-exercise-2-the-long-term-fate-of-fossil-fuel-co2">Exercise 2: The long-term fate of fossil fuel CO<sub>2</sub></a>
 <ul>
-<li><a href="#details-1">Details</a></li>
+<li><a href="#details-1" id="toc-details-1">Details</a></li>
 </ul></li>
-<li><a href="#exercise-3-graduate-students-only-how-the-land-plants-changed-the-carbon-cycle">Exercise 3 (Graduate Students Only): How the Land Plants Changed the Carbon Cycle</a>
+<li><a href="#exercise-3-graduate-students-only-how-the-land-plants-changed-the-carbon-cycle" id="toc-exercise-3-graduate-students-only-how-the-land-plants-changed-the-carbon-cycle">Exercise 3 (Graduate Students Only): How the Land Plants Changed the Carbon Cycle</a>
 <ul>
-<li><a href="#details-2">Details</a></li>
+<li><a href="#details-2" id="toc-details-2">Details</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -336,12 +335,12 @@ kable(head(df_tidy))</code></pre>
 Consider the following GEOCARB model run:</p>
 <pre class="r"><code>geocarb_data = run_geocarb(1000)</code></pre>
 <pre><code>## Rows: 140 Columns: 14
-## -- Column specification --------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## dbl (14): year, tco2, alk, d13Cocn, pCO2, d13Catm, CO3, WeatC, WeatS, TotW, ...
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>ggplot(geocarb_data, aes(x = year, y = co2_atmos)) + geom_line() +
   labs(x = &quot;Year&quot;, y = &quot;CO2&quot;)</code></pre>
 <p><img src="/lab_docs/lab_06_instructions_files/figure-html/geocarb-axes-example-1.png" width="672" /></p>

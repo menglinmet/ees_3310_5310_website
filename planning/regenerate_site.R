@@ -27,7 +27,7 @@ new_update_site <- function(root = NULL, force = FALSE, keep_tex = FALSE) {
   out_opts = list(md_extensions = semestr:::get_md_extensions(), toc = TRUE,
                   includes = list(in_header = "ees3310.sty"),
                   keep_tex = keep_tex)
-  update_pdfs(force_dest = TRUE, force = force, output_options = out_opts)
+  update_pdfs(root_dir = root, force_dest = TRUE, force = force, output_options = out_opts)
 }
 
 init_git_tokens <- function(keyring = "git_access") {

@@ -523,7 +523,7 @@ To analyze the policy:
    r_F_middle_east = log(F_goal_middle_east / F_2017_middle_east) / 
      (2050 - 2017)
     r_F_middle_east
-    ```
+   ```
     so total emissions for the Middle East would need to drop by 
     `r label_percent(accuracy=0.01)(r_F_middle_east)` per year between 
     `r current_year` and `r target_year`

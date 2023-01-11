@@ -13,21 +13,20 @@ output:
     toc: yes
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#instructions">Instructions</a></li>
-<li><a href="#worked-example">Worked Example</a>
+<li><a href="#instructions" id="toc-instructions">Instructions</a></li>
+<li><a href="#worked-example" id="toc-worked-example">Worked Example</a>
 <ul>
-<li><a href="#downloading-co2-data-from-mauna-loa-observatory">Downloading CO<sub>2</sub> Data from Mauna Loa Observatory</a></li>
+<li><a href="#downloading-co2-data-from-mauna-loa-observatory" id="toc-downloading-co2-data-from-mauna-loa-observatory">Downloading CO<sub>2</sub> Data from Mauna Loa Observatory</a></li>
 </ul></li>
-<li><a href="#exercises">Exercises</a>
+<li><a href="#exercises" id="toc-exercises">Exercises</a>
 <ul>
-<li><a href="#pivoting-data-frames">Pivoting Data Frames</a>
+<li><a href="#pivoting-data-frames" id="toc-pivoting-data-frames">Pivoting Data Frames</a>
 <ul>
-<li><a href="#u.s.-presidential-approval-ratings-19451974">U.S. Presidential approval ratings 1945–1974</a></li>
-<li><a href="#grouping-and-summarizing">Grouping and Summarizing</a></li>
+<li><a href="#u.s.-presidential-approval-ratings-19451974" id="toc-u.s.-presidential-approval-ratings-19451974">U.S. Presidential approval ratings 1945–1974</a></li>
+<li><a href="#grouping-and-summarizing" id="toc-grouping-and-summarizing">Grouping and Summarizing</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -112,16 +111,17 @@ fractional parts), <code>n</code> for an unspecified number,
 <p>Let’s look at the first few rows of the data:</p>
 <p>Here is how it looks in R:</p>
 <pre class="r"><code>head(mlo_data)</code></pre>
-<pre><code>## # A tibble: 6 x 10
-##    year month date_excel  date co2_raw co2_raw_seas co2_fit co2_fit_seas
-##   &lt;int&gt; &lt;int&gt;      &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
-## 1  1958     1      21200 1958.     NA           NA      NA           NA 
-## 2  1958     2      21231 1958.     NA           NA      NA           NA 
-## 3  1958     3      21259 1958.    316.         314.    316.         315.
-## 4  1958     4      21290 1958.    317.         315.    317.         315.
-## 5  1958     5      21320 1958.    318.         315.    318.         315.
-## 6  1958     6      21351 1958.     NA           NA     317.         315.
-## # ... with 2 more variables: co2_filled &lt;dbl&gt;, co2_filled_seas &lt;dbl&gt;</code></pre>
+<pre><code>## # A tibble: 6 × 10
+##    year month date_excel  date co2_raw co2_raw…¹ co2_fit co2_f…² co2_f…³ co2_f…⁴
+##   &lt;int&gt; &lt;int&gt;      &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1  1958     1      21200 1958.     NA        NA      NA      NA      NA      NA 
+## 2  1958     2      21231 1958.     NA        NA      NA      NA      NA      NA 
+## 3  1958     3      21259 1958.    316.      314.    316.    315.    316.    314.
+## 4  1958     4      21290 1958.    317.      315.    317.    315.    317.    315.
+## 5  1958     5      21320 1958.    318.      315.    318.    315.    318.    315.
+## 6  1958     6      21351 1958.     NA        NA     317.    315.    317.    315.
+## # … with abbreviated variable names ¹​co2_raw_seas, ²​co2_fit_seas, ³​co2_filled,
+## #   ⁴​co2_filled_seas</code></pre>
 <p>There are six different columns for the CO<sub>2</sub> measurements:</p>
 <ul>
 <li><p><code>co2_raw</code> is the
@@ -143,7 +143,7 @@ columns in the tibble and get rid of the ones we don’t want.</p>
 <pre class="r"><code>mlo_simple = mlo_data %&gt;% select(year, month, date, co2 = co2_filled)
 
 head(mlo_simple)</code></pre>
-<pre><code>## # A tibble: 6 x 4
+<pre><code>## # A tibble: 6 × 4
 ##    year month  date   co2
 ##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1  1958     1 1958.   NA 
@@ -313,7 +313,7 @@ it out.</p>
 library(broom)
 
 tidy(co2_fit)</code></pre>
-<pre><code>## # A tibble: 2 x 5
+<pre><code>## # A tibble: 2 × 5
 ##   term        estimate std.error statistic p.value
 ##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
 ## 1 (Intercept) -2819.    18.1         -156.       0
@@ -364,7 +364,7 @@ approval ratings for U.S. presidents from 1945–2021:</p>
 print(&quot;First 10 rows of df are&quot;)</code></pre>
 <pre><code>## [1] &quot;First 10 rows of df are&quot;</code></pre>
 <pre class="r"><code>print(head(df, 10))</code></pre>
-<pre><code>## # A tibble: 10 x 6
+<pre><code>## # A tibble: 10 × 6
 ##    president             year    Q1     Q2     Q3    Q4
 ##    &lt;chr&gt;                &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
 ##  1 Harry S. Truman       1945  NA    84     NA     67  
@@ -410,7 +410,7 @@ and within each year, sort the quarters in alphabetical order from Q1 to Q4</p>
   arrange(year, quarter) 
 
 head(df_long) # print the first few rows of the tibble.</code></pre>
-<pre><code>## # A tibble: 6 x 4
+<pre><code>## # A tibble: 6 × 4
 ##   president        year quarter net_approval
 ##   &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;          &lt;dbl&gt;
 ## 1 Harry S. Truman  1945 Q1              NA  
@@ -426,7 +426,7 @@ data frame back to the original format:</p>
   arrange(year) 
 
 head(df_wide) # print the first few rows of the tibble.</code></pre>
-<pre><code>## # A tibble: 6 x 6
+<pre><code>## # A tibble: 6 × 6
 ##   president        year    Q1    Q2     Q3    Q4
 ##   &lt;chr&gt;           &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
 ## 1 Harry S. Truman  1945  NA   84     NA     67  
@@ -453,7 +453,7 @@ group it. You do this with <code>ungroup(df)</code> or <code>df %&gt;% ungroup()
   ungroup()
 
 head(df_annual)</code></pre>
-<pre><code>## # A tibble: 6 x 2
+<pre><code>## # A tibble: 6 × 2
 ##    year net_approval
 ##   &lt;int&gt;        &lt;dbl&gt;
 ## 1  1945        75.5 

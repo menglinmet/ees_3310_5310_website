@@ -13,27 +13,26 @@ output:
     toc: yes
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction">Introduction</a>
+<li><a href="#introduction" id="toc-introduction">Introduction</a>
 <ul>
-<li><a href="#downloading-co2-data-from-mauna-loa-observatory">Downloading CO<sub>2</sub> Data from Mauna Loa Observatory</a></li>
+<li><a href="#downloading-co2-data-from-mauna-loa-observatory" id="toc-downloading-co2-data-from-mauna-loa-observatory">Downloading CO<sub>2</sub> Data from Mauna Loa Observatory</a></li>
 </ul></li>
-<li><a href="#exercises-for-part-1">Exercises for Part 1</a>
+<li><a href="#exercises-for-part-1" id="toc-exercises-for-part-1">Exercises for Part 1</a>
 <ul>
-<li><a href="#exercises-with-co2-data-from-the-mauna-loa-observatory">Exercises with CO<sub>2</sub> Data from the Mauna Loa Observatory</a></li>
-<li><a href="#exercises-with-global-temperature-data-from-nasa">Exercises with Global Temperature Data from NASA</a>
+<li><a href="#exercises-with-co2-data-from-the-mauna-loa-observatory" id="toc-exercises-with-co2-data-from-the-mauna-loa-observatory">Exercises with CO<sub>2</sub> Data from the Mauna Loa Observatory</a></li>
+<li><a href="#exercises-with-global-temperature-data-from-nasa" id="toc-exercises-with-global-temperature-data-from-nasa">Exercises with Global Temperature Data from NASA</a>
 <ul>
-<li><a href="#did-global-warming-stop-after-1998">Did Global Warming Stop after 1998?</a></li>
+<li><a href="#did-global-warming-stop-after-1998" id="toc-did-global-warming-stop-after-1998">Did Global Warming Stop after 1998?</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#exercises-for-part-2">Exercises for Part 2</a>
+<li><a href="#exercises-for-part-2" id="toc-exercises-for-part-2">Exercises for Part 2</a>
 <ul>
-<li><a href="#exercise-3.1-grad.-students-only">Exercise 3.1 (Grad. students only)</a></li>
-<li><a href="#exercise-3.2">Exercise 3.2</a></li>
-<li><a href="#exercise-3.3">Exercise 3.3</a></li>
+<li><a href="#exercise-3.1-grad.-students-only" id="toc-exercise-3.1-grad.-students-only">Exercise 3.1 (Grad. students only)</a></li>
+<li><a href="#exercise-3.2" id="toc-exercise-3.2">Exercise 3.2</a></li>
+<li><a href="#exercise-3.3" id="toc-exercise-3.3">Exercise 3.3</a></li>
 </ul></li>
 </ul>
 </div>
@@ -100,9 +99,9 @@ You can get the trend for the worked example from the variable <code>co2_fit</co
 which was defined above, in the code chunk <code>calc_mlo_trend</code>.</p>
 <p><strong>Answer:</strong>
 The trend in the seasonally adjusted data (<code>trend_seas</code>) is
-1.60 ppm CO2 per year, which is very
+1.61 ppm CO2 per year, which is very
 close to the trend we fit to the raw data
-(<code>co2_trend</code> = 1.60).</p>
+(<code>co2_trend</code> = 1.61).</p>
 </div>
 <div id="exercises-with-global-temperature-data-from-nasa" class="section level2">
 <h2>Exercises with Global Temperature Data from NASA</h2>
@@ -126,15 +125,15 @@ the resulting tibble to a variable <code>giss_temp</code></p>
 <p>The code below shows the first 5 lines of the resulting tibble, so you
 can see what it looks like:</p>
 <pre class="r"><code>head(giss_temp, 5)</code></pre>
-<pre><code>## # A tibble: 5 x 19
+<pre><code>## # A tibble: 5 × 19
 ##    Year   Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1  1880 -0.17 -0.24 -0.08 -0.15 -0.09 -0.2  -0.17 -0.09 -0.14 -0.23 -0.21 -0.17
-## 2  1881 -0.19 -0.13  0.04  0.06  0.07 -0.18  0.01 -0.03 -0.15 -0.21 -0.18 -0.06
-## 3  1882  0.17  0.14  0.05 -0.15 -0.13 -0.22 -0.16 -0.07 -0.15 -0.23 -0.16 -0.36
-## 4  1883 -0.29 -0.36 -0.12 -0.18 -0.17 -0.06 -0.07 -0.13 -0.22 -0.11 -0.24 -0.11
-## 5  1884 -0.13 -0.08 -0.36 -0.4  -0.33 -0.34 -0.32 -0.27 -0.27 -0.25 -0.33 -0.3 
-## # ... with 6 more variables: `J-D` &lt;dbl&gt;, `D-N` &lt;dbl&gt;, DJF &lt;dbl&gt;, MAM &lt;dbl&gt;,
+## 1  1880 -0.2  -0.25 -0.09 -0.16 -0.09 -0.22 -0.2  -0.1  -0.15 -0.23 -0.23 -0.18
+## 2  1881 -0.19 -0.15  0.02  0.04  0.07 -0.18  0.01 -0.04 -0.15 -0.22 -0.18 -0.07
+## 3  1882  0.16  0.14  0.05 -0.16 -0.14 -0.22 -0.16 -0.08 -0.15 -0.23 -0.17 -0.36
+## 4  1883 -0.29 -0.37 -0.12 -0.18 -0.18 -0.07 -0.07 -0.14 -0.22 -0.11 -0.24 -0.11
+## 5  1884 -0.13 -0.08 -0.36 -0.4  -0.33 -0.35 -0.31 -0.28 -0.27 -0.25 -0.33 -0.31
+## # … with 6 more variables: `J-D` &lt;dbl&gt;, `D-N` &lt;dbl&gt;, DJF &lt;dbl&gt;, MAM &lt;dbl&gt;,
 ## #   JJA &lt;dbl&gt;, SON &lt;dbl&gt;</code></pre>
 <p>Let’s focus on the months only. Use <code>select</code> to select just the columns for
 “Year” and January through December (if you are selecting a consecutive range
@@ -477,7 +476,7 @@ T_ground = (I_ground_up / (epsilon * sigma))^0.25</code></pre>
 <p><span class="math display">\[\begin{align*}
 I_{\text{ground,up}} &amp;= 2 * I_{1,\text{up}} - I_{2,\text{up}} \\
 I_{2,\text{up}} &amp;= 2 I_{2,\text{up}} \\
-\intertext{so} 
+\intertext{so}
 I_{\text{ground,up}} &amp;= 4 I_{2,\text{up}} - I_{2,\text{up}} \\
                      &amp;= 3 I_{2,\text{up}} \\
 T_{\text{ground}} &amp;= \sqrt[4]{\frac{3 I_{2,\text{up}}}{\varepsilon \sigma}} \\

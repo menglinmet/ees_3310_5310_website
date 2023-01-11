@@ -14,25 +14,24 @@ output:
     toc: yes
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction">Introduction</a>
+<li><a href="#introduction" id="toc-introduction">Introduction</a>
 <ul>
-<li><a href="#data-resources">Data Resources</a>
+<li><a href="#data-resources" id="toc-data-resources">Data Resources</a>
 <ul>
-<li><a href="#using-the-interactive-web-application">Using the interactive web application:</a></li>
+<li><a href="#using-the-interactive-web-application" id="toc-using-the-interactive-web-application">Using the interactive web application:</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#background-and-context">Background and Context</a>
+<li><a href="#background-and-context" id="toc-background-and-context">Background and Context</a>
 <ul>
-<li><a href="#growth-rates-and-trends">Growth Rates and Trends</a></li>
+<li><a href="#growth-rates-and-trends" id="toc-growth-rates-and-trends">Growth Rates and Trends</a></li>
 </ul></li>
-<li><a href="#the-assignment">The Assignment</a>
+<li><a href="#the-assignment" id="toc-the-assignment">The Assignment</a>
 <ul>
-<li><a href="#outline">Outline:</a></li>
-<li><a href="#detailed-steps">Detailed steps:</a></li>
+<li><a href="#outline" id="toc-outline">Outline:</a></li>
+<li><a href="#detailed-steps" id="toc-detailed-steps">Detailed steps:</a></li>
 </ul></li>
 </ul>
 </div>
@@ -169,17 +168,17 @@ equals <span class="math inline">\(e \times f\)</span>.<a href="#fn2" class="foo
 decarbonization trends we are studying will be constant from year to year.
 A constant percentage rate of change implies that the quantity follows
 an exponential growth function,
-so if you know the values for <em>P</em>, <em>g</em>, <em>e</em>, and <em>f</em> in 2020,
+so if you know the values for <em>P</em>, <em>g</em>, <em>e</em>, and <em>f</em> in 2021,
 then at some future year <em>y</em>:</p>
 <p><span class="math inline">\(\def\lefteqn#1{\rlap{\displaystyle{#1}}}\)</span>
 <span class="math inline">\(\def\alintertext#1{\rlap{\displaystyle{\text{#1}}}}\)</span>
 <span class="math display">\[
 \begin{aligned}
-  P(y) &amp;= P(2020) \times \exp(r_P (y - 2020)),\\
-  g(y) &amp;= g(2020) \times \exp(r_g (y - 2020)),\\
-  e(y) &amp;= e(2020) \times \exp(r_e (y - 2020)),\\
+  P(y) &amp;= P(2021) \times \exp(r_P (y - 2021)),\\
+  g(y) &amp;= g(2021) \times \exp(r_g (y - 2021)),\\
+  e(y) &amp;= e(2021) \times \exp(r_e (y - 2021)),\\
   \alintertext{and}
-  f(y) &amp;= f(2020) \times \exp(r_f (y - 2020)),\\
+  f(y) &amp;= f(2021) \times \exp(r_f (y - 2021)),\\
 \end{aligned}
 \]</span>
 where <em>r<sub>P</sub></em> is the growth rate of the population, <em>r<sub>g</sub></em> is the growth rate of the per-capita GDP, etc.
@@ -202,10 +201,10 @@ rates of change of each of the quantities:
 <span class="math display">\[
 \begin{aligned}
   \mathrm{GDP}(y) &amp;= P(y)\times g(y)\\
-    &amp;= P(2020) \times \exp(r_p (y - 2020))
-    \times g(2020) \times \exp(r_g (y - 2020))\\
-    &amp;= P(2020)\times g(2020)
-    \times \exp((r_P + r_g) (y - 2020))\\
+    &amp;= P(2021) \times \exp(r_p (y - 2021))
+    \times g(2021) \times \exp(r_g (y - 2021))\\
+    &amp;= P(2021)\times g(2021)
+    \times \exp((r_P + r_g) (y - 2021))\\
     \alintertext{so}
   r_{\mathrm{GDP}} &amp;= r_{P\times g} = r_P + r_g.
 \end{aligned}
@@ -244,7 +243,7 @@ This uses the policy criteria (<em>F</em> in 2050 should be
 80% less than in 2005)
 and the measured emissions <em>F</em> in 2005, from the Kaya data for the
 OECD.</li>
-<li>Calculate the <em>implied rate of change</em> of <em>F</em> between 2020
+<li>Calculate the <em>implied rate of change</em> of <em>F</em> between 2021
 and 2050, in order to reduce emissions to the policy goal that
 you calculated in step (5).
 This is the average fraction that <em>F</em> must be reduced each year between
@@ -297,7 +296,7 @@ the next several decades?</p></li>
 <li><p>Next, calculate the rates of change of
 <em>P</em>, <em>g</em>, <em>e</em>, and <em>f</em> (the Population, per-capita GDP, energy intensity of
 the economy, and carbon-intensity of the energy supply) from your starting
-year through 2020, using the <code>lm</code> function in R.</p>
+year through 2021, using the <code>lm</code> function in R.</p>
 <p>A constant rate of change is represented by a linear relationship between
 the natural logarithm of the kaya variable and time: for the variable
 <code>P</code> (population), we would write this formula in R as <code>log(P)~year</code>.</p>
@@ -314,8 +313,8 @@ e_trend = us_data %&gt;% filter(year &gt;= 1980) %&gt;%
   pull(estimate)</code></pre>
 <p>For more detailed explanation of the code above, see the handout
 “New Tools for Data Analysis.”</p>
-<p>Here, we find that <code>e_trend</code> = -0.0194
-(-1.94% per year).</p>
+<p>Here, we find that <code>e_trend</code> = -0.0193
+(-1.93% per year).</p>
 <p>You can check your results against the interactive web application by
 looking at the rates of change reported on the “Trends” tab.
 Be sure to set the start year on the web app to the same values that you
@@ -349,22 +348,22 @@ set the emissions reduction to
 <pre class="r"><code>F_2005_middle_east = get_kaya_data(&quot;Middle East&quot;) %&gt;% 
   filter(year == 2005) %&gt;% pull(F)
 F_2005_middle_east</code></pre>
-<pre><code>## [1] 1394.057</code></pre>
+<pre><code>## [1] 1340.171</code></pre>
 <pre class="r"><code>middle_east_reduction = 0.32
 F_goal_middle_east = F_2005_middle_east * (1 - middle_east_reduction)
 F_goal_middle_east</code></pre>
-<pre><code>## [1] 947.9588</code></pre>
+<pre><code>## [1] 911.3164</code></pre>
 <p>Check this result against the interactive web application.</p></li>
-<li><p>Look up what the CO<sub>2</sub> emission is in 2020 and calculate the
+<li><p>Look up what the CO<sub>2</sub> emission is in 2021 and calculate the
 rate of change in <em>F</em> that would be necessary to achieve your policy target.
 For the 2050 calculation:</p>
 <ol style="list-style-type: lower-alpha">
-<li>Calculate the ratio of <span class="math inline">\(F_{2050}/F_{2020}\)</span>.</li>
+<li>Calculate the ratio of <span class="math inline">\(F_{2050}/F_{2021}\)</span>.</li>
 <li>Take the natural logarithm of this ratio
 (in R, the natural logarithm function is <code>log()</code>; on your calculator
 it is “LN”).</li>
 <li>Divide the logarithm by the number of years
-(<span class="math inline">\(2050 - 2020\)</span>).
+(<span class="math inline">\(2050 - 2021\)</span>).
 This is the rate of change of <em>F</em>. A positive number means growth and a
 negative number means a reduction.
 The percentage rate of change per year is 100 times this number.</li>
@@ -375,10 +374,10 @@ The percentage rate of change per year is 100 times this number.</li>
 r_F_middle_east = log(F_goal_middle_east / F_2017_middle_east) / 
   (2050 - 2017)
  r_F_middle_east</code></pre>
-<pre><code>## [1] -0.02472985</code></pre>
+<pre><code>## [1] -0.02498516</code></pre>
 <p>so total emissions for the Middle East would need to drop by
--2.47% per year between
-2020 and 2050</p></li>
+-2.50% per year between
+2021 and 2050</p></li>
 <li><p>Now calculate the decarbonization rate implied by the policy goal. This is
 the rate of reduction of <em>ef</em>, the carbon intensity of the economy.
 <span class="math inline">\(F = Pgef\)</span>, so <span class="math inline">\(r_F = r_P + r_g + r_e + r_f\)</span>. Subtract the projected <em>r<sub>P</sub></em>

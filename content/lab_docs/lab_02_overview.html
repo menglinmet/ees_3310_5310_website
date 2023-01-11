@@ -13,37 +13,36 @@ output:
     toc: yes
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction">Introduction</a>
+<li><a href="#introduction" id="toc-introduction">Introduction</a>
 <ul>
-<li><a href="#r-for-data-science">R for Data Science</a></li>
-<li><a href="#online-documentation-for-the-tidyverse">Online documentation for the tidyverse</a></li>
+<li><a href="#r-for-data-science" id="toc-r-for-data-science">R for Data Science</a></li>
+<li><a href="#online-documentation-for-the-tidyverse" id="toc-online-documentation-for-the-tidyverse">Online documentation for the tidyverse</a></li>
 </ul></li>
-<li><a href="#data-in-r">Data in R</a>
+<li><a href="#data-in-r" id="toc-data-in-r">Data in R</a>
 <ul>
-<li><a href="#kinds-of-variables">Kinds of variables</a></li>
-<li><a href="#vectors-lists-data-frames-and-tibbles.">Vectors, Lists, Data Frames, and Tibbles.</a>
+<li><a href="#kinds-of-variables" id="toc-kinds-of-variables">Kinds of variables</a></li>
+<li><a href="#vectors-lists-data-frames-and-tibbles." id="toc-vectors-lists-data-frames-and-tibbles.">Vectors, Lists, Data Frames, and Tibbles.</a>
 <ul>
-<li><a href="#vectors">Vectors</a></li>
-<li><a href="#lists">Lists</a></li>
-<li><a href="#data-frames-and-tibbles">Data frames and <em>tibbles</em></a></li>
+<li><a href="#vectors" id="toc-vectors">Vectors</a></li>
+<li><a href="#lists" id="toc-lists">Lists</a></li>
+<li><a href="#data-frames-and-tibbles" id="toc-data-frames-and-tibbles">Data frames and <em>tibbles</em></a></li>
 </ul></li>
 </ul></li>
-<li><a href="#the-tidyverse">The Tidyverse</a>
+<li><a href="#the-tidyverse" id="toc-the-tidyverse">The Tidyverse</a>
 <ul>
-<li><a href="#manipulating-data-frames">Manipulating Data Frames</a>
+<li><a href="#manipulating-data-frames" id="toc-manipulating-data-frames">Manipulating Data Frames</a>
 <ul>
-<li><a href="#manipulating-columns">Manipulating Columns</a></li>
-<li><a href="#selecting-rows">Selecting Rows</a></li>
-<li><a href="#summarizing-rows">Summarizing rows</a></li>
-<li><a href="#combining-rows">Combining Rows</a></li>
+<li><a href="#manipulating-columns" id="toc-manipulating-columns">Manipulating Columns</a></li>
+<li><a href="#selecting-rows" id="toc-selecting-rows">Selecting Rows</a></li>
+<li><a href="#summarizing-rows" id="toc-summarizing-rows">Summarizing rows</a></li>
+<li><a href="#combining-rows" id="toc-combining-rows">Combining Rows</a></li>
 </ul></li>
-<li><a href="#tidy-data-and-pivoting-data-frames">Tidy Data and Pivoting Data Frames</a></li>
+<li><a href="#tidy-data-and-pivoting-data-frames" id="toc-tidy-data-and-pivoting-data-frames">Tidy Data and Pivoting Data Frames</a></li>
 </ul></li>
-<li><a href="#graphing-data">Graphing Data</a></li>
+<li><a href="#graphing-data" id="toc-graphing-data">Graphing Data</a></li>
 </ul>
 </div>
 
@@ -253,7 +252,7 @@ chicago_weather = readRDS(&#39;_data/chicago_weather.Rds&#39;)</code></pre>
 Nashville from
 1950–2020:</p>
 <pre class="r"><code>head(nashville_weather)</code></pre>
-<pre><code>## # A tibble: 6 x 6
+<pre><code>## # A tibble: 6 × 6
 ##   id          date        prcp  tmin  tmax location     
 ##   &lt;chr&gt;       &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
 ## 1 USW00013897 1950-01-01   104    89   117 Nashville, TN
@@ -370,7 +369,7 @@ and they will allow us to do some powerful analysis.</p>
 <p>Let’s start with <code>select</code>: You can select columns to keep or columns to delete.</p>
 <p>Here are the first few rows of <code>nashville_weather</code></p>
 <pre class="r"><code>head(nashville_weather)</code></pre>
-<pre><code>## # A tibble: 6 x 6
+<pre><code>## # A tibble: 6 × 6
 ##   id          date        prcp  tmin  tmax location     
 ##   &lt;chr&gt;       &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
 ## 1 USW00013897 1950-01-01   104    89   117 Nashville, TN
@@ -389,7 +388,7 @@ operate on, and then give a list of columns to eliminate, with a minus sign
 in front of each:</p>
 <pre class="r"><code>x = select(nashville_weather, -id, -location)
 head(x)</code></pre>
-<pre><code>## # A tibble: 6 x 4
+<pre><code>## # A tibble: 6 × 4
 ##   date        prcp  tmin  tmax
 ##   &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt;
 ## 1 1950-01-01   104    89   117
@@ -402,7 +401,7 @@ head(x)</code></pre>
 it which columns to keep:</p>
 <pre class="r"><code>x = select(nashville_weather, date, prcp, tmin, tmax)
 head(x)</code></pre>
-<pre><code>## # A tibble: 6 x 4
+<pre><code>## # A tibble: 6 × 4
 ##   date        prcp  tmin  tmax
 ##   &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt;
 ## 1 1950-01-01   104    89   117
@@ -415,7 +414,7 @@ head(x)</code></pre>
 colon between them:</p>
 <pre class="r"><code>x = select(nashville_weather, date:tmax)
 head(x)</code></pre>
-<pre><code>## # A tibble: 6 x 4
+<pre><code>## # A tibble: 6 × 4
 ##   date        prcp  tmin  tmax
 ##   &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt;
 ## 1 1950-01-01   104    89   117
@@ -430,7 +429,7 @@ head(x)</code></pre>
 <p><code>rename</code> lets us rename columns:</p>
 <pre class="r"><code>x = rename(nashville_weather, weather_station = id, city = location)
 head(x)</code></pre>
-<pre><code>## # A tibble: 6 x 6
+<pre><code>## # A tibble: 6 × 6
 ##   weather_station date        prcp  tmin  tmax city         
 ##   &lt;chr&gt;           &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
 ## 1 USW00013897     1950-01-01   104    89   117 Nashville, TN
@@ -445,7 +444,7 @@ head(x)</code></pre>
 <p><code>filter</code> lets us select only rows that match a condition:</p>
 <pre class="r"><code>x = filter(nashville_weather, year(date) &gt; 2015 &amp; tmax &lt; 0)
 head(x)</code></pre>
-<pre><code>## # A tibble: 6 x 6
+<pre><code>## # A tibble: 6 × 6
 ##   id          date        prcp  tmin  tmax location     
 ##   &lt;chr&gt;       &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
 ## 1 USW00013897 2016-01-18     0  -110   -38 Nashville, TN
@@ -460,7 +459,7 @@ equal, you write <code>==</code> with two equal signs. A single equal sign is fo
 equal signs are for comparisons. You can also use “&lt;=” for less than or equal to and “&gt;=” for greter than or equal to.</p>
 <pre class="r"><code>x = filter(nashville_weather, date == ymd(&quot;2016-06-10&quot;))
 x</code></pre>
-<pre><code>## # A tibble: 1 x 6
+<pre><code>## # A tibble: 1 × 6
 ##   id          date        prcp  tmin  tmax location     
 ##   &lt;chr&gt;       &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
 ## 1 USW00013897 2016-06-10     0   156   333 Nashville, TN</code></pre>
@@ -471,7 +470,7 @@ value “2016-06-10” to the date value for June 10, 2016.</p>
 <p>We can sort the rows of a tibble or <code>data.frame</code> with the <code>arrange</code> function:</p>
 <pre class="r"><code>x = arrange(nashville_weather, desc(tmax), tmin)
 head(x,10)</code></pre>
-<pre><code>## # A tibble: 10 x 6
+<pre><code>## # A tibble: 10 × 6
 ##    id          date        prcp  tmin  tmax location     
 ##    &lt;chr&gt;       &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
 ##  1 USW00013897 2012-06-29     0   211   428 Nashville, TN
@@ -504,7 +503,7 @@ Fahrenheit using the equation</p>
 <pre class="r"><code>x = mutate(nashville_weather, prcp = prcp / 25.4, tmin = tmin * 9./5. + 32,
            tmax = tmax * 9./5. + 32, trange = tmax - tmin)
 head(x)</code></pre>
-<pre><code>## # A tibble: 6 x 7
+<pre><code>## # A tibble: 6 × 7
 ##   id          date        prcp   tmin  tmax location      trange
 ##   &lt;chr&gt;       &lt;date&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;
 ## 1 USW00013897 1950-01-01  4.09 192.    243. Nashville, TN   50.4
@@ -523,7 +522,7 @@ in the whole data set:</p>
               tmin_min = min(tmin, na.rm = TRUE), 
               tmax_max = max(tmax, na.rm = TRUE))
 x</code></pre>
-<pre><code>## # A tibble: 1 x 3
+<pre><code>## # A tibble: 1 × 3
 ##   prcp_max tmin_min tmax_max
 ##      &lt;int&gt;    &lt;int&gt;    &lt;int&gt;
 ## 1     1842     -400      428</code></pre>
@@ -544,7 +543,7 @@ other summary functions.</p>
 <p>You can use summary to generate multiple summary quantities from a column:</p>
 <pre class="r"><code>x = summarize(nashville_weather, prcp_max = max(prcp), prcp_min = min(prcp))
 x</code></pre>
-<pre><code>## # A tibble: 1 x 2
+<pre><code>## # A tibble: 1 × 2
 ##   prcp_max prcp_min
 ##      &lt;int&gt;    &lt;int&gt;
 ## 1     1842        0</code></pre>
@@ -552,7 +551,7 @@ x</code></pre>
 <pre class="r"><code>x = ungroup(summarize(group_by(nashville_weather, year(date)), 
                       prcp_max = max(prcp), prcp_tot = sum(prcp)))
 head(x)</code></pre>
-<pre><code>## # A tibble: 6 x 3
+<pre><code>## # A tibble: 6 × 3
 ##   `year(date)` prcp_max prcp_tot
 ##          &lt;dbl&gt;    &lt;int&gt;    &lt;int&gt;
 ## 1         1950      846    16330
@@ -574,7 +573,7 @@ the left and inserting it into the one on the right.</p>
   summarize(prcp_max = max(prcp), prcp_tot = sum(prcp)) %&gt;%
   ungroup()
 head(x)</code></pre>
-<pre><code>## # A tibble: 6 x 3
+<pre><code>## # A tibble: 6 × 3
 ##   `year(date)` prcp_max prcp_tot
 ##          &lt;dbl&gt;    &lt;int&gt;    &lt;int&gt;
 ## 1         1950      846    16330
@@ -609,7 +608,7 @@ Because the two tibbles have the same columns, the columns are matched up.</p>
   ungroup() %&gt;%
   arrange(year, location)
 tail(weather_summary)</code></pre>
-<pre><code>## # A tibble: 6 x 5
+<pre><code>## # A tibble: 6 × 5
 ##    year location      prcp_max prcp_tot t_range.max
 ##   &lt;dbl&gt; &lt;chr&gt;            &lt;int&gt;    &lt;int&gt;       &lt;int&gt;
 ## 1  2018 Chicago IL         686    11203         211
@@ -636,7 +635,7 @@ of <a href="https://r4ds.had.co.nz"><em>R for Data Science</em></a>.</p>
 read in from a spreadsheet of global temperatures produced at NASA:</p>
 <pre class="r"><code>giss_zonal &lt;- readRDS(&#39;_data/giss_zonal.Rds&#39;)
 head(giss_zonal)</code></pre>
-<pre><code>## # A tibble: 6 x 9
+<pre><code>## # A tibble: 6 × 9
 ##    year x64n_90n x44n_64n x24n_44n equ_24n x24s_equ x44s_24s x64s_44s x90s_64s
 ##   &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
 ## 1  1880    -0.81    -0.42    -0.26   -0.16    -0.1     -0.02     0.05     0.65
@@ -672,7 +671,7 @@ tidy_zonal = giss_zonal %&gt;%
   pivot_longer(cols = -year, names_to = &quot;latitude&quot;, values_to = &quot;anomaly&quot;)</code></pre>
 <p>Let’s see what the result of this looks like:</p>
 <pre class="r"><code>head(tidy_zonal)</code></pre>
-<pre><code>## # A tibble: 6 x 3
+<pre><code>## # A tibble: 6 × 3
 ##    year latitude anomaly
 ##   &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt;
 ## 1  1880 x64n_90n   -0.81
@@ -689,7 +688,7 @@ human readers:</p>
   arrange(year, latitude)
 
 head(tidy_zonal)</code></pre>
-<pre><code>## # A tibble: 6 x 3
+<pre><code>## # A tibble: 6 × 3
 ##    year latitude anomaly
 ##   &lt;int&gt; &lt;ord&gt;      &lt;dbl&gt;
 ## 1  1880 64N-90N    -0.81
@@ -727,7 +726,7 @@ For each row, the data in the “value” column is moved to a new column named 
 the “key” column.</p>
 <p>Let’s go back to the <code>weather_summary</code> tibble we made above:</p>
 <pre class="r"><code>head(weather_summary)</code></pre>
-<pre><code>## # A tibble: 6 x 5
+<pre><code>## # A tibble: 6 × 5
 ##    year location      prcp_max prcp_tot t_range.max
 ##   &lt;dbl&gt; &lt;chr&gt;            &lt;int&gt;    &lt;int&gt;       &lt;int&gt;
 ## 1  1950 Chicago IL         630    10105         244
@@ -741,7 +740,7 @@ Nashville and Chicago:</p>
 <pre class="r"><code>x = weather_summary %&gt;% select(year, location, prcp_tot) %&gt;%
   pivot_wider(names_from = &quot;location&quot;, values_from = &quot;prcp_tot&quot;)
 tail(x)</code></pre>
-<pre><code>## # A tibble: 6 x 3
+<pre><code>## # A tibble: 6 × 3
 ##    year `Chicago IL` `Nashville, TN`
 ##   &lt;dbl&gt;        &lt;int&gt;           &lt;int&gt;
 ## 1  2015        11688           12907
